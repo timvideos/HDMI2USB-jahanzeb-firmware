@@ -1,0 +1,7 @@
+The build process builds three separate firmwares:
+
+   * A RAM firmware which renumerates on startup
+   * An EEPROM firmware which does not renumerate but does bootstrap the FPGA on startup
+   * An EEPROM firmware which does not renumerate nor bootstrap the FPGA on startup
+
+The bootstrap code is pretty inefficient, and could do with being optimised.
