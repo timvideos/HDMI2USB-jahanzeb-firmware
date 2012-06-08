@@ -27,9 +27,9 @@
 #   sudo make eeprom
 #
 TARGET = firmware
-FX2LIBDIR=../../../3rd/fx2lib
+FX2LIBDIR=../../../../3rd/fx2lib
 LIBS = -L$(FX2LIBDIR)/lib fx2.lib
-INCS = -I sdcc -I$(FX2LIBDIR)/include -I../../../common
+INCS = -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
 
 CC_SRCS = $(shell ls *.c)
 AS_SRCS = $(shell ls *.a51)
