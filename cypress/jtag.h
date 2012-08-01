@@ -19,14 +19,14 @@
 
 #include <makestuff.h>
 
-// Addressable bits on Port D for the four JTAG lines (named after the FPGA pins they connect to)
-// TDO is an input, the rest are outputs.
-sbit at (0xA0 + 16*JTAG_PORT + TDO_BIT) TDO; // Port D0
-sbit at (0xA0 + 16*JTAG_PORT + TDI_BIT) TDI; // Port D2
-sbit at (0xA0 + 16*JTAG_PORT + TMS_BIT) TMS; // Port D3
-sbit at (0xA0 + 16*JTAG_PORT + TCK_BIT) TCK; // Port D4
+// Addressable bits on Port A, C or D for the four JTAG lines (named after the FPGA pins they
+// connect to). TDO is an input, the rest are outputs.
+sbit at (0x80 + 16*JTAG_PORT + TDO_BIT) TDO; // Port bit to use for TDO
+sbit at (0x80 + 16*JTAG_PORT + TDI_BIT) TDI; // Port bit to use for TDI
+sbit at (0x80 + 16*JTAG_PORT + TMS_BIT) TMS; // Port bit to use for TMS
+sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 
-// Equivalent bitmasks for OED and IOD.
+// Equivalent bitmasks
 #define bmTDO (1<<TDO_BIT)
 #define bmTDI (1<<TDI_BIT)
 #define bmTMS (1<<TMS_BIT)
@@ -34,8 +34,10 @@ sbit at (0xA0 + 16*JTAG_PORT + TCK_BIT) TCK; // Port D4
 #define bmJTAG (bmTDO|bmTDI|bmTMS|bmTCK)
 
 #if JTAG_PORT == 0
+	#define JTAG_OE OEA
+#elif JTAG_PORT == 2
 	#define JTAG_OE OEC
-#elif JTAG_PORT == 1
+#elif JTAG_PORT == 3
 	#define JTAG_OE OED
 #else
 	#error Unsupported JTAG_PORT

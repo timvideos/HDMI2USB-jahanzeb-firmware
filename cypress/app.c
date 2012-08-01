@@ -46,6 +46,9 @@ void mainInit(void) {
 	RENUMERATE_UNCOND();
 #endif
 
+	// Disable alternate functions for PORTA 0,1,3 & 7.
+	PORTACFG = 0x00;
+
 	// Return FIFO setings back to default just in case previous firmware messed with them.
 	SYNCDELAY; PINFLAGSAB = 0x00;
 	SYNCDELAY; PINFLAGSCD = 0x00;
@@ -98,6 +101,8 @@ void mainInit(void) {
 	OED = 0x00;
 	IOC = 0x00;
 	OEC = 0x00;
+	IOA = 0x00;
+	OEA = 0x00;
 
 	// Disable JTAG mode by default (i.e don't drive JTAG pins)
 	jtagSetEnabled(false);
@@ -172,6 +177,9 @@ xdata uint8 pcPins;
 xdata uint8 pdPins;
 xdata uint8 pcDDR;
 xdata uint8 pdDDR;
+void doNothing(void) {
+	// No masking of Port C & D necessary because JTAG is on Port A
+}
 void maskC(void) {
 	pcDDR &= ~bmJTAG;          // cannot alter JTAG lines
 	pcDDR |= (OEC & bmJTAG);   // current state
@@ -185,7 +193,7 @@ void maskD(void) {
 	pdPins |= (IOD & bmJTAG);  // current state
 }
 typedef void (*MaskFunc)(void);
-const MaskFunc maskFunc[] = {maskC, maskD};
+const MaskFunc maskFunc[] = {doNothing, doNothing, maskC, maskD};
 
 // Called when a vendor command is received
 //
@@ -286,6 +294,24 @@ uint8 handleVendorCommand(uint8 cmd) {
 			return true;
 		}
 		break;
+
+	/*
+	// Access port A bits, for testing purposes
+	case 0x86:
+		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
+			IOA = SETUPDAT[2];  // wValue low byte
+			OEA = SETUPDAT[4];  // wIndex low byte
+
+			// Get the state of the port A lines:
+			while ( EP0CS & bmEPBUSY );
+			EP0BUF[0] = IOA;
+			EP0BCH = 0;
+			SYNCDELAY;
+			EP0BCL = 1;
+			return true;
+		}
+		break;
+	*/
 		
 	// Command to talk to the EEPROM
 	//
