@@ -16,13 +16,13 @@
  */
 #include <fx2regs.h>
 #include <fx2macros.h>
+#include <eputils.h>
 #include <delay.h>
 #include <setupdat.h>
 #include <makestuff.h>
 #include "../../vendorCommands.h"
 #include "prom.h"
 #include "jtag.h"
-#include "sync.h"
 #include "defs.h"
 #include "debug.h"
 
@@ -31,6 +31,8 @@ void fifoSendPromData(uint32 bytesToSend);
 
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
+
+//uint8 siCount = 0;
 
 // Called once at startup
 //
@@ -64,30 +66,34 @@ void mainInit(void) {
 	// EP2OUT & EP4IN are handled by firmware, EP6OUT & EP8IN connect to Slave FIFOs
 	SYNCDELAY; EP2CFG = (bmVALID | bmBULK | bmBUF2X);
 	SYNCDELAY; EP4CFG = (bmVALID | bmBULK | bmBUF2X | bmDIR);
+	//SYNCDELAY; EP6CFG = (bmVALID | bmBULK);
+	//SYNCDELAY; EP8CFG = (bmVALID | bmBULK | bmDIR);
 	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmBUF2X);
 	SYNCDELAY; EP8CFG = (bmVALID | bmBULK | bmBUF2X | bmDIR);
 
 	// Reset all the FIFOs
 	SYNCDELAY; FIFORESET = bmNAKALL;
-	SYNCDELAY; FIFORESET = bmNAKALL | 2;  // reset EP2
-	SYNCDELAY; FIFORESET = bmNAKALL | 4;  // reset EP4
-	SYNCDELAY; FIFORESET = bmNAKALL | 6;  // reset EP6
-	SYNCDELAY; FIFORESET = bmNAKALL | 8;  // reset EP8
+	SYNCDELAY; FIFORESET = 2;  // reset EP2
+	SYNCDELAY; FIFORESET = 4;  // reset EP4
+	SYNCDELAY; FIFORESET = 6;  // reset EP6
+	SYNCDELAY; FIFORESET = 8;  // reset EP8
 	SYNCDELAY; FIFORESET = 0x00;
 
-	// Arm the OUT buffers. Done twice because they're double-buffered
+	// Arm the OUT buffers. Done four times because they're quad-buffered
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 	SYNCDELAY; OUTPKTEND = bmSKIP | 6;  // EP6OUT
 	SYNCDELAY; OUTPKTEND = bmSKIP | 6;
+	//SYNCDELAY; OUTPKTEND = bmSKIP | 6;
+	//SYNCDELAY; OUTPKTEND = bmSKIP | 6;
 
 	// EP2OUT & EP4IN handled by firmware, so no FIFOs
 	SYNCDELAY; EP2FIFOCFG = 0x00;
 	SYNCDELAY; EP4FIFOCFG = 0x00;
 
-	// EP6OUT & EP8IN need to be synchronised anyway, so no FIFOs yet
-	SYNCDELAY; EP6FIFOCFG = 0x00;
-	SYNCDELAY; EP8FIFOCFG = 0x00;
+	// EP6OUT & EP8IN automatically commit packets from EP6OUT & to EP8IN
+	SYNCDELAY; EP6FIFOCFG = bmAUTOOUT;
+	SYNCDELAY; EP8FIFOCFG = bmAUTOIN;
 
 	// Auto-commit 512-byte packets from EP8IN (master may commit early by asserting PKTEND)
 	SYNCDELAY; EP8AUTOINLENH = 0x02;
@@ -168,8 +174,6 @@ void mainLoop(void) {
 	// If there is a JTAG shift operation pending, execute it now.
 	if ( jtagIsShiftPending() ) {
 		jtagShiftExecute();
-	} else if ( syncIsEnabled() ) {
-		syncExecute();
 	}
 }
 
@@ -206,10 +210,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			xdata uint16 wBits = SETUP_VALUE();
 			xdata uint16 wMask = SETUP_INDEX();
-			if ( wMask & MODE_SYNC ) {
-				// Sync mode does a loopback, so endpoints can be sync'd with the host software
-				syncSetEnabled(wBits & MODE_SYNC ? true : false);
-			} else if ( wMask & MODE_JTAG ) {
+			if ( wMask & MODE_JTAG ) {
 				// When in JTAG mode, the JTAG lines are driven; tristate otherwise
 				jtagSetEnabled(wBits & MODE_JTAG ? true : false);
 			}
@@ -232,6 +233,14 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[13] = 0x00;                   // Reserved
 			EP0BUF[14] = 0x00;                   // Reserved
 			EP0BUF[15] = 0x00;                   // Reserved
+			
+			// This should be moved to handle_set_interface() when libusb-1.0 port is done
+			RESETTOGGLE(0x02);
+			RESETTOGGLE(0x84);
+			RESETTOGGLE(0x06);
+			RESETTOGGLE(0x88);
+
+			// Return status packet to host
 			EP0BCH = 0;
 			SYNCDELAY;
 			EP0BCL = 16;

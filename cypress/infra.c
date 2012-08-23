@@ -14,10 +14,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <fx2regs.h>
+#include <eputils.h>
+#include <delay.h>
 #include <makestuff.h>
+#include "defs.h"
 
 static uint8 currentConfiguration;  // Current configuration
-static uint8 alternateSetting = 0;  // Alternate settings
+
+//#define SYNCDELAY() SYNCDELAY4
 
 // Called when a Set Configuration command is received
 //
@@ -35,13 +40,24 @@ uint8 handle_get_configuration() {
 // Called when a Get Interface command is received
 //
 uint8 handle_get_interface(uint8 ifc, uint8 *alt) {
-	*alt = alternateSetting;
-	return true;
+	if ( ifc == 0 ) {
+		*alt = 0;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 // Called when a Set Interface command is received
 //
 uint8 handle_set_interface(uint8 ifc, uint8 alt) {
-	alternateSetting = alt;
-	return true;
+	if ( ifc == 0 && alt == 0 ) {
+		RESETTOGGLE(0x02);
+		RESETTOGGLE(0x84);
+		RESETTOGGLE(0x06);
+		RESETTOGGLE(0x88);
+		return true;
+	} else {
+		return false;
+	}
 }
