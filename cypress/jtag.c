@@ -93,7 +93,7 @@ static void shiftOut(uint8 c) {
 	_endasm;
 }
 
-// JTAG-clock all 512 bytes from the EP2 FIFO buffer
+// JTAG-clock all 512 bytes from the EP2OUT FIFO buffer
 //
 static void blockShiftOut(void) {
 	_asm
@@ -290,8 +290,8 @@ void jtagShiftExecute(void) {
 			xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
 			xdata uint8 *inPtr, *outPtr;
 			while ( m_numBits ) {
-				while ( EP2468STAT & bmEP2EMPTY );  // Wait for some EP2OUT data
-				while ( EP2468STAT & bmEP4FULL );   // Wait for space for EP4IN data
+				while ( EP2468STAT & bmEP2EMPTY );  // Wait for some EP6OUT data
+				while ( EP2468STAT & bmEP6FULL );   // Wait for space for EP6IN data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
 				bytesRead = MAKEWORD(EP2BCH, EP2BCL);
 				if ( bytesRead != bitsToBytes(bitsRead) ) {
@@ -304,7 +304,7 @@ void jtagShiftExecute(void) {
 				}
 
 				inPtr = EP2FIFOBUF;
-				outPtr = EP4FIFOBUF;
+				outPtr = EP6FIFOBUF;
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk
 					xdata uint8 tdoByte, tdiByte, leftOver, i;
@@ -339,8 +339,8 @@ void jtagShiftExecute(void) {
 						*outPtr++ = shiftInOut(*inPtr++);
 					}
 				}
-				SYNCDELAY; EP4BCH = MSB(bytesRead);  // Initiate send of the copied data
-				SYNCDELAY; EP4BCL = LSB(bytesRead);
+				SYNCDELAY; EP6BCH = MSB(bytesRead);  // Initiate send of the copied data
+				SYNCDELAY; EP6BCL = LSB(bytesRead);
 				SYNCDELAY; OUTPKTEND = bmSKIP | 2;   // Acknowledge receipt of this packet
 				m_numBits -= bitsRead;
 			}
@@ -402,11 +402,11 @@ void jtagShiftExecute(void) {
 				tdiByte = 0xFF;
 			}
 			while ( m_numBits ) {
-				while ( EP2468STAT & bmEP4FULL );   // Wait for space for EP4IN data
+				while ( EP2468STAT & bmEP6FULL );   // Wait for space for EP6IN data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
 				bytesRead = bitsToBytes(bitsRead);
 
-				outPtr = EP4FIFOBUF;
+				outPtr = EP6FIFOBUF;
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk
 					xdata uint8 tdoByte, leftOver, i;
@@ -439,8 +439,8 @@ void jtagShiftExecute(void) {
 						*outPtr++ = shiftInOut(tdiByte);
 					}
 				}
-				SYNCDELAY; EP4BCH = MSB(bytesRead);  // Initiate send of the data
-				SYNCDELAY; EP4BCL = LSB(bytesRead);
+				SYNCDELAY; EP6BCH = MSB(bytesRead);  // Initiate send of the data
+				SYNCDELAY; EP6BCL = LSB(bytesRead);
 				m_numBits -= bitsRead;
 			}
 		} else {
@@ -818,8 +818,12 @@ cleanup:
 //
 void jtagSetEnabled(bool enabled) {
 	if ( enabled ) {
+		SYNCDELAY; EP2FIFOCFG = 0x00;
+		SYNCDELAY; EP6FIFOCFG = 0x00;
 		JTAG_OE |= (bmTDI | bmTMS | bmTCK);
 	} else {
+		SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
+		SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
 		JTAG_OE &= ~(bmTDI | bmTMS | bmTCK);
 	}
 }		

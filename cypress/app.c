@@ -63,41 +63,37 @@ void mainInit(void) {
 	// Drive IFCLK at 48MHz, enable slave FIFOs
 	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
 
-	// EP2OUT & EP4IN are handled by firmware, EP6OUT & EP8IN connect to Slave FIFOs
-	SYNCDELAY; EP2CFG = (bmVALID | bmBULK | bmBUF2X);
-	SYNCDELAY; EP4CFG = (bmVALID | bmBULK | bmBUF2X | bmDIR);
-	//SYNCDELAY; EP6CFG = (bmVALID | bmBULK);
-	//SYNCDELAY; EP8CFG = (bmVALID | bmBULK | bmDIR);
-	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmBUF2X);
-	SYNCDELAY; EP8CFG = (bmVALID | bmBULK | bmBUF2X | bmDIR);
+	// EP4 & EP8 are unused
+	SYNCDELAY; EP4CFG = 0x00;
+	SYNCDELAY; EP8CFG = 0x00;
+
+	// EP4 & EP8 not used
+	SYNCDELAY; EP4FIFOCFG = 0x00;
+	SYNCDELAY; EP8FIFOCFG = 0x00;
+
+	// EP2OUT & EP6IN are quad-buffered bulk endpoints
+	SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
+	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
 
 	// Reset all the FIFOs
 	SYNCDELAY; FIFORESET = bmNAKALL;
-	SYNCDELAY; FIFORESET = 2;  // reset EP2
-	SYNCDELAY; FIFORESET = 4;  // reset EP4
-	SYNCDELAY; FIFORESET = 6;  // reset EP6
-	SYNCDELAY; FIFORESET = 8;  // reset EP8
+	SYNCDELAY; FIFORESET = 2;  // reset EP2OUT
+	SYNCDELAY; FIFORESET = 6;  // reset EP6IN
 	SYNCDELAY; FIFORESET = 0x00;
 
-	// Arm the OUT buffers. Done four times because they're quad-buffered
+	// Arm the EP2OUT buffers. Done four times because it's quad-buffered
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-	SYNCDELAY; OUTPKTEND = bmSKIP | 6;  // EP6OUT
-	SYNCDELAY; OUTPKTEND = bmSKIP | 6;
-	//SYNCDELAY; OUTPKTEND = bmSKIP | 6;
-	//SYNCDELAY; OUTPKTEND = bmSKIP | 6;
+	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
+	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 
-	// EP2OUT & EP4IN handled by firmware, so no FIFOs
-	SYNCDELAY; EP2FIFOCFG = 0x00;
-	SYNCDELAY; EP4FIFOCFG = 0x00;
+	// EP2OUT & EP6IN automatically commit packets
+	SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
+	SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
 
-	// EP6OUT & EP8IN automatically commit packets from EP6OUT & to EP8IN
-	SYNCDELAY; EP6FIFOCFG = bmAUTOOUT;
-	SYNCDELAY; EP8FIFOCFG = bmAUTOIN;
-
-	// Auto-commit 512-byte packets from EP8IN (master may commit early by asserting PKTEND)
-	SYNCDELAY; EP8AUTOINLENH = 0x02;
-	SYNCDELAY; EP8AUTOINLENL = 0x00;
+	// Auto-commit 512-byte packets from EP6IN (master may commit early by asserting PKTEND)
+	SYNCDELAY; EP6AUTOINLENH = 0x02;
+	SYNCDELAY; EP6AUTOINLENL = 0x00;
 	
 	// Turbo I2C
 	I2CTL |= bm400KHZ;
@@ -164,7 +160,7 @@ void mainInit(void) {
 
 #ifdef DEBUG
 	usartInit();
-	usartSendString("MakeStuff FPGALink/FX2 v1.0\r");
+	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
 #endif
 }
 
@@ -223,8 +219,8 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[3] = 'I';
 			EP0BUF[4] = m_diagnosticCode;        // Last operation diagnostic code
 			EP0BUF[5] = (IOA & bmBIT2) ? 0 : 1;  // Flags
-			EP0BUF[6] = 0x24;                    // NeroJTAG endpoints
-			EP0BUF[7] = 0x68;                    // CommFPGA endpoints
+			EP0BUF[6] = 0x26;                    // NeroJTAG endpoints
+			EP0BUF[7] = 0x26;                    // CommFPGA endpoints
 			EP0BUF[8] = 0x00;                    // Reserved
 			EP0BUF[9] = 0x00;                    // Reserved
 			EP0BUF[10] = 0x00;                   // Reserved
@@ -236,9 +232,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 			
 			// This should be moved to handle_set_interface() when libusb-1.0 port is done
 			RESETTOGGLE(0x02);
-			RESETTOGGLE(0x84);
-			RESETTOGGLE(0x06);
-			RESETTOGGLE(0x88);
+			RESETTOGGLE(0x86);
 
 			// Return status packet to host
 			EP0BCH = 0;
@@ -303,6 +297,42 @@ uint8 handleVendorCommand(uint8 cmd) {
 			return true;
 		}
 		break;
+
+	case 0x86:
+		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
+			RENUMERATE_UNCOND();
+
+/*
+			// EP2OUT & EP6IN automatically commit packets
+			SYNCDELAY; EP2FIFOCFG = 0x00;
+			SYNCDELAY; EP6FIFOCFG = 0x00;
+
+			SYNCDELAY; EP2CFG = 0x00;
+			SYNCDELAY; EP6CFG = 0x00;
+
+			SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
+			SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
+
+			// Reset all the FIFOs
+			SYNCDELAY; FIFORESET = bmNAKALL;
+			SYNCDELAY; FIFORESET = 2;  // reset EP2OUT
+			SYNCDELAY; FIFORESET = 6;  // reset EP6IN
+			SYNCDELAY; FIFORESET = 0x00;
+
+			// Arm the EP2OUT buffers. Done four times because it's quad-buffered
+			SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
+			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
+			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
+			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
+
+			// EP2OUT & EP6IN automatically commit packets
+			SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
+			SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
+*/
+			return true;
+		}
+		break;
+
 
 	/*
 	// Access port A bits, for testing purposes
@@ -373,23 +403,25 @@ void fifoSendPromData(uint32 bytesToSend) {
 	while ( bytesToSend ) {
 		chunkSize = (bytesToSend >= 512) ? 512 : (uint16)bytesToSend;
 
-		while ( !(EP2468STAT & bmEP6EMPTY) );  // Wait while FIFO remains "not empty" (i.e while busy)
+		while ( !(EP2468STAT & bmEP2EMPTY) );  // Wait while FIFO remains "not empty" (i.e while busy)
 
-		SYNCDELAY; EP6FIFOCFG = 0x00;          // Disable AUTOOUT
+		SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
 		SYNCDELAY; FIFORESET = bmNAKALL;       // NAK all OUT packets from host
-		SYNCDELAY; FIFORESET = 6;              // Advance EP6 buffers to CPU domain	
+		SYNCDELAY; FIFORESET = 2;              // Advance EP2 buffers to CPU domain	
 
 		for ( i = 0; i < chunkSize; i++ ) {
-			EP6FIFOBUF[i] = promPeekByte();      // Compose packet to send to EP6 FIFO
+			EP2FIFOBUF[i] = promPeekByte();      // Compose packet to send to EP2 FIFO
 			promNextByte();
 		}
-		SYNCDELAY; EP6BCH = MSB(chunkSize);    // Commit newly-sourced packet to FIFO
-		SYNCDELAY; EP6BCL = LSB(chunkSize);
+		SYNCDELAY; EP2BCH = MSB(chunkSize);    // Commit newly-sourced packet to FIFO
+		SYNCDELAY; EP2BCL = LSB(chunkSize);
 	
-		SYNCDELAY; OUTPKTEND = bmSKIP | 6;     // Skip uncommitted second packet
+		SYNCDELAY; OUTPKTEND = bmSKIP | 2;     // Skip uncommitted second, third & fourth packets
+		SYNCDELAY; OUTPKTEND = bmSKIP | 2;
+		SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 		bytesToSend -= chunkSize;
 
 		SYNCDELAY; FIFORESET = 0;              // Release "NAK all"
-		SYNCDELAY; EP6FIFOCFG = bmAUTOOUT;     // Enable AUTOOUT again
+		SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;     // Enable AUTOOUT again
 	}
 }
