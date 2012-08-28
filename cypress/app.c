@@ -175,19 +175,20 @@ void mainLoop(void) {
 	if ( jtagIsShiftPending() ) {
 		jtagShiftExecute();
 	}
-	if ( !(EP01STAT & bmEP1OUTBSY) ) {
-		if ( !(EP01STAT & bmEP1INBSY) ) {
-			const uint8 numBytes = EP1OUTBC;  // 0..64
-			uint8 bytesRemaining = numBytes;
-			const xdata uint8 *src = EP1OUTBUF;
-			xdata uint8 *dst = EP1INBUF;
-			while ( bytesRemaining-- ) {
-				*dst++ = *src++;
-			}
-			EP1OUTBC = 0x00;  // ready to accept more data from host
-			EP1INBC = numBytes;  // send incoming data back to host
-		}
-	}
+	// Echo EP1OUT back to EP1IN for testing purposes
+	//if ( !(EP01STAT & bmEP1OUTBSY) ) {
+	//	if ( !(EP01STAT & bmEP1INBSY) ) {
+	//		const uint8 numBytes = EP1OUTBC;  // 0..64
+	//		uint8 bytesRemaining = numBytes;
+	//		const xdata uint8 *src = EP1OUTBUF;
+	//		xdata uint8 *dst = EP1INBUF;
+	//		while ( bytesRemaining-- ) {
+	//			*dst++ = *src++;
+	//		}
+	//		EP1OUTBC = 0x00;  // ready to accept more data from host
+	//		EP1INBC = numBytes;  // send incoming data back to host
+	//	}
+	//}
 }
 
 xdata uint8 pcPins;
@@ -236,7 +237,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[3] = 'I';
 			EP0BUF[4] = m_diagnosticCode;        // Last operation diagnostic code
 			EP0BUF[5] = (IOA & bmBIT2) ? 0 : 1;  // Flags
-			EP0BUF[6] = 0x26;                    // NeroJTAG endpoints
+			EP0BUF[6] = 0x11;                    // NeroJTAG endpoints
 			EP0BUF[7] = 0x26;                    // CommFPGA endpoints
 			EP0BUF[8] = 0x00;                    // Reserved
 			EP0BUF[9] = 0x00;                    // Reserved
@@ -316,42 +317,6 @@ uint8 handleVendorCommand(uint8 cmd) {
 			return true;
 		}
 		break;
-
-	case 0x86:
-		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			RENUMERATE_UNCOND();
-
-/*
-			// EP2OUT & EP6IN automatically commit packets
-			SYNCDELAY; EP2FIFOCFG = 0x00;
-			SYNCDELAY; EP6FIFOCFG = 0x00;
-
-			SYNCDELAY; EP2CFG = 0x00;
-			SYNCDELAY; EP6CFG = 0x00;
-
-			SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
-			SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
-
-			// Reset all the FIFOs
-			SYNCDELAY; FIFORESET = bmNAKALL;
-			SYNCDELAY; FIFORESET = 2;  // reset EP2OUT
-			SYNCDELAY; FIFORESET = 6;  // reset EP6IN
-			SYNCDELAY; FIFORESET = 0x00;
-
-			// Arm the EP2OUT buffers. Done four times because it's quad-buffered
-			SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
-			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-			SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-
-			// EP2OUT & EP6IN automatically commit packets
-			SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
-			SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
-*/
-			return true;
-		}
-		break;
-
 
 	/*
 	// Access port A bits, for testing purposes

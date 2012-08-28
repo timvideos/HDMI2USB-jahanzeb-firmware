@@ -44,7 +44,7 @@ sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 #endif
 
 // Macros for NeroJTAG implementation
-#define ENDPOINT_SIZE 512
+#define ENDPOINT_SIZE 64
 #define bmNEEDRESPONSE (1<<0)
 #define bmISLAST       (1<<1)
 #define bmSENDZEROS    (0<<2)

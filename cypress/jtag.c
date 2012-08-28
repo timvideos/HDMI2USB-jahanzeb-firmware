@@ -97,11 +97,12 @@ static void shiftOut(uint8 c) {
 //
 static void blockShiftOut(void) {
 	_asm
-		mov    r0, #0
-		mov    dpl, #_EP2FIFOBUF
-		mov    dph, #(_EP2FIFOBUF >> 8)
-		movx   a, @dptr
+		mov    r0, #64
+		mov    dpl, #_EP1OUTBUF
+		mov    dph, #(_EP1OUTBUF >> 8)
 	bsoLoop:
+		clr    _TCK
+		movx   a, @dptr
 		rrc    a
 		mov    _TDI, c
 		setb   _TCK
@@ -134,49 +135,8 @@ static void blockShiftOut(void) {
 		mov    _TDI, c
 		setb   _TCK
 		inc    dptr
-		movx   a, @dptr
-		clr    _TCK
-
-		nop
-		nop
-		nop
-
-		rrc    a
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		rrc    a
-		clr    _TCK
-		mov    _TDI, c
-		setb   _TCK
-		inc    dptr
-		movx   a, @dptr
-		clr    _TCK
-
 		djnz   r0, bsoLoop
+		clr    _TCK
 	_endasm;
 }
 
@@ -287,24 +247,24 @@ void jtagShiftExecute(void) {
 	if ( (m_flagByte & bmSENDMASK) == bmSENDDATA ) {
 		if ( m_flagByte & bmNEEDRESPONSE ) {
 			// The host is giving us data, and is expecting a response (xdr)
-			xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
-			xdata uint8 *inPtr, *outPtr;
+			xdata uint16 bitsRead, bitsRemaining;
+			xdata uint8 *inPtr, *outPtr, bytesRead, bytesRemaining;
 			while ( m_numBits ) {
-				while ( EP2468STAT & bmEP2EMPTY );  // Wait for some EP6OUT data
-				while ( EP2468STAT & bmEP6FULL );   // Wait for space for EP6IN data
+				while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP1OUT data
+				while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
-				bytesRead = MAKEWORD(EP2BCH, EP2BCL);
-				if ( bytesRead != bitsToBytes(bitsRead) ) {
+				bytesRead = EP1OUTBC;
+				/*if ( bytesRead != bitsToBytes(bitsRead) ) {
 					// Protocol violation - give up
 					#ifdef DEBUG
 						usartSendString("Protocol violation - giving up!\r");
 					#endif
 					m_numBits = 0UL;
 					break;
-				}
+				}*/
 
-				inPtr = EP2FIFOBUF;
-				outPtr = EP6FIFOBUF;
+				inPtr = EP1OUTBUF;
+				outPtr = EP1INBUF;
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk
 					xdata uint8 tdoByte, tdiByte, leftOver, i;
@@ -339,31 +299,30 @@ void jtagShiftExecute(void) {
 						*outPtr++ = shiftInOut(*inPtr++);
 					}
 				}
-				SYNCDELAY; EP6BCH = MSB(bytesRead);  // Initiate send of the copied data
-				SYNCDELAY; EP6BCL = LSB(bytesRead);
-				SYNCDELAY; OUTPKTEND = bmSKIP | 2;   // Acknowledge receipt of this packet
+				EP1OUTBC = 0x00;  // ready to accept more data from host
+				EP1INBC = bytesRead;  // send response back to host
 				m_numBits -= bitsRead;
 			}
 		} else {
 			// The host is giving us data, but does not need a response (xdn)
 			xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
 			while ( m_numBits ) {
-				while ( EP2468STAT & bmEP2EMPTY );  // Wait for some EP2OUT data
+				while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
-				bytesRead = MAKEWORD(EP2BCH, EP2BCL);
-				if ( bytesRead != bitsToBytes(bitsRead) ) {
+				bytesRead = EP1OUTBC;
+				/*if ( bytesRead != bitsToBytes(bitsRead) ) {
 					// Protocol violation - give up
 					#ifdef DEBUG
 						usartSendString("Protocol violation - giving up!\r");
 					#endif
 					m_numBits = 0UL;
 					break;
-				}
+				}*/
 
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk
 					xdata uint8 tdiByte, leftOver, i;
-					inPtr = EP2FIFOBUF;
+					inPtr = EP1OUTBUF;
 					bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
 					leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
 					bytesRemaining = (bitsRemaining>>3);
@@ -387,7 +346,7 @@ void jtagShiftExecute(void) {
 					// This is not the last chunk, so we've to 512 bytes to shift
 					blockShiftOut();
 				}
-				SYNCDELAY; OUTPKTEND = bmSKIP | 2;   // Acknowledge receipt of this packet
+				EP1OUTBC = 0x00;  // ready to accept more data from host
 				m_numBits -= bitsRead;
 			}
 		}
@@ -402,11 +361,11 @@ void jtagShiftExecute(void) {
 				tdiByte = 0xFF;
 			}
 			while ( m_numBits ) {
-				while ( EP2468STAT & bmEP6FULL );   // Wait for space for EP6IN data
+				while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
 				bytesRead = bitsToBytes(bitsRead);
 
-				outPtr = EP6FIFOBUF;
+				outPtr = EP1INBUF;
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk
 					xdata uint8 tdoByte, leftOver, i;
@@ -439,8 +398,7 @@ void jtagShiftExecute(void) {
 						*outPtr++ = shiftInOut(tdiByte);
 					}
 				}
-				SYNCDELAY; EP6BCH = MSB(bytesRead);  // Initiate send of the data
-				SYNCDELAY; EP6BCL = LSB(bytesRead);
+				EP1INBC = bytesRead;  // send response back to host
 				m_numBits -= bitsRead;
 			}
 		} else {
@@ -818,12 +776,8 @@ cleanup:
 //
 void jtagSetEnabled(bool enabled) {
 	if ( enabled ) {
-		SYNCDELAY; EP2FIFOCFG = 0x00;
-		SYNCDELAY; EP6FIFOCFG = 0x00;
 		JTAG_OE |= (bmTDI | bmTMS | bmTCK);
 	} else {
-		SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
-		SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
 		JTAG_OE &= ~(bmTDI | bmTMS | bmTCK);
 	}
 }		
