@@ -97,6 +97,8 @@ static void shiftOut(uint8 c) {
 //
 static void blockShiftOut(void) {
 	_asm
+		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
+		mov    _AUTOPTRL1, #_EP1OUTBUF
 		mov    r0, #64
 	bsoLoop:
 		clr    _TCK
@@ -341,8 +343,6 @@ void jtagShiftExecute(void) {
 					}
 				} else {
 					// This is not the last chunk, so we've to 512 bytes to shift
-					AUTOPTRH1 = MSB((uint16)EP1OUTBUF);
-					AUTOPTRL1 = LSB((uint16)EP1OUTBUF);
 					blockShiftOut();
 				}
 				EP1OUTBC = 0x00;  // ready to accept more data from host
