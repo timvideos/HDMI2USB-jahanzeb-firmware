@@ -102,6 +102,9 @@ void mainInit(void) {
 	// Turbo I2C
 	I2CTL |= bm400KHZ;
 
+	// Auto-pointers
+	AUTOPTRSETUP = bmAPTREN | bmAPTR1INC | bmAPTR2INC;
+
 	// Port lines...
 	IOD = 0x00;
 	OED = 0x00;

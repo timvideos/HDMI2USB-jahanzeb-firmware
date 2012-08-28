@@ -42,6 +42,11 @@
 #define bmEP1INBSY bmBIT2
 #define bmEP1OUTBSY bmBIT1
 
+// AUTOPTRSETUP
+#define bmAPTREN bmBIT0
+#define bmAPTR1INC bmBIT1
+#define bmAPTR2INC bmBIT2
+
 // REVCTL bits
 #define bmDYN_OUT (1<<1)
 #define bmENH_PKT (1<<0)
@@ -52,6 +57,9 @@
 #define REQTYPE_CLASS       (1 << 5)
 #define REQTYPE_STANDARD    (0 << 5)
 #define REQTYPE_VENDOR      (2 << 5)
+
+sfr at 0x9c AUTODAT1;
+sfr at 0x9f AUTODAT2;
 
 // Defines to allow use of camelCase.
 #define mainInit(x) main_init(x)
