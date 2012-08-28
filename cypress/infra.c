@@ -52,6 +52,8 @@ uint8 handle_get_interface(uint8 ifc, uint8 *alt) {
 //
 uint8 handle_set_interface(uint8 ifc, uint8 alt) {
 	if ( ifc == 0 && alt == 0 ) {
+		RESETTOGGLE(0x01);
+		RESETTOGGLE(0x81);
 		RESETTOGGLE(0x02);
 		RESETTOGGLE(0x86);
 		return true;

@@ -101,29 +101,29 @@ highspd_dscr_end:
 	.db    DSCR_INTERFACE_TYPE            ; bDescriptorType
 	.db    0                              ; bInterfaceNumber
 	.db    0                              ; bAlternateSetting
-	.db    2                              ; bNumEndpoints
+	.db    4                              ; bNumEndpoints
 	.db    0xff                           ; bInterfaceClass
 	.db    0x00                           ; bInterfaceSubClass
 	.db    0x00                           ; bInterfaceProtocol
 	.db    0                              ; iInterface (string index)
 
 ; EP1OUT
-;	.db    DSCR_ENDPOINT_LEN              ; bLength
-;	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
-;	.db    0x01                           ; bEndpointAddress (0x01 = EP1OUT)
-;	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
-;	.db    0x40                           ; wMaxPacketSize LSB
-;	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
-;	.db    0x00                           ; bInterval
+	.db    DSCR_ENDPOINT_LEN              ; bLength
+	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
+	.db    0x01                           ; bEndpointAddress (0x01 = EP1OUT)
+	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
+	.db    0x40                           ; wMaxPacketSize LSB
+	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
+	.db    0x00                           ; bInterval
 
 ; EP1IN
-;	.db    DSCR_ENDPOINT_LEN              ; bLength
-;	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
-;	.db    0x81                           ; bEndpointAddress (0x81 = EP1IN)
-;	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
-;	.db    0x40                           ; wMaxPacketSize LSB
-;	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
-;	.db    0x00                           ; bInterval
+	.db    DSCR_ENDPOINT_LEN              ; bLength
+	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
+	.db    0x81                           ; bEndpointAddress (0x81 = EP1IN)
+	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
+	.db    0x40                           ; wMaxPacketSize LSB
+	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
+	.db    0x00                           ; bInterval
 
 ; EP2OUT
 	.db    DSCR_ENDPOINT_LEN              ; bLength

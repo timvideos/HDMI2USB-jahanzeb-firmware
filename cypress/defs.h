@@ -38,6 +38,10 @@
 #define bmBULK bmBIT5
 #define bmBUF2X bmBIT1
 
+// EP01STAT bits
+#define bmEP1INBSY bmBIT2
+#define bmEP1OUTBSY bmBIT1
+
 // REVCTL bits
 #define bmDYN_OUT (1<<1)
 #define bmENH_PKT (1<<0)

@@ -71,6 +71,10 @@ void mainInit(void) {
 	SYNCDELAY; EP4FIFOCFG = 0x00;
 	SYNCDELAY; EP8FIFOCFG = 0x00;
 
+	// EP1OUT & EP1IN
+	SYNCDELAY; EP1OUTCFG = (bmVALID | bmBULK);
+	SYNCDELAY; EP1INCFG = (bmVALID | bmBULK);
+
 	// EP2OUT & EP6IN are quad-buffered bulk endpoints
 	SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
 	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
@@ -171,6 +175,19 @@ void mainLoop(void) {
 	if ( jtagIsShiftPending() ) {
 		jtagShiftExecute();
 	}
+	if ( !(EP01STAT & bmEP1OUTBSY) ) {
+		if ( !(EP01STAT & bmEP1INBSY) ) {
+			const uint8 numBytes = EP1OUTBC;  // 0..64
+			uint8 bytesRemaining = numBytes;
+			const xdata uint8 *src = EP1OUTBUF;
+			xdata uint8 *dst = EP1INBUF;
+			while ( bytesRemaining-- ) {
+				*dst++ = *src++;
+			}
+			EP1OUTBC = 0x00;  // ready to accept more data from host
+			EP1INBC = numBytes;  // send incoming data back to host
+		}
+	}
 }
 
 xdata uint8 pcPins;
@@ -231,6 +248,8 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[15] = 0x00;                   // Reserved
 			
 			// This should be moved to handle_set_interface() when libusb-1.0 port is done
+			RESETTOGGLE(0x01);
+			RESETTOGGLE(0x81);
 			RESETTOGGLE(0x02);
 			RESETTOGGLE(0x86);
 
