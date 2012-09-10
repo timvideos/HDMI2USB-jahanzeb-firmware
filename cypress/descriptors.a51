@@ -283,6 +283,14 @@ string2:
 	.db    0
 	.ascii 'k'
 	.db    0
+	.ascii '/'
+	.db    0
+	.ascii 'F'
+	.db    0
+	.ascii 'X'
+	.db    0
+	.ascii '2'
+	.db    0
 	.ascii ' '
 	.db    0
 	.ascii 'v'
