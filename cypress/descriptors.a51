@@ -112,8 +112,8 @@ highspd_dscr_end:
 	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
 	.db    0x01                           ; bEndpointAddress (0x01 = EP1OUT)
 	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
-	.db    0x40                           ; wMaxPacketSize LSB
-	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
+	.db    0x00                           ; wMaxPacketSize LSB
+	.db    0x02                           ; wMaxPacketSize MSB (0x0200 = 512 bytes, but buffer is only 64 bytes)
 	.db    0x00                           ; bInterval
 
 ; EP1IN
@@ -121,8 +121,8 @@ highspd_dscr_end:
 	.db    DSCR_ENDPOINT_TYPE             ; bDescriptorType
 	.db    0x81                           ; bEndpointAddress (0x81 = EP1IN)
 	.db    ENDPOINT_TYPE_BULK             ; bmAttributes
-	.db    0x40                           ; wMaxPacketSize LSB
-	.db    0x00                           ; wMaxPacketSize MSB (0x0040 = 64 bytes)
+	.db    0x00                           ; wMaxPacketSize LSB
+	.db    0x02                           ; wMaxPacketSize MSB (0x0200 = 512 bytes, but buffer is only 64 bytes)
 	.db    0x00                           ; bInterval
 
 ; EP2OUT

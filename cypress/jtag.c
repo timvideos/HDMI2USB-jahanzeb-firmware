@@ -253,14 +253,6 @@ void jtagShiftExecute(void) {
 				while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
 				bytesRead = EP1OUTBC;
-				/*if ( bytesRead != bitsToBytes(bitsRead) ) {
-					// Protocol violation - give up
-					#ifdef DEBUG
-						usartSendString("Protocol violation - giving up!\r");
-					#endif
-					m_numBits = 0UL;
-					break;
-				}*/
 
 				inPtr = EP1OUTBUF;
 				outPtr = EP1INBUF;
@@ -309,14 +301,6 @@ void jtagShiftExecute(void) {
 				while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
 				bytesRead = EP1OUTBC;
-				/*if ( bytesRead != bitsToBytes(bitsRead) ) {
-					// Protocol violation - give up
-					#ifdef DEBUG
-						usartSendString("Protocol violation - giving up!\r");
-					#endif
-					m_numBits = 0UL;
-					break;
-				}*/
 
 				if ( bitsRead == m_numBits ) {
 					// This is the last chunk

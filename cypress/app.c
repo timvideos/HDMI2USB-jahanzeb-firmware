@@ -32,8 +32,6 @@ void fifoSendPromData(uint32 bytesToSend);
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
 
-//uint8 siCount = 0;
-
 // Called once at startup
 //
 void mainInit(void) {
@@ -66,8 +64,6 @@ void mainInit(void) {
 	// EP4 & EP8 are unused
 	SYNCDELAY; EP4CFG = 0x00;
 	SYNCDELAY; EP8CFG = 0x00;
-
-	// EP4 & EP8 not used
 	SYNCDELAY; EP4FIFOCFG = 0x00;
 	SYNCDELAY; EP8FIFOCFG = 0x00;
 
@@ -79,11 +75,14 @@ void mainInit(void) {
 	SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
 	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
 
-	// Reset all the FIFOs
+	// Reset FIFOs for EP2OUT & EP6IN
 	SYNCDELAY; FIFORESET = bmNAKALL;
 	SYNCDELAY; FIFORESET = 2;  // reset EP2OUT
 	SYNCDELAY; FIFORESET = 6;  // reset EP6IN
 	SYNCDELAY; FIFORESET = 0x00;
+
+	// Arm EP1OUT
+	EP1OUTBC = 0x00;
 
 	// Arm the EP2OUT buffers. Done four times because it's quad-buffered
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
@@ -178,20 +177,6 @@ void mainLoop(void) {
 	if ( jtagIsShiftPending() ) {
 		jtagShiftExecute();
 	}
-	// Echo EP1OUT back to EP1IN for testing purposes
-	//if ( !(EP01STAT & bmEP1OUTBSY) ) {
-	//	if ( !(EP01STAT & bmEP1INBSY) ) {
-	//		const uint8 numBytes = EP1OUTBC;  // 0..64
-	//		uint8 bytesRemaining = numBytes;
-	//		const xdata uint8 *src = EP1OUTBUF;
-	//		xdata uint8 *dst = EP1INBUF;
-	//		while ( bytesRemaining-- ) {
-	//			*dst++ = *src++;
-	//		}
-	//		EP1OUTBC = 0x00;  // ready to accept more data from host
-	//		EP1INBC = numBytes;  // send incoming data back to host
-	//	}
-	//}
 }
 
 xdata uint8 pcPins;
@@ -251,12 +236,6 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[14] = 0x00;                   // Reserved
 			EP0BUF[15] = 0x00;                   // Reserved
 			
-			// This should be moved to handle_set_interface() when libusb-1.0 port is done
-			RESETTOGGLE(0x01);
-			RESETTOGGLE(0x81);
-			RESETTOGGLE(0x02);
-			RESETTOGGLE(0x86);
-
 			// Return status packet to host
 			EP0BCH = 0;
 			SYNCDELAY;
