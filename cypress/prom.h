@@ -19,8 +19,8 @@
 
 #include <makestuff.h>
 
-bool promRead(uint16 addr, uint8 length, xdata uint8 *buf);
-bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf);
+bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf);
+bool promWrite(bool bank, uint16 addr, uint8 length, const xdata uint8 *buf);
 
 bool promStartRead(uint16 address);
 bool promNextByte(void);

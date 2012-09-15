@@ -17,13 +17,12 @@
 #include <fx2regs.h>
 #include <fx2macros.h>
 #include <makestuff.h>
+#include "debug.h"
 
 // Bits from I2C address byte
-#define CTRL         0xA2
-#define BANK_0       0x00
-#define BANK_1       0x08
+#define BANK_0       0xA2
+#define BANK_1       0xAA
 #define READ         0x01
-#define WRITE        0x00
 
 static xdata uint8 currentByte;
 
@@ -88,7 +87,7 @@ bool promStartRead(uint16 addr) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
+	I2DAT = BANK_0;  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -107,7 +106,7 @@ bool promStartRead(uint16 addr) {
 	// Send the READ command
 	//
 	I2CS = bmSTART;
-	I2DAT = (CTRL | BANK_0 | READ);  // Write I2C address byte (READ)
+	I2DAT = (BANK_0 | READ);  // Write I2C address byte (READ)
 	if ( promWaitForDone() ) {
 		return true;
 	}
@@ -143,9 +142,21 @@ bool promStopRead(void) {
 
 // Read "length" bytes from address "addr" in the attached EEPROM, and write them to RAM at "buf".
 //
-bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
+bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf) {
 	xdata uint8 i;
-	
+	const xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+
+	#ifdef DEBUG
+		usartSendString("promRead(");
+		usartSendByte(bank?'1':'0');
+		usartSendByte(',');
+		usartSendWordHex(addr);
+		usartSendByte(',');
+		usartSendWordHex(length);
+		usartSendByte(')');
+		usartSendByte('\r');
+	#endif
+
 	// Wait for I2C idle
 	//
 	while ( I2CS & bmSTOP );
@@ -153,7 +164,7 @@ bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
+	I2DAT = i2cAddr;  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -172,7 +183,7 @@ bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
 	// Send the READ command
 	//
 	I2CS = bmSTART;
-	I2DAT = (CTRL | BANK_0 | READ);  // Write I2C address byte (READ)
+	I2DAT = (i2cAddr | READ);  // Write I2C address byte (READ)
 	if ( promWaitForDone() ) {
 		return true;
 	}
@@ -211,8 +222,20 @@ bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
 
 // Read "length" bytes from RAM at "buf", and write them to the attached EEPROM at address "addr".
 //
-bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf) {
+bool promWrite(bool bank, uint16 addr, uint8 length, const xdata uint8 *buf) {
 	xdata uint8 i;
+	const xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+
+	#ifdef DEBUG
+		usartSendString("promWrite(");
+		usartSendByte(bank?'1':'0');
+		usartSendByte(',');
+		usartSendWordHex(addr);
+		usartSendByte(',');
+		usartSendWordHex(length);
+		usartSendByte(')');
+		usartSendByte('\r');
+	#endif
 
 	// Wait for I2C idle
 	//
@@ -221,7 +244,7 @@ bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
+	I2DAT = i2cAddr;  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -253,7 +276,7 @@ bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf) {
 
 	do {
 		I2CS = bmSTART;
-		I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
+		I2DAT = i2cAddr;  // Write I2C address byte (WRITE)
 		if ( promWaitForDone() ) {
 			return true;
 		}

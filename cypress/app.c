@@ -333,7 +333,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 				for ( i = 0; i < chunkSize; i++ ) {
 					EP0BUF[i] = 0x23;
 				}
-				promRead(address, chunkSize, EP0BUF);
+				promRead(SETUPDAT[4], address, chunkSize, EP0BUF);
 				EP0BCH = 0;
 				SYNCDELAY;
 				EP0BCL = chunkSize;
@@ -349,7 +349,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 				EP0BCL = 0x00; // allow pc transfer in
 				while ( EP0CS & bmEPBUSY ); // wait for data
 				chunkSize = EP0BCL;
-				promWrite(address, chunkSize, EP0BUF);
+				promWrite(SETUPDAT[4], address, chunkSize, EP0BUF);
 				address += chunkSize;
 				length -= chunkSize;
 			}
