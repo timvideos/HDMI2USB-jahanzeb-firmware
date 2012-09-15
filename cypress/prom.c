@@ -18,6 +18,13 @@
 #include <fx2macros.h>
 #include <makestuff.h>
 
+// Bits from I2C address byte
+#define CTRL         0xA2
+#define BANK_0       0x00
+#define BANK_1       0x08
+#define READ         0x01
+#define WRITE        0x00
+
 static xdata uint8 currentByte;
 
 // Wait for the I2C interface to complete the current send or receive operation. Return true if
@@ -81,7 +88,7 @@ bool promStartRead(uint16 addr) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = 0xA2;  // Write I2C address byte (WRITE)
+	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -100,7 +107,7 @@ bool promStartRead(uint16 addr) {
 	// Send the READ command
 	//
 	I2CS = bmSTART;
-	I2DAT = 0xA3;  // Write I2C address byte (READ)
+	I2DAT = (CTRL | BANK_0 | READ);  // Write I2C address byte (READ)
 	if ( promWaitForDone() ) {
 		return true;
 	}
@@ -146,7 +153,7 @@ bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = 0xA2;  // Write I2C address byte (WRITE)
+	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -165,7 +172,7 @@ bool promRead(uint16 addr, uint8 length, xdata uint8 *buf) {
 	// Send the READ command
 	//
 	I2CS = bmSTART;
-	I2DAT = 0xA3;  // Write I2C address byte (READ)
+	I2DAT = (CTRL | BANK_0 | READ);  // Write I2C address byte (READ)
 	if ( promWaitForDone() ) {
 		return true;
 	}
@@ -214,7 +221,7 @@ bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = 0xA2;  // Write I2C address byte (WRITE)
+	I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -246,7 +253,7 @@ bool promWrite(uint16 addr, uint8 length, const xdata uint8 *buf) {
 
 	do {
 		I2CS = bmSTART;
-		I2DAT = 0xA2;  // Write I2C address byte (WRITE)
+		I2DAT = (CTRL | BANK_0 | WRITE);  // Write I2C address byte (WRITE)
 		if ( promWaitForDone() ) {
 			return true;
 		}
