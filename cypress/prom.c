@@ -24,7 +24,7 @@
 #define BANK_1       0xAA
 #define READ         0x01
 
-static xdata uint8 currentByte;
+static xdata uint8 m_currentByte;
 
 // Wait for the I2C interface to complete the current send or receive operation. Return true if
 // there was a bus error, else return false if the operation completed successfully.
@@ -58,7 +58,7 @@ static bool promWaitForAck(void) {
 // Peek the current byte
 //
 uint8 promPeekByte() {
-	return currentByte;
+	return m_currentByte;
 }
 
 // Read the next EEPROM byte so it can be peeked.
@@ -70,7 +70,7 @@ bool promNextByte(void) {
 	if ( promWaitForDone() ) {
 		return true;
 	}
-	currentByte = I2DAT;
+	m_currentByte = I2DAT;
 	
 	return false;
 }
