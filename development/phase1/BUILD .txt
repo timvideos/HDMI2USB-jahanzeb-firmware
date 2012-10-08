@@ -1,0 +1,14 @@
+1- Create new project in xilinx ise with xc6slx45-3csg324
+2- include all file in folder "hdl" and in its subfolder
+3- right click on synthesis -XST and click "Design goals and stratagies"
+4- select "Timing performace" from "Design goal" and hit OK.
+5- connect the USB cable to PC with ATLYS with interface says "PROG".
+6- Now double click on configure target device in ISE. 
+7- Initialize the JTAG  chain and program the ATLYS with the bit file. 
+8- Make sure JP6 and JP7 on ATLYS are open. 
+9- connect the LCD HDMI/DVI with ATLYS HDMI OUT(J2).
+10- Toggle SW0 to emulate HPD.
+11- Connect PC HDMI/DVI with ATLYS HDMI(J3). 
+12- Use SW1 to toggle between color and grayscale.
+
+ 
