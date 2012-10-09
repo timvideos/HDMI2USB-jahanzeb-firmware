@@ -76,6 +76,8 @@
 -- //    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 -- //    POSSIBILITY OF SUCH DAMAGE.
 -- //
+-- //  * http://opensource.org/licenses/MIT
+-- //  * http://copyfree.org/licenses/mit/license.txt
 -- //////////////////////////////////////////////////////////////////////////////
 
 library IEEE;
