@@ -75,9 +75,9 @@
 -- //    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
 -- //    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 -- //    POSSIBILITY OF SUCH DAMAGE.
--- //
 -- //  * http://opensource.org/licenses/MIT
 -- //  * http://copyfree.org/licenses/mit/license.txt
+-- //
 -- //////////////////////////////////////////////////////////////////////////////
 
 library IEEE;
@@ -105,7 +105,8 @@ entity dpimref is
 		ldg		: out std_logic;
 		led		: out std_logic;
 		resX	: in std_logic_vector(15 downto 0);
-		resY	: in std_logic_vector(15 downto 0)
+		resY	: in std_logic_vector(15 downto 0);
+		rgb 	: in std_logic_vector(23 downto 0)
 	);
 end dpimref;
 
@@ -222,13 +223,13 @@ begin
 
 	-- Decode the address register and select the appropriate data register
 	-- busEppData <=	cntr(7 downto 0) 	when regEppAdr = "0000" else
-	busEppData<=resX(15 downto 8)	when regEppAdr = "0000" else
-					resX( 7 downto 0)	when regEppAdr = "0001" else
-					resY(15 downto 8) when regEppAdr = "0010" else
-					resY( 7 downto 0) when regEppAdr = "0011" else
-					regData4 when regEppAdr = "0100" else
-					regData5 when regEppAdr = "0101" else
-					regData6 when regEppAdr = "0110" else
+	busEppData<=resX(15 downto 8)	when regEppAdr = "0000" else --0
+					resX( 7 downto 0)	when regEppAdr = "0001" else --1
+					resY(15 downto 8) when regEppAdr = "0010" else --2
+					resY( 7 downto 0) when regEppAdr = "0011" else --3
+					rgb(23 downto 16) when regEppAdr = "0100" else --4
+					rgb(15 downto 8)  when regEppAdr = "0101" else --5
+					rgb(7  downto 0)  when regEppAdr = "0110" else --6
 					regData7 when regEppAdr = "0111" else
 					rgSwt    when regEppAdr = "1000" else
 					"00" & rgBtn when regEppAdr = "1001" else

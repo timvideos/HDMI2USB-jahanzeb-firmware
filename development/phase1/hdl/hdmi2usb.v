@@ -21,7 +21,6 @@
 ///    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
 ///    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 ///    POSSIBILITY OF SUCH DAMAGE.
-///
 ///  * http://opensource.org/licenses/MIT
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
@@ -71,6 +70,7 @@ output [15:0] reX,reY
 wire [15:0] resX,resY;
 wire rgb_de,hsync,vsync,pclk;
 wire clk10x;
+wire [23:0] rgb,rgb0;
 
 assign reX = resX;
 assign reY = resY;
@@ -124,7 +124,20 @@ dpimref dpimref(
 .pwr(pwr),
 .pwait(pwait),
 .resX(resX),
-.resY(resY)
+.resY(resY),
+.rgb(rgb0)
+);
+
+gen_start gen_start(
+.rst_n(rst_n),    //The pink reset button
+.clk(clk),      //100 MHz osicallator
+.de(rgb_de),
+.hsync(hsync),
+.vsync(vsync),
+.pclk(pclk),
+.rgb(rgb),
+.rgb0(rgb0),
+.start(rgb_start)
 );
 
 endmodule
