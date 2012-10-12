@@ -1,0 +1,118 @@
+Release 14.2 ngdbuild P.28xd (nt)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: C:\Xilinx\14.2\ISE_DS\ISE\bin\nt\unwrapped\ngdbuild.exe -intstyle
+ise -dd _ngo -nt timestamp -uc ../hdl/hdmi2usb.ucf -p xc6slx45-csg324-3
+hdmi2usb.ngc hdmi2usb.ngd
+
+Reading NGO file
+"C:/Users/Jahanzeb/Documents/GitHub/HDMI2USB/development/phase1/build/hdmi2usb.n
+gc" ...
+Gathering constraint information from source properties...
+Done.
+
+Annotating constraints to design from ucf file "../hdl/hdmi2usb.ucf" ...
+Resolving constraint associations...
+Checking Constraint Associations...
+INFO:ConstraintSystem:178 - TNM 'DVI_CLOCK0', used in period specification
+   'TS_DVI_CLOCK0', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT1: <TIMESPEC TS_LED_3_OBUF = PERIOD "LED_3_OBUF" TS_DVI_CLOCK0 HIGH
+   50%>
+
+INFO:ConstraintSystem:178 - TNM 'DVI_CLOCK0', used in period specification
+   'TS_DVI_CLOCK0', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT0: <TIMESPEC TS_clk10x = PERIOD "clk10x" TS_DVI_CLOCK0 * 10 HIGH 50%>
+
+INFO:ConstraintSystem:178 - TNM 'DVI_CLOCK0', used in period specification
+   'TS_DVI_CLOCK0', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT2: <TIMESPEC TS_dvi_demo0_dvi_rx0_pllclk2 = PERIOD
+   "dvi_demo0_dvi_rx0_pllclk2" TS_DVI_CLOCK0 * 2 HIGH 50%>
+
+INFO:ConstraintSystem:178 - TNM 'LED_3_OBUF', used in period specification
+   'TS_LED_3_OBUF', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT0: <TIMESPEC TS_dvi_demo0_tx0_pllclk0 = PERIOD "dvi_demo0_tx0_pllclk0"
+   TS_LED_3_OBUF * 10 HIGH 50%>
+
+INFO:ConstraintSystem:178 - TNM 'LED_3_OBUF', used in period specification
+   'TS_LED_3_OBUF', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT2: <TIMESPEC TS_dvi_demo0_tx0_pllclk2 = PERIOD "dvi_demo0_tx0_pllclk2"
+   TS_LED_3_OBUF * 2 HIGH 50%>
+
+INFO:ConstraintSystem - The Period constraint <PERIOD = 100 MHz;>
+   [../hdl/hdmi2usb.ucf(26)], is specified using the Net Period method which is
+   not recommended. Please use the Timespec PERIOD method.
+
+Done...
+
+Checking expanded design ...
+WARNING:NgdBuild:452 - logical net 'N14' has no driver
+WARNING:NgdBuild:452 - logical net 'N15' has no driver
+WARNING:NgdBuild:452 - logical net 'N16' has no driver
+WARNING:NgdBuild:452 - logical net 'N17' has no driver
+WARNING:NgdBuild:452 - logical net 'N18' has no driver
+WARNING:NgdBuild:452 - logical net 'N19' has no driver
+WARNING:NgdBuild:452 - logical net 'N20' has no driver
+WARNING:NgdBuild:452 - logical net 'N21' has no driver
+WARNING:NgdBuild:452 - logical net 'N22' has no driver
+WARNING:NgdBuild:452 - logical net 'N23' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<19>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<18>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<17>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<16>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<15>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<4>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<3>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<2>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<1>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<0>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<24>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<23>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<22>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<21>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<20>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<9>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<8>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<7>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<6>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<5>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<29>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<28>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<27>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<26>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<25>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<14>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<13>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<12>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<11>' has no driver
+WARNING:NgdBuild:452 - logical net 'dvi_demo0/dvi_rx0/sdout<10>' has no driver
+WARNING:NgdBuild:478 - clock net dvi_demo0/dvi_rx0/tmdsclk with clock driver
+   dvi_demo0/dvi_rx0/tmdsclk_bufg drives no clock pins
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+NGDBUILD Design Results Summary:
+  Number of errors:     0
+  Number of warnings:  41
+
+Total memory usage is 138380 kilobytes
+
+Writing NGD file "hdmi2usb.ngd" ...
+Total REAL time to NGDBUILD completion:  4 sec
+Total CPU time to NGDBUILD completion:   3 sec
+
+Writing NGDBUILD log file "hdmi2usb.bld"...
