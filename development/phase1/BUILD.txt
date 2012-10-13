@@ -11,10 +11,18 @@
 11- Connect PC HDMI/DVI with ATLYS HDMI(J3). 
 12- Use SW1 to toggle between color and grayscale.
 
-to build from command line.
-1- goto build folder from command line.
-2- set the environment by executing setEnv.bat
+To build bitfile from command line Windows
+0- goto build/bitfile folder
+1- if you want to modify files in project edit hdmi2usb.prj
+2- goto build folder from command line.
 3- Then execute the make.bat
+
+
+To build refrence manual(code documentation) using doxygen
+0- goto build/reffman from command line 
+1- execute reffman.bat This uses a modified doxygen which supports verilog.  
+2- the exe for windows is included but you can also download it from http://svn.berlios.de/svnroot/repos/doxverilog/trunk/doxverilog/Bin/
+3- the output will be generated in doc/reffman index.html in html folder and 
 
 
 

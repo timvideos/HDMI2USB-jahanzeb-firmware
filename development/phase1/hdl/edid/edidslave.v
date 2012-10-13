@@ -27,7 +27,7 @@
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  EDID Slave for communication with PC. dvi_only signal will select which rom to send to pc depending on the monitor connected.
  if no monitor is connected only dvi rom is transmitted. 
 */
@@ -43,11 +43,11 @@ input dvi_only;
 // edid rom -------------------------------------------------------------------------
 reg [7:0] adr;
 wire [7:0] data;
-edidrom edidrom(clk,adr,data);
+edidrom edid_rom(clk,adr,data);
 
 // hdmi rom -------------------------------------------------------------------------
 wire [7:0] data_hdmi;
-hdmirom hdmirom(clk,adr,data_hdmi);
+hdmirom hdmi_rom(clk,adr,data_hdmi);
 
 
 // i2c slave signals ----------------------------------------------------------------
@@ -82,7 +82,7 @@ parameter RELEASE_SEND_ADDRESS_ACK_AGAIN = 14;
 reg [3:0] state;
 wire scl_risingedge,scl_fallingedge, start, stop;
 reg [2:0] bitcount;
-reg [7:0] sdadata; // address confirmations is not implemeted yet // need to think about it in future. // before sending ack check the address
+reg [7:0] sdadata; //% address confirmations is not implemeted yet // need to think about it in future. // before sending ack check the address
 reg [15:0] scl_debounce;
 //reg [15:0] sda_debounce;
 reg scl_stable;

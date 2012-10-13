@@ -27,10 +27,11 @@
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  HDMI rom for storing edid structure. This structure has one extenstion block contains the HDMI resolutions.
 */
-module hdmirom (clk,adr,data);
+
+module hdmirom(clk,adr,data);
 
 input clk;
 input [7:0] adr;

@@ -27,7 +27,7 @@
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  This module handles the communication of EDID structure with PC and monitor/projector.
  It contains two sub-modules and one sequaltial logic block.
  The sequaltial logic block reads the EDID from montor when it detects the HPD from monitor by using edidmaster block.
@@ -53,12 +53,10 @@ wire [7:0] edid_byte_lcd;
 reg [6:0] counter;
 reg [6:0] segments, segment_count;
 reg [7:0] debounce_hpd;
-//wire [3:0] state_out;
 reg hpda_stable,hpda_stable_q;
 wire start_reading,edid_byte_lcd_en;
 
-assign start_reading = (hpda_stable^hpda_stable_q) & hpda_stable; // start reading from lcd on the rising edge of hpd
-//assign hpd_pc = stop;
+assign start_reading = (hpda_stable^hpda_stable_q) & hpda_stable; //% start reading from lcd on the rising edge of hpd
 
 always @(posedge clk) begin
 
@@ -72,7 +70,7 @@ always @(posedge clk) begin
 		hpda_stable <= 0;
 		hpda_stable_q <= 0;
 	end else begin 
-		// debounce hpd_lcd
+		//% debounce hpd_lcd
 		debounce_hpd <= {debounce_hpd[6:0],hpd_lcd};		
 		if (debounce_hpd == 8'd255) begin
 			hpda_stable <= 1;
@@ -84,7 +82,7 @@ always @(posedge clk) begin
 			stop <= 0;
 		end
 		
-		if (start_reading | stop) begin // assuming only edid segment and then will be updated after 
+		if (start_reading | stop) begin //% assuming only edid segment and then will be updated after 
 			segments <= 0;
 			segment_count <= 0;
 			counter <= 0;
@@ -94,8 +92,8 @@ always @(posedge clk) begin
 			
 			counter <= counter +1;
 			
-			if (segment_count==0) begin // edid segment  
-				if (counter == 127) begin // only dvi resolution so dont read further. 
+			if (segment_count==0) begin //% edid segment  
+				if (counter == 127) begin //% only dvi resolution so dont read further. 
 					if (segments == 0) begin
 						stop <= 1;
 						hpd_pc <= 1;
@@ -110,8 +108,8 @@ always @(posedge clk) begin
 						segments <= edid_byte_lcd;
 					end
 				end				
-			end else begin // edid extensions 
-				if (counter == 127) begin // only dvi resolution so dont read further. 
+			end else begin //% edid extensions 
+				if (counter == 127) begin //% only dvi resolution so dont read further. 
 					if (segment_count == segments) begin
 						stop <= 1;
 						hpd_pc <=1;
@@ -120,7 +118,7 @@ always @(posedge clk) begin
 					end					
 				end
 				if (counter == 0) begin
-					if (edid_byte_lcd == 2) begin // hdmi 
+					if (edid_byte_lcd == 2) begin //% hdmi detected
 						dvi_only <= 0;
 					end
 				end
@@ -132,8 +130,8 @@ always @(posedge clk) begin
 
 end // always
 
-
-edidmaster edidmaster(
+//% EDID master module for reading edid from LCD
+edidmaster edid_master(
 .rst_n(rst_n),
 .clk(clk),
 .sda(sda_lcd),
@@ -147,7 +145,8 @@ edidmaster edidmaster(
 .out_en(edid_byte_lcd_en)
 );
 
-edidslave edidslave(
+//% EDID slave for transmiting EDID to PC
+edidslave edid_slave(
 .rst_n(rst_n),
 .clk(clk),
 .sda(sda_pc),

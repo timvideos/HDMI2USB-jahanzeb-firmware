@@ -6,16 +6,16 @@ CONFIG VCCAUX = 3.3;
 #
 # Constraint for RX0
 #
-NET "dvi_demo0/dvi_rx0/rxclk" TNM_NET = DVI_CLOCK0;
+NET "hdmi_RX_TX/dvi_rx0/rxclk" TNM_NET = DVI_CLOCK0;
 TIMESPEC TS_DVI_CLOCK0 = PERIOD "DVI_CLOCK0" 100 MHz HIGH 50%;
 
 
 #
 # Multi-cycle paths for TX0
 #
-TIMEGRP "bramgrp_0" = RAMS(dvi_demo0/dvi_tx0/pixel2x/dataint<*>);
-TIMEGRP "fddbgrp_0" = FFS(dvi_demo0/dvi_tx0/pixel2x/db<*>);
-TIMEGRP "bramra_0"  = FFS(dvi_demo0/dvi_tx0/pixel2x/ra<*>);
+TIMEGRP "bramgrp_0" = RAMS(hdmi_RX_TX/dvi_tx0/pixel2x/dataint<*>);
+TIMEGRP "fddbgrp_0" = FFS(hdmi_RX_TX/dvi_tx0/pixel2x/db<*>);
+TIMEGRP "bramra_0"  = FFS(hdmi_RX_TX/dvi_tx0/pixel2x/ra<*>);
 
 TIMESPEC "TS_ramdo_0" = FROM "bramgrp_0" TO "fddbgrp_0" TS_DVI_CLOCK0;
 TIMESPEC "TS_ramra_0" = FROM "bramra_0"  TO "fddbgrp_0" TS_DVI_CLOCK0;

@@ -27,7 +27,7 @@
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  EDID master for reading edid structure from monitor.
  the output is in byte format in "sdadata" on the rising edge of out_en
 */
@@ -45,13 +45,12 @@ input [7:0] reg0;
 output reg [7:0] sdadata;
 output reg out_en;
 
-// i2c slave signals
 wire sdain;
 reg sdaout;
 assign sda = (sdaout == 1'b0) ? 1'b0 : 1'bz;
 assign sdain = sda;
 
-// state machine
+//% state machine states
 parameter INI = 0;
 parameter WAIT_FOR_START = 1;
 parameter GEN_START = 2;

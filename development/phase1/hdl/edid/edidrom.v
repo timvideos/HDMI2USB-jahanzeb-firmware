@@ -27,7 +27,7 @@
 ///  * http://copyfree.org/licenses/mit/license.txt
 ///
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  ROM for EDID DVI structure only, not for HDMI.
 */
 

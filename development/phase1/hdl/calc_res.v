@@ -25,12 +25,12 @@
 //  * http://copyfree.org/licenses/mit/license.txt
 //
 //////////////////////////////////////////////////////////////////////////////
-/**
+/*!
  This module calculates the resolution of the image being displayed so that we can use it in the header of jpeg encoder.
 */
 module calc_res(
-input wire rst_n,    //The pink reset button
-input wire clk,      //100 MHz osicallator
+input wire rst_n,    
+input wire clk,      
 input de,
 input hsync,
 input vsync,
