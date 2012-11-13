@@ -1,0 +1,4 @@
+1- populate PCB
+2- USB core testing/debuging
+3- JPEG intergation
+4- USB/JPEG/HDMI integration
