@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=C:\Users\Jahanzeb\Documents\GitHub\HDMI2USB\development\phase1\build\hdmi2usb.ncd
-OUTFILE=C:\Users\Jahanzeb\Documents\GitHub\HDMI2USB\development\phase1\build\hdmi2usb.bit
-FAMILY=Spartan6
-PART=xc6slx45-3csg324
-WORKINGDIR=C:\Users\Jahanzeb\Documents\GitHub\HDMI2USB\development\phase1\build
-LICENSE=ISE
-USER_INFO=206811125_1777487287_0_748

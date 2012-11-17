@@ -1,4 +1,0 @@
-1- USB communication interface.
-2- JPEG compression
-3- Custom board development.
-4- Modification of hdl code for custom board
