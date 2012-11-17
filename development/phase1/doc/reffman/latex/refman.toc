@@ -1,0 +1,773 @@
+\contentsline {chapter}{\numberline {1}Design Unit Index}{1}
+\contentsline {section}{\numberline {1.1}Design Unit Hierarchy}{1}
+\contentsline {chapter}{\numberline {2}Design Unit Index}{3}
+\contentsline {section}{\numberline {2.1}Design Unit List}{3}
+\contentsline {chapter}{\numberline {3}File Index}{5}
+\contentsline {section}{\numberline {3.1}File List}{5}
+\contentsline {chapter}{\numberline {4}Class Documentation}{7}
+\contentsline {section}{\numberline {4.1}Behavioral Architecture Reference}{7}
+\contentsline {subsection}{\numberline {4.1.1}Member Function Documentation}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}1}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}10}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}11}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}12}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.5}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}2}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.6}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}3}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.7}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}4}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.8}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}5}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.9}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}6}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.10}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}7}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.11}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}8}{8}
+\contentsline {subsubsection}{\numberline {4.1.1.12}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}9}{8}
+\contentsline {subsection}{\numberline {4.1.2}Member Data Documentation}{8}
+\contentsline {subsubsection}{\numberline {4.1.2.1}bus\discretionary {-}{}{}Epp\discretionary {-}{}{}Data}{8}
+\contentsline {subsubsection}{\numberline {4.1.2.2}bus\discretionary {-}{}{}Epp\discretionary {-}{}{}In}{8}
+\contentsline {subsubsection}{\numberline {4.1.2.3}bus\discretionary {-}{}{}Epp\discretionary {-}{}{}Out}{8}
+\contentsline {subsubsection}{\numberline {4.1.2.4}clk\discretionary {-}{}{}Main}{8}
+\contentsline {subsubsection}{\numberline {4.1.2.5}cntr}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.6}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Astb}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.7}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Awr}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.8}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Dir}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.9}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Dstb}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.10}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Dwr}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.11}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Wait}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.12}ctl\discretionary {-}{}{}Epp\discretionary {-}{}{}Wr}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.13}reg\discretionary {-}{}{}Data0}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.14}reg\discretionary {-}{}{}Data1}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.15}reg\discretionary {-}{}{}Data2}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.16}reg\discretionary {-}{}{}Data3}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.17}reg\discretionary {-}{}{}Data4}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.18}reg\discretionary {-}{}{}Data5}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.19}reg\discretionary {-}{}{}Data6}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.20}reg\discretionary {-}{}{}Data7}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.21}reg\discretionary {-}{}{}Epp\discretionary {-}{}{}Adr}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.22}reg\discretionary {-}{}{}Led}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.23}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Ard\discretionary {-}{}{}A}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.24}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Ard\discretionary {-}{}{}B}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.25}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Awr\discretionary {-}{}{}A}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.26}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Awr\discretionary {-}{}{}B}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.27}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Cur}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.28}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Drd\discretionary {-}{}{}A}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.29}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Drd\discretionary {-}{}{}B}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.30}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Dwr\discretionary {-}{}{}A}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.31}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Dwr\discretionary {-}{}{}B}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.32}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Next}{9}
+\contentsline {subsubsection}{\numberline {4.1.2.33}st\discretionary {-}{}{}Epp\discretionary {-}{}{}Ready}{10}
+\contentsline {section}{\numberline {4.2}calc\discretionary {-}{}{}\_\discretionary {-}{}{}res Enum Reference}{10}
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{10}
+\contentsline {subsection}{\numberline {4.2.2}Member Function Documentation}{10}
+\contentsline {subsubsection}{\numberline {4.2.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}0}{10}
+\contentsline {subsection}{\numberline {4.2.3}Member Data Documentation}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.1}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.2}pclk\discretionary {-}{}{}\_\discretionary {-}{}{}q}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.3}vsync\discretionary {-}{}{}\_\discretionary {-}{}{}q}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.4}hsync\discretionary {-}{}{}\_\discretionary {-}{}{}q}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.5}de\discretionary {-}{}{}\_\discretionary {-}{}{}q}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.6}pclk\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.7}hsync\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.8}vsync\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.9}de\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.10}clk}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.11}de}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.12}hsync}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.13}vsync}{10}
+\contentsline {subsubsection}{\numberline {4.2.3.14}res\discretionary {-}{}{}X}{11}
+\contentsline {subsubsection}{\numberline {4.2.3.15}res\discretionary {-}{}{}Y}{11}
+\contentsline {subsubsection}{\numberline {4.2.3.16}pclk}{11}
+\contentsline {subsubsection}{\numberline {4.2.3.17}res\discretionary {-}{}{}X\discretionary {-}{}{}\_\discretionary {-}{}{}q}{11}
+\contentsline {subsubsection}{\numberline {4.2.3.18}res\discretionary {-}{}{}Y\discretionary {-}{}{}\_\discretionary {-}{}{}q}{11}
+\contentsline {section}{\numberline {4.3}chnlbond Enum Reference}{11}
+\contentsline {subsection}{\numberline {4.3.1}Member Function Documentation}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}19}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}20}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}21}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}22}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.5}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}23}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.6}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}24}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.7}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}25}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.8}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}26}{11}
+\contentsline {subsubsection}{\numberline {4.3.1.9}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}27}{12}
+\contentsline {subsection}{\numberline {4.3.2}Member Data Documentation}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.1}clk}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.2}rawdata}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.3}iamvld}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.4}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch0\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.5}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch1\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.6}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch0\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.7}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch1\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.8}iamrdy}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.9}sdata}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.10}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N0}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.11}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N1}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.12}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N2}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.13}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N3}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.14}rawdata\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.15}wa}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.16}ra}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.17}we}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.18}dpfo\discretionary {-}{}{}\_\discretionary {-}{}{}dout}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.19}rcvd\discretionary {-}{}{}\_\discretionary {-}{}{}ctkn}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.20}rcvd\discretionary {-}{}{}\_\discretionary {-}{}{}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}q}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.21}blnkbgn}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.22}next\discretionary {-}{}{}\_\discretionary {-}{}{}blnkbgn}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.23}skip\discretionary {-}{}{}\_\discretionary {-}{}{}line}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.24}rawdata\discretionary {-}{}{}\_\discretionary {-}{}{}vld\discretionary {-}{}{}\_\discretionary {-}{}{}q}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.25}rawdata\discretionary {-}{}{}\_\discretionary {-}{}{}vld\discretionary {-}{}{}\_\discretionary {-}{}{}rising}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.26}ra\discretionary {-}{}{}\_\discretionary {-}{}{}en}{12}
+\contentsline {subsubsection}{\numberline {4.3.2.27}D\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}M16\discretionary {-}{}{}X\discretionary {-}{}{}N}{13}
+\contentsline {section}{\numberline {4.4}convert\discretionary {-}{}{}\_\discretionary {-}{}{}30to15\discretionary {-}{}{}\_\discretionary {-}{}{}fifo Enum Reference}{13}
+\contentsline {subsection}{\numberline {4.4.1}Member Function Documentation}{13}
+\contentsline {subsubsection}{\numberline {4.4.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}28}{13}
+\contentsline {subsubsection}{\numberline {4.4.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}29}{13}
+\contentsline {subsection}{\numberline {4.4.2}Member Data Documentation}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.1}rst}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.2}clk}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.3}clkx2}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.4}datain}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.5}dataout}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.6}wa}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.7}wa\discretionary {-}{}{}\_\discretionary {-}{}{}d}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.8}ra}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.9}ra\discretionary {-}{}{}\_\discretionary {-}{}{}d}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.10}dataint}{13}
+\contentsline {subsubsection}{\numberline {4.4.2.11}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R0}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.12}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R1}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.13}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R2}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.14}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R3}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.15}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R4}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.16}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R5}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.17}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R6}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.18}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R7}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.19}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R8}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.20}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R9}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.21}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R10}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.22}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R11}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.23}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R12}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.24}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R13}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.25}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R14}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.26}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R15}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.27}rstsync}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.28}rstsync\discretionary {-}{}{}\_\discretionary {-}{}{}q}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.29}rstp}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.30}sync}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.31}db}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.32}mux}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.33}D\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}M16\discretionary {-}{}{}X\discretionary {-}{}{}N}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.34}F\discretionary {-}{}{}D}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.35}F\discretionary {-}{}{}D}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.36}F\discretionary {-}{}{}D}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.37}F\discretionary {-}{}{}D}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.38}F\discretionary {-}{}{}D}{14}
+\contentsline {subsubsection}{\numberline {4.4.2.39}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.40}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.41}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.42}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.43}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.44}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.45}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.46}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.47}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.48}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.49}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.50}F\discretionary {-}{}{}D}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.51}F\discretionary {-}{}{}D\discretionary {-}{}{}C}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.52}F\discretionary {-}{}{}D\discretionary {-}{}{}C}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.53}F\discretionary {-}{}{}D\discretionary {-}{}{}C}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.54}F\discretionary {-}{}{}D\discretionary {-}{}{}C}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.55}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.56}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.57}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.58}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.59}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.60}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.61}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.62}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.63}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.64}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.65}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.66}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{15}
+\contentsline {subsubsection}{\numberline {4.4.2.67}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.68}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.69}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.70}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.71}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.72}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.73}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.74}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.75}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.76}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.77}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.78}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.79}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.80}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.81}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.82}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.83}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.84}F\discretionary {-}{}{}D\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.85}F\discretionary {-}{}{}D\discretionary {-}{}{}P}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.86}F\discretionary {-}{}{}D\discretionary {-}{}{}R}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.87}F\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.88}F\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.89}F\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E}{16}
+\contentsline {subsubsection}{\numberline {4.4.2.90}F\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E}{16}
+\contentsline {section}{\numberline {4.5}decode Enum Reference}{16}
+\contentsline {subsection}{\numberline {4.5.1}Member Function Documentation}{17}
+\contentsline {subsubsection}{\numberline {4.5.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}30}{17}
+\contentsline {subsubsection}{\numberline {4.5.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}31}{17}
+\contentsline {subsubsection}{\numberline {4.5.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}32}{17}
+\contentsline {subsubsection}{\numberline {4.5.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}33}{17}
+\contentsline {subsubsection}{\numberline {4.5.1.5}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}34}{17}
+\contentsline {subsection}{\numberline {4.5.2}Member Data Documentation}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.1}reset}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.2}pclk}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.3}pclkx2}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.4}pclkx10}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.5}serdesstrobe}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.6}din\discretionary {-}{}{}\_\discretionary {-}{}{}p}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.7}din\discretionary {-}{}{}\_\discretionary {-}{}{}n}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.8}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch0\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.9}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch1\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.10}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch0\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.11}other\discretionary {-}{}{}\_\discretionary {-}{}{}ch1\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.12}iamvld}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.13}iamrdy}{17}
+\contentsline {subsubsection}{\numberline {4.5.2.14}psalgnerr}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.15}c0}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.16}c1}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.17}de}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.18}sdout}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.19}dout}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.20}flipgear}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.21}flipgearx2}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.22}toggle}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.23}rx\discretionary {-}{}{}\_\discretionary {-}{}{}toggle}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.24}raw5bit}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.25}raw5bit\discretionary {-}{}{}\_\discretionary {-}{}{}q}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.26}rawword}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.27}bitslipx2}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.28}bitslip\discretionary {-}{}{}\_\discretionary {-}{}{}q}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.29}bitslip}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.30}rawdata}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.31}sdata}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.32}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N0}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.33}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N1}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.34}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N2}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.35}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N3}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.36}data}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.37}chnlbond}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.38}phsaligner}{18}
+\contentsline {subsubsection}{\numberline {4.5.2.39}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}1\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}5\discretionary {-}{}{}\_\discretionary {-}{}{}diff\discretionary {-}{}{}\_\discretionary {-}{}{}data}{18}
+\contentsline {section}{\numberline {4.6}dpimref Entity Reference}{19}
+\contentsline {subsection}{\numberline {4.6.1}Member Data Documentation}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.1}astb}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.2}btn}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.3}dstb}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.4}ldg}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.5}led}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.6}mclk}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.7}pdb}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.8}pwait}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.9}pwr}{19}
+\contentsline {subsubsection}{\numberline {4.6.1.10}res\discretionary {-}{}{}X}{20}
+\contentsline {subsubsection}{\numberline {4.6.1.11}res\discretionary {-}{}{}Y}{20}
+\contentsline {subsubsection}{\numberline {4.6.1.12}rgb}{20}
+\contentsline {subsubsection}{\numberline {4.6.1.13}rg\discretionary {-}{}{}Btn}{20}
+\contentsline {subsubsection}{\numberline {4.6.1.14}rg\discretionary {-}{}{}Led}{20}
+\contentsline {subsubsection}{\numberline {4.6.1.15}rg\discretionary {-}{}{}Swt}{20}
+\contentsline {section}{\numberline {4.7}D\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}M16\discretionary {-}{}{}X\discretionary {-}{}{}N Enum Reference}{20}
+\contentsline {subsection}{\numberline {4.7.1}Member Data Documentation}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.1}data\discretionary {-}{}{}\_\discretionary {-}{}{}width}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.2}D\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}I\discretionary {-}{}{}N}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.3}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.4}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}P}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.5}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.6}C\discretionary {-}{}{}L\discretionary {-}{}{}K}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.7}O\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}O\discretionary {-}{}{}U\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}P}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.8}O\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}O\discretionary {-}{}{}U\discretionary {-}{}{}T}{20}
+\contentsline {subsubsection}{\numberline {4.7.1.9}R\discretionary {-}{}{}A\discretionary {-}{}{}M16\discretionary {-}{}{}X1\discretionary {-}{}{}D}{21}
+\contentsline {section}{\numberline {4.8}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}decoder Enum Reference}{21}
+\contentsline {subsection}{\numberline {4.8.1}Member Data Documentation}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.1}tmdsclk\discretionary {-}{}{}\_\discretionary {-}{}{}p}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.2}tmdsclk\discretionary {-}{}{}\_\discretionary {-}{}{}n}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.3}blue\discretionary {-}{}{}\_\discretionary {-}{}{}p}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.4}green\discretionary {-}{}{}\_\discretionary {-}{}{}p}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.5}red\discretionary {-}{}{}\_\discretionary {-}{}{}p}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.6}blue\discretionary {-}{}{}\_\discretionary {-}{}{}n}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.7}green\discretionary {-}{}{}\_\discretionary {-}{}{}n}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.8}red\discretionary {-}{}{}\_\discretionary {-}{}{}n}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.9}exrst}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.10}reset}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.11}pclk}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.12}pclkx2}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.13}pclkx10}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.14}pllclk0}{21}
+\contentsline {subsubsection}{\numberline {4.8.1.15}pllclk1}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.16}pllclk2}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.17}pll\discretionary {-}{}{}\_\discretionary {-}{}{}lckd}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.18}serdesstrobe}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.19}tmdsclk}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.20}hsync}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.21}vsync}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.22}de}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.23}blue\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.24}green\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.25}red\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.26}blue\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.27}green\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.28}red\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.29}psalgnerr}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.30}sdout}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.31}red}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.32}green}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.33}blue}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.34}sdout\discretionary {-}{}{}\_\discretionary {-}{}{}blue}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.35}sdout\discretionary {-}{}{}\_\discretionary {-}{}{}green}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.36}sdout\discretionary {-}{}{}\_\discretionary {-}{}{}red}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.37}de\discretionary {-}{}{}\_\discretionary {-}{}{}b}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.38}de\discretionary {-}{}{}\_\discretionary {-}{}{}g}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.39}de\discretionary {-}{}{}\_\discretionary {-}{}{}r}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.40}blue\discretionary {-}{}{}\_\discretionary {-}{}{}psalgnerr}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.41}green\discretionary {-}{}{}\_\discretionary {-}{}{}psalgnerr}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.42}red\discretionary {-}{}{}\_\discretionary {-}{}{}psalgnerr}{22}
+\contentsline {subsubsection}{\numberline {4.8.1.43}rxclkint}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.44}rxclk}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.45}bufpll\discretionary {-}{}{}\_\discretionary {-}{}{}lock}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.46}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.47}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.48}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.49}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}I\discretionary {-}{}{}O2}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.50}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}P\discretionary {-}{}{}L\discretionary {-}{}{}L}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.51}decode}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.52}decode}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.53}decode}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.54}I\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{23}
+\contentsline {subsubsection}{\numberline {4.8.1.55}P\discretionary {-}{}{}L\discretionary {-}{}{}L\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E}{23}
+\contentsline {section}{\numberline {4.9}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}demo Enum Reference}{23}
+\contentsline {subsection}{\numberline {4.9.1}Member Data Documentation}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.1}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.2}clk}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.3}R\discretionary {-}{}{}X0\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.4}R\discretionary {-}{}{}X0\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S\discretionary {-}{}{}B}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.5}T\discretionary {-}{}{}X0\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.6}T\discretionary {-}{}{}X0\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S\discretionary {-}{}{}B}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.7}rgb}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.8}rgb\discretionary {-}{}{}\_\discretionary {-}{}{}de}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.9}hsync}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.10}vsync}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.11}pclk}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.12}S\discretionary {-}{}{}W}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.13}L\discretionary {-}{}{}E\discretionary {-}{}{}D}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.14}clk10x}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.15}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclk}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.16}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclkx2}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.17}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclkx10}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.18}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}pllclk0}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.19}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}plllckd}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.20}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}reset}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.21}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}serdesstrobe}{24}
+\contentsline {subsubsection}{\numberline {4.9.1.22}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}hsync}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.23}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}vsync}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.24}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}de}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.25}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}psalgnerr}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.26}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}red}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.27}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}green}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.28}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}blue}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.29}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}sdata}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.30}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}blue\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.31}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}green\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.32}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}red\discretionary {-}{}{}\_\discretionary {-}{}{}vld}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.33}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}blue\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.34}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}green\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.35}rx0\discretionary {-}{}{}\_\discretionary {-}{}{}red\discretionary {-}{}{}\_\discretionary {-}{}{}rdy}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.36}Y}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.37}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}de}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.38}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclk}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.39}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclkx2}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.40}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pclkx10}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.41}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}serdesstrobe}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.42}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}reset}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.43}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}blue}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.44}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}green}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.45}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}red}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.46}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}hsync}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.47}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}vsync}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.48}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pll\discretionary {-}{}{}\_\discretionary {-}{}{}reset}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.49}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}clkfbout}{25}
+\contentsline {subsubsection}{\numberline {4.9.1.50}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}clkfbin}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.51}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}plllckd}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.52}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pllclk0}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.53}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}pllclk2}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.54}tx0\discretionary {-}{}{}\_\discretionary {-}{}{}bufpll\discretionary {-}{}{}\_\discretionary {-}{}{}lock}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.55}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.56}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.57}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}G\discretionary {-}{}{}M\discretionary {-}{}{}U\discretionary {-}{}{}X}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.58}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}P\discretionary {-}{}{}L\discretionary {-}{}{}L}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.59}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}decoder}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.60}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}encoder\discretionary {-}{}{}\_\discretionary {-}{}{}top}{26}
+\contentsline {subsubsection}{\numberline {4.9.1.61}P\discretionary {-}{}{}L\discretionary {-}{}{}L\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E}{26}
+\contentsline {section}{\numberline {4.10}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}encoder\discretionary {-}{}{}\_\discretionary {-}{}{}top Enum Reference}{26}
+\contentsline {subsection}{\numberline {4.10.1}Member Function Documentation}{27}
+\contentsline {subsubsection}{\numberline {4.10.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}35}{27}
+\contentsline {subsubsection}{\numberline {4.10.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}36}{27}
+\contentsline {subsection}{\numberline {4.10.2}Member Data Documentation}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.1}pclk}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.2}pclkx2}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.3}pclkx10}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.4}serdesstrobe}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.5}rstin}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.6}blue\discretionary {-}{}{}\_\discretionary {-}{}{}din}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.7}green\discretionary {-}{}{}\_\discretionary {-}{}{}din}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.8}red\discretionary {-}{}{}\_\discretionary {-}{}{}din}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.9}hsync}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.10}vsync}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.11}de}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.12}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.13}T\discretionary {-}{}{}M\discretionary {-}{}{}D\discretionary {-}{}{}S\discretionary {-}{}{}B}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.14}red}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.15}green}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.16}blue}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.17}tmds\discretionary {-}{}{}\_\discretionary {-}{}{}data0}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.18}tmds\discretionary {-}{}{}\_\discretionary {-}{}{}data1}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.19}tmds\discretionary {-}{}{}\_\discretionary {-}{}{}data2}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.20}tmdsint}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.21}tmdsclkint}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.22}toggle}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.23}tmdsclk}{27}
+\contentsline {subsubsection}{\numberline {4.10.2.24}s\discretionary {-}{}{}\_\discretionary {-}{}{}data}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.25}convert\discretionary {-}{}{}\_\discretionary {-}{}{}30to15\discretionary {-}{}{}\_\discretionary {-}{}{}fifo}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.26}encode}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.27}encode}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.28}encode}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.29}O\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.30}O\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.31}O\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.32}O\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.33}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.34}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.35}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1}{28}
+\contentsline {subsubsection}{\numberline {4.10.2.36}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1}{28}
+\contentsline {section}{\numberline {4.11}edid\discretionary {-}{}{}\_\discretionary {-}{}{}master\discretionary {-}{}{}\_\discretionary {-}{}{}slave\discretionary {-}{}{}\_\discretionary {-}{}{}hack Enum Reference}{28}
+\contentsline {subsection}{\numberline {4.11.1}Detailed Description}{28}
+\contentsline {subsection}{\numberline {4.11.2}Member Function Documentation}{29}
+\contentsline {subsubsection}{\numberline {4.11.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}13}{29}
+\contentsline {subsection}{\numberline {4.11.3}Member Data Documentation}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.1}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.2}clk}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.3}sda\discretionary {-}{}{}\_\discretionary {-}{}{}lcd}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.4}scl\discretionary {-}{}{}\_\discretionary {-}{}{}lcd}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.5}sda\discretionary {-}{}{}\_\discretionary {-}{}{}pc}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.6}scl\discretionary {-}{}{}\_\discretionary {-}{}{}pc}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.7}hpd\discretionary {-}{}{}\_\discretionary {-}{}{}lcd}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.8}hpd\discretionary {-}{}{}\_\discretionary {-}{}{}pc}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.9}stop}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.10}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}only}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.11}edid\discretionary {-}{}{}\_\discretionary {-}{}{}byte\discretionary {-}{}{}\_\discretionary {-}{}{}lcd}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.12}counter}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.13}segments}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.14}segment\discretionary {-}{}{}\_\discretionary {-}{}{}count}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.15}debounce\discretionary {-}{}{}\_\discretionary {-}{}{}hpd}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.16}hpda\discretionary {-}{}{}\_\discretionary {-}{}{}stable}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.17}hpda\discretionary {-}{}{}\_\discretionary {-}{}{}stable\discretionary {-}{}{}\_\discretionary {-}{}{}q}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.18}start\discretionary {-}{}{}\_\discretionary {-}{}{}reading}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.19}edid\discretionary {-}{}{}\_\discretionary {-}{}{}byte\discretionary {-}{}{}\_\discretionary {-}{}{}lcd\discretionary {-}{}{}\_\discretionary {-}{}{}en}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.20}edidmaster}{29}
+\contentsline {subsubsection}{\numberline {4.11.3.21}edidslave}{30}
+\contentsline {section}{\numberline {4.12}edidmaster Enum Reference}{30}
+\contentsline {subsection}{\numberline {4.12.1}Detailed Description}{30}
+\contentsline {subsection}{\numberline {4.12.2}Member Function Documentation}{30}
+\contentsline {subsubsection}{\numberline {4.12.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}14}{30}
+\contentsline {subsection}{\numberline {4.12.3}Member Data Documentation}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.1}clk}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.2}stop\discretionary {-}{}{}\_\discretionary {-}{}{}reading}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.3}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.4}scl}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.5}sda}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.6}start}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.7}address\discretionary {-}{}{}\_\discretionary {-}{}{}w}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.8}address\discretionary {-}{}{}\_\discretionary {-}{}{}r}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.9}reg0}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.10}sdadata}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.11}out\discretionary {-}{}{}\_\discretionary {-}{}{}en}{30}
+\contentsline {subsubsection}{\numberline {4.12.3.12}sdain}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.13}sdaout}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.14}I\discretionary {-}{}{}N\discretionary {-}{}{}I}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.15}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}F\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.16}G\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.17}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.18}F\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.19}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.20}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.21}F\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.22}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.23}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.24}F\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.25}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.26}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}A}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.27}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.28}R\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.29}G\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T2}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.30}S\discretionary {-}{}{}K\discretionary {-}{}{}I\discretionary {-}{}{}P1}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.31}state}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.32}scl\discretionary {-}{}{}\_\discretionary {-}{}{}counter}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.33}scl\discretionary {-}{}{}\_\discretionary {-}{}{}q}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.34}middle\discretionary {-}{}{}\_\discretionary {-}{}{}scl}{31}
+\contentsline {subsubsection}{\numberline {4.12.3.35}bitcount}{31}
+\contentsline {section}{\numberline {4.13}edidrom Enum Reference}{32}
+\contentsline {subsection}{\numberline {4.13.1}Detailed Description}{32}
+\contentsline {subsection}{\numberline {4.13.2}Member Function Documentation}{32}
+\contentsline {subsubsection}{\numberline {4.13.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}15}{32}
+\contentsline {subsection}{\numberline {4.13.3}Member Data Documentation}{32}
+\contentsline {subsubsection}{\numberline {4.13.3.1}clk}{32}
+\contentsline {subsubsection}{\numberline {4.13.3.2}adr}{32}
+\contentsline {subsubsection}{\numberline {4.13.3.3}data}{32}
+\contentsline {subsubsection}{\numberline {4.13.3.4}data}{32}
+\contentsline {section}{\numberline {4.14}edidslave Enum Reference}{32}
+\contentsline {subsection}{\numberline {4.14.1}Detailed Description}{33}
+\contentsline {subsection}{\numberline {4.14.2}Member Function Documentation}{33}
+\contentsline {subsubsection}{\numberline {4.14.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}16}{33}
+\contentsline {subsection}{\numberline {4.14.3}Member Data Documentation}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.1}R\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}G\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}N}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.2}state}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.3}scl\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.4}scl\discretionary {-}{}{}\_\discretionary {-}{}{}fallingedge}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.5}start}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.6}stop}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.7}bitcount}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.8}sdadata}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.9}scl\discretionary {-}{}{}\_\discretionary {-}{}{}debounce}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.10}scl\discretionary {-}{}{}\_\discretionary {-}{}{}stable}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.11}sdain\discretionary {-}{}{}\_\discretionary {-}{}{}q}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.12}scl\discretionary {-}{}{}\_\discretionary {-}{}{}q}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.13}clk}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.14}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.15}scl}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.16}sda}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.17}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}only}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.18}adr}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.19}data}{33}
+\contentsline {subsubsection}{\numberline {4.14.3.20}data\discretionary {-}{}{}\_\discretionary {-}{}{}hdmi}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.21}sdain}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.22}sdaout}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.23}I\discretionary {-}{}{}N\discretionary {-}{}{}I}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.24}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}F\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.25}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.26}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.27}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.28}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.29}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}F\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}G\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}N}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.30}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}G\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}N}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.31}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}G\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}N}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.32}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.33}F\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}D\discretionary {-}{}{}A}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.34}W\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}B\discretionary {-}{}{}Y\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.35}R\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}G\discretionary {-}{}{}I\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.36}R\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}A\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}D\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}A\discretionary {-}{}{}C\discretionary {-}{}{}K}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.37}edidrom}{34}
+\contentsline {subsubsection}{\numberline {4.14.3.38}hdmirom}{34}
+\contentsline {section}{\numberline {4.15}encode Enum Reference}{34}
+\contentsline {subsection}{\numberline {4.15.1}Member Function Documentation}{35}
+\contentsline {subsubsection}{\numberline {4.15.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}37}{35}
+\contentsline {subsubsection}{\numberline {4.15.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}38}{35}
+\contentsline {subsubsection}{\numberline {4.15.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}39}{35}
+\contentsline {subsubsection}{\numberline {4.15.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}40}{35}
+\contentsline {subsection}{\numberline {4.15.2}Member Data Documentation}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.1}clkin}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.2}rstin}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.3}din}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.4}c0}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.5}c1}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.6}de}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.7}dout}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.8}n1d}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.9}din\discretionary {-}{}{}\_\discretionary {-}{}{}q}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.10}decision1}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.11}q\discretionary {-}{}{}\_\discretionary {-}{}{}m}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.12}n1q\discretionary {-}{}{}\_\discretionary {-}{}{}m}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.13}n0q\discretionary {-}{}{}\_\discretionary {-}{}{}m}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.14}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N0}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.15}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N1}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.16}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N2}{35}
+\contentsline {subsubsection}{\numberline {4.15.2.17}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N3}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.18}cnt}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.19}decision2}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.20}decision3}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.21}de\discretionary {-}{}{}\_\discretionary {-}{}{}q}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.22}de\discretionary {-}{}{}\_\discretionary {-}{}{}reg}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.23}c0\discretionary {-}{}{}\_\discretionary {-}{}{}q}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.24}c1\discretionary {-}{}{}\_\discretionary {-}{}{}q}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.25}c0\discretionary {-}{}{}\_\discretionary {-}{}{}reg}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.26}c1\discretionary {-}{}{}\_\discretionary {-}{}{}reg}{36}
+\contentsline {subsubsection}{\numberline {4.15.2.27}q\discretionary {-}{}{}\_\discretionary {-}{}{}m\discretionary {-}{}{}\_\discretionary {-}{}{}reg}{36}
+\contentsline {section}{\numberline {4.16}gen\discretionary {-}{}{}\_\discretionary {-}{}{}start Enum Reference}{36}
+\contentsline {subsection}{\numberline {4.16.1}Detailed Description}{36}
+\contentsline {subsection}{\numberline {4.16.2}Member Function Documentation}{36}
+\contentsline {subsubsection}{\numberline {4.16.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}18}{36}
+\contentsline {subsection}{\numberline {4.16.3}Member Data Documentation}{36}
+\contentsline {subsubsection}{\numberline {4.16.3.1}rst\discretionary {-}{}{}\_\discretionary {-}{}{}n}{36}
+\contentsline {subsubsection}{\numberline {4.16.3.2}clk}{36}
+\contentsline {subsubsection}{\numberline {4.16.3.3}de}{36}
+\contentsline {subsubsection}{\numberline {4.16.3.4}hsync}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.5}vsync}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.6}pclk}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.7}rgb}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.8}rgb0}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.9}start}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.10}pclk\discretionary {-}{}{}\_\discretionary {-}{}{}q}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.11}vsync\discretionary {-}{}{}\_\discretionary {-}{}{}q}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.12}hsync\discretionary {-}{}{}\_\discretionary {-}{}{}q}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.13}de\discretionary {-}{}{}\_\discretionary {-}{}{}q}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.14}pclk\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.15}hsync\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.16}vsync\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.17}de\discretionary {-}{}{}\_\discretionary {-}{}{}risingedge}{37}
+\contentsline {subsubsection}{\numberline {4.16.3.18}vsync\discretionary {-}{}{}\_\discretionary {-}{}{}detected}{37}
+\contentsline {section}{\numberline {4.17}hdmi2usb Enum Reference}{37}
+\contentsline {subsection}{\numberline {4.17.1}Detailed Description}{37}
+\contentsline {subsection}{\numberline {4.17.2}Member Function Documentation}{37}
+\contentsline {subsubsection}{\numberline {4.17.2.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}17}{37}
+\contentsline {subsection}{\numberline {4.17.3}Member Data Documentation}{38}
+\contentsline {subsubsection}{\numberline {4.17.3.1}clk}{38}
+\contentsline {subsubsection}{\numberline {4.17.3.2}adr}{38}
+\contentsline {subsubsection}{\numberline {4.17.3.3}data}{38}
+\contentsline {subsubsection}{\numberline {4.17.3.4}data}{38}
+\contentsline {section}{\numberline {4.18}phsaligner Enum Reference}{38}
+\contentsline {subsection}{\numberline {4.18.1}Member Function Documentation}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}41}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}42}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}43}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}44}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.5}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}45}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.6}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}46}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.7}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}47}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.8}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}48}{38}
+\contentsline {subsubsection}{\numberline {4.18.1.9}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}49}{38}
+\contentsline {subsection}{\numberline {4.18.2}Member Data Documentation}{38}
+\contentsline {subsubsection}{\numberline {4.18.2.1}O\discretionary {-}{}{}P\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}E\discretionary {-}{}{}Y\discretionary {-}{}{}E\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}N\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}D}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.2}C\discretionary {-}{}{}T\discretionary {-}{}{}K\discretionary {-}{}{}N\discretionary {-}{}{}C\discretionary {-}{}{}N\discretionary {-}{}{}T\discretionary {-}{}{}W\discretionary {-}{}{}D}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.3}S\discretionary {-}{}{}R\discretionary {-}{}{}C\discretionary {-}{}{}H\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}M\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}W\discretionary {-}{}{}D}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.4}rst}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.5}clk}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.6}sdata}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.7}flipgear}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.8}bitslip}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.9}psaligned}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.10}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N0}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.11}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N1}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.12}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N2}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.13}C\discretionary {-}{}{}T\discretionary {-}{}{}R\discretionary {-}{}{}L\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}K\discretionary {-}{}{}E\discretionary {-}{}{}N3}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.14}rcvd\discretionary {-}{}{}\_\discretionary {-}{}{}ctkn}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.15}rcvd\discretionary {-}{}{}\_\discretionary {-}{}{}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}q}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.16}blnkbgn}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.17}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}srh\discretionary {-}{}{}\_\discretionary {-}{}{}timer}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.18}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}srh\discretionary {-}{}{}\_\discretionary {-}{}{}rst}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.19}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}srh\discretionary {-}{}{}\_\discretionary {-}{}{}tout}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.20}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}counter}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.21}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}cnt\discretionary {-}{}{}\_\discretionary {-}{}{}rst}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.22}ctkn\discretionary {-}{}{}\_\discretionary {-}{}{}cnt\discretionary {-}{}{}\_\discretionary {-}{}{}tout}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.23}I\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}T}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.24}S\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}R\discretionary {-}{}{}C\discretionary {-}{}{}H}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.25}B\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}S\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}P}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.26}R\discretionary {-}{}{}C\discretionary {-}{}{}V\discretionary {-}{}{}D\discretionary {-}{}{}C\discretionary {-}{}{}T\discretionary {-}{}{}K\discretionary {-}{}{}N}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.27}B\discretionary {-}{}{}L\discretionary {-}{}{}N\discretionary {-}{}{}K\discretionary {-}{}{}P\discretionary {-}{}{}R\discretionary {-}{}{}D}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.28}P\discretionary {-}{}{}S\discretionary {-}{}{}A\discretionary {-}{}{}L\discretionary {-}{}{}G\discretionary {-}{}{}N\discretionary {-}{}{}D}{39}
+\contentsline {subsubsection}{\numberline {4.18.2.29}n\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}S}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.30}cstate}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.31}nstate}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.32}state\discretionary {-}{}{}\_\discretionary {-}{}{}ascii}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.33}B\discretionary {-}{}{}L\discretionary {-}{}{}N\discretionary {-}{}{}K\discretionary {-}{}{}P\discretionary {-}{}{}R\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}N\discretionary {-}{}{}T\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}W\discretionary {-}{}{}D}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.34}blnkprd\discretionary {-}{}{}\_\discretionary {-}{}{}cnt}{40}
+\contentsline {subsubsection}{\numberline {4.18.2.35}bitslip\discretionary {-}{}{}\_\discretionary {-}{}{}cnt}{40}
+\contentsline {section}{\numberline {4.19}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}1\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}5\discretionary {-}{}{}\_\discretionary {-}{}{}diff\discretionary {-}{}{}\_\discretionary {-}{}{}data Enum Reference}{40}
+\contentsline {subsection}{\numberline {4.19.1}Member Function Documentation}{40}
+\contentsline {subsubsection}{\numberline {4.19.1.1}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}50}{40}
+\contentsline {subsubsection}{\numberline {4.19.1.2}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}51}{40}
+\contentsline {subsubsection}{\numberline {4.19.1.3}P\discretionary {-}{}{}R\discretionary {-}{}{}O\discretionary {-}{}{}C\discretionary {-}{}{}E\discretionary {-}{}{}S\discretionary {-}{}{}S\discretionary {-}{}{}\_\discretionary {-}{}{}52}{40}
+\contentsline {subsection}{\numberline {4.19.2}Member Data Documentation}{40}
+\contentsline {subsubsection}{\numberline {4.19.2.1}D\discretionary {-}{}{}I\discretionary {-}{}{}F\discretionary {-}{}{}F\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}M}{40}
+\contentsline {subsubsection}{\numberline {4.19.2.2}S\discretionary {-}{}{}I\discretionary {-}{}{}M\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}P\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}A\discretionary {-}{}{}Y}{40}
+\contentsline {subsubsection}{\numberline {4.19.2.3}B\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}S\discretionary {-}{}{}L\discretionary {-}{}{}I\discretionary {-}{}{}P\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}E\discretionary {-}{}{}N\discretionary {-}{}{}A\discretionary {-}{}{}B\discretionary {-}{}{}L\discretionary {-}{}{}E}{40}
+\contentsline {subsubsection}{\numberline {4.19.2.4}use\discretionary {-}{}{}\_\discretionary {-}{}{}phase\discretionary {-}{}{}\_\discretionary {-}{}{}detector}{40}
+\contentsline {subsubsection}{\numberline {4.19.2.5}datain\discretionary {-}{}{}\_\discretionary {-}{}{}p}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.6}datain\discretionary {-}{}{}\_\discretionary {-}{}{}n}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.7}rxioclk}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.8}rxserdesstrobe}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.9}reset}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.10}gclk}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.11}bitslip}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.12}data\discretionary {-}{}{}\_\discretionary {-}{}{}out}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.13}ddly\discretionary {-}{}{}\_\discretionary {-}{}{}m}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.14}ddly\discretionary {-}{}{}\_\discretionary {-}{}{}s}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.15}busys}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.16}rx\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}in}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.17}cascade}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.18}pd\discretionary {-}{}{}\_\discretionary {-}{}{}edge}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.19}counter}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.20}state}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.21}cal\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}sint}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.22}busy\discretionary {-}{}{}\_\discretionary {-}{}{}data}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.23}busy\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}d}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.24}cal\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}slave}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.25}enable}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.26}cal\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}master}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.27}rst\discretionary {-}{}{}\_\discretionary {-}{}{}data}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.28}inc\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}int}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.29}inc\discretionary {-}{}{}\_\discretionary {-}{}{}data}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.30}ce\discretionary {-}{}{}\_\discretionary {-}{}{}data}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.31}valid\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}d}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.32}incdec\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}d}{41}
+\contentsline {subsubsection}{\numberline {4.19.2.33}pdcounter}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.34}valid\discretionary {-}{}{}\_\discretionary {-}{}{}data}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.35}incdec\discretionary {-}{}{}\_\discretionary {-}{}{}data}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.36}flag}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.37}mux}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.38}ce\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}inta}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.39}incdec\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}or}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.40}incdec\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}im}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.41}valid\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}or}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.42}valid\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}im}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.43}busy\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}or}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.44}all\discretionary {-}{}{}\_\discretionary {-}{}{}ce}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.45}debug\discretionary {-}{}{}\_\discretionary {-}{}{}in}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.46}rxpdcntr}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.47}I\discretionary {-}{}{}B\discretionary {-}{}{}U\discretionary {-}{}{}F\discretionary {-}{}{}D\discretionary {-}{}{}S}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.48}I\discretionary {-}{}{}O\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}A\discretionary {-}{}{}Y2}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.49}I\discretionary {-}{}{}O\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}L\discretionary {-}{}{}A\discretionary {-}{}{}Y2}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.50}I\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}S2}{42}
+\contentsline {subsubsection}{\numberline {4.19.2.51}I\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}S2}{42}
+\contentsline {section}{\numberline {4.20}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1 Enum Reference}{42}
+\contentsline {subsection}{\numberline {4.20.1}Member Data Documentation}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.1}S\discretionary {-}{}{}F}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.2}ioclk}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.3}serdesstrobe}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.4}reset}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.5}gclk}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.6}datain}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.7}iob\discretionary {-}{}{}\_\discretionary {-}{}{}data\discretionary {-}{}{}\_\discretionary {-}{}{}out}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.8}cascade\discretionary {-}{}{}\_\discretionary {-}{}{}di}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.9}cascade\discretionary {-}{}{}\_\discretionary {-}{}{}do}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.10}cascade\discretionary {-}{}{}\_\discretionary {-}{}{}ti}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.11}cascade\discretionary {-}{}{}\_\discretionary {-}{}{}to}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.12}mdatain}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.13}O\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}S2}{43}
+\contentsline {subsubsection}{\numberline {4.20.1.14}O\discretionary {-}{}{}S\discretionary {-}{}{}E\discretionary {-}{}{}R\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}S2}{43}
+\contentsline {chapter}{\numberline {5}File Documentation}{45}
+\contentsline {section}{\numberline {5.1}calc\discretionary {-}{}{}\_\discretionary {-}{}{}res.\discretionary {-}{}{}v File Reference}{45}
+\contentsline {section}{\numberline {5.2}chnlbond.\discretionary {-}{}{}v File Reference}{45}
+\contentsline {section}{\numberline {5.3}convert\discretionary {-}{}{}\_\discretionary {-}{}{}30to15\discretionary {-}{}{}\_\discretionary {-}{}{}fifo.\discretionary {-}{}{}v File Reference}{45}
+\contentsline {section}{\numberline {5.4}decode.\discretionary {-}{}{}v File Reference}{45}
+\contentsline {section}{\numberline {5.5}dpimref.\discretionary {-}{}{}vhd File Reference}{45}
+\contentsline {section}{\numberline {5.6}D\discretionary {-}{}{}R\discretionary {-}{}{}A\discretionary {-}{}{}M16\discretionary {-}{}{}X\discretionary {-}{}{}N.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.7}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}decoder.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.8}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}demo.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.9}dvi\discretionary {-}{}{}\_\discretionary {-}{}{}encoder\discretionary {-}{}{}\_\discretionary {-}{}{}top.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.10}edid\discretionary {-}{}{}\_\discretionary {-}{}{}master\discretionary {-}{}{}\_\discretionary {-}{}{}slave\discretionary {-}{}{}\_\discretionary {-}{}{}hack.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.11}edidmaster.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.12}edidrom.\discretionary {-}{}{}v File Reference}{46}
+\contentsline {section}{\numberline {5.13}edidslave.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.14}encode.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.15}gen\discretionary {-}{}{}\_\discretionary {-}{}{}start.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.16}hdmi2usb.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.17}hdmirom.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.18}phsaligner.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.19}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}1\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}5\discretionary {-}{}{}\_\discretionary {-}{}{}diff\discretionary {-}{}{}\_\discretionary {-}{}{}data.\discretionary {-}{}{}v File Reference}{47}
+\contentsline {section}{\numberline {5.20}serdes\discretionary {-}{}{}\_\discretionary {-}{}{}n\discretionary {-}{}{}\_\discretionary {-}{}{}to\discretionary {-}{}{}\_\discretionary {-}{}{}1.\discretionary {-}{}{}v File Reference}{48}
