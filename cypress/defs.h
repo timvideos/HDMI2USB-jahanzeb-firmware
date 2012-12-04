@@ -17,9 +17,6 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-// The buffer available on the firmware side
-#define CSVF_BUF_SIZE 128
-
 // Make SYNCDELAY look like the Cypress code
 #define SYNCDELAY SYNCDELAY4;
 
