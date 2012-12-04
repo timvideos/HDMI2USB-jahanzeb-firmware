@@ -28,6 +28,7 @@
 
 // Function declarations
 void fifoSendPromData(uint32 bytesToSend);
+void initPorts(void);
 
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
@@ -105,12 +106,14 @@ void mainInit(void) {
 	AUTOPTRSETUP = bmAPTREN | bmAPTR1INC | bmAPTR2INC;
 
 	// Port lines...
-	IOD = 0x00;
-	OED = 0x00;
-	IOC = 0x00;
-	OEC = 0x00;
 	IOA = 0x00;
 	OEA = 0x00;
+	IOC = 0x00;
+	OEC = 0x00;
+	IOD = 0x00;
+	OED = 0x00;
+	IOE = 0x00;
+	OEE = 0x00;
 
 	// Disable JTAG mode by default (i.e don't drive JTAG pins)
 	jtagSetEnabled(false);
@@ -168,6 +171,7 @@ void mainInit(void) {
 	usartInit();
 	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
 #endif
+	initPorts();
 }
 
 // Called repeatedly while the device is idle
@@ -179,27 +183,44 @@ void mainLoop(void) {
 	}
 }
 
-xdata uint8 pcPins;
-xdata uint8 pdPins;
-xdata uint8 pcDDR;
-xdata uint8 pdDDR;
+xdata uint8 pins[5];
+xdata uint8 ddrs[5];
+void maskA(void) {
+	ddrs[0] &= ~bmJTAG;         // cannot alter JTAG lines
+	ddrs[0] |= (OEA & bmJTAG);  // current state
+	pins[0] &= ~bmJTAG;         // cannot alter JTAG lines
+	pins[0] |= (IOA & bmJTAG);  // current state
+}
 void doNothing(void) {
 	// No masking of Port C & D necessary because JTAG is on Port A
 }
 void maskC(void) {
-	pcDDR &= ~bmJTAG;          // cannot alter JTAG lines
-	pcDDR |= (OEC & bmJTAG);   // current state
-	pcPins &= ~bmJTAG;         // cannot alter JTAG lines
-	pcPins |= (IOC & bmJTAG);  // current state
+	ddrs[2] &= ~bmJTAG;         // cannot alter JTAG lines
+	ddrs[2] |= (OEC & bmJTAG);  // current state
+	pins[2] &= ~bmJTAG;         // cannot alter JTAG lines
+	pins[2] |= (IOC & bmJTAG);  // current state
 }
 void maskD(void) {
-	pdDDR &= ~bmJTAG;          // cannot alter JTAG lines
-	pdDDR |= (OED & bmJTAG);   // current state
-	pdPins &= ~bmJTAG;         // cannot alter JTAG lines
-	pdPins |= (IOD & bmJTAG);  // current state
+	ddrs[3] &= ~bmJTAG;         // cannot alter JTAG lines
+	ddrs[3] |= (OED & bmJTAG);  // current state
+	pins[3] &= ~bmJTAG;         // cannot alter JTAG lines
+	pins[3] |= (IOD & bmJTAG);  // current state
 }
 typedef void (*MaskFunc)(void);
-const MaskFunc maskFunc[] = {doNothing, doNothing, maskC, maskD};
+const MaskFunc maskFunc[] = {maskA, doNothing, maskC, maskD, doNothing};
+
+void initPorts(void) {
+	pins[0] = IOA;
+	pins[1] = 0x00;
+	pins[2] = IOC;
+	pins[3] = IOD;
+	pins[4] = IOE;
+	ddrs[0] = OEA;
+	ddrs[1] = 0x00;
+	ddrs[2] = OEC;
+	ddrs[3] = OED;
+	ddrs[4] = OEE;
+}
 
 // Called when a vendor command is received
 //
@@ -279,23 +300,59 @@ uint8 handleVendorCommand(uint8 cmd) {
 	//
 	case CMD_PORT_IO:
 		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
-			pdPins = SETUPDAT[2];  // wValue low byte
-			pcPins = SETUPDAT[3];  // wValue high byte
-			pdDDR = SETUPDAT[4];   // wIndex low byte
-			pcDDR = SETUPDAT[5];   // wIndex high byte
+			const xdata uint8 portSelect = SETUPDAT[4];
+			const xdata uint8 mask = SETUPDAT[5];
+			xdata uint8 ddrWrite = SETUPDAT[2];
+			xdata uint8 portWrite = SETUPDAT[3];
+
+			//usartSendString("Got: ");
+			//usartSendByteHex(portSelect);
+			//usartSendByteHex(mask);
+			//usartSendByteHex(ddrWrite);
+			//usartSendByteHex(portWrite);
+			//usartSendByte('\r');
+
+			if ( portSelect > 4 ) {
+				return false;  // illegal port
+			}
+			portWrite &= mask;
+			ddrWrite &= mask;
+			pins[portSelect] &= ~mask;  // clear existing relevant bits
+			pins[portSelect] |= portWrite; 
+			ddrs[portSelect] &= ~mask;
+			ddrs[portSelect] |= ddrWrite;
 			(*maskFunc[JTAG_PORT])();
-			OED = pdDDR;
-			OEC = pcDDR;
-			IOD = pdPins;
-			IOC = pcPins;
 
 			// Get the state of the port D & B lines:
 			while ( EP0CS & bmEPBUSY );
-			EP0BUF[0] = IOD;
-			EP0BUF[1] = IOC;
+			switch ( portSelect ) {
+			case 0:
+				OEA = ddrs[0];
+				IOA = pins[0];
+				EP0BUF[0] = IOA;
+				break;
+			case 2:
+				OEC = ddrs[2];
+				IOC = pins[2];
+				EP0BUF[0] = IOC;
+				break;
+			case 3:
+				OED = ddrs[3];
+				IOD = pins[3];
+				EP0BUF[0] = IOD;
+				break;
+			case 4:
+				OEE = ddrs[4];
+				IOE = pins[4];
+				EP0BUF[0] = IOE;
+				break;
+			default:
+				EP0BUF[0] = 0xAA;
+				break;
+			}
 			EP0BCH = 0;
 			SYNCDELAY;
-			EP0BCL = 2;
+			EP0BCL = 1;
 			return true;
 		}
 		break;
