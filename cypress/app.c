@@ -116,7 +116,7 @@ void mainInit(void) {
 	jtagSetEnabled(false);
 
 #ifdef BOOT
-	promStartRead(0x0000);
+	promStartRead(false, 0x0000);
 	if ( promPeekByte() == 0xC2 ) {
 		promNextByte();    // VID(L)
 		promNextByte();    // VID(H)
@@ -300,24 +300,6 @@ uint8 handleVendorCommand(uint8 cmd) {
 		}
 		break;
 
-	/*
-	// Access port A bits, for testing purposes
-	case 0x86:
-		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
-			IOA = SETUPDAT[2];  // wValue low byte
-			OEA = SETUPDAT[4];  // wIndex low byte
-
-			// Get the state of the port A lines:
-			while ( EP0CS & bmEPBUSY );
-			EP0BUF[0] = IOA;
-			EP0BCH = 0;
-			SYNCDELAY;
-			EP0BCL = 1;
-			return true;
-		}
-		break;
-	*/
-		
 	// Command to talk to the EEPROM
 	//
 	case CMD_READ_WRITE_EEPROM:

@@ -22,7 +22,7 @@
 bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf);
 bool promWrite(bool bank, uint16 addr, uint8 length, const xdata uint8 *buf);
 
-bool promStartRead(uint16 address);
+bool promStartRead(bool bank, uint16 address);
 bool promNextByte(void);
 uint8 promPeekByte(void);
 bool promStopRead(void);

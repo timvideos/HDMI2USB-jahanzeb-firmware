@@ -25,6 +25,11 @@
 #define READ         0x01
 
 static xdata uint8 m_currentByte;
+static xdata uint16 m_addr;
+static bool m_bank;
+
+bool promStartRead(bool bank, uint16 addr);
+bool promStopRead(void);
 
 // Wait for the I2C interface to complete the current send or receive operation. Return true if
 // there was a bus error, else return false if the operation completed successfully.
@@ -64,21 +69,36 @@ uint8 promPeekByte() {
 // Read the next EEPROM byte so it can be peeked.
 //
 bool promNextByte(void) {
-	
-	// Now get the actual data
-	//
-	if ( promWaitForDone() ) {
-		return true;
+	if ( m_addr ) {
+		// Read has not wrapped, so get next byte
+		//
+		if ( promWaitForDone() ) {
+			return true;
+		}
+		m_currentByte = I2DAT;
+		//usartSendString("promNextByte(): ");
+		//usartSendWordHex(m_addr);
+		//usartSendByte('=');
+		//usartSendByteHex(m_currentByte);
+		//usartSendByte('\r');
+		m_addr++;
+		return false;
+	} else {
+		// The read has wrapped; swap banks and start again
+		//
+		m_bank = !m_bank;
+		promStopRead();
+		return promStartRead(m_bank, 0x0000);
 	}
-	m_currentByte = I2DAT;
-	
-	return false;
 }
 
 // Start a read operation at the specified address. The first byte is read so it can be peeked.
 //
-bool promStartRead(uint16 addr) {
-	xdata uint8 i;
+bool promStartRead(bool bank, uint16 addr) {
+	xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+
+	m_bank = bank;
+	m_addr = addr + 1;
 
 	// Wait for I2C idle
 	//
@@ -87,7 +107,7 @@ bool promStartRead(uint16 addr) {
 	// Send the WRITE command
 	//
 	I2CS = bmSTART;
-	I2DAT = BANK_0;  // Write I2C address byte (WRITE)
+	I2DAT = i2cAddr;  // Write I2C address byte (WRITE)
 	if ( promWaitForAck() ) {
 		return true;
 	}
@@ -106,22 +126,31 @@ bool promStartRead(uint16 addr) {
 	// Send the READ command
 	//
 	I2CS = bmSTART;
-	I2DAT = (BANK_0 | READ);  // Write I2C address byte (READ)
+	I2DAT = (i2cAddr | READ);  // Write I2C address byte (READ)
 	if ( promWaitForDone() ) {
 		return true;
 	}
 
 	// Read dummy byte
 	//
-	i = I2DAT;
+	i2cAddr = I2DAT;
 
-	return promNextByte();
+	// Now get the actual first byte
+	//
+	if ( promWaitForDone() ) {
+		return true;
+	}
+	m_currentByte = I2DAT;
+
+	return false;
 }
 
 // Stop the current read operation.
 //
 bool promStopRead(void) {
+
 	xdata uint8 i;
+
 	// Wait for current operation to finish
 	//
 	if ( promWaitForDone() ) {
