@@ -156,15 +156,22 @@ void mainInit(void) {
 	jtagCsvfInit();
 	m_diagnosticCode = jtagCsvfPlay();
 	jtagSetEnabled(false);
+	thisByte = promPeekByte();
+	promNextByte();
 	blockSize = promPeekByte();
 	promNextByte();
 	blockSize <<= 8;
 	blockSize |= promPeekByte();
 	promNextByte();
-	if ( blockSize ) {
+	if ( thisByte ) {
+		if ( blockSize ) {
+			fifoSendPromData(0x10000UL + blockSize);
+		}
+	} else if ( blockSize ) {
 		fifoSendPromData(blockSize);
 	}
 	promStopRead();
+	USBCS &= ~bmDISCON;
 #endif
 
 #ifdef DEBUG
