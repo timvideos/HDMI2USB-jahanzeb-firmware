@@ -69,8 +69,16 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="37"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="52"/>
     </file>
-    <file xil_pn:name="../jpeg_encoder_top.vhd" xil_pn:type="FILE_VHDL"/>
-    <file xil_pn:name="../usb.vhd" xil_pn:type="FILE_VHDL"/>
+    <file xil_pn:name="../jpeg_encoder_top_tb.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="43"/>
+      <association xil_pn:name="PostMapSimulation" xil_pn:seqID="155"/>
+      <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="155"/>
+      <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="155"/>
+    </file>
+    <file xil_pn:name="../usb.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="41"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="55"/>
+    </file>
     <file xil_pn:name="ipcore_dir/bytefifo.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="39"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="54"/>
@@ -348,7 +356,7 @@
     <property xil_pn:name="Run for Specified Time Translate" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Safe Implementation" xil_pn:value="No" xil_pn:valueState="default"/>
     <property xil_pn:name="Security" xil_pn:value="Enable Readback and Reconfiguration" xil_pn:valueState="default"/>
-    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/hdmi2usb_tb/uut/jpeg_encoder/fifo24" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/rgbfifo" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.rgbfifo" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Map" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Route" xil_pn:value="" xil_pn:valueState="default"/>
