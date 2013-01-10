@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Dropbox/vWorker/coding/ise/phase2/hdmi2usb_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="hdmi2usb_tb" />
+            <top_module name="jpeg_pkg" />
+            <top_module name="mdct_pkg" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="vl_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/hdmi2usb_tb/uut/rst_n" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="group30" type="group">
+      <obj_property name="label">hdmi_demo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/de_valid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">de_valid</obj_property>
+         <obj_property name="ObjectShortName">de_valid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/vsync" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">vsync</obj_property>
+         <obj_property name="ObjectShortName">vsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/hsync" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">hsync</obj_property>
+         <obj_property name="ObjectShortName">hsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/rgb_de" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rgb_de</obj_property>
+         <obj_property name="ObjectShortName">rgb_de</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/pclk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pclk</obj_property>
+         <obj_property name="ObjectShortName">pclk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/counter_hsync" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">counter_hsync[31:0]</obj_property>
+         <obj_property name="ObjectShortName">counter_hsync[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/hdmi_RX_TX/counter_vsync" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">counter_vsync[31:0]</obj_property>
+         <obj_property name="ObjectShortName">counter_vsync[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group39" type="group">
+      <obj_property name="label">resCalc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/de" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">de</obj_property>
+         <obj_property name="ObjectShortName">de</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/hsync" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">hsync</obj_property>
+         <obj_property name="ObjectShortName">hsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/vsync" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">vsync</obj_property>
+         <obj_property name="ObjectShortName">vsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/hsync_risingedge" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">hsync_risingedge</obj_property>
+         <obj_property name="ObjectShortName">hsync_risingedge</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/vsync_risingedge" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">vsync_risingedge</obj_property>
+         <obj_property name="ObjectShortName">vsync_risingedge</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/de_risingedge" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">de_risingedge</obj_property>
+         <obj_property name="ObjectShortName">de_risingedge</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/resX" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resX[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resX[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/resY" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resY[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resY[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/resX_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resX_q[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resX_q[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/calcres/resY_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resY_q[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resY_q[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group69" type="group">
+      <obj_property name="label">jpegTop</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/rgb_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rgb_start</obj_property>
+         <obj_property name="ObjectShortName">rgb_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">error</obj_property>
+         <obj_property name="ObjectShortName">error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/jpeg_busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_busy</obj_property>
+         <obj_property name="ObjectShortName">jpeg_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/iram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren</obj_property>
+         <obj_property name="ObjectShortName">iram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/iram_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_clk</obj_property>
+         <obj_property name="ObjectShortName">iram_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/ps" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">ps</obj_property>
+         <obj_property name="ObjectShortName">ps</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i[5:0]</obj_property>
+         <obj_property name="ObjectShortName">i[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/opb_abus" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_abus[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_abus[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/opb_dbus_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_in[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/opb_dbus_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_out[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/jpegencoder/U_HostIF/jpeg_ready" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">jpeg_ready</obj_property>
+      <obj_property name="ObjectShortName">jpeg_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/jpegencoder/U_HostIF/jpeg_busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">jpeg_busy</obj_property>
+      <obj_property name="ObjectShortName">jpeg_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/jpegencoder/opb_xferack" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">opb_xferack</obj_property>
+      <obj_property name="ObjectShortName">opb_xferack</obj_property>
+   </wvobject>
+   <wvobject fp_name="/hdmi2usb_tb/uut/clk100" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk100</obj_property>
+      <obj_property name="ObjectShortName">clk100</obj_property>
+   </wvobject>
+   <wvobject fp_name="group60" type="group">
+      <obj_property name="label">jpegInFifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/wr_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/rd_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[23:0]</obj_property>
+         <obj_property name="ObjectShortName">din[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo_rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">fifo_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[23:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/fifo24/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group51" type="group">
+      <obj_property name="label">outFifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/wr_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/rd_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/hdmi2usb_tb/uut/fifo_jpeg_fd/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/hdmi2usb_tb/uut/jpeg_encoder/ram_wraddr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ram_wraddr[23:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_wraddr[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>

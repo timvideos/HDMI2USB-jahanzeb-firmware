@@ -1,0 +1,6 @@
+work	"../../../phase2/ipcore_dir/bytefifo.vhd"
+work	"../../../phase2/ipcore_dir/bytefifo_synth.vhd"
+work	"../../../phase2/ipcore_dir/edidfifo.vhd"
+work	"../../../phase2/ipcore_dir/edidfifo_synth.vhd"
+work	"../../../phase2/ipcore_dir/rgbfifo_synth.vhd"
+work	"../../../phase2/usb.vhd"
