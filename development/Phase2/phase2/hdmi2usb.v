@@ -159,8 +159,8 @@ edid_master_slave_hack edid_hack(
 );
 
 //% HDMI decoder and encoder  
-dvi_dummy hdmi_RX_TX(
-// dvi_demo hdmi_RX_TX(
+// dvi_dummy hdmi_RX_TX(
+dvi_demo hdmi_RX_TX(
 .rst_n(rst_n),    
 .clk(clk_100),      
 .RX0_TMDS(RX0_TMDS),
