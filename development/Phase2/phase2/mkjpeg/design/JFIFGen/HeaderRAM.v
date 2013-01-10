@@ -8,7 +8,7 @@ input clk, we;
 reg [9:0] read_addr;
 reg[7:0] mem [1023:0] /* synthesis syn_ramstyle="block_ram" */;
 
-initial $readmemh("D:\\Dropbox\\vWorker\\phase2\\mkjpeg\\design\\JFIFGen\\header.hex", mem);
+initial $readmemh("header.hex", mem);
 
 assign q = mem[read_addr];
 
