@@ -258,7 +258,7 @@ BEGIN
 		wait for pclk_period*10;
 		flag_full <= '1';		
 		wait until (error = '1' or done = '1');
-		wait for 10 ns;
+		wait for 100 ns;
 		
 		assert false report "end of simulation" severity failure;
 		
@@ -272,13 +272,14 @@ BEGIN
 	
 	if w_start = '1' and w_start2 = '0' then
 	iram_wren <= '0';	
-		-- if total_send = (resx*resy) then
-		if total_send = (resx*x"20") then
+		 if total_send = (resx*resy) then
+		--if total_send = (resx*x"20") then
 			w_start2 <= '1';
 		else 
 			total_send <= total_send + X"01";
 			iram_wdata <= total_send(23 downto 0);--(others =>'1');
-			iram_wren <= '1';	
+			iram_wren <= not iram_wren;	
+			-- iram_wren <= '1';	
 		end if;
 	end if;
 	end if;
