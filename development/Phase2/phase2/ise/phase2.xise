@@ -113,6 +113,7 @@
     <file xil_pn:name="ipcore_dir/clkGen.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
+	<file xil_pn:name="../hdmi2usb.xcf" xil_pn:type="FILE_USERDOC"/>
   </files>
 
   <properties>
@@ -410,7 +411,7 @@
     <property xil_pn:name="Use Smart Guide" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Use Synchronous Reset" xil_pn:value="Auto" xil_pn:valueState="default"/>
     <property xil_pn:name="Use Synchronous Set" xil_pn:value="Auto" xil_pn:valueState="default"/>
-    <property xil_pn:name="Use Synthesis Constraints File" xil_pn:value="true" xil_pn:valueState="default"/>
+    <property xil_pn:name="Synthesis Constraints File" xil_pn:value="../hdmi2usb.xcf" xil_pn:valueState="non-default"/>
     <property xil_pn:name="User Browsed Strategy Files" xil_pn:value="C:/Xilinx/14.2/ISE_DS/ISE/data/default.xds" xil_pn:valueState="non-default"/>
     <property xil_pn:name="UserID Code (8 Digit Hexadecimal)" xil_pn:value="0xFFFFFFFF" xil_pn:valueState="default"/>
     <property xil_pn:name="VCCAUX Voltage Level spartan6" xil_pn:value="2.5V" xil_pn:valueState="default"/>
