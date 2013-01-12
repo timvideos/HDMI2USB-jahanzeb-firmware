@@ -1,4 +1,4 @@
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 1   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 1   
 
 
 C51 COMPILER V7.07, COMPILATION OF MODULE FW
@@ -62,7 +62,7 @@ stmt level    source
   51          #define GET_INFO                0x86
   52          #define GET_DEF                 0x87
   53          #define GET_CUR_ALL     0x91
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 2   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 2   
 
   54          #define GET_MIN_ALL     0x92
   55          #define GET_MAX_ALL     0x93
@@ -126,7 +126,7 @@ stmt level    source
  113          
  114          // macro for generating the address of an endpoint's control and status register (EPnCS)
  115          #define epcs(EP) (EPCS_Offset_Lookup_Table[(EP & 0x7E) | (EP > 128)] + 0xE6A1)
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 3   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 3   
 
  116          
  117          //-----------------------------------------------------------------------------
@@ -190,7 +190,7 @@ stmt level    source
  175   2              }
  176   1      }
  177          //[YourCompany]%DeviceDesc%=CyLoad, USB\VID_04B4&PID_0084
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 4   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 4   
 
  178          // Task dispatcher
  179          void main(void)
@@ -254,7 +254,7 @@ stmt level    source
  235   1      valuesArray[31] = 2;// db       2 ; bPreferedVersion
  236   1      valuesArray[32] = 0;// db       0 ; bMinVersion
  237   1      valuesArray[33] = 0;// db       0 ; bMaxVersion
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 5   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 5   
 
  238   1      valuesArray[34] = 1;// db       1; bUsage
  239   1      valuesArray[35] = 8;// db       8;bBitDepthLuma
@@ -295,7 +295,7 @@ stmt level    source
  274   1        SYNCDELAY;
  275   1        PORTACFG |= 0x80;
  276   1        SYNCDELAY;
- 277   1        IFCONFIG = 0xF3; // for async? for sync?
+ 277   1        IFCONFIG = 0xE3; // for async? for sync?
  278   1      SYNCDELAY;
  279   1        // IFCLKSRC=1   , FIFOs executes on internal clk source 
  280   1        // xMHz=1       , 48MHz operation
@@ -318,7 +318,7 @@ stmt level    source
  297   1        // EPxFIFOIE        GPIFIRQ
  298   1        // GPIFIE           GPIFADRH:L
  299   1        // UDMACRCH:L       EPxGPIFTRIG
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 6   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 6   
 
  300   1        // GPIFTRIG
  301   1        
@@ -382,7 +382,7 @@ stmt level    source
  359   1              SYNCDELAY;
  360   1              EP4AUTOINLENL = 0x00;
  361   1              SYNCDELAY;
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 7   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 7   
 
  362   1              
  363   1              EP6AUTOINLENH = 0x02; // EZ-USB automatically commits data in 512-byte chunks
@@ -446,7 +446,7 @@ stmt level    source
  421   1            pHighSpeedConfigDscr -= offset;
  422   1            pFullSpeedConfigDscr -= offset;
  423   1            pStringDscr -= offset;
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 8   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 8   
 
  424   1         }
  425   1      */
@@ -510,7 +510,7 @@ stmt level    source
  482   4                  // *and* the wakeup was caused by the external wakeup pin.
  483   4      
  484   4                  // 8051 activity will resume here due to USB bus or Wakeup# pin activity.
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 9   
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 9   
 
  485   4                  EZUSB_Resume();   // If source is the Wakeup# pin, signal the host to Resume.      
  486   4                  TD_Resume();
@@ -574,7 +574,7 @@ stmt level    source
  543   2               if(DR_GetDescriptor())
  544   2                  switch(SETUPDAT[3])         
  545   2                  {
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 10  
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 10  
 
  546   3                     case GD_DEVICE:            // Device
  547   3                                 IOA = 0x00;
@@ -638,7 +638,7 @@ stmt level    source
  605   3                        EP0BCL = 2;
  606   3                        break;
  607   3                     case GS_INTERFACE:         // Interface
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 11  
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 11  
 
  608   3                        EP0BUF[0] = 0;
  609   3                        EP0BUF[1] = 0;
@@ -702,7 +702,7 @@ stmt level    source
  667   2               break;
  668   2            default:                     // *** Invalid Command
  669   2               if(DR_VendorCmnd())
-C51 COMPILER V7.07   FW                                                                    01/06/2013 21:52:00 PAGE 12  
+C51 COMPILER V7.07   FW                                                                    01/12/2013 10:12:38 PAGE 12  
 
  670   2                  EZUSB_STALL_EP0();            // Stall End Point 0
  671   2         }

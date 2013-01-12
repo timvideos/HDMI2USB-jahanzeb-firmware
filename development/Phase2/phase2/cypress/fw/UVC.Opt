@@ -18,7 +18,7 @@ OPTFFF 1,2,1,1,0,0,0,0,<.\periph.c><periph.c>
 OPTFFF 1,3,3,0,0,0,0,0,<.\USBJmpTb.OBJ><USBJmpTb.OBJ> 
 OPTFFF 1,4,4,0,0,0,0,0,<.\EZUSB.LIB><EZUSB.LIB> 
 OPTFFF 1,5,5,0,0,0,0,0,<C:\Cypress\USB\CY3684_EZ-USB_FX2LP_DVK\1.0\Target\Inc\fx2sdly.h><fx2sdly.h> 
-OPTFFF 1,6,2,0,0,0,0,0,<.\cypress_slave_fifo.a51><cypress_slave_fifo.a51> 
+OPTFFF 1,6,2,0,0,0,0,0,<.\uvc.a51><uvc.a51> 
 
 
 TARGOPT 1, (Target 1)

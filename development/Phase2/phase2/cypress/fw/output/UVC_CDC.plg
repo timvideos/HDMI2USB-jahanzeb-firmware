@@ -3,14 +3,14 @@
 <pre>
 <h1>µVision2 Build Log</h1>
 <h2>Project:</h2>
-D:\Dropbox\vWorker\phase2\cypress\fw\UVC.uv2
-Project File Date:  01/06/2013
+D:\Dropbox\vWorker\github\HDMI2USB\development\Phase2\phase2\cypress\fw\UVC.uv2
+Project File Date:  01/11/2013
 
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling fw.c...
 compiling periph.c...
-assembling cypress_slave_fifo.a51...
+assembling uvc.a51...
 linking...
 *** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
     SYMBOL:  GPCR2
@@ -25,37 +25,11 @@ linking...
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  CDCDATADSCR
     MODULE:  .\output\periph.obj (PERIPH)
-    ADDRESS: 0937H
+    ADDRESS: 092CH
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  CDCDATADSCR
     MODULE:  .\output\periph.obj (PERIPH)
-    ADDRESS: 093AH
-Program Size: data=90.5 xdata=37232 code=2424
-creating hex file from ".\output\UVC_CDC"...
-".\output\UVC_CDC" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling fw.c...
-compiling periph.c...
-assembling cypress_slave_fifo.a51...
-linking...
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  GPCR2
-    MODULE:  .\output\fw.obj (FW)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  GPCR2
-    MODULE:  .\output\fw.obj (FW)
-    ADDRESS: 0047H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  CDCDATADSCR
-    MODULE:  .\output\periph.obj (PERIPH)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  CDCDATADSCR
-    MODULE:  .\output\periph.obj (PERIPH)
-    ADDRESS: 0937H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  CDCDATADSCR
-    MODULE:  .\output\periph.obj (PERIPH)
-    ADDRESS: 093AH
-Program Size: data=90.5 xdata=37232 code=2424
+    ADDRESS: 092FH
+Program Size: data=90.5 xdata=37232 code=2426
 creating hex file from ".\output\UVC_CDC"...
 ".\output\UVC_CDC" - 0 Error(s), 5 Warning(s).
