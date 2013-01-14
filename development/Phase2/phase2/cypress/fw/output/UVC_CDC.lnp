@@ -2,7 +2,7 @@
 ".\output\periph.obj",
 ".\USBJmpTb.OBJ",
 ".\EZUSB.LIB",
-".\output\uvc.obj" 
+".\output\cypress_slave_fifo.obj" 
 TO ".\output\UVC_CDC" 
 PRINT(".\output\UVC_CDC.m51") RAMSIZE(256) 
 NOOVERLAY 

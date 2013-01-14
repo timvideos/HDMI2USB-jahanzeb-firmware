@@ -45,7 +45,7 @@ always @(posedge clk) begin
 		pclk_i <= 0;
 	end else begin
 	pclk_count <= pclk_count +1;
-		if (pclk_count == 0) begin
+		if (pclk_count == 2) begin
 			pclk_i <= ~ pclk_i;
 			pclk_count <= 0;
 		end
@@ -64,7 +64,7 @@ always @(pclk_i,rst_n) begin
 		de_valid <= 0;
 	end else if (pclk_i) begin
 	// end else begin
-		
+		rgb <= 0;
 		counter_hsync <= counter_hsync +1;
 		
 		if (counter_hsync < 1048) begin

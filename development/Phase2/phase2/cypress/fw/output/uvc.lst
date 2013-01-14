@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     1
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     1
 
 
 MACRO ASSEMBLER A51 V7.08a
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 000A 9AFB             55     dw  9AFBH; 10 idProduct 2 Product ID
 000C 0100             56     dw  0100H; 12 bcdDevice 2 Device release number (BCD)
 000E 02               57     db      02H; 14 iManufacturer 1 Index of string descriptor for the manufacturer
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     2
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     2
 
 000F 01               58     db      01H; 15 iProduct 1 Index of string descriptor for the product
 0010 00               59     db      00H; 16 iSerialNumber 1 Index of string descriptor for the serial number
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
                      113     ;------------------------------------------
 0036                 114     CSInterfaceDscr:
                      115     ; calss specific interface descriptor
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     3
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     3
 
 0036 0D              116     db  0DH; bLength        1       Number  Size of this descriptor, in bytes: 12+n 
 0037 24              117     db      24H; bDescriptorType    1       Constant        CS_INTERFACE descriptor type 
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
                              itional  fields. The descriptors for these special  Terminal types are described in  accompanying documents.
 0054                 160     CSInterfaceDscrEND:
                      161     
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     4
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     4
 
                      162     
                      163     ;------------------------------------------
@@ -269,7 +269,7 @@ LOC  OBJ            LINE     SOURCE
                              tes that  the named control is supported by the  device when bFormatIndex is p: D4: Generate Key Frame D5: 
                      202     ;Update Frame Segment D6..(n*8-1): Reserved, set to zero *Note* D0-D3 are deprecated. Going
                                forward from version 1.5 the proper means  to detect whether a field is supported by  Probe & Commit is 
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     5
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     5
 
                      203     ;to issue a  VS_PROBE_CONTROL(GET_CUR).
                      204     
@@ -337,7 +337,7 @@ LOC  OBJ            LINE     SOURCE
 008A 00              253     db      00H; 17  dwMaxVideoFrameBufferSize 4  Number  Use of this field has been deprecated
                              .Specifies the maximum number of bytes for a video (or still image) frame the compressor will produce.  The 
                      254     ;dwMaxVideoFrameSize field of the Video Probe and Commit control  replaces this descriptor 
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     6
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     6
 
                              field. A value for this field shall be chosen for  compatibility with host software that implements an 
                      255     ;earlier version of this specification.
@@ -405,7 +405,7 @@ LOC  OBJ            LINE     SOURCE
                      305     
                      306     
                      307     ;;=====================
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     7
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     7
 
                      308     
                      309     
@@ -473,7 +473,7 @@ LOC  OBJ            LINE     SOURCE
 00D2 4900            365           db   'I',00
 00D4                 366     StringDscr2End:
                      367     
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     8
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     8
 
 00D4 00              368     db 0
                      369     
@@ -481,7 +481,7 @@ LOC  OBJ            LINE     SOURCE
 00D5 0000            371           dw   0000H
                      372           end
                                    
-A51 MACRO ASSEMBLER  UVC                                                                  01/12/2013 10:12:38 PAGE     9
+A51 MACRO ASSEMBLER  UVC                                                                  01/04/2013 00:05:46 PAGE     9
 
 SYMBOL TABLE LISTING
 ------ ----- -------

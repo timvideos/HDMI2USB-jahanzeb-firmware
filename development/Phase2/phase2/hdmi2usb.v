@@ -159,7 +159,7 @@ edid_master_slave_hack edid_hack(
 );
 
 //% HDMI decoder and encoder  
-// dvi_dummy hdmi_RX_TX(
+//dvi_dummy hdmi_RX_TX(
 dvi_demo hdmi_RX_TX(
 .rst_n(rst_n),    
 .clk(clk_100),      
@@ -223,12 +223,13 @@ jpeg_encoder_top jpeg_encoder
 .jpeg_busy(jpeg_busy),
 .jpeg_enable(jpeg_enable)
 );
-//assign clk_jpeg = clk_100;
-clkGen clkGenComp
-(
-.CLK_IN1(clk),
-.CLK_OUT1(clk_100),
-.CLK_OUT2(clk_jpeg)
-);
+assign clk_jpeg = clk;
+assign clk_100 = clk;
+// clkGen clkGenComp
+// (
+// .CLK_IN1(clk),
+// .CLK_OUT1(clk_100),
+// .CLK_OUT2(clk_jpeg)
+// );
 
 endmodule

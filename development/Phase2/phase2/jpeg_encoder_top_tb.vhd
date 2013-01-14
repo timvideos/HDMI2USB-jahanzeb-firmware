@@ -152,7 +152,7 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb IS
 
    signal error: std_logic:= '0';
    -- Clock period definitions
-   constant clk_period : time := 20 ns; -- jpeg clk
+   constant clk_period : time := 10 ns; -- jpeg clk
    constant pclk_period : time := 20.83 ns;
  
 BEGIN
@@ -278,8 +278,8 @@ BEGIN
 		else 
 			total_send <= total_send + X"01";
 			iram_wdata <= total_send(23 downto 0);--(others =>'1');
-			iram_wren <= not iram_wren;	
-			-- iram_wren <= '1';	
+			-- iram_wren <= not iram_wren;	
+			iram_wren <= '1';	
 		end if;
 	end if;
 	end if;

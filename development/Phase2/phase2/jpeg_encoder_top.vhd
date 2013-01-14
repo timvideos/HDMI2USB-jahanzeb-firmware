@@ -56,8 +56,8 @@ component JpegEnc is
         OPB_retry          : out std_logic;
         OPB_toutSup        : out std_logic;
         OPB_errAck         : out std_logic;
-		ready		       : out std_logic;
-        busy	           : out std_logic;
+		-- ready		       : out std_logic;
+        -- busy	           : out std_logic;
         
         --% IMAGE RAM
         iram_wdata         : in  std_logic_vector(23 downto 0);
@@ -83,7 +83,9 @@ component rgbfifo IS
     rd_en : IN STD_LOGIC;
     dout : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
     full : OUT STD_LOGIC;
-    empty : OUT STD_LOGIC
+    almost_full : OUT STD_LOGIC;
+    empty : OUT STD_LOGIC;
+    almost_empty : OUT STD_LOGIC
   );
 END component rgbfifo;
 ------------------------------------------------------------------------
@@ -101,12 +103,15 @@ signal OPB_BE_i             :   std_logic_vector(3 downto 0);
 signal OPB_DBus_in_i        :   std_logic_vector(31 downto 0);
 signal OPB_RNW_i            :   std_logic;
 signal OPB_select_i         :   std_logic;
+signal almost_empty         :   std_logic;
 
 signal OPB_DBus_out       :  std_logic_vector(31 downto 0);
 signal OPB_XferAck        :  std_logic;
 signal OPB_retry          :  std_logic;
 signal OPB_toutSup        :  std_logic;
 signal OPB_errAck         :  std_logic;
+signal error_i         :  std_logic;
+signal fifo_rd_en_i         :  std_logic;
 signal i_i				: std_logic_vector(5 downto 0);
 signal i				: std_logic_vector(5 downto 0);
 -- signal addr_i,data_write_i      :   std_logic_vector(31 downto 0);
@@ -179,22 +184,30 @@ signal start,rgb_start_q : std_logic;
 begin
 
 
-error <= fifo_full;
+
 iram_wren_i <= iram_wren and encoder_ready;
 jpeg_busy <= encoder_ready;
-rst <= (not rst_n) or fifo_full or (not jpeg_enable);
 start <= (rgb_start xor rgb_start_q ) and rgb_start;
+
 --- sync process -----------------------------------------
 sync: PROCESS(clk,rst_n)
 BEGIN
 	IF rst_n = '0' THEN
 		ps <= s_reset;
 		rgb_start_q <= '0';
+		rst <= '1';
 	ELSIF rising_edge(clk) THEN
+	-- error_i <= fifo_full;
+	rst <= '0';
+	error <= '0';
+	
 		if fifo_full = '1' or jpeg_enable = '0' then
 			ps <= s_reset;
+			rst <= '1';
+			error <= '1';
 		else 
-			ps <= ns;		
+			ps <= ns;	
+
 		end if;
 		
 
@@ -355,7 +368,8 @@ when s_wait =>
 		encoder_ready <= '1';
 		-- if OPB_XferAck /= '1' then
 		-- else
-			if busy = '0' then
+			-- if busy = '0' then
+			if OPB_DBus_out = X"0000_0002" then
 				ns <= wait_for_start2;
 				done <= '1';
 			else
@@ -383,14 +397,18 @@ elsif rising_edge(clk) then
 fifo_rd_en <= '0';
 iram_wren_ii <= '0';
 
-	if iram_fifo_afull = '0' and fifo_empty = '0' then
+	if iram_fifo_afull = '0' and almost_empty = '0' then
 		fifo_rd_en <= '1';
 		iram_wren_ii <= '1';
+	-- elsif iram_fifo_afull = '0' and fifo_empty = '1' then
+		-- iram_wren_ii <= '1';
 	end if;
 
 end if;
 
 end process;
+
+fifo_rd_en_i <= ((fifo_rd_en xor fifo_full) and fifo_rd_en);
 
 fifo24: rgbfifo port map
 (
@@ -400,12 +418,25 @@ wr_clk => iram_clk,
 rd_clk => clk,
 din => iram_wdata,
 wr_en => iram_wren_i,
-rd_en => fifo_rd_en,
+rd_en => fifo_rd_en_i,
 dout => fifo_data,
 full => fifo_full,
-empty => fifo_empty
+empty => fifo_empty,
+almost_empty => almost_empty
 );
-
+  -- PORT (
+    -- rst : IN STD_LOGIC;
+    -- wr_clk : IN STD_LOGIC;
+    -- rd_clk : IN STD_LOGIC;
+    -- din : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
+    -- wr_en : IN STD_LOGIC;
+    -- rd_en : IN STD_LOGIC;
+    -- dout : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
+    -- full : OUT STD_LOGIC;
+    -- almost_full : OUT STD_LOGIC;
+    -- empty : OUT STD_LOGIC;
+    -- almost_empty : OUT STD_LOGIC
+  -- );
 -------------------------------------------------------------
 jpegencoder: JpegEnc port map
 (
@@ -423,12 +454,13 @@ OPB_XferAck        => OPB_XferAck,
 OPB_retry          => OPB_retry,
 OPB_toutSup        => OPB_toutSup,
 OPB_errAck         => OPB_errAck,
-ready		       => ready,
-busy	           => busy,
+-- ready		       => ready,
+-- busy	           => busy,
 
 -- IMAGE RAM
 iram_wdata         => fifo_data,
 iram_wren          => iram_wren_ii,
+-- iram_wren          => fifo_rd_en_i,
 iram_fifo_afull    => iram_fifo_afull,
 
 -- OUT RAM

@@ -1,4 +1,4 @@
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 1   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 1   
 
 
 C51 COMPILER V7.07, COMPILATION OF MODULE PERIPH
@@ -62,7 +62,7 @@ stmt level    source
   51          BYTE   Configuration;      // Current configuration
   52          BYTE   AlternateSetting;   // Alternate settings
   53          
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 2   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 2   
 
   54          
   55          
@@ -126,7 +126,7 @@ stmt level    source
  113          {
  114   1         Configuration = SETUPDAT[2];
  115   1         return(TRUE);            // Handled by user code
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 3   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 3   
 
  116   1      }
  117          
@@ -190,7 +190,7 @@ stmt level    source
  175          {
  176   1         EZUSB_IRQ_CLEAR();
  177   1         USBIRQ = bmSUTOK;         // Clear SUTOK IRQ
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 4   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 4   
 
  178   1      }
  179          
@@ -254,7 +254,7 @@ stmt level    source
  237   1      }
  238          void ISR_Ep2inout(void) interrupt 0
  239          {
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 5   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 5   
 
  240   1      }
  241          void ISR_Ep4inout(void) interrupt 0
@@ -318,7 +318,7 @@ stmt level    source
  299          {
  300   1      }
  301          void ISR_Ep4eflag(void) interrupt 0
-C51 COMPILER V7.07   PERIPH                                                                01/12/2013 10:12:38 PAGE 6   
+C51 COMPILER V7.07   PERIPH                                                                01/12/2013 16:47:05 PAGE 6   
 
  302          {
  303   1      }

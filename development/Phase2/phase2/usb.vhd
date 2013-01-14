@@ -42,7 +42,8 @@ component bytefifo IS
     rd_en : IN STD_LOGIC;
     dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     full : OUT STD_LOGIC;
-    empty : OUT STD_LOGIC
+    empty : OUT STD_LOGIC;
+	almost_empty : OUT STD_LOGIC
   );
 END component bytefifo;
 component edidfifo IS
@@ -63,22 +64,25 @@ signal rst : std_logic;
 signal jpeg_rst : std_logic;
 signal jpeg_rd_en : std_logic;
 signal jpeg_fifo_empty : std_logic;
+signal jpeg_fifo_almost_empty : std_logic;
 signal edid_rd_en : std_logic;
 signal edid_fifo_full : std_logic;
 signal edid_fifo_empty : std_logic;
 signal sloe_i : std_logic;
+signal prefetched : std_logic;
 
 signal jpeg_fdata: std_logic_vector(7 downto 0);
 signal edid_fdata: std_logic_vector(7 downto 0);
 signal fdatain: std_logic_vector(7 downto 0);
 signal fdataout: std_logic_vector(7 downto 0);
+signal temp: std_logic_vector(7 downto 0);
 
 signal cdcout : std_logic_vector(1 downto 0):= "00";
 signal cdcin : std_logic_vector(1 downto 0):= "01";
 signal uvcin : std_logic_vector(1 downto 0):= "10";
 
 
-type states is (uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,cdc_in_send_edid_1,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
+type states is (uvc_set_add_1,uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,cdc_in_send_edid_1,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
 signal ps : states;
 
 
@@ -87,7 +91,7 @@ fdatain <= fdata;
 fdata <= fdataout when sloe_i = '1' else "ZZZZZZZZ";
 
 rst <= not rst_n;
-jpeg_rst <= rst or (not jpeg_enable) or jpeg_error;
+jpeg_rst <= (not rst_n) or (not jpeg_enable) or jpeg_error;
 -- jpeg_rst <= rst or (not jpeg_enable);
 sloe <= sloe_i;
 
@@ -101,6 +105,7 @@ if rst_n = '0' then
 	sloe_i		<= '1';
 	pktend		<= '1';
 	jpeg_rd_en		<= '0';
+	prefetched <= '0';	
 	ps <= s_reset;
 elsif rising_edge(ifclk) then
 
@@ -111,6 +116,7 @@ elsif rising_edge(ifclk) then
 	edid_rd_en	<= '0';
 	jpeg_rd_en 	<= '0';
 
+
 	case ps is
 	when s_reset =>
 		faddr		<= cdcout;
@@ -120,6 +126,7 @@ elsif rising_edge(ifclk) then
 		pktend		<= '1';
 		jpeg_rd_en	<= '0';
 		edid_rd_en	<= '0';
+		prefetched	<= '0';
 		ps 			<= cdc_out_set_add;
 		fdataout <= (others => '0');
 	when cdc_out_set_add =>
@@ -171,19 +178,44 @@ elsif rising_edge(ifclk) then
 		
 	when uvc_set_add =>
 		faddr		<= uvcin;
-
-		if (jpeg_fifo_empty = '0') then
-			jpeg_rd_en	<= '1';
-			ps <= uvc_send_data;
+		ps <= uvc_set_add_1;
+		
+	when uvc_set_add_1 =>
+	
+		if (flag_full = '1' and jpeg_fifo_empty = '0') then
+			if (prefetched = '0') then
+				jpeg_rd_en	<= '1';
+				ps <= uvc_send_data;
+			else
+				fdataout <= temp;
+				slwr		<= '0';
+				prefetched <= '0';
+			end if;
+		else 
+			ps <= cdc_out_set_add;
 		end if;
 		
-	when uvc_send_data =>	
-		if (flag_full = '1' and jpeg_fifo_empty = '0') then
-			slwr		<= '0';
-			jpeg_rd_en	<= '1';
+	when uvc_send_data =>
+		temp <= jpeg_fdata;
+		
+		if (flag_full = '1') then
+			if (jpeg_fifo_almost_empty = '0') then
+				slwr		<= '0';
+				jpeg_rd_en	<= '1';
+			else
+				slwr		<= '0';
+				ps <= uvc_in_pktend;
+			end if;
+			-- ps <= uvc_set_add_1;
+
 			fdataout		<= jpeg_fdata;
 		else 
 			ps <= uvc_in_pktend;
+		end if;
+		
+		if (flag_full = '0') then
+			prefetched <= '1';
+			-- jpeg_rd_en	<= '0';
 		end if;
 			
 	when uvc_in_pktend =>
@@ -215,7 +247,8 @@ wr_en => jpeg_en,
 rd_en => jpeg_rd_en,
 dout => jpeg_fdata,
 full => jpeg_fifo_full,
-empty => jpeg_fifo_empty
+empty => jpeg_fifo_empty,
+almost_empty => jpeg_fifo_almost_empty
 );
 edidfifoComp: edidfifo port map(
 rst => rst,

@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2013-01-12T01:40:04</DateModified>
+  <DateModified>2013-01-12T15:44:44</DateModified>
   <ModuleName>usb</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>D:/Dropbox/vWorker/github/HDMI2USB/development/Phase2/phase2/ise/iseconfig/usb.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>D:/Dropbox/vWorker/github/HDMI2USB/development/Phase2/phase2/ise</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>D:/Dropbox/vWorker/github/HDMI2USB/development/Phase2/phase2/ise\</ImplementationReportsDirectory>
   <DateInitialized>2013-01-12T01:40:04</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

@@ -45,8 +45,8 @@ ARCHITECTURE behavior OF hdmi2usb_tb IS
 
   file f_capture           : text;
   file f_capture_bin       : char_file;
-  constant CAPTURE_ORAM    : string := "OUT_RAM.txt";
-  constant CAPTURE_BIN     : string := "test_out.jpg";
+  constant CAPTURE_ORAM    : string := "D:\Dropbox\vWorker\phase2\matlab\OUT_RAM.txt";
+  constant CAPTURE_BIN     : string := "D:\Dropbox\vWorker\phase2\matlab\test_out.jpg";
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -120,7 +120,7 @@ ARCHITECTURE behavior OF hdmi2usb_tb IS
    signal done : std_logic:= '0';
 
    -- Clock period definitions
-   constant clk_period : time := 10 ns;
+   constant clk_period : time := 5 ns;
    constant ifclk_period : time := 12 ns;
  
 BEGIN
