@@ -223,13 +223,13 @@ jpeg_encoder_top jpeg_encoder
 .jpeg_busy(jpeg_busy),
 .jpeg_enable(jpeg_enable)
 );
-assign clk_jpeg = clk;
-assign clk_100 = clk;
-// clkGen clkGenComp
-// (
-// .CLK_IN1(clk),
-// .CLK_OUT1(clk_100),
-// .CLK_OUT2(clk_jpeg)
-// );
+// assign clk_jpeg = clk;
+// assign clk_100 = clk;
+clkGen clkGenComp
+(
+.CLK_IN1(clk),
+.CLK_OUT1(clk_100),
+.CLK_OUT2(clk_jpeg)
+);
 
 endmodule

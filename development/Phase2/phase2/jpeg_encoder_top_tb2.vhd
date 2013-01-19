@@ -45,8 +45,8 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb2 IS
 
   file f_capture           : text;
   file f_capture_bin       : char_file;
-  constant CAPTURE_ORAM    : string := "OUT_RAM.txt";
-  constant CAPTURE_BIN     : string := "test_out.jpg";
+  constant CAPTURE_ORAM    : string := "D:\Dropbox\vWorker\phase2\matlab\OUT_RAM.txt";
+  constant CAPTURE_BIN     : string := "D:\Dropbox\vWorker\phase2\matlab\test_out.jpg";
  
     -- Component Declaration for the Unit Under Test (UUT)
  COMPONENT jpeg_encoder_top
@@ -123,15 +123,15 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb2 IS
    signal jpeg_error : std_logic := '0';
 
 	--BiDirs
-   signal fdata : std_logic_vector(7 downto 0);
+   signal fdata : std_logic_vector(7 downto 0):= (others => '0');
 
  	--Outputs
-   signal faddr : std_logic_vector(1 downto 0);
-   signal slwr : std_logic;
-   signal slrd : std_logic;
-   signal sloe : std_logic;
-   signal pktend : std_logic;
-   signal jpeg_fifo_full : std_logic;
+   signal faddr : std_logic_vector(1 downto 0):= (others => '0');
+   signal slwr : std_logic:= '0';
+   signal slrd : std_logic:= '0';
+   signal sloe : std_logic:= '0';
+   signal pktend : std_logic:= '0';
+   signal jpeg_fifo_full : std_logic:= '0';
 
    
 	
@@ -151,21 +151,22 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb2 IS
 
  	--Outputs
    -- signal iram_fifo_afull : std_logic:='0';
-   signal ram_byte : std_logic_vector(7 downto 0);
-   signal ram_wren : std_logic;
-   signal ram_wraddr : std_logic_vector(23 downto 0);
+   signal ram_byte : std_logic_vector(7 downto 0):=(others => '0');
+   signal ram_wren : std_logic:= '0';
+   signal ram_wraddr : std_logic_vector(23 downto 0):=(others => '0');
    signal total_send : std_logic_vector(23 downto 0):=(others => '0');
-   signal done : std_logic;
+   signal done : std_logic:= '0';
    signal w_start: std_logic:='0';
    signal w_start2: std_logic:='0';
+   signal sim: std_logic:='1';
 
    signal error: std_logic:= '0';
    -- Clock period definitions
    -- constant clk_period : time := 10 ns; -- jpeg clk 100MHz
    -- constant clk_period : time := 7.69231 ns; -- jpeg clk 130MHz
    constant clk_period : time := 9 ns; -- jpeg clk 111.11 MHz(syntheis acheived)
-   -- constant pclk_period : time := 20.83 ns; -- ~48 MHz
-   constant pclk_period : time :=  13.4680 ns; -- 74.25 MHz // 720p60
+   constant pclk_period : time := 20.83 ns; -- ~48 MHz
+   -- constant pclk_period : time :=  13.4680 ns; -- 74.25 MHz // 720p60
  
 BEGIN
 ----------------------------------
@@ -176,9 +177,9 @@ BEGIN
     file_open(f_capture, CAPTURE_ORAM, write_mode);
     file_open(f_capture_bin, CAPTURE_BIN, write_mode);
     
-    while done /= '1' loop
+    while sim = '1' loop--done /= '1' loop
       wait until rising_edge(pclk); -- in this tb ifclk and pclk are same just for simulation it will not make any effect on simulation
-	  wait for 1 ns;
+	  -- wait for 1 ns;
       
       if slwr = '0' then
         hwrite(fLine, fdata);
@@ -294,8 +295,9 @@ BEGIN
 		-- iram_wdata <= (others => '0');
 		
 		wait until (error = '1' or done = '1');
-		wait for 1 ms;
-		
+		wait for pclk_period*(10);
+		sim <= '0';
+		wait for pclk_period*(10);
 		assert false report "end of simulation" severity failure;
 		
 

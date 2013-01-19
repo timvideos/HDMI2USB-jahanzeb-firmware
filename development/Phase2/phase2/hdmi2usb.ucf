@@ -144,4 +144,4 @@ NET "slcs" IOSTANDARD = LVCMOS33 |LOC = "B2"; # Schematic name: # connect it to 
 NET "pktend" IOSTANDARD = LVCMOS33 |LOC = "R8"; # Schematic name: //
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/01/12
 NET "clk" TNM_NET = clk;
-TIMESPEC TS_clk = PERIOD "clk" 9 ns HIGH 50%;
+TIMESPEC TS_clk = PERIOD "clk" 10 ns HIGH 50%;

@@ -114,6 +114,7 @@ signal error_i         :  std_logic;
 signal fifo_rd_en_i         :  std_logic;
 signal i_i				: std_logic_vector(5 downto 0);
 signal i				: std_logic_vector(5 downto 0);
+signal din				: std_logic_vector(23 downto 0);
 -- signal addr_i,data_write_i      :   std_logic_vector(31 downto 0);
 -- signal addr,data_write      :   std_logic_vector(31 downto 0);
 signal rst	: std_logic;
@@ -185,7 +186,7 @@ begin
 
 
 
-iram_wren_i <= iram_wren and encoder_ready;
+
 jpeg_busy <= encoder_ready;
 start <= (rgb_start xor rgb_start_q ) and rgb_start;
 
@@ -416,7 +417,8 @@ fifo24: rgbfifo port map
 rst => rst,
 wr_clk => iram_clk,
 rd_clk => clk,
-din => iram_wdata,
+-- din => iram_wdata,
+din => din,
 wr_en => iram_wren_i,
 rd_en => fifo_rd_en_i,
 dout => fifo_data,
@@ -424,19 +426,16 @@ full => fifo_full,
 empty => fifo_empty,
 almost_empty => almost_empty
 );
-  -- PORT (
-    -- rst : IN STD_LOGIC;
-    -- wr_clk : IN STD_LOGIC;
-    -- rd_clk : IN STD_LOGIC;
-    -- din : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-    -- wr_en : IN STD_LOGIC;
-    -- rd_en : IN STD_LOGIC;
-    -- dout : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-    -- full : OUT STD_LOGIC;
-    -- almost_full : OUT STD_LOGIC;
-    -- empty : OUT STD_LOGIC;
-    -- almost_empty : OUT STD_LOGIC
-  -- );
+process(iram_clk,rst_n)
+begin
+if rst_n = '0' then
+	iram_wren_i <= '0';
+	din <= (others => '0');
+elsif rising_edge(iram_clk) then
+	iram_wren_i <= iram_wren and encoder_ready;
+	din <= iram_wdata;
+end if;
+end process;
 -------------------------------------------------------------
 jpegencoder: JpegEnc port map
 (
