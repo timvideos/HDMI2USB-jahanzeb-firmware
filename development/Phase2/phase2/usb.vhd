@@ -237,6 +237,7 @@ end if;
 
 end process;
 
+-- jpeg_fifo_full <= '0';
 
 jpegbytefifoComp: bytefifo port map(
 rst => jpeg_rst,

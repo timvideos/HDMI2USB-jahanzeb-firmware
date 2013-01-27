@@ -130,6 +130,7 @@ usb usbComp(
 .jpeg_en(ram_wren),
 .fdata(fdata),
 .flag_full(flagB),
+// .flag_full(0),
 .flag_empty(flagC),
 .faddr(faddr),
 .slwr(slwr),
@@ -159,7 +160,7 @@ edid_master_slave_hack edid_hack(
 );
 
 //% HDMI decoder and encoder  
-//dvi_dummy hdmi_RX_TX(
+// dvi_dummy hdmi_RX_TX(
 dvi_demo hdmi_RX_TX(
 .rst_n(rst_n),    
 .clk(clk_100),      

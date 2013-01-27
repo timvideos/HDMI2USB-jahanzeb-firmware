@@ -1,0 +1,55 @@
+; Windows INF File for a USB virtual COM-port device
+; in the communication devices class (CDC)
+
+
+[Version]
+Signature="$Windows NT$" 
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%CYPRESS%
+LayoutFile=layout.inf
+DriverVer=08/17/2001,5.1.2600.0
+
+
+[Manufacturer]
+%MFGNAME%=DeviceList ,NTx86, NTamd64
+
+[DestinationDirs]
+DefaultDestDir=12
+DriverCopyFiles=12
+
+
+[DeviceList.NTx86]
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_4717
+
+[DeviceList.NTamd64]
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_4717
+
+[DeviceList.NTia64]
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_4717
+
+[DriverInstall.nt]
+include=mdmcpq.inf
+CopyFiles=DriverCopyFiles
+AddReg=DriverInstall.nt.AddReg
+[DriverCopyFiles]
+usbser.sys
+[DriverInstall.nt.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+[DriverInstall.nt.Services]
+include=mdmcpq.inf
+AddService=usbser, 0x00000002, DriverService
+[DriverService]
+DisplayName=%SERVICE%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\usbser.sys
+[Strings] 
+Cypress="Cypress COM Port"
+MFGNAME="Cypress COM Port"
+DESCRIPTION="USB COM Port" 
+SERVICE="USB COM-port Driver"
+ProviderName="Cypress"

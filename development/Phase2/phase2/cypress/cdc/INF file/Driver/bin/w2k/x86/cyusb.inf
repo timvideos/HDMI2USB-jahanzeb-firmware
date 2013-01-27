@@ -1,0 +1,130 @@
+; Installation INF for the Cypress Generic USB Driver for Windows 2000
+; Processor support for x86 based platforms.
+;
+; (c) Copyright 2009 Cypress Semiconductor Corporation
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%CYUSB_Provider%
+CatalogFile=CYUSB.cat
+DriverVer=06/05/2009,3.4.1.20
+
+[SourceDisksNames]
+1=%CYUSB_Install%,,,
+
+[SourceDisksFiles]
+CYUSB.sys = 1
+
+[DestinationDirs]
+CYUSB.Files.Ext = 10,System32\Drivers
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%CYUSB_Provider%=Device,NT,NTx86,NTamd64
+
+;for all platforms
+[Device]
+;%VID_XXXX&PID_XXXX.DeviceDesc%=CyUsb, USB\VID_XXXX&PID_XXXX
+%VID_04B4&PID_8613.DeviceDesc%=CyUsb, USB\VID_04B4&PID_8613
+
+
+;for windows 2000 non intel platforms
+[Device.NT]
+;%VID_XXXX&PID_XXXX.DeviceDesc%=CyUsb, USB\VID_XXXX&PID_XXXX
+%VID_04B4&PID_8613.DeviceDesc%=CyUsb, USB\VID_04B4&PID_8613
+
+
+;for x86 platforms
+[Device.NTx86]
+;%VID_XXXX&PID_XXXX.DeviceDesc%=CyUsb, USB\VID_XXXX&PID_XXXX
+%VID_04B4&PID_8613.DeviceDesc%=CyUsb, USB\VID_04B4&PID_8613
+
+;for x64 platforms
+[Device.NTamd64]
+;%VID_XXXX&PID_XXXX.DeviceDesc%=CyUsb, USB\VID_XXXX&PID_XXXX
+%VID_04B4&PID_8613.DeviceDesc%=CyUsb, USB\VID_04B4&PID_8613
+
+
+[CYUSB]
+CopyFiles=CYUSB.Files.Ext
+AddReg=CyUsb.AddReg
+
+[CYUSB.HW]
+AddReg=CYUSB.AddReg.Guid
+
+[CYUSB.Services]
+Addservice = CYUSB,2,CYUSB.AddService
+
+[CYUSB.NT]
+CopyFiles=CYUSB.Files.Ext
+AddReg=CyUsb.AddReg
+
+[CYUSB.NT.HW]
+AddReg=CYUSB.AddReg.Guid
+
+[CYUSB.NT.Services]
+Addservice = CYUSB,2,CYUSB.AddService
+
+
+[CYUSB.NTx86]
+CopyFiles=CYUSB.Files.Ext
+AddReg=CyUsb.AddReg
+
+[CYUSB.NTx86.HW]
+AddReg=CYUSB.AddReg.Guid
+
+[CYUSB.NTx86.Services]
+Addservice = CYUSB,2,CYUSB.AddService
+
+[CYUSB.NTamd64]
+CopyFiles=CYUSB.Files.Ext
+AddReg=CyUsb.AddReg
+
+[CYUSB.NTamd64.HW]
+AddReg=CYUSB.AddReg.Guid
+
+[CYUSB.NTamd64.Services]
+Addservice = CYUSB,2,CYUSB.AddService
+
+
+[CYUSB.AddReg]
+; Deprecating - do not use in new apps to identify a CYUSB driver
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,CYUSB.sys
+; You may optionally include a check for DriverBase in your application to check for a CYUSB driver
+HKR,,DriverBase,,CYUSB.sys
+HKR,"Parameters","MaximumTransferSize",0x10001,4096
+HKR,"Parameters","DebugLevel",0x10001,2
+HKR,,FriendlyName,,%CYUSB_Description%
+
+[CYUSB.AddService]
+DisplayName    = %CYUSB_Description%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\CYUSB.sys
+AddReg         = CYUSB.AddReg
+LoadOrderGroup = Base
+
+[CYUSB.Files.Ext]
+CYUSB.sys
+
+[CYUSB.AddReg.Guid]
+HKR,,DriverGUID,,%CYUSB.GUID%
+
+[Strings]
+CYUSB_Provider    = "Cypress"
+CYUSB_Company     = "Cypress Semiconductor Corporation"
+CYUSB_Description = "Cypress Generic USB Driver"
+CYUSB_DisplayName = "Cypress USB Generic"
+CYUSB_Install     = "Cypress CYUSB Driver Installation Disk"
+VID_04B4&PID_1005.DeviceDesc="Slave FIFO Device"
+VID_04B4&PID_1002.DeviceDesc="FX2LP GPIF Master"
+VID_04B4&PID_8613.DeviceDesc="FX2LP EEPROM Missing"
+CYUSB.GUID="{AE18AA60-7F6A-11d4-97DD-00010229B959}"
+CYUSB_Unused      = "."

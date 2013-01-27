@@ -120,8 +120,8 @@ ARCHITECTURE behavior OF hdmi2usb_tb IS
    signal done : std_logic:= '0';
 
    -- Clock period definitions
-   constant clk_period : time := 5 ns;
-   constant ifclk_period : time := 12 ns;
+   constant clk_period : time := 9 ns;
+   constant ifclk_period : time := 20.83 ns;
  
 BEGIN
 ----------------------------------
@@ -217,9 +217,10 @@ BEGIN
 		done <= '0';
 	  wait for 70 ms;
 		done <= '1';
-
+	  wait for 1 ms;
       -- insert stimulus here 
-
+	  assert false report "end of simulation" severity failure;
+	  
       wait;
    end process;
 

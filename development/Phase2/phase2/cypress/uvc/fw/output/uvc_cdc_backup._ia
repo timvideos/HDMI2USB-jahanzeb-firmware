@@ -1,0 +1,1 @@
+"uvc_cdc_backup.a51" SET (SMALL) DEBUG PRINT(.\output\uvc_cdc_backup.lst) OBJECT(.\output\uvc_cdc_backup.obj) EP

@@ -1,0 +1,6 @@
+cdc and uvc are separately implemented in cdc and uvc folders.
+
+
+cdc is working fine and tested with FPGA. at the moment only edid can be read through cdc. to test it connect the hdmi cables and toggle(move up and then down after 1 sec) SW0 LED 7 should turn on if not toggle again. if using windows install the driver using the inf file in folder. open the connection and press "e" or "E" to get the edid. 
+
+UVC is still in progress. UVC cypress side is complete but the fifo on fpga is still over flowing. 

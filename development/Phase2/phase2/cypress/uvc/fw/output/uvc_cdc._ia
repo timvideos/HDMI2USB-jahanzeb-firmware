@@ -1,0 +1,1 @@
+"..\..\phase2\cypress\fw\uvc_cdc.a51" SET (SMALL) DEBUG PRINT(.\output\uvc_cdc.lst) OBJECT(.\output\uvc_cdc.obj) EP
