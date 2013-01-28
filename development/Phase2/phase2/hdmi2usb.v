@@ -120,7 +120,8 @@ assign jpeg_enable = SW[2];
 // -- FLAGA=PF, FLAGB=FF, FLAGC=EF, FLAGD=EP2PF 
 //% usb process
 //% main clk for this process is ifclk
-usb usbComp(
+// usb_jpeg usbComp(
+usb_mjpeg usbComp(
 .clk(clk_100),
 .rst_n(rst_n),
 .sda_byte(sda_byte),
@@ -144,6 +145,7 @@ usb usbComp(
 .jpeg_error(jpeg_error),
 .jpeg_fifo_full(jpeg_fifo_full)
 );
+// assign slwr = 0;
 
 //% EDID hack unit, master slave based design
 edid_master_slave_hack edid_hack(
@@ -205,6 +207,7 @@ calc_res calcres(
 
 //% jpeg encoder
 jpeg_encoder_top jpeg_encoder
+// jpeg_encoder_top_dummy jpeg_encoder
 (
 .CLK(clk_jpeg),
 .rst_n(rst_n),

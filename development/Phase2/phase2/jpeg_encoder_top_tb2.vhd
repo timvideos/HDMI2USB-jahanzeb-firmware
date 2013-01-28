@@ -49,7 +49,7 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb2 IS
   constant CAPTURE_BIN     : string := "D:\Dropbox\vWorker\phase2\matlab\test_out.jpg";
  
     -- Component Declaration for the Unit Under Test (UUT)
- COMPONENT jpeg_encoder_top
+ COMPONENT jpeg_encoder_top_dummy
   port 
   (
         clk                : in  std_logic;
@@ -198,7 +198,7 @@ BEGIN
   end process;
 ---------------------------------------------       
 	-- Instantiate the Unit Under Test (UUT)
-	   uut_usb: usb PORT MAP (
+	   uut_usb: usb_mjpeg PORT MAP (
           clk => clk,
           rst_n => rst_n,
           sda_byte => sda_byte,
@@ -222,7 +222,7 @@ BEGIN
           jpeg_fifo_full => jpeg_fifo_full
         );
 		
-   uut_jpeg: jpeg_encoder_top PORT MAP (
+   uut_jpeg: jpeg_encoder_top_dummy PORT MAP (
           clk => clk,
           rst_n => rst_n,
           iram_wdata => iram_wdata,
@@ -271,7 +271,7 @@ BEGIN
 		resx <= X"0400";resy <= X"0300"; -- 1024x768 (786432)
 		-- resx <= X"0020";resy <= X"0020"; -- 32x32
 		
-
+		wait for pclk_period*1024;
 		jpeg_enable <= '1';
 		wait for pclk_period*10;
 		start <= '1';	
@@ -292,10 +292,33 @@ BEGIN
 		wait for pclk_period*(10);
 		start <= '0';
 		w_start <= '1';
-		-- iram_wdata <= (others => '0');
+		
+		
+		flag_full <= '0';		
+		
+		wait for pclk_period*1024;		
+		
+		flag_full <= '1';
+		
+		wait for pclk_period*102;		
+		
+		flag_full <= '0';
+
+		wait for pclk_period*124;		
+		
+		flag_full <= '1';
+
+		wait for pclk_period*14;		
+		
+		flag_full <= '0';
+
+		wait for pclk_period*14;		
+		
+		flag_full <= '1';
+		
 		
 		wait until (error = '1' or done = '1');
-		wait for pclk_period*(10);
+		wait for pclk_period*(10000);
 		sim <= '0';
 		wait for pclk_period*(10);
 		assert false report "end of simulation" severity failure;
