@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/26/2013 11:11:34 PAGE     1
+A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/28/2013 03:57:40 PAGE     1
 
 
 MACRO ASSEMBLER A51 V7.08a
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 0112 0A               54           db   DSCR_DEVQUAL_LEN     ;; Descriptor length
 0113 06               55           db   DSCR_DEVQUAL         ;; Decriptor type
 0114 0002             56           dw   0002H                ;; Specification Version (BCD)
-A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/26/2013 11:11:34 PAGE     2
+A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/28/2013 03:57:40 PAGE     2
 
 0116 00               57           db   00H                  ;; Device class
 0117 00               58           db   00H                  ;; Device sub-class
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
 0143                 120     StringDscr:
                      121     
 0143                 122     StringDscr0:   
-A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/26/2013 11:11:34 PAGE     3
+A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/28/2013 03:57:40 PAGE     3
 
 0143 04              123           db   StringDscr0End-StringDscr0      ;; String descriptor length
 0144 03              124           db   DSCR_STRING
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
 01AF 6900            186           db   'i',00
 01B1 6E00            187           db   'n',00
 01B3 6700            188           db   'g',00
-A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/26/2013 11:11:34 PAGE     4
+A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/28/2013 03:57:40 PAGE     4
 
 01B5 6C00            189           db   'l',00
 01B7 6500            190           db   'e',00
@@ -224,7 +224,7 @@ LOC  OBJ            LINE     SOURCE
 01D3 0000            207           dw   0000H
                      208           end
                                    
-A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/26/2013 11:11:34 PAGE     5
+A51 MACRO ASSEMBLER  CYPRESS_SLAVE_FIFO                                                   01/28/2013 03:57:40 PAGE     5
 
 SYMBOL TABLE LISTING
 ------ ----- -------

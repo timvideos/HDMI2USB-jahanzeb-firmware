@@ -259,24 +259,32 @@ db    24H                            ;/* Class-specific VS I/f Type */
 db    07H                            ;/* Descriptotor subtype : VS_FRAME_MJPEG */
 db    01H                            ;/* Frame desciptor index */
 db    00H                            ;/* Still image capture method not supported */
-; db    0B0H ;lsb
-; db    00H   ;msb                    ;/* Width of the frame : 176 */
+
+;db    0B0H ;lsb
+;db    00H   ;msb                    ;/* Width of the frame : 176 */
 ; db    90H ;lsb
 ; db    00H  ;msb                     ;/* Height of the frame : 144 */
+
 db    00H ;lsb
 db    04H   ;msb                    ;/* Width of the frame : 176 */
 db    00H ;lsb
 db    03H  ;msb                     ;/* Height of the frame : 144 */
+
 db    00H 
 db    0C0H 
 db    5DH 
 db    00H             ;/* Min bit rate bits/s */
+
 db    00H 
 db    0C0H 
 db    5DH 
 db    00H             ;/* Min bit rate bits/s */
-db    00H 
+
+db    00H
+
 db    58H 
+
+
 db    02H 
 db    00H             ;/* Maximum video or still frame size in bytes */
 
@@ -295,8 +303,8 @@ db    00H             ;/* Default frame interval */
 
 db    01H                            ;/* Frame interval type : No of discrete intervals */
 
-; db    2AH 
-; db    2CH 
+;db    2AH 
+;db    2CH 
 ; db    0AH 
 ; db    00H             ;/* Frame interval 3 */
 
@@ -321,8 +329,9 @@ db    07H                            ;/* Descriptor size */
 db	DSCR_ENDPNT;CY_U3P_USB_ENDPNT_DESCRH         ;/* Endpoint descriptor type */
 db	86H;CY_FX_EP_ISO_VIDEOH              ;/* Endpoint address and description */
 db    05H                            ;/* ISO End point : Async */
+;db    02H                            ;/* Bulk End point : Async */
 db	00H;CY_FX_EP_ISO_VIDEO_PKT_SIZE_LH   ;/* 1 transaction per microframe */
-db	04H;CY_FX_EP_ISO_VIDEO_PKT_SIZE_HH   ;/* CY_FX_EP_ISO_VIDEO_PKT_SIZE max bytes */
+db	02H;CY_FX_EP_ISO_VIDEO_PKT_SIZE_HH   ;/* CY_FX_EP_ISO_VIDEO_PKT_SIZE max bytes */
 db    01                            ;/* Servicing interval for data transfers */
 
 

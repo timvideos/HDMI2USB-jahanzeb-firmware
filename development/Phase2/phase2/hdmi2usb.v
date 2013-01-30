@@ -206,8 +206,8 @@ calc_res calcres(
 
 
 //% jpeg encoder
-jpeg_encoder_top jpeg_encoder
-// jpeg_encoder_top_dummy jpeg_encoder
+//jpeg_encoder_top jpeg_encoder
+jpeg_encoder_top_dummy jpeg_encoder
 (
 .CLK(clk_jpeg),
 .rst_n(rst_n),
