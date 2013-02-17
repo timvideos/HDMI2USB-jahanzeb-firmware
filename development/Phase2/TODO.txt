@@ -1,4 +1,2 @@
-1- populate PCB
-2- USB core testing/debuging
-3- JPEG intergation
-4- USB/JPEG/HDMI integration
+1- new faster jpeg encoder needed
+2- testing on ubuntu

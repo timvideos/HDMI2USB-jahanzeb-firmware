@@ -1,9 +1,0 @@
-run
--ifmt MIXED
--top jpegclk_exdes
--p xc6slx45-csg324-3
--ifn xst.prj
--ofn jpegclk_exdes
--keep_hierarchy soft 
--equivalent_register_removal no 
--max_fanout 65535

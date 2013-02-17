@@ -1,7 +1,0 @@
-Some usefull reading links 
-
-http://www.lvr.com/usb.htm
-http://www.usbmadesimple.co.uk/index.html
-
-http://www.usb.org/developers/docs/
-http://www.usb.org/developers/devclass_docs/AV_BDP_v1.0.pdf

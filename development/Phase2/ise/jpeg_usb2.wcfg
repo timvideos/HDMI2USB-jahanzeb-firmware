@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Dropbox/vWorker/phase2/ise/jpeg_encoder_top_tb2_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="jpeg_encoder_top_tb2" />
+            <top_module name="jpeg_pkg" />
+            <top_module name="mdct_pkg" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_textio" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="textio" />
+            <top_module name="vl_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="group277" type="group">
+      <obj_property name="label">tb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/sda_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sda_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">sda_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/sda_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sda_en</obj_property>
+         <obj_property name="ObjectShortName">sda_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">jpeg_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_clk</obj_property>
+         <obj_property name="ObjectShortName">jpeg_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_en</obj_property>
+         <obj_property name="ObjectShortName">jpeg_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/flag_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">flag_full</obj_property>
+         <obj_property name="ObjectShortName">flag_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/flag_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">flag_empty</obj_property>
+         <obj_property name="ObjectShortName">flag_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/ifclk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ifclk</obj_property>
+         <obj_property name="ObjectShortName">ifclk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_error</obj_property>
+         <obj_property name="ObjectShortName">jpeg_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/fdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">fdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/faddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">faddr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">faddr[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/slwr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">slwr</obj_property>
+         <obj_property name="ObjectShortName">slwr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/slrd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">slrd</obj_property>
+         <obj_property name="ObjectShortName">slrd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/sloe" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sloe</obj_property>
+         <obj_property name="ObjectShortName">sloe</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/pktend" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pktend</obj_property>
+         <obj_property name="ObjectShortName">pktend</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_fifo_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_fifo_full</obj_property>
+         <obj_property name="ObjectShortName">jpeg_fifo_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_enable" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_enable</obj_property>
+         <obj_property name="ObjectShortName">jpeg_enable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/pclk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pclk</obj_property>
+         <obj_property name="ObjectShortName">pclk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/rst_n" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst_n</obj_property>
+         <obj_property name="ObjectShortName">rst_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/iram_wdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/iram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren</obj_property>
+         <obj_property name="ObjectShortName">iram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/outif_almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">outif_almost_full</obj_property>
+         <obj_property name="ObjectShortName">outif_almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/resx" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resx[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resx[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/resy" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resy[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resy[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/jpeg_busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_busy</obj_property>
+         <obj_property name="ObjectShortName">jpeg_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/ram_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/ram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wren</obj_property>
+         <obj_property name="ObjectShortName">ram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/ram_wraddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wraddr[23:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_wraddr[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/total_send" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">total_send[23:0]</obj_property>
+         <obj_property name="ObjectShortName">total_send[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/w_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">w_start</obj_property>
+         <obj_property name="ObjectShortName">w_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/w_start2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">w_start2</obj_property>
+         <obj_property name="ObjectShortName">w_start2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">error</obj_property>
+         <obj_property name="ObjectShortName">error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/clk_period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">clk_period</obj_property>
+         <obj_property name="ObjectShortName">clk_period</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/pclk_period" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">pclk_period</obj_property>
+         <obj_property name="ObjectShortName">pclk_period</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/capture_oram" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">capture_oram[1:18]</obj_property>
+         <obj_property name="ObjectShortName">capture_oram[1:18]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/capture_bin" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">capture_bin[1:19]</obj_property>
+         <obj_property name="ObjectShortName">capture_bin[1:19]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group317" type="group">
+      <obj_property name="label">jpeg</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rst_n" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst_n</obj_property>
+         <obj_property name="ObjectShortName">rst_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/iram_wdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/iram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren</obj_property>
+         <obj_property name="ObjectShortName">iram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/iram_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_clk</obj_property>
+         <obj_property name="ObjectShortName">iram_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/ram_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_byte[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/ram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wren</obj_property>
+         <obj_property name="ObjectShortName">ram_wren</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/ram_wraddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wraddr[23:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_wraddr[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/outif_almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">outif_almost_full</obj_property>
+         <obj_property name="ObjectShortName">outif_almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/resx" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resx[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resx[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/resy" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resy[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resy[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgb_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rgb_start</obj_property>
+         <obj_property name="ObjectShortName">rgb_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">error</obj_property>
+         <obj_property name="ObjectShortName">error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpeg_busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_busy</obj_property>
+         <obj_property name="ObjectShortName">jpeg_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpeg_enable" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_enable</obj_property>
+         <obj_property name="ObjectShortName">jpeg_enable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_abus" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_abus[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_abus[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_be" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_be[3:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_be[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_dbus_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_rnw" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_rnw</obj_property>
+         <obj_property name="ObjectShortName">opb_rnw</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_select" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_select</obj_property>
+         <obj_property name="ObjectShortName">opb_select</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/almost_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_empty</obj_property>
+         <obj_property name="ObjectShortName">almost_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_dbus_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_xferack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_xferack</obj_property>
+         <obj_property name="ObjectShortName">opb_xferack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_retry" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_retry</obj_property>
+         <obj_property name="ObjectShortName">opb_retry</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_toutsup" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_toutsup</obj_property>
+         <obj_property name="ObjectShortName">opb_toutsup</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/opb_errack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_errack</obj_property>
+         <obj_property name="ObjectShortName">opb_errack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/encoder_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">encoder_ready</obj_property>
+         <obj_property name="ObjectShortName">encoder_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/ps" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">ps</obj_property>
+         <obj_property name="ObjectShortName">ps</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/iram_fifo_afull" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_fifo_afull</obj_property>
+         <obj_property name="ObjectShortName">iram_fifo_afull</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgb_start_q" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rgb_start_q</obj_property>
+         <obj_property name="ObjectShortName">rgb_start_q</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group422" type="group">
+      <obj_property name="label">jpegencoder</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_abus" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_abus[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_abus[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_be" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_be[3:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_be[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_dbus_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_in[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_rnw" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_rnw</obj_property>
+         <obj_property name="ObjectShortName">opb_rnw</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_select" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_select</obj_property>
+         <obj_property name="ObjectShortName">opb_select</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_dbus_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_dbus_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">opb_dbus_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_xferack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_xferack</obj_property>
+         <obj_property name="ObjectShortName">opb_xferack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_retry" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_retry</obj_property>
+         <obj_property name="ObjectShortName">opb_retry</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_toutsup" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_toutsup</obj_property>
+         <obj_property name="ObjectShortName">opb_toutsup</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/opb_errack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">opb_errack</obj_property>
+         <obj_property name="ObjectShortName">opb_errack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/iram_wdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/iram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren</obj_property>
+         <obj_property name="ObjectShortName">iram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/iram_fifo_afull" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_fifo_afull</obj_property>
+         <obj_property name="ObjectShortName">iram_fifo_afull</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/ram_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_byte[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/ram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wren</obj_property>
+         <obj_property name="ObjectShortName">ram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/ram_wraddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ram_wraddr[23:0]</obj_property>
+         <obj_property name="ObjectShortName">ram_wraddr[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/outif_almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">outif_almost_full</obj_property>
+         <obj_property name="ObjectShortName">outif_almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">qdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">qdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qaddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">qaddr[6:0]</obj_property>
+         <obj_property name="ObjectShortName">qaddr[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qwren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">qwren</obj_property>
+         <obj_property name="ObjectShortName">qwren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jpeg_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_ready</obj_property>
+         <obj_property name="ObjectShortName">jpeg_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jpeg_busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_busy</obj_property>
+         <obj_property name="ObjectShortName">jpeg_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/outram_base_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">outram_base_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">outram_base_addr[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/num_enc_bytes" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">num_enc_bytes[23:0]</obj_property>
+         <obj_property name="ObjectShortName">num_enc_bytes[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/img_size_x" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">img_size_x[15:0]</obj_property>
+         <obj_property name="ObjectShortName">img_size_x[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/img_size_y" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">img_size_y[15:0]</obj_property>
+         <obj_property name="ObjectShortName">img_size_y[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/sof" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sof</obj_property>
+         <obj_property name="ObjectShortName">sof</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jpg_iram_rden" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpg_iram_rden</obj_property>
+         <obj_property name="ObjectShortName">jpg_iram_rden</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jpg_iram_rdaddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jpg_iram_rdaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">jpg_iram_rdaddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jpg_iram_rdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jpg_iram_rdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">jpg_iram_rdata[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_start</obj_property>
+         <obj_property name="ObjectShortName">fdct_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_ready</obj_property>
+         <obj_property name="ObjectShortName">fdct_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zig_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">zig_start</obj_property>
+         <obj_property name="ObjectShortName">zig_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zig_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">zig_ready</obj_property>
+         <obj_property name="ObjectShortName">zig_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_start</obj_property>
+         <obj_property name="ObjectShortName">qua_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_ready</obj_property>
+         <obj_property name="ObjectShortName">qua_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_start</obj_property>
+         <obj_property name="ObjectShortName">rle_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_ready</obj_property>
+         <obj_property name="ObjectShortName">rle_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_start</obj_property>
+         <obj_property name="ObjectShortName">huf_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_ready</obj_property>
+         <obj_property name="ObjectShortName">huf_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_start</obj_property>
+         <obj_property name="ObjectShortName">bs_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_ready</obj_property>
+         <obj_property name="ObjectShortName">bs_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zz_buf_sel" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">zz_buf_sel</obj_property>
+         <obj_property name="ObjectShortName">zz_buf_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zz_rd_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">zz_rd_addr[5:0]</obj_property>
+         <obj_property name="ObjectShortName">zz_rd_addr[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zz_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">zz_data[11:0]</obj_property>
+         <obj_property name="ObjectShortName">zz_data[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_buf_sel" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_buf_sel</obj_property>
+         <obj_property name="ObjectShortName">rle_buf_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_rdaddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_rdaddr[5:0]</obj_property>
+         <obj_property name="ObjectShortName">rle_rdaddr[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_data[11:0]</obj_property>
+         <obj_property name="ObjectShortName">rle_data[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_buf_sel" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_buf_sel</obj_property>
+         <obj_property name="ObjectShortName">qua_buf_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_rdaddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_rdaddr[5:0]</obj_property>
+         <obj_property name="ObjectShortName">qua_rdaddr[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_data[11:0]</obj_property>
+         <obj_property name="ObjectShortName">qua_data[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_buf_sel" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_buf_sel</obj_property>
+         <obj_property name="ObjectShortName">huf_buf_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_rdaddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_rdaddr[5:0]</obj_property>
+         <obj_property name="ObjectShortName">huf_rdaddr[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_rden" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_rden</obj_property>
+         <obj_property name="ObjectShortName">huf_rden</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_runlength" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_runlength[3:0]</obj_property>
+         <obj_property name="ObjectShortName">huf_runlength[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_size" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_size[3:0]</obj_property>
+         <obj_property name="ObjectShortName">huf_size[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_amplitude" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_amplitude[11:0]</obj_property>
+         <obj_property name="ObjectShortName">huf_amplitude[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_dval" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_dval</obj_property>
+         <obj_property name="ObjectShortName">huf_dval</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_buf_sel" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_buf_sel</obj_property>
+         <obj_property name="ObjectShortName">bs_buf_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_fifo_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">bs_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_rd_req" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_rd_req</obj_property>
+         <obj_property name="ObjectShortName">bs_rd_req</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_packed_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_packed_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">bs_packed_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_fifo_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">huf_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zz_rden" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">zz_rden</obj_property>
+         <obj_property name="ObjectShortName">zz_rden</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">fdct_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/zig_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">zig_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">zig_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/qua_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">qua_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">qua_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/rle_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">rle_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">rle_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/huf_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">huf_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">huf_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_sm_settings" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_sm_settings</obj_property>
+         <obj_property name="ObjectShortName">bs_sm_settings</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/image_size_reg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">image_size_reg[31:0]</obj_property>
+         <obj_property name="ObjectShortName">image_size_reg[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_ram_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_ram_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">jfif_ram_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_ram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_ram_wren</obj_property>
+         <obj_property name="ObjectShortName">jfif_ram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_ram_wraddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_ram_wraddr[23:0]</obj_property>
+         <obj_property name="ObjectShortName">jfif_ram_wraddr[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/out_mux_ctrl" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">out_mux_ctrl</obj_property>
+         <obj_property name="ObjectShortName">out_mux_ctrl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/img_size_wr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">img_size_wr</obj_property>
+         <obj_property name="ObjectShortName">img_size_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_start" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_start</obj_property>
+         <obj_property name="ObjectShortName">jfif_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_ready</obj_property>
+         <obj_property name="ObjectShortName">jfif_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_ram_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_ram_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">bs_ram_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_ram_wren" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_ram_wren</obj_property>
+         <obj_property name="ObjectShortName">bs_ram_wren</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/bs_ram_wraddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bs_ram_wraddr[23:0]</obj_property>
+         <obj_property name="ObjectShortName">bs_ram_wraddr[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/jfif_eoi" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jfif_eoi</obj_property>
+         <obj_property name="ObjectShortName">jfif_eoi</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_fifo_rd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_fifo_rd</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_fifo_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_fifo_q[23:0]</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_q[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/jpegencoder/fdct_fifo_hf_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fdct_fifo_hf_full</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_hf_full</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group369" type="group">
+      <obj_property name="label">usb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/rst_n" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst_n</obj_property>
+         <obj_property name="ObjectShortName">rst_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/sda_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sda_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">sda_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/sda_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sda_en</obj_property>
+         <obj_property name="ObjectShortName">sda_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_byte" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_byte[7:0]</obj_property>
+         <obj_property name="ObjectShortName">jpeg_byte[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_clk</obj_property>
+         <obj_property name="ObjectShortName">jpeg_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_en</obj_property>
+         <obj_property name="ObjectShortName">jpeg_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/fdata" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">fdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/flag_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">flag_full</obj_property>
+         <obj_property name="ObjectShortName">flag_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/flag_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">flag_empty</obj_property>
+         <obj_property name="ObjectShortName">flag_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/faddr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">faddr[1:0]</obj_property>
+         <obj_property name="ObjectShortName">faddr[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/slwr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">slwr</obj_property>
+         <obj_property name="ObjectShortName">slwr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/slrd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">slrd</obj_property>
+         <obj_property name="ObjectShortName">slrd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/sloe" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sloe</obj_property>
+         <obj_property name="ObjectShortName">sloe</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/pktend" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pktend</obj_property>
+         <obj_property name="ObjectShortName">pktend</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/ifclk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ifclk</obj_property>
+         <obj_property name="ObjectShortName">ifclk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/resx" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resx[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resx[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/resy" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">resy[15:0]</obj_property>
+         <obj_property name="ObjectShortName">resy[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_enable" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_enable</obj_property>
+         <obj_property name="ObjectShortName">jpeg_enable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_error</obj_property>
+         <obj_property name="ObjectShortName">jpeg_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_fifo_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_fifo_full</obj_property>
+         <obj_property name="ObjectShortName">jpeg_fifo_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_rst</obj_property>
+         <obj_property name="ObjectShortName">jpeg_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_rd_en</obj_property>
+         <obj_property name="ObjectShortName">jpeg_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/jpeg_fifo_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jpeg_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">jpeg_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/sloe_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sloe_i</obj_property>
+         <obj_property name="ObjectShortName">sloe_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/fdatain" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdatain[7:0]</obj_property>
+         <obj_property name="ObjectShortName">fdatain[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/fdataout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fdataout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">fdataout[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/counter" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">counter[7:0]</obj_property>
+         <obj_property name="ObjectShortName">counter[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/wrightcount" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wrightcount[11:0]</obj_property>
+         <obj_property name="ObjectShortName">wrightcount[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_usb/ps" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">ps</obj_property>
+         <obj_property name="ObjectShortName">ps</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group583" type="group">
+      <obj_property name="label">rgb_buffer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_clk</obj_property>
+         <obj_property name="ObjectShortName">iram_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_wren_in" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren_in</obj_property>
+         <obj_property name="ObjectShortName">iram_wren_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_wdata_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata_in[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata_in[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_wren_out" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren_out</obj_property>
+         <obj_property name="ObjectShortName">iram_wren_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_wdata_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata_out[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata_out[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/iram_fifo_afull" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_fifo_afull</obj_property>
+         <obj_property name="ObjectShortName">iram_fifo_afull</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/encoder_ready" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">encoder_ready</obj_property>
+         <obj_property name="ObjectShortName">encoder_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/fifo_overflow" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_overflow</obj_property>
+         <obj_property name="ObjectShortName">fifo_overflow</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group592" type="group">
+      <obj_property name="label">r_fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/wr_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/rd_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_full</obj_property>
+         <obj_property name="ObjectShortName">almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/almost_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_empty</obj_property>
+         <obj_property name="ObjectShortName">almost_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/r_rgb_fifo/valid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group605" type="group">
+      <obj_property name="label">g_fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/wr_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/rd_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_full</obj_property>
+         <obj_property name="ObjectShortName">almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/almost_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_empty</obj_property>
+         <obj_property name="ObjectShortName">almost_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/g_rgb_fifo/valid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group618" type="group">
+      <obj_property name="label">b_fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/wr_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/rd_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/valid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_full</obj_property>
+         <obj_property name="ObjectShortName">almost_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/jpeg_encoder_top_tb2/uut_jpeg/rgbbuffer/b_rgb_fifo/almost_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_empty</obj_property>
+         <obj_property name="ObjectShortName">almost_empty</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

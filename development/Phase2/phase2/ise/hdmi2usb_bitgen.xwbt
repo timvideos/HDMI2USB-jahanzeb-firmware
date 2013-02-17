@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=D:\Dropbox\vWorker\coding\ise\phase2\hdmi2usb.ncd
-OUTFILE=D:\Dropbox\vWorker\coding\ise\phase2\hdmi2usb.bit
-FAMILY=Spartan6
-PART=xc6slx45-3csg324
-WORKINGDIR=D:\Dropbox\vWorker\coding\ise\phase2
-LICENSE=ISE
-USER_INFO=206811125_1777487287_0_467
