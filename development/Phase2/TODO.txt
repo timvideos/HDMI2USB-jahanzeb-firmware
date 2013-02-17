@@ -1,2 +1,6 @@
-1- new faster jpeg encoder needed
-2- testing on ubuntu
+- testing on ubuntu and XP
+- Demo firmware which tests parts of the system
+- Comprehensive test benches to allow people to modify firmware without a device.
+- Scripts to build and test without using the ISE GUI.
+- new faster jpeg encoder needed (may be)
+
