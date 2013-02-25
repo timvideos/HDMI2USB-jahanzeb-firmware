@@ -30,6 +30,11 @@
 void fifoSendPromData(uint32 bytesToSend);
 void initPorts(void);
 
+// SelectMap operations
+bool smapIsProgPending(void);
+void smapProgBegin(uint32 fileLen);
+uint8 smapProgExecute(void);
+
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
 
@@ -187,6 +192,9 @@ void mainLoop(void) {
 	// If there is a JTAG shift operation pending, execute it now.
 	if ( jtagIsShiftPending() ) {
 		jtagShiftExecute();
+	}
+	if ( smapIsProgPending() ) {
+		smapProgExecute();
 	}
 }
 
@@ -399,6 +407,21 @@ uint8 handleVendorCommand(uint8 cmd) {
 				address += chunkSize;
 				length -= chunkSize;
 			}
+		}
+		return true;
+
+	case CMD_SELECTMAP:
+		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
+			// return the status byte and micro-controller mode
+			while ( EP0CS & bmEPBUSY ); // can't do this until EP0 is ready
+			EP0BUF[0] = 0xF0;
+			EP0BUF[1] = 0x0D;
+			EP0BUF[2] = 0x1E;
+			EP0BCH=0;
+			SYNCDELAY;
+			EP0BCL=3;
+		} else if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
+			smapProgBegin(MAKEDWORD(SETUP_VALUE(), SETUP_INDEX()));
 		}
 		return true;
 	}
