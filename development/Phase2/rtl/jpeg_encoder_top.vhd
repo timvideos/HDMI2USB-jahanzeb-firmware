@@ -38,6 +38,8 @@ USE ieee.std_logic_unsigned.all;
 entity jpeg_encoder_top is
   port 
   (
+  
+
         clk                : in  std_logic;
         rst_n              : in  std_logic;
         -- encoder_ready      : out  std_logic;

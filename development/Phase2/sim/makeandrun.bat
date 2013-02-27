@@ -1,3 +1,3 @@
-gcc compare.c -o compare.exe
-compare.exe
+gcc uvc.c -o uvc.exe
+uvc.exe
 

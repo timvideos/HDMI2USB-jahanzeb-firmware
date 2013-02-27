@@ -1,0 +1,362 @@
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 1   
+
+
+C51 COMPILER V7.07, COMPILATION OF MODULE PERIPH
+OBJECT MODULE PLACED IN .\output\periph.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE periph.c BROWSE INCDIR(C:\Cypress\USB\CY3684_EZ-USB_FX2LP_DVK\1.0\Target\In
+                    -c;C:\Cypress\USB\CY3684_EZ-USB_FX2LP_DVK\1.0\uV2_4k\C51\INC) DEBUG OBJECTEXTEND PRINT(.\output\periph.lst) OBJECT(.\outp
+                    -ut\periph.obj)
+
+stmt level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          //   File:      periph.c
+   3          //   Contents:  Hooks required to implement USB peripheral function.
+   4          //
+   5          // $Archive: /USB/Examples/FX2LP/hid_kb/periph.c $
+   6          // $Date: 3/23/05 2:58p $
+   7          // $Revision: 2 $
+   8          //
+   9          //
+  10          //-----------------------------------------------------------------------------
+  11          // Copyright 2003, Cypress Semiconductor Corporation
+  12          //
+  13          // This software is owned by Cypress Semiconductor Corporation (Cypress) and is
+  14          // protected by United States copyright laws and international treaty provisions. Cypress
+  15          // hereby grants to Licensee a personal, non-exclusive, non-transferable license to copy,
+  16          // use, modify, create derivative works of, and compile the Cypress Source Code and
+  17          // derivative works for the sole purpose of creating custom software in support of Licensee
+  18          // product ("Licensee Product") to be used only in conjunction with a Cypress integrated
+  19          // circuit. Any reproduction, modification, translation, compilation, or representation of this
+  20          // software except as specified above is prohibited without the express written permission of
+  21          // Cypress.
+  22          //
+  23          // Disclaimer: Cypress makes no warranty of any kind, express or implied, with regard to
+  24          // this material, including, but not limited to, the implied warranties of merchantability and
+  25          // fitness for a particular purpose. Cypress reserves the right to make changes without
+  26          // further notice to the materials described herein. Cypress does not assume any liability
+  27          // arising out of the application or use of any product or circuit described herein. Cypress’
+  28          // products described herein are not authorized for use as components in life-support
+  29          // devices.
+  30          //
+  31          // This software is protected by and subject to worldwide patent coverage, including U.S.
+  32          // and foreign patents. Use may be limited by and subject to the Cypress Software License
+  33          // Agreement.
+  34          //-----------------------------------------------------------------------------
+  35          #pragma NOIV               // Do not generate interrupt vectors
+  36          
+  37          #include "fx2.h"
+  38          #include "fx2regs.h"
+  39          
+  40          extern BOOL   GotSUD;         // Received setup data flag
+  41          extern BOOL   Sleep;
+  42          extern BOOL   Rwuen;
+  43          extern BOOL   Selfpwr;
+  44          
+  45          
+  46          WORD pCDCDataDscr;
+  47          
+  48          extern code CDCDataDscr;
+  49          
+  50          
+  51          BYTE   Configuration;      // Current configuration
+  52          BYTE   AlternateSetting;   // Alternate settings
+  53          
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 2   
+
+  54          
+  55          
+  56          //-----------------------------------------------------------------------------
+  57          // Task Dispatcher hooks
+  58          //   The following hooks are called by the task dispatcher.
+  59          //-----------------------------------------------------------------------------
+  60          
+  61          
+  62          BOOL TD_Suspend(void)          // Called before the device goes into suspend mode
+  63          {
+  64   1         return(TRUE);
+  65   1      }
+  66          
+  67          BOOL TD_Resume(void)          // Called after the device resumes
+  68          {
+  69   1         return(TRUE);
+  70   1      }
+  71          
+  72          //-----------------------------------------------------------------------------
+  73          // Device Request hooks
+  74          //   The following hooks are called by the end point 0 device request parser.
+  75          //-----------------------------------------------------------------------------
+  76          
+  77          BOOL DR_GetDescriptor(void)
+  78          {
+  79   1      //      BYTE length,i;
+  80   1      
+  81   1              pCDCDataDscr = (WORD)&CDCDataDscr;
+  82   1      
+  83   1              switch (SETUPDAT[3])
+  84   1              {
+  85   2      /*              case GD_HID:                                    //HID Descriptor
+  86   2                              SUDPTRH = MSB(pHIDDscr);
+  87   2                              SUDPTRL = LSB(pHIDDscr);
+  88   2                              return (FALSE);
+  89   2                      case GD_REPORT:                                 //Report Descriptor
+  90   2                              length = pReportDscrEnd - pReportDscr;
+  91   2      
+  92   2               AUTOPTR1H = MSB(pReportDscr);
+  93   2               AUTOPTR1L = LSB(pReportDscr);
+  94   2      
+  95   2               for(i=0;i<length;i++)
+  96   2                  EP0BUF[i]=XAUTODAT1;
+  97   2      
+  98   2               EP0BCL = length;
+  99   2               return (FALSE);
+ 100   2                      default:
+ 101   2                              return(TRUE);*/
+ 102   2                              /*
+ 103   2                              SUDPTRH = MSB(pCDCDataDscr);
+ 104   2                              SUDPTRL = LSB(pCDCDataDscr);
+ 105   2                              return (FALSE);*/
+ 106   2      
+ 107   2                              return (TRUE);
+ 108   2      
+ 109   2              }
+ 110   1      }
+ 111          
+ 112          BOOL DR_SetConfiguration(void)   // Called when a Set Configuration command is received
+ 113          {
+ 114   1         Configuration = SETUPDAT[2];
+ 115   1         return(TRUE);            // Handled by user code
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 3   
+
+ 116   1      }
+ 117          
+ 118          BOOL DR_GetConfiguration(void)   // Called when a Get Configuration command is received
+ 119          {
+ 120   1         EP0BUF[0] = Configuration;
+ 121   1         EP0BCH = 0;
+ 122   1         EP0BCL = 1;
+ 123   1         return(TRUE);            // Handled by user code
+ 124   1      }
+ 125          
+ 126          BOOL DR_SetInterface(void)       // Called when a Set Interface command is received
+ 127          {
+ 128   1         AlternateSetting = SETUPDAT[2];
+ 129   1         return(TRUE);            // Handled by user code
+ 130   1      }
+ 131          
+ 132          BOOL DR_GetInterface(void)       // Called when a Set Interface command is received
+ 133          {
+ 134   1         EP0BUF[0] = AlternateSetting;
+ 135   1         EP0BCH = 0;
+ 136   1         EP0BCL = 1;
+ 137   1         return(TRUE);            // Handled by user code
+ 138   1      }
+ 139          
+ 140          BOOL DR_GetStatus(void)
+ 141          {
+ 142   1         return(TRUE);
+ 143   1      }
+ 144          
+ 145          BOOL DR_ClearFeature(void)
+ 146          {
+ 147   1         return(TRUE);
+ 148   1      }
+ 149          
+ 150          BOOL DR_SetFeature(void)
+ 151          {
+ 152   1         return(TRUE);
+ 153   1      }
+ 154          
+ 155          BOOL DR_VendorCmnd(void)
+ 156          {
+ 157   1         return(TRUE);
+ 158   1      }
+ 159          
+ 160          //-----------------------------------------------------------------------------
+ 161          // USB Interrupt Handlers
+ 162          //   The following functions are called by the USB interrupt jump table.
+ 163          //-----------------------------------------------------------------------------
+ 164          
+ 165          // Setup Data Available Interrupt Handler
+ 166          void ISR_Sudav(void) interrupt 0
+ 167          {
+ 168   1         GotSUD = TRUE;            // Set flag
+ 169   1         EZUSB_IRQ_CLEAR();
+ 170   1         USBIRQ = bmSUDAV;         // Clear SUDAV IRQ
+ 171   1      }
+ 172          
+ 173          // Setup Token Interrupt Handler
+ 174          void ISR_Sutok(void) interrupt 0
+ 175          {
+ 176   1         EZUSB_IRQ_CLEAR();
+ 177   1         USBIRQ = bmSUTOK;         // Clear SUTOK IRQ
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 4   
+
+ 178   1      }
+ 179          
+ 180          void ISR_Sof(void) interrupt 0
+ 181          {
+ 182   1         EZUSB_IRQ_CLEAR();
+ 183   1         USBIRQ = bmSOF;            // Clear SOF IRQ
+ 184   1      }
+ 185          
+ 186          void ISR_Ures(void) interrupt 0
+ 187          {
+ 188   1         // whenever we get a USB reset, we should revert to full speed mode
+ 189   1         pConfigDscr = pFullSpeedConfigDscr;
+ 190   1         ((CONFIGDSCR xdata *) pConfigDscr)->type = CONFIG_DSCR;
+ 191   1         pOtherConfigDscr = pHighSpeedConfigDscr;
+ 192   1         ((CONFIGDSCR xdata *) pOtherConfigDscr)->type = OTHERSPEED_DSCR;
+ 193   1         
+ 194   1         EZUSB_IRQ_CLEAR();
+ 195   1         USBIRQ = bmURES;         // Clear URES IRQ
+ 196   1      }
+ 197          
+ 198          void ISR_Susp(void) interrupt 0
+ 199          {
+ 200   1         Sleep = TRUE;
+ 201   1         EZUSB_IRQ_CLEAR();
+ 202   1         USBIRQ = bmSUSP;
+ 203   1      }
+ 204          
+ 205          void ISR_Highspeed(void) interrupt 0
+ 206          {
+ 207   1         if (EZUSB_HIGHSPEED())
+ 208   1         {
+ 209   2            pConfigDscr = pHighSpeedConfigDscr;
+ 210   2            ((CONFIGDSCR xdata *) pConfigDscr)->type = CONFIG_DSCR;
+ 211   2            pOtherConfigDscr = pFullSpeedConfigDscr;
+ 212   2            ((CONFIGDSCR xdata *) pOtherConfigDscr)->type = OTHERSPEED_DSCR;
+ 213   2         }
+ 214   1      
+ 215   1         EZUSB_IRQ_CLEAR();
+ 216   1         USBIRQ = bmHSGRANT;
+ 217   1      }
+ 218          void ISR_Ep0ack(void) interrupt 0
+ 219          {
+ 220   1      }
+ 221          void ISR_Stub(void) interrupt 0
+ 222          {
+ 223   1      }
+ 224          void ISR_Ep0in(void) interrupt 0
+ 225          {
+ 226   1      }
+ 227          void ISR_Ep0out(void) interrupt 0
+ 228          {
+ 229   1      }
+ 230          void ISR_Ep1in(void) interrupt 0
+ 231          {
+ 232   1      
+ 233   1      
+ 234   1      }
+ 235          void ISR_Ep1out(void) interrupt 0
+ 236          {
+ 237   1      }
+ 238          void ISR_Ep2inout(void) interrupt 0
+ 239          {
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 5   
+
+ 240   1      }
+ 241          void ISR_Ep4inout(void) interrupt 0
+ 242          {
+ 243   1      }
+ 244          void ISR_Ep6inout(void) interrupt 0
+ 245          {
+ 246   1      }
+ 247          void ISR_Ep8inout(void) interrupt 0
+ 248          {
+ 249   1      }
+ 250          void ISR_Ibn(void) interrupt 0
+ 251          {
+ 252   1      }
+ 253          void ISR_Ep0pingnak(void) interrupt 0
+ 254          {
+ 255   1      }
+ 256          void ISR_Ep1pingnak(void) interrupt 0
+ 257          {
+ 258   1      }
+ 259          void ISR_Ep2pingnak(void) interrupt 0
+ 260          {
+ 261   1      }
+ 262          void ISR_Ep4pingnak(void) interrupt 0
+ 263          {
+ 264   1      }
+ 265          void ISR_Ep6pingnak(void) interrupt 0
+ 266          {
+ 267   1      }
+ 268          void ISR_Ep8pingnak(void) interrupt 0
+ 269          {
+ 270   1      }
+ 271          void ISR_Errorlimit(void) interrupt 0
+ 272          {
+ 273   1      }
+ 274          void ISR_Ep2piderror(void) interrupt 0
+ 275          {
+ 276   1      }
+ 277          void ISR_Ep4piderror(void) interrupt 0
+ 278          {
+ 279   1      }
+ 280          void ISR_Ep6piderror(void) interrupt 0
+ 281          {
+ 282   1      }
+ 283          void ISR_Ep8piderror(void) interrupt 0
+ 284          {
+ 285   1      }
+ 286          void ISR_Ep2pflag(void) interrupt 0
+ 287          {
+ 288   1      }
+ 289          void ISR_Ep4pflag(void) interrupt 0
+ 290          {
+ 291   1      }
+ 292          void ISR_Ep6pflag(void) interrupt 0
+ 293          {
+ 294   1      }
+ 295          void ISR_Ep8pflag(void) interrupt 0
+ 296          {
+ 297   1      }
+ 298          void ISR_Ep2eflag(void) interrupt 0
+ 299          {
+ 300   1      }
+ 301          void ISR_Ep4eflag(void) interrupt 0
+C51 COMPILER V7.07   PERIPH                                                                02/19/2013 23:26:35 PAGE 6   
+
+ 302          {
+ 303   1      }
+ 304          void ISR_Ep6eflag(void) interrupt 0
+ 305          {
+ 306   1      }
+ 307          void ISR_Ep8eflag(void) interrupt 0
+ 308          {
+ 309   1      }
+ 310          void ISR_Ep2fflag(void) interrupt 0
+ 311          {
+ 312   1      }
+ 313          void ISR_Ep4fflag(void) interrupt 0
+ 314          {
+ 315   1      }
+ 316          void ISR_Ep6fflag(void) interrupt 0
+ 317          {
+ 318   1      }
+ 319          void ISR_Ep8fflag(void) interrupt 0
+ 320          {
+ 321   1      }
+ 322          void ISR_GpifComplete(void) interrupt 0
+ 323          {
+ 324   1      }
+ 325          void ISR_GpifWaveform(void) interrupt 0
+ 326          {
+ 327   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    318    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

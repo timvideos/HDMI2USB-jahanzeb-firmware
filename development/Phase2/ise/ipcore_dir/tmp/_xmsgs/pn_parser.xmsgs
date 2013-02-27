@@ -8,7 +8,10 @@
 <!-- Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/clkGen.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/bytefifoFPGA.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/bytefifoFPGA_synth.vhd&quot; into library work</arg>
 </msg>
 
 </messages>

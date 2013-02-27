@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="bytefifoFPGA">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2013-2-15T23:4:3</timestamp>
+    <timestamp>2013-2-20T22:3:26</timestamp>
     <pin polarity="Input" x="0" y="112" name="rst" />
     <pin polarity="Input" x="0" y="208" name="wr_clk" />
     <pin polarity="Input" x="0" y="240" name="din[7:0]" />

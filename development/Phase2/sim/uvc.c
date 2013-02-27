@@ -38,8 +38,8 @@ int main(void)
     int i=0,j=0;
     char s[256];
 	
-	FILE *fp1 = fopen("uvc_data6.txt", "r");
-	FILE *fp2 = fopen("diff6.txt", "w");	 
+	FILE *fp1 = fopen("uvc.txt", "r");
+	FILE *fp2 = fopen("diff.txt", "w");	 
 	
     if (fp1 == NULL) {
         perror("Failed to open file \"myfile\"");

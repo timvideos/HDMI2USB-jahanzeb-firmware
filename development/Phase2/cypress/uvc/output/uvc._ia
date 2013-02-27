@@ -1,0 +1,1 @@
+"uvc.a51" SET (SMALL) DEBUG PRINT(.\output\uvc.lst) OBJECT(.\output\uvc.obj) EP

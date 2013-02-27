@@ -1,0 +1,656 @@
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 1   
+
+
+C51 COMPILER V7.07, COMPILATION OF MODULE VIRTUAL
+OBJECT MODULE PLACED IN Virtual.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Virtual.c BROWSE INCDIR(C:\Documents and Settings\prku\Desktop\UART Debug\)
+                    - DEBUG OBJECTEXTEND
+
+stmt level    source
+
+   1          #pragma NOIV               // Do not generate interrupt vectors
+   2          //-----------------------------------------------------------------------------
+   3          //   File:      bulkloop.c
+   4          //   Contents:   Hooks required to implement USB peripheral function.
+   5          //
+   6          //   Copyright (c) 2000 Cypress Semiconductor All rights reserved
+   7          //-----------------------------------------------------------------------------
+   8          #include "fx2.h"
+   9          #include "fx2regs.h"
+  10          #include "fx2sdly.h"                    // SYNCDELAY macro
+  11          extern BOOL   GotSUD;         // Received setup data flag
+  12          extern BOOL   Sleep;
+  13          extern BOOL   Rwuen;
+  14          extern BOOL   Selfpwr;
+  15          
+  16          extern BYTE xdata LineCode[7] ;
+  17          
+  18          BYTE   Configuration;      // Current configuration
+  19          BYTE   AlternateSetting;   // Alternate settings
+  20          
+  21          void display_product(void);
+  22          void TD_Poll(void);
+  23          
+  24          
+  25          //-----------------------------------------------------------------------------
+  26          // Task Dispatcher hooks
+  27          //   The following hooks are called by the task dispatcher.
+  28          //-----------------------------------------------------------------------------
+  29          BOOL DR_SetConfiguration();
+  30          
+  31             
+  32             // BYTE TxByte0,RxByte0;
+  33             // BYTE TxByte1,RxByte1;
+  34          
+  35           
+  36          // BYTE  ReadByteS0 (void)   // Copy the recieved Byte from SBUF to the variable RxByte0
+  37          // {
+  38              
+  39                   // RI = 0;           // with reg320 syntax but same address
+  40          
+  41                   // RxByte0 = SBUF0;   //RxByte;
+  42          
+  43                   // return RxByte0;
+  44          
+  45          // }
+  46          
+  47          // void WriteByteS0(char ch)  // Send the data recieved from USB through SBUF0
+  48          // {   
+  49                  
+  50                  // while (TI == 0) ;
+  51                  // TI = 0 ;
+  52                  // SBUF0 = ch ;
+  53                  
+  54          // }
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 2   
+
+  55          
+  56          
+  57          // void  Serial0Init () // serial UART 0 with Timer 2 in mode 1 or high speed baud rate generator
+  58          // {
+  59                          
+  60                      // UART230 &= 0x03;
+  61          
+  62                          // if ((LineCode[0] == 0x60) && (LineCode[1] == 0x09 ))   // 2400
+  63          
+  64                          // {
+  65                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+  66                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+  67                                  // RCAP2H = 0xFD;               //  Set TH2 value for timer2 
+  68                                  // RCAP2L = 0x90;               //      baud rate is set to 2400 baud
+  69                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+  70                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+  71          
+  72                          // }
+  73             // else if ((LineCode[0] == 0xC0) && (LineCode[1] == 0x12 ))   // 4800
+  74          
+  75                          // {
+  76                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+  77                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+  78                                  // RCAP2H = 0xFE;               //  Set TH2 value for timer2 
+  79                                  // RCAP2L = 0xC8;               //      baud rate is set to 4800 baud
+  80                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+  81                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+  82          
+  83                          // }
+  84                          // else if ((LineCode[0] == 0x80) && (LineCode[1] == 0x25 ))      // 9600
+  85          
+  86                          // {
+  87                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+  88                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+  89                                  // RCAP2H = 0xFF;               //  Set TH2 value for timer2 
+  90                                  // RCAP2L = 0x64;               //      baud rate is set to 9600 baud
+  91                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+  92                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+  93          
+  94                          // }
+  95                          // else if ((LineCode[0] == 0x00) && (LineCode[1] == 0x4B ))      // 19200
+  96          
+  97                          // {
+  98                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+  99                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+ 100                                  // RCAP2H = 0xFF;               //  Set TH2 value for timer2 
+ 101                                  // RCAP2L = 0xB2;               //      baud rate is set to 19200 baud
+ 102                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+ 103                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+ 104          
+ 105                          // }
+ 106                          // else if ((LineCode[0] == 0x80) && (LineCode[1] == 0x70 ))      // 28800
+ 107          
+ 108                          // {
+ 109                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+ 110                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+ 111                                  // RCAP2H = 0xFF;               //  Set TH2 value for timer2 
+ 112                                  // RCAP2L = 0xCC;               //      baud rate is set to 28800 baud
+ 113                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+ 114                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+ 115          
+ 116                          // }
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 3   
+
+ 117                          // else if ((LineCode[0] == 0x00) && (LineCode[1] == 0x96 ))      // 38400
+ 118          
+ 119                          // {
+ 120                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+ 121                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+ 122                                  // RCAP2H = 0xFF;               //  Set TH2 value for timer2 
+ 123                                  // RCAP2L = 0xD9;               //      baud rate is set to 38400 baud
+ 124                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+ 125                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+ 126          
+ 127                          // }
+ 128                          // else if ((LineCode[0] == 0x00) && (LineCode[1] == 0xE1 ))      // 57600
+ 129          
+ 130                          // {
+ 131                          // SCON0  = 0x5A;                   //  Set Serial Mode = 1, Recieve enable bit = 1
+ 132                                  // T2CON  = 0x34;                   //  Int1 is detected on falling edge, Enable Timer0, Set Timer overflow Flag
+ 133                                  // RCAP2H = 0xFF;               //  Set TH2 value for timer2 
+ 134                                  // RCAP2L = 0xE6;               //      baud rate is set to 57600 baud
+ 135                                  // TH2    = RCAP2H;             //  Upper 8 bit of 16 bit counter to FF
+ 136                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate
+ 137          
+ 138                          // }
+ 139                  
+ 140                 // else if ((LineCode[0] == 0x00) && (LineCode[1] == 0x84 ))       // 230400 
+ 141                          // {
+ 142                               // PCON |= 0X80;
+ 143                      // UART230 |= 0x03;
+ 144                              
+ 145                          // }
+ 146                                  // else //if ((LineCode[0] == 0x21) && (LineCode[1] == 0x20 ))    // 115200 (LineCode[0] == 0x00) && (Li
+             -neCode[1] == 0xC2 ))
+ 147          
+ 148                          // {
+ 149          
+ 150                             // SCON0  = 0x5A;                //  Set Serial Mode = 1, Recieve enable bit = 1
+ 151                                  // T2CON  = 0x34;       
+ 152                             // RCAP2L = 0xF3; 
+ 153                     // RCAP2H = 0xFF; 
+ 154                             // TH2    = RCAP2H;          //  Upper 8 bit of 16 bit counter to FF
+ 155                                  // TL2    = RCAP2L;             //  value of the lower 8 bits of timer set to baud rate*/
+ 156          
+ 157          
+ 158                              
+ 159                          // }
+ 160                 
+ 161          
+ 162          // }
+ 163          
+ 164          
+ 165          
+ 166          
+ 167          void TD_Init(void)             // Called once at startup
+ 168          {
+ 169   1         
+ 170   1         
+ 171   1      // // // set the CPU clock to 48MHz
+ 172   1           // CPUCS = ((CPUCS & ~bmCLKSPD) | bmCLKSPD1) ;
+ 173   1      
+ 174   1         // // // set the slave FIFO interface to 48MHz
+ 175   1           // IFCONFIG |= 0x40;
+ 176   1           // SYNCDELAY;
+ 177   1           // REVCTL = 0x03;
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 4   
+
+ 178   1           // SYNCDELAY;
+ 179   1      
+ 180   1      
+ 181   1      
+ 182   1              // FIFORESET = 0x80; // activate NAK-ALL to avoid race conditions
+ 183   1              // SYNCDELAY;       // see TRM section 15.14
+ 184   1              // FIFORESET = 0x08; // reset, FIFO 8
+ 185   1              // SYNCDELAY; //
+ 186   1              // FIFORESET = 0x00; // deactivate NAK-ALL
+ 187   1              // SYNCDELAY;
+ 188   1      
+ 189   1      
+ 190   1               // EP1OUTCFG = 0xA0;    // Configure EP1OUT as BULK EP
+ 191   1               // SYNCDELAY;
+ 192   1           // EP1INCFG = 0xB0;     // Configure EP1IN as BULK IN EP
+ 193   1           // SYNCDELAY;                    // see TRM section 15.14
+ 194   1           // EP2CFG = 0x7F;       // Invalid EP
+ 195   1           // SYNCDELAY;                    
+ 196   1           // EP4CFG = 0x7F;      // Invalid EP
+ 197   1           // SYNCDELAY;                    
+ 198   1           // EP6CFG = 0x7F;      // Invalid EP
+ 199   1           // SYNCDELAY;   
+ 200   1                       
+ 201   1           // EP8CFG = 0xE0;      // Configure EP8 as BULK IN EP
+ 202   1           // SYNCDELAY;    
+ 203   1        
+ 204   1           // EP8FIFOCFG = 0x00;  // Configure EP8 FIFO in 8-bit Manual Commit mode
+ 205   1           // SYNCDELAY;            
+ 206   1      
+ 207   1           // Serial0Init();      // Initialize the Serial Port 0 for the Communication
+ 208   1      
+ 209   1        SYNCDELAY;
+ 210   1       FIFOPINPOLAR = 0x00;
+ 211   1      SYNCDELAY;
+ 212   1        // PINFLAGSAB = 0x08;                 // FLAGA - EP6FF
+ 213   1        PINFLAGSAB = 0x00;                    // FLAGA - EP6FF
+ 214   1        SYNCDELAY;
+ 215   1        // PINFLAGSCD = 0xE0;                 // FLAGD - EP2EF
+ 216   1        PINFLAGSCD = 0x00;                    // FLAGD - EP2EF
+ 217   1        SYNCDELAY;
+ 218   1        PORTACFG |= 0x80;
+ 219   1        SYNCDELAY;
+ 220   1        IFCONFIG = 0xE3; // for async? for sync?
+ 221   1      SYNCDELAY;
+ 222   1        // IFCLKSRC=1   , FIFOs executes on internal clk source 
+ 223   1        // xMHz=1       , 48MHz operation
+ 224   1        // IFCLKOE=1    ,Drive IFCLK pin signal at 48MHz
+ 225   1        // IFCLKPOL=0   , Don't invert IFCLK pin signal from internal clk
+ 226   1        // ASYNC=0      , master samples synchronous
+ 227   1        // GSTATE=0     , Don't drive GPIF states out on PORTE[2:0], debug WF
+ 228   1        // IFCFG[1:0]=11, FX2 in slave FIFO mode
+ 229   1      
+ 230   1      
+ 231   1        // Registers which require a synchronization delay, see section 15.14
+ 232   1        // FIFORESET        FIFOPINPOLAR
+ 233   1        // INPKTEND         OUTPKTEND
+ 234   1        // EPxBCH:L         REVCTL
+ 235   1        // GPIFTCB3         GPIFTCB2
+ 236   1        // GPIFTCB1         GPIFTCB0
+ 237   1        // EPxFIFOPFH:L     EPxAUTOINLENH:L
+ 238   1        // EPxFIFOCFG       EPxGPIFFLGSEL
+ 239   1        // PINFLAGSxx       EPxFIFOIRQ
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 5   
+
+ 240   1        // EPxFIFOIE        GPIFIRQ
+ 241   1        // GPIFIE           GPIFADRH:L
+ 242   1        // UDMACRCH:L       EPxGPIFTRIG
+ 243   1        // GPIFTRIG
+ 244   1        
+ 245   1        // Note: The pre-REVE EPxGPIFTCH/L register are affected, as well...
+ 246   1        //      ...these have been replaced by GPIFTC[B3:B0] registers
+ 247   1      
+ 248   1      
+ 249   1        
+ 250   1       
+ 251   1      
+ 252   1        // EP4 and EP8 are not used in this implementation...
+ 253   1                         
+ 254   1      EP2CFG = 0xA2;                //out 512 bytes, 2x, bulk
+ 255   1      SYNCDELAY;                    
+ 256   1      EP6CFG = 0xE2;                // in 512 bytes, 2x, bulk
+ 257   1      SYNCDELAY;              
+ 258   1      EP4CFG = 0xE2;                // in 512 bytes, 2x, bulk
+ 259   1      SYNCDELAY;                     
+ 260   1      EP8CFG = 0x02;                //clear valid bit
+ 261   1      SYNCDELAY;   
+ 262   1      
+ 263   1      SYNCDELAY;
+ 264   1      FIFORESET = 0x80;             // activate NAK-ALL to avoid race conditions
+ 265   1      SYNCDELAY;                    // see TRM section 15.14
+ 266   1      FIFORESET = 0x02;             // reset, FIFO 2
+ 267   1      SYNCDELAY;                    // 
+ 268   1      FIFORESET = 0x04;             // reset, FIFO 4
+ 269   1      SYNCDELAY;                    // 
+ 270   1      FIFORESET = 0x06;             // reset, FIFO 6
+ 271   1      SYNCDELAY;                    // 
+ 272   1      FIFORESET = 0x08;             // reset, FIFO 8
+ 273   1      SYNCDELAY;                    // 
+ 274   1      FIFORESET = 0x00;             // deactivate NAK-ALL
+ 275   1      
+ 276   1      
+ 277   1      // handle the case where we were already in AUTO mode...
+ 278   1      // ...for example: back to back firmware downloads...
+ 279   1      SYNCDELAY;                    // 
+ 280   1      EP2FIFOCFG = 0x00;            // AUTOOUT=0, WORDWIDE=1
+ 281   1      
+ 282   1      // core needs to see AUTOOUT=0 to AUTOOUT=1 switch to arm endp's
+ 283   1      
+ 284   1      SYNCDELAY;                    // 
+ 285   1      EP2FIFOCFG = 0x10;            // AUTOOUT=1, WORDWIDE=1
+ 286   1      
+ 287   1      SYNCDELAY;                    // 
+ 288   1      EP4FIFOCFG = 0x0C;            // AUTOIN=1, ZEROLENIN=1, WORDWIDE=1
+ 289   1      SYNCDELAY;  
+ 290   1      EP6FIFOCFG = 0x0C;            // AUTOIN=1, ZEROLENIN=1, WORDWIDE=1
+ 291   1      
+ 292   1      SYNCDELAY;
+ 293   1      
+ 294   1      
+ 295   1      
+ 296   1      EP2AUTOINLENH = 0x02; // EZ-USB automatically commits data in 512-byte chunks
+ 297   1      SYNCDELAY;
+ 298   1      EP2AUTOINLENL = 0x00;
+ 299   1      SYNCDELAY;
+ 300   1      
+ 301   1      EP4AUTOINLENH = 0x02; // EZ-USB automatically commits data in 512-byte chunks
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 6   
+
+ 302   1      SYNCDELAY;
+ 303   1      EP4AUTOINLENL = 0x00;
+ 304   1      SYNCDELAY;
+ 305   1      
+ 306   1      EP6AUTOINLENH = 0x02; // EZ-USB automatically commits data in 512-byte chunks
+ 307   1      SYNCDELAY;
+ 308   1      EP6AUTOINLENL = 0x00;
+ 309   1      SYNCDELAY;
+ 310   1      
+ 311   1      }
+ 312          
+ 313          void TD_Poll(void)             // Called repeatedly while the device is idle
+ 314          {
+ 315   1        
+ 316   1        // Serial State Notification that has to be sent periodically to the host
+ 317   1      
+ 318   1        if (!(EP1INCS & 0x02))      // check if EP1IN is available
+ 319   1        {
+ 320   2          EP1INBUF[0] = 0x0A;       // if it is available, then fill the first 10 bytes of the buffer with 
+ 321   2              EP1INBUF[1] = 0x20;       // appropriate data. 
+ 322   2              EP1INBUF[2] = 0x00;
+ 323   2              EP1INBUF[3] = 0x00;
+ 324   2              EP1INBUF[4] = 0x00;
+ 325   2              EP1INBUF[5] = 0x00;
+ 326   2              EP1INBUF[6] = 0x00;
+ 327   2              EP1INBUF[7] = 0x02;
+ 328   2          EP1INBUF[8] = 0x00;
+ 329   2              EP1INBUF[9] = 0x00;
+ 330   2              EP1INBC = 10;            // manually commit once the buffer is filled
+ 331   2        }
+ 332   1      
+ 333   1      //// recieving the data from the USB Host and send it out through UART
+ 334   1      
+ 335   1        // if (!(EP1OUTCS & 0x02)) // Check if EP1OUT is available
+ 336   1      
+ 337   1        // { 
+ 338   1              // int bcl,i;
+ 339   1              // bcl=EP1OUTBC;
+ 340   1              // for(i=0;i<bcl;i++)
+ 341   1              // WriteByteS0(EP1OUTBUF[i]);
+ 342   1              // EP1OUTBC = 0x04;
+ 343   1        // }
+ 344   1      
+ 345   1      //// recieve the data from UART and send it out to the USB Host
+ 346   1      
+ 347   1        // if((EP2468STAT & bmEP8EMPTY))   // check if EP8 is empty
+ 348   1        // { 
+ 349   1         
+ 350   1               // if (RI)
+ 351   1               // {
+ 352   1                       // EP8FIFOBUF [0] = ReadByteS0();
+ 353   1                       // EP8BCH = 0;    
+ 354   1                       // SYNCDELAY;   
+ 355   1                       // EP8BCL = 1; 
+ 356   1                       // SYNCDELAY;   
+ 357   1          
+ 358   1               // }
+ 359   1        
+ 360   1        // }
+ 361   1      
+ 362   1      }
+ 363          
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 7   
+
+ 364          BOOL TD_Suspend(void)          // Called before the device goes into suspend mode
+ 365          {
+ 366   1         return(TRUE);
+ 367   1      }
+ 368          
+ 369          BOOL TD_Resume(void)          // Called after the device resumes
+ 370          {
+ 371   1         return(TRUE);
+ 372   1      }
+ 373          
+ 374          //-----------------------------------------------------------------------------
+ 375          // Device Request hooks
+ 376          //   The following hooks are called by the end point 0 device request parser.
+ 377          //-----------------------------------------------------------------------------
+ 378          
+ 379          BOOL DR_GetDescriptor(void)
+ 380          {
+ 381   1         return(TRUE);
+ 382   1      }
+ 383          
+ 384          BOOL DR_SetConfiguration(void)   // Called when a Set Configuration command is received
+ 385          {  
+ 386   1      
+ 387   1         Configuration = SETUPDAT[2];
+ 388   1         return(TRUE);            // Handled by user code
+ 389   1      }
+ 390          
+ 391          BOOL DR_GetConfiguration(void)   // Called when a Get Configuration command is received
+ 392          {
+ 393   1         EP0BUF[0] = Configuration;
+ 394   1         EP0BCH = 0;
+ 395   1         EP0BCL = 1;
+ 396   1         return(TRUE);            // Handled by user code
+ 397   1      }
+ 398          
+ 399          BOOL DR_SetInterface(void)       // Called when a Set Interface command is received
+ 400          {
+ 401   1         AlternateSetting = SETUPDAT[2];
+ 402   1         return(TRUE);            // Handled by user code
+ 403   1      }
+ 404          
+ 405          BOOL DR_GetInterface(void)       // Called when a Set Interface command is received
+ 406          {
+ 407   1         EP0BUF[0] = AlternateSetting;
+ 408   1         EP0BCH = 0;
+ 409   1         EP0BCL = 1;
+ 410   1         return(TRUE);            // Handled by user code
+ 411   1      }
+ 412          
+ 413          BOOL DR_GetStatus(void)
+ 414          {
+ 415   1         return(TRUE);
+ 416   1      }
+ 417          
+ 418          BOOL DR_ClearFeature(void)
+ 419          {
+ 420   1         return(TRUE);
+ 421   1      }
+ 422          
+ 423          BOOL DR_SetFeature(void)
+ 424          {
+ 425   1         return(TRUE);
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 8   
+
+ 426   1      }
+ 427          
+ 428          BOOL DR_VendorCmnd(void)
+ 429          {
+ 430   1         return(TRUE);
+ 431   1      }
+ 432          
+ 433          //-----------------------------------------------------------------------------
+ 434          // USB Interrupt Handlers
+ 435          //   The following functions are called by the USB interrupt jump table.
+ 436          //-----------------------------------------------------------------------------
+ 437          
+ 438          // Setup Data Available Interrupt Handler
+ 439          
+ 440          
+ 441          void ISR_Sudav(void) interrupt 0
+ 442          {
+ 443   1         
+ 444   1         GotSUD = TRUE;            // Set flag
+ 445   1         EZUSB_IRQ_CLEAR();
+ 446   1         USBIRQ = bmSUDAV;         // Clear SUDAV IRQ
+ 447   1      }
+ 448          
+ 449          // Setup Token Interrupt Handler
+ 450          void ISR_Sutok(void) interrupt 0
+ 451          {
+ 452   1         EZUSB_IRQ_CLEAR();
+ 453   1         USBIRQ = bmSUTOK;         // Clear SUTOK IRQ
+ 454   1      }
+ 455          
+ 456          void ISR_Sof(void) interrupt 0
+ 457          {
+ 458   1         EZUSB_IRQ_CLEAR();
+ 459   1         USBIRQ = bmSOF;            // Clear SOF IRQ
+ 460   1      }
+ 461          
+ 462          void ISR_Ures(void) interrupt 0
+ 463          {
+ 464   1         if (EZUSB_HIGHSPEED())
+ 465   1         {
+ 466   2            pConfigDscr = pHighSpeedConfigDscr;
+ 467   2            pOtherConfigDscr = pFullSpeedConfigDscr;
+ 468   2         }
+ 469   1         else
+ 470   1         {
+ 471   2            pConfigDscr = pFullSpeedConfigDscr;
+ 472   2            pOtherConfigDscr = pHighSpeedConfigDscr;
+ 473   2         }
+ 474   1         
+ 475   1         EZUSB_IRQ_CLEAR();
+ 476   1         USBIRQ = bmURES;         // Clear URES IRQ
+ 477   1      }
+ 478          
+ 479          void ISR_Susp(void) interrupt 0
+ 480          {
+ 481   1          Sleep = TRUE;
+ 482   1         EZUSB_IRQ_CLEAR();
+ 483   1         USBIRQ = bmSUSP;
+ 484   1        
+ 485   1      }
+ 486          
+ 487          void ISR_Highspeed(void) interrupt 0
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 9   
+
+ 488          {
+ 489   1         if (EZUSB_HIGHSPEED())
+ 490   1         {
+ 491   2            pConfigDscr = pHighSpeedConfigDscr;
+ 492   2            pOtherConfigDscr = pFullSpeedConfigDscr;
+ 493   2         }
+ 494   1         else
+ 495   1         {
+ 496   2            pConfigDscr = pFullSpeedConfigDscr;
+ 497   2            pOtherConfigDscr = pHighSpeedConfigDscr;
+ 498   2         }
+ 499   1      
+ 500   1         EZUSB_IRQ_CLEAR();
+ 501   1         USBIRQ = bmHSGRANT;
+ 502   1      }
+ 503          void ISR_Ep0ack(void) interrupt 0
+ 504          {
+ 505   1      }
+ 506          void ISR_Stub(void) interrupt 0
+ 507          {
+ 508   1      }
+ 509          void ISR_Ep0in(void) interrupt 0
+ 510          {
+ 511   1      }
+ 512          void ISR_Ep0out(void) interrupt 0
+ 513          {
+ 514   1      }
+ 515          void ISR_Ep1in(void) interrupt 0
+ 516          {
+ 517   1      }
+ 518          void ISR_Ep1out(void) interrupt 0
+ 519          {
+ 520   1      }
+ 521          void ISR_Ep2inout(void) interrupt 0
+ 522          {
+ 523   1      }
+ 524          void ISR_Ep4inout(void) interrupt 0
+ 525          {
+ 526   1      
+ 527   1      }
+ 528          void ISR_Ep6inout(void) interrupt 0
+ 529          {
+ 530   1      }
+ 531          void ISR_Ep8inout(void) interrupt 0
+ 532          {
+ 533   1      }
+ 534          void ISR_Ibn(void) interrupt 0
+ 535          {
+ 536   1      }
+ 537          void ISR_Ep0pingnak(void) interrupt 0
+ 538          {
+ 539   1      }
+ 540          void ISR_Ep1pingnak(void) interrupt 0
+ 541          {
+ 542   1      }
+ 543          void ISR_Ep2pingnak(void) interrupt 0
+ 544          {
+ 545   1      }
+ 546          void ISR_Ep4pingnak(void) interrupt 0
+ 547          {
+ 548   1      }
+ 549          void ISR_Ep6pingnak(void) interrupt 0
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 10  
+
+ 550          {
+ 551   1      }
+ 552          void ISR_Ep8pingnak(void) interrupt 0
+ 553          {
+ 554   1      }
+ 555          void ISR_Errorlimit(void) interrupt 0
+ 556          {
+ 557   1      }
+ 558          void ISR_Ep2piderror(void) interrupt 0
+ 559          {
+ 560   1      }
+ 561          void ISR_Ep4piderror(void) interrupt 0
+ 562          {
+ 563   1      }
+ 564          void ISR_Ep6piderror(void) interrupt 0
+ 565          {
+ 566   1      }
+ 567          void ISR_Ep8piderror(void) interrupt 0
+ 568          {
+ 569   1      }
+ 570          void ISR_Ep2pflag(void) interrupt 0
+ 571          {
+ 572   1      }
+ 573          void ISR_Ep4pflag(void) interrupt 0
+ 574          {
+ 575   1      }
+ 576          void ISR_Ep6pflag(void) interrupt 0
+ 577          {
+ 578   1      }
+ 579          void ISR_Ep8pflag(void) interrupt 0
+ 580          {
+ 581   1      }
+ 582          void ISR_Ep2eflag(void) interrupt 0
+ 583          {
+ 584   1      }
+ 585          void ISR_Ep4eflag(void) interrupt 0
+ 586          {
+ 587   1      }
+ 588          void ISR_Ep6eflag(void) interrupt 0
+ 589          {
+ 590   1      }
+ 591          void ISR_Ep8eflag(void) interrupt 0
+ 592          {
+ 593   1      }
+ 594          void ISR_Ep2fflag(void) interrupt 0
+ 595          {
+ 596   1      }
+ 597          void ISR_Ep4fflag(void) interrupt 0
+ 598          {
+ 599   1      }
+ 600          void ISR_Ep6fflag(void) interrupt 0
+ 601          {
+ 602   1      }
+ 603          void ISR_Ep8fflag(void) interrupt 0
+ 604          {
+ 605   1      }
+ 606          void ISR_GpifComplete(void) interrupt 0
+ 607          {
+ 608   1      }
+ 609          void ISR_GpifWaveform(void) interrupt 0
+ 610          {
+ 611   1      }
+C51 COMPILER V7.07   VIRTUAL                                                               01/26/2013 10:15:40 PAGE 11  
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    548    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

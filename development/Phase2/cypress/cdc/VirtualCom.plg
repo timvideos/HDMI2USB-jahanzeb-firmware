@@ -1,0 +1,130 @@
+<html>
+<body>
+<pre>
+<h1>µVision2 Build Log</h1>
+<h2>Project:</h2>
+D:\Dropbox\vWorker\cdc\Virtual.uv2
+Project File Date:  09/22/2011
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling fw.c...
+assembling DSCR.A51...
+compiling Virtual.c...
+linking...
+Program Size: data=52.5 xdata=4471 code=2602
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2630 Bytes written.
+Total Code Bytes = 2602
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+assembling DSCR.A51...
+compiling Virtual.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READBYTES0?VIRTUAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITEBYTES0?VIRTUAL
+Program Size: data=50.5 xdata=4471 code=2591
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2619 Bytes written.
+Total Code Bytes = 2591
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+compiling Virtual.c...
+assembling cypress_slave_fifo.a51...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READBYTES0?VIRTUAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITEBYTES0?VIRTUAL
+Program Size: data=50.5 xdata=4471 code=2631
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2659 Bytes written.
+Total Code Bytes = 2631
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+compiling Virtual.c...
+assembling cypress_slave_fifo.a51...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  SERIAL0INIT
+    MODULE:  fw.obj (FW)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  SERIAL0INIT
+    MODULE:  fw.obj (FW)
+    ADDRESS: 0258H
+Program Size: data=46.5 xdata=4471 code=2385
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2413 Bytes written.
+Total Code Bytes = 2385
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+FW.C(207): warning C206: 'Serial0Init': missing function-prototype
+compiling Virtual.c...
+assembling cypress_slave_fifo.a51...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  SERIAL0INIT
+    MODULE:  fw.obj (FW)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  SERIAL0INIT
+    MODULE:  fw.obj (FW)
+    ADDRESS: 0258H
+Program Size: data=46.5 xdata=4471 code=2385
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2413 Bytes written.
+Total Code Bytes = 2385
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+compiling Virtual.c...
+assembling cypress_slave_fifo.a51...
+linking...
+Program Size: data=46.5 xdata=4471 code=2382
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2410 Bytes written.
+Total Code Bytes = 2382
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling fw.c...
+compiling Virtual.c...
+assembling DSCR.A51...
+linking...
+Program Size: data=46.5 xdata=4471 code=2342
+creating hex file from "VirtualCom"...
+User command #1: c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex
+Intel Hex file to EZ-USB Binary file conversion utility
+Copyright (c) 1997-1999, Cypress Semiconductor Inc.
+2370 Bytes written.
+Total Code Bytes = 2342
+Conversion completed successfully.
+"VirtualCom" - 0 Error(s), 0 Warning(s).

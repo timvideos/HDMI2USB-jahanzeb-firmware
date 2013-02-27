@@ -37,3 +37,4 @@ TIMESPEC TS_clk = PERIOD "clk" 10 ns HIGH 50%;
 #TIMESPEC TS_clk_jpeg = PERIOD "clk_jpeg" 9 ns HIGH 50%;
 
 
+#INST "jpeg_encoder/*" KEEP_HIERARCHY=TRUE;

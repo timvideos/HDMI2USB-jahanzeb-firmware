@@ -1,0 +1,35 @@
+<html>
+<body>
+<pre>
+<h1>µVision2 Build Log</h1>
+<h2>Project:</h2>
+D:\Dropbox\vWorker\phase2\cypress\cypress_driver\UVC.uv2
+Project File Date:  02/17/2013
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling fw.c...
+compiling periph.c...
+assembling cypress_slave_fifo.a51...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  GPCR2
+    MODULE:  .\output\fw.obj (FW)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  GPCR2
+    MODULE:  .\output\fw.obj (FW)
+    ADDRESS: 0037H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+    ADDRESS: 0048H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+    ADDRESS: 004BH
+Program Size: data=67.5 xdata=37232 code=2398
+creating hex file from ".\output\UVC_CDC"...
+".\output\UVC_CDC" - 0 Error(s), 5 Warning(s).

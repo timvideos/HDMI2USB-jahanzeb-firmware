@@ -141,7 +141,7 @@ signal jpeg_byte_q_q: std_logic_vector(7 downto 0);
 signal counter: std_logic_vector(7 downto 0);
 signal wrightcount: std_logic_vector(11 downto 0);
 
-type states is (uvc_wait,cdc_in_send_edid_1,uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,uvc_send_header,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
+type states is (uvc_wait,cdc_in_send_edid_1,uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
 signal ps : states;
 
 
@@ -356,7 +356,7 @@ elsif rising_edge(jpeg_clk) then
 	jpeg_byte_q <= jpeg_byte_i;
 	jpeg_byte_q_q <= jpeg_byte_q;
 	
-	jpeg_rst <= (not jpeg_enable) or jpeg_error;
+	jpeg_rst <= (not jpeg_enable);-- or jpeg_error;
 	
 
 	if pkt_sent = '1' then

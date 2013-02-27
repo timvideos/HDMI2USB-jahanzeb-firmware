@@ -185,7 +185,7 @@ calc_res calcres(
 
 //% jpeg encoder
 jpeg_encoder_top jpeg_encoder
-// jpeg_encoder_top_dummy jpeg_encoder	// pre encoded jpeg -- fastet synthsis 
+// jpeg_encoder_top_dummy jpeg_encoder	// pre encoded jpeg -- fastet synthsis
 // jpeg_encoder_top_dummy_2 jpeg_encoder // embaded RGB
 (
 .iram_wdata(rgb),
