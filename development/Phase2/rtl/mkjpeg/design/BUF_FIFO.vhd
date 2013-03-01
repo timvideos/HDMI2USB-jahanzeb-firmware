@@ -101,39 +101,39 @@ architecture RTL of BUF_FIFO is
   
   constant C_NUM_LINES    : integer := 8 + C_EXTRA_LINES;
 
-  signal pixel_cnt        : unsigned(15 downto 0);
-  signal line_cnt         : unsigned(15 downto 0);
+  signal pixel_cnt        : unsigned(15 downto 0):=(others=>'0');
+  signal line_cnt         : unsigned(15 downto 0):=(others=>'0');
 
-  signal ramq             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal ramd             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal ramwaddr         : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
-  signal ramenw           : STD_LOGIC;
-  signal ramraddr         : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
+  signal ramq             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0):=(others=>'0');
+  signal ramd             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0):=(others=>'0');
+  signal ramwaddr         : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0):=(others=>'0');
+  signal ramenw           : STD_LOGIC:='0';
+  signal ramraddr         : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0):=(others=>'0');
   
-  signal pix_inblk_cnt    : unsigned(3 downto 0);
-  signal pix_inblk_cnt_d1 : unsigned(3 downto 0);
-  signal line_inblk_cnt   : unsigned(2 downto 0);
+  signal pix_inblk_cnt    : unsigned(3 downto 0):=(others=>'0');
+  signal pix_inblk_cnt_d1 : unsigned(3 downto 0):=(others=>'0');
+  signal line_inblk_cnt   : unsigned(2 downto 0):=(others=>'0');
   
-  signal read_block_cnt   : unsigned(12 downto 0);
-  signal read_block_cnt_d1 : unsigned(12 downto 0);
-  signal write_block_cnt  : unsigned(12 downto 0);
+  signal read_block_cnt   : unsigned(12 downto 0):=(others=>'0');
+  signal read_block_cnt_d1 : unsigned(12 downto 0):=(others=>'0');
+  signal write_block_cnt  : unsigned(12 downto 0):=(others=>'0');
   
-  signal ramraddr_int     : unsigned(16+log2(C_NUM_LINES)-1 downto 0);
-  signal raddr_base_line  : unsigned(16+log2(C_NUM_LINES)-1 downto 0);
-  signal raddr_tmp        : unsigned(15 downto 0);
-  signal ramwaddr_d1      : unsigned(ramwaddr'range);
+  signal ramraddr_int     : unsigned(16+log2(C_NUM_LINES)-1 downto 0):=(others=>'0');
+  signal raddr_base_line  : unsigned(16+log2(C_NUM_LINES)-1 downto 0):=(others=>'0');
+  signal raddr_tmp        : unsigned(15 downto 0):=(others=>'0');
+  signal ramwaddr_d1      : unsigned(ramwaddr'range):=(others=>'0');
   
-  signal line_lock        : unsigned(log2(C_NUM_LINES)-1 downto 0);
+  signal line_lock        : unsigned(log2(C_NUM_LINES)-1 downto 0):=(others=>'0');
   
-  signal memwr_line_cnt   : unsigned(log2(C_NUM_LINES)-1 downto 0);
+  signal memwr_line_cnt   : unsigned(log2(C_NUM_LINES)-1 downto 0):=(others=>'0');
   
-  signal memrd_offs_cnt   : unsigned(log2(C_NUM_LINES)-1+1 downto 0);
-  signal memrd_line       : unsigned(log2(C_NUM_LINES)-1 downto 0);
+  signal memrd_offs_cnt   : unsigned(log2(C_NUM_LINES)-1+1 downto 0):=(others=>'0');
+  signal memrd_line       : unsigned(log2(C_NUM_LINES)-1 downto 0):=(others=>'0');
   
-  signal wr_line_idx      : unsigned(15 downto 0);
-  signal rd_line_idx      : unsigned(15 downto 0);
+  signal wr_line_idx      : unsigned(15 downto 0):=(others=>'0');
+  signal rd_line_idx      : unsigned(15 downto 0):=(others=>'0');
   
-  signal image_write_end  : std_logic;  
+  signal image_write_end  : std_logic:='0';  
   
   
   

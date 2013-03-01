@@ -42,12 +42,13 @@ entity jpeg_encoder_top is
 
         clk                : in  std_logic;
         rst_n              : in  std_logic;
-        -- encoder_ready      : out  std_logic;
-        
+                
         -- IMAGE RAM
         iram_wdata         : in  std_logic_vector(23 downto 0);
         iram_wren          : in  std_logic;
-        iram_clk		    : in std_logic; 
+		iram_fifo_afull    : out std_logic; 
+		store_img		   : out std_logic; 
+		read_img		   : out std_logic; 
         
         -- OUT RAM
         ram_byte           : out std_logic_vector(7 downto 0);
@@ -103,23 +104,7 @@ component JpegEnc is
    );
 end component JpegEnc;
 
-component rgb_buffer is
-port 
-(
-	clk                : in std_logic;
-	rst                : in std_logic;
-	
-	iram_wdata_in      : in std_logic_vector(23 downto 0);
-	iram_wren_in       : in std_logic;
-	iram_clk		   : in std_logic; 
-	
-	iram_wdata_out     : out std_logic_vector(23 downto 0);
-	iram_wren_out      : out std_logic;
-	iram_fifo_afull    : in std_logic;
-	encoder_ready      : in std_logic;
-	fifo_overflow      : out std_logic
-);
-end component rgb_buffer;
+
 ------------------------------------------------------------------------
 
 type ROMQ_TYPE is array (0 to 64-1) 
@@ -198,24 +183,29 @@ signal OPB_XferAck        :  std_logic;
 signal OPB_retry          :  std_logic;
 signal OPB_toutSup        :  std_logic;
 signal OPB_errAck       :  std_logic;
-signal error_i          :  std_logic;
 signal counter_i		: std_logic_vector(5 downto 0);
 signal counter			: std_logic_vector(5 downto 0);
-signal iram_wdata_i		: std_logic_vector(23 downto 0);
+
 signal rst				: std_logic;
 signal start : std_logic;
 signal rgb_start_q : std_logic;
 
-signal iram_wren_i   : std_logic;
+
 signal encoder_ready_i : std_logic;
 signal encoder_ready : std_logic;
-signal iram_fifo_afull : std_logic;
+
+signal store_img_i : std_logic;
+signal store_img_ii : std_logic;
+signal read_img_i : std_logic;
+signal read_img_ii : std_logic;
 
 
 
 
 begin
 
+read_img <= read_img_i;
+store_img <= store_img_i;
 jpeg_busy <= encoder_ready;
 
 --- sync process -----------------------------------------
@@ -225,12 +215,17 @@ BEGIN
 		ps <= s_reset;
 		rgb_start_q <= '0';
 		rst <= '1';
+		read_img_i <= '0';
+		store_img_i <= '0';
+		error <= '0';
+		encoder_ready <= '0';
 	ELSIF rising_edge(clk) THEN
 	
 		rgb_start_q <= rgb_start;
-		start <= ((rgb_start_q xor rgb_start) and rgb_start);
-
-		-- error <= '0';
+		start <= ((rgb_start_q xor rgb_start) and rgb_start);		
+		read_img_i <= read_img_ii;
+		store_img_i <= store_img_ii;
+		error <= '0';
 		rst <= '0';
 	
 		if jpeg_enable = '0' then
@@ -266,6 +261,8 @@ OPB_RNW_i     <= '0';
 OPB_select_i  <= '0';
 done <= '0';	
 encoder_ready_i <= encoder_ready;
+read_img_ii <= read_img_i;
+store_img_ii <= store_img_i;
 CASE ps IS
 WHEN s_reset =>
 	ns <= wait_for_start0;
@@ -276,10 +273,13 @@ WHEN s_reset =>
 	OPB_RNW_i     <= '0';
 	OPB_select_i  <= '0';	
 	encoder_ready_i <= '0';
+	read_img_ii <= '0';
+	store_img_ii <= '0';
 when wait_for_start0 =>
 	if start = '1' then
 		ns <= wait_for_start1;
 		encoder_ready_i <= '1'; -- move this to apropriate place if wait for start is enabled
+		store_img_ii <= '1';
 	end if;
 when wait_for_start1 =>
 	-- if start = '1' then
@@ -358,15 +358,16 @@ when reg_done =>
     end if;
 
 when wait_for_start2 =>
-	-- if start = '1' then
+	if start = '1' then
 		OPB_select_i  <= '1';
 		OPB_ABus_i    <= X"0000_0000";
 		OPB_RNW_i     <= '0';
 		OPB_BE_i      <= X"F";
 		OPB_DBus_in_i <= X"0000_0007"; -- RGB= 11, sof= 1, 
 		ns <= wait_for_start2_done;
-		-- encoder_ready_i <= '1';
-	-- end if;
+		read_img_ii <= '1';
+		store_img_ii <= '0';		
+	end if;
 
 when wait_for_start2_done => 
 	if OPB_XferAck /= '1' then
@@ -394,6 +395,7 @@ when s_wait =>
 			ns <= s_reset;
 			done <= '1';
 			encoder_ready_i <= '0'; 
+			read_img_ii <= '0';
 		else
 			ns <= s_done1;
 		end if;
@@ -424,8 +426,8 @@ OPB_toutSup        => OPB_toutSup,
 OPB_errAck         => OPB_errAck,
 
 -- IMAGE RAM
-iram_wdata         => iram_wdata_i,
-iram_wren          => iram_wren_i,
+iram_wdata         => iram_wdata,
+iram_wren          => iram_wren,
 iram_fifo_afull    => iram_fifo_afull,
 
 -- OUT RAM
@@ -435,20 +437,6 @@ ram_wraddr         => ram_wraddr,
 outif_almost_full  => outif_almost_full
 );
 
-rgbbuffer: rgb_buffer 
-port map
-(
-clk => clk,
-rst => rst,
-iram_wdata_in =>   iram_wdata,
-iram_wren_in   => iram_wren,
-iram_clk => iram_clk,
-iram_wdata_out  => iram_wdata_i,
-iram_wren_out => iram_wren_i,
-iram_fifo_afull => iram_fifo_afull,
-encoder_ready => encoder_ready,
-fifo_overflow => error
-);
 
 end architecture RTL; 
 

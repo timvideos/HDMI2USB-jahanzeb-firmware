@@ -79,19 +79,19 @@ architecture rtl of quantizer is
   
   constant INTERN_PIPE_C : INTEGER := 3;
   
-  signal romaddr_s     : UNSIGNED(RAMQADDR_W-2 downto 0);
-  signal slv_romaddr_s : STD_LOGIC_VECTOR(RAMQADDR_W-1 downto 0);
-  signal romdatao_s    : STD_LOGIC_VECTOR(RAMQDATA_W-1 downto 0);
-  signal divisor_s     : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal remainder_s   : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal do_s          : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal round_s       : STD_LOGIC;
-  signal di_d1         : std_logic_vector(SIZE_C-1 downto 0);
+  signal romaddr_s     : UNSIGNED(RAMQADDR_W-2 downto 0):=(others => '0');
+  signal slv_romaddr_s : STD_LOGIC_VECTOR(RAMQADDR_W-1 downto 0):=(others => '0');
+  signal romdatao_s    : STD_LOGIC_VECTOR(RAMQDATA_W-1 downto 0):=(others => '0');
+  signal divisor_s     : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):=(others => '0');
+  signal remainder_s   : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):=(others => '0');
+  signal do_s          : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):=(others => '0');
+  signal round_s       : STD_LOGIC:='0';
+  signal di_d1         : std_logic_vector(SIZE_C-1 downto 0):=(others => '0');
   
-  signal pipeline_reg  : STD_LOGIC_VECTOR(4 downto 0);
-  signal sign_bit_pipe : std_logic_vector(SIZE_C+INTERN_PIPE_C+1-1 downto 0);  
-  signal do_rdiv       : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal table_select  : std_logic;
+  signal pipeline_reg  : STD_LOGIC_VECTOR(4 downto 0):=(others => '0');
+  signal sign_bit_pipe : std_logic_vector(SIZE_C+INTERN_PIPE_C+1-1 downto 0):=(others => '0');  
+  signal do_rdiv       : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):=(others => '0');
+  signal table_select  : std_logic:='0';
   
 begin
   

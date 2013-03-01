@@ -105,21 +105,21 @@ end entity RLE_TOP;
 -------------------------------------------------------------------------------
 architecture RTL of RLE_TOP is
 
-  signal dbuf_data      : std_logic_vector(19 downto 0);
-  signal dbuf_q         : std_logic_vector(19 downto 0);
-  signal dbuf_we        : std_logic;
+  signal dbuf_data      : std_logic_vector(19 downto 0):= (others => '0');
+  signal dbuf_q         : std_logic_vector(19 downto 0):= (others => '0');
+  signal dbuf_we        : std_logic:='0';
 
-  signal rle_runlength  : std_logic_vector(3 downto 0);
-  signal rle_size       : std_logic_vector(3 downto 0);
-  signal rle_amplitude  : std_logic_vector(11 downto 0);
-  signal rle_dovalid    : std_logic;
-  signal rle_di         : std_logic_vector(11 downto 0);
-  signal rle_divalid    : std_logic;
+  signal rle_runlength  : std_logic_vector(3 downto 0):= (others => '0');
+  signal rle_size       : std_logic_vector(3 downto 0):= (others => '0');
+  signal rle_amplitude  : std_logic_vector(11 downto 0):= (others => '0');
+  signal rle_dovalid    : std_logic:='0';
+  signal rle_di         : std_logic_vector(11 downto 0):= (others => '0');
+  signal rle_divalid    : std_logic:='0';
   
-  signal qua_buf_sel_s  : std_logic;
-  signal huf_dval_p0    : std_logic;
+  signal qua_buf_sel_s  : std_logic:='0';
+  signal huf_dval_p0    : std_logic:='0';
   
-  signal wr_cnt         : unsigned(5 downto 0);
+  signal wr_cnt         : unsigned(5 downto 0):= (others => '0');
   
 -------------------------------------------------------------------------------
 -- Architecture: begin

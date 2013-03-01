@@ -103,22 +103,22 @@ end entity QUANT_TOP;
 -------------------------------------------------------------------------------
 architecture RTL of QUANT_TOP is
 
-  signal dbuf_data      : std_logic_vector(11 downto 0);
-  signal dbuf_q         : std_logic_vector(11 downto 0);
-  signal dbuf_we        : std_logic;
-  signal dbuf_waddr     : std_logic_vector(6 downto 0);
-  signal dbuf_raddr     : std_logic_vector(6 downto 0);
-  signal zigzag_di      : std_logic_vector(11 downto 0);
-  signal zigzag_divalid : std_logic;
-  signal quant_dout     : std_logic_vector(11 downto 0);
-  signal quant_dovalid  : std_logic;
-  signal wr_cnt         : unsigned(5 downto 0);
-  signal rd_cnt         : unsigned(5 downto 0);
-  signal rd_en_d        : std_logic_vector(5 downto 0);
-  signal rd_en          : std_logic;
-  signal zig_buf_sel_s  : std_logic;
-  signal zz_rd_addr     : std_logic_vector(5 downto 0);
-  signal fifo_empty     : std_logic;
+  signal dbuf_data      : std_logic_vector(11 downto 0):=(others => '0');
+  signal dbuf_q         : std_logic_vector(11 downto 0):=(others => '0');
+  signal dbuf_we        : std_logic:='0';
+  signal dbuf_waddr     : std_logic_vector(6 downto 0):=(others => '0');
+  signal dbuf_raddr     : std_logic_vector(6 downto 0):=(others => '0');
+  signal zigzag_di      : std_logic_vector(11 downto 0):=(others => '0');
+  signal zigzag_divalid : std_logic:='0';
+  signal quant_dout     : std_logic_vector(11 downto 0):=(others => '0');
+  signal quant_dovalid  : std_logic:='0';
+  signal wr_cnt         : unsigned(5 downto 0):=(others => '0');
+  signal rd_cnt         : unsigned(5 downto 0):=(others => '0');
+  signal rd_en_d        : std_logic_vector(5 downto 0):=(others => '0');
+  signal rd_en          : std_logic:='0';
+  signal zig_buf_sel_s  : std_logic:='0';
+  signal zz_rd_addr     : std_logic_vector(5 downto 0):=(others => '0');
+  signal fifo_empty     : std_logic:='0';
   
 -------------------------------------------------------------------------------
 -- Architecture: begin

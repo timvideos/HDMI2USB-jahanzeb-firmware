@@ -87,26 +87,26 @@ architecture rtl of rle is
   constant SIZE_REG_C      : INTEGER := 4;
   constant ZEROS_32_C      : UNSIGNED(31 downto 0) := (others => '0');
   
-  signal prev_dc_reg_0   : SIGNED(RAMDATA_W-1 downto 0);
-  signal prev_dc_reg_1   : SIGNED(RAMDATA_W-1 downto 0);
-  signal prev_dc_reg_2   : SIGNED(RAMDATA_W-1 downto 0);
-  signal prev_dc_reg_3   : SIGNED(RAMDATA_W-1 downto 0);
-  signal acc_reg         : SIGNED(RAMDATA_W downto 0);
-  signal size_reg        : UNSIGNED(SIZE_REG_C-1 downto 0); 
-  signal ampli_vli_reg   : SIGNED(RAMDATA_W downto 0);
-  signal runlength_reg   : UNSIGNED(3 downto 0);   
-  signal dovalid_reg     : STD_LOGIC;
-  signal zero_cnt        : unsigned(5 downto 0);
-  signal wr_cnt_d1       : unsigned(5 downto 0);
-  signal wr_cnt          : unsigned(5 downto 0);
+  signal prev_dc_reg_0   : SIGNED(RAMDATA_W-1 downto 0):= (others => '0');
+  signal prev_dc_reg_1   : SIGNED(RAMDATA_W-1 downto 0):= (others => '0');
+  signal prev_dc_reg_2   : SIGNED(RAMDATA_W-1 downto 0):= (others => '0');
+  signal prev_dc_reg_3   : SIGNED(RAMDATA_W-1 downto 0):= (others => '0');
+  signal acc_reg         : SIGNED(RAMDATA_W downto 0):= (others => '0');
+  signal size_reg        : UNSIGNED(SIZE_REG_C-1 downto 0):= (others => '0'); 
+  signal ampli_vli_reg   : SIGNED(RAMDATA_W downto 0):= (others => '0');
+  signal runlength_reg   : UNSIGNED(3 downto 0):= (others => '0');   
+  signal dovalid_reg     : STD_LOGIC:='0';
+  signal zero_cnt        : unsigned(5 downto 0):= (others => '0');
+  signal wr_cnt_d1       : unsigned(5 downto 0):= (others => '0');
+  signal wr_cnt          : unsigned(5 downto 0):= (others => '0');
   
-  signal rd_cnt         : unsigned(5 downto 0);
-  signal rd_en          : std_logic;
+  signal rd_cnt         : unsigned(5 downto 0):= (others => '0');
+  signal rd_en          : std_logic:='0';
   
-  signal divalid        : STD_LOGIC;
-  signal divalid_en     : std_logic;
-  signal zrl_proc       : std_logic;
-  signal zrl_di         : STD_LOGIC_VECTOR(RAMDATA_W-1 downto 0);
+  signal divalid        : STD_LOGIC:='0';
+  signal divalid_en     : std_logic:='0';
+  signal zrl_proc       : std_logic:='0';
+  signal zrl_di         : STD_LOGIC_VECTOR(RAMDATA_W-1 downto 0):= (others => '0');
 begin
 
   size      <= STD_LOGIC_VECTOR(size_reg);

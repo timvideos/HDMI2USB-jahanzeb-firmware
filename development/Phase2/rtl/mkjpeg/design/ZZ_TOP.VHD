@@ -108,8 +108,8 @@ architecture RTL of ZZ_TOP is
   signal zigzag_divalid : std_logic;
   signal zigzag_dout    : std_logic_vector(11 downto 0);
   signal zigzag_dovalid : std_logic;
-  signal wr_cnt         : unsigned(5 downto 0);
-  signal rd_cnt         : unsigned(5 downto 0);
+  signal wr_cnt         : unsigned(5 downto 0):= (others => '0');
+  signal rd_cnt         : unsigned(5 downto 0):= (others => '0');
   signal rd_en_d        : std_logic_vector(5 downto 0);
   signal rd_en          : std_logic;
   signal fdct_buf_sel_s : std_logic;

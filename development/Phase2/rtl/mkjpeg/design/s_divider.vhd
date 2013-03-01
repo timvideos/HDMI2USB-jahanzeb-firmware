@@ -82,20 +82,20 @@ end s_divider ;
 
 architecture str of s_divider is
   
-  type S_ARRAY  is array(0 to SIZE_C+3) of unsigned(SIZE_C-1 downto 0);
-  type S2_ARRAY is array(0 to SIZE_C+1) of unsigned(2*SIZE_C-1 downto 0);
+  type S_ARRAY  is array(0 to SIZE_C+3) of unsigned(SIZE_C-1 downto 0):= (others => '0');
+  type S2_ARRAY is array(0 to SIZE_C+1) of unsigned(2*SIZE_C-1 downto 0):= (others => '0');
   
   signal d_s          : S_ARRAY;
   signal q_s          : S_ARRAY;
   signal r_s          : S2_ARRAY;
   signal diff         : S_ARRAY;
-  signal qu_s         : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal ru_s         : unsigned(SIZE_C-1 downto 0);
-  signal qu_s2        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal ru_s2        : unsigned(SIZE_C-1 downto 0);
-  signal d_reg        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
-  signal pipeline_reg : STD_LOGIC_VECTOR(SIZE_C+3-1 downto 0);
-  signal r_reg        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0);
+  signal qu_s         : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):= (others => '0');
+  signal ru_s         : unsigned(SIZE_C-1 downto 0):= (others => '0');
+  signal qu_s2        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):= (others => '0');
+  signal ru_s2        : unsigned(SIZE_C-1 downto 0):= (others => '0');
+  signal d_reg        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):= (others => '0');
+  signal pipeline_reg : STD_LOGIC_VECTOR(SIZE_C+3-1 downto 0):= (others => '0');
+  signal r_reg        : STD_LOGIC_VECTOR(SIZE_C-1 downto 0):= (others => '0');
  
 begin
 

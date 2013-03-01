@@ -67,18 +67,18 @@ end r_divider ;
 
 architecture rtl of r_divider is
   
-  signal romr_datao    : std_logic_vector(15 downto 0);
-  signal romr_addr     : std_logic_vector(7 downto 0);
-  signal dividend      : signed(11 downto 0);
-  signal dividend_d1   : unsigned(11 downto 0);
-  signal reciprocal    : unsigned(15 downto 0);
-  signal mult_out      : unsigned(27 downto 0);
-  signal mult_out_s    : signed(11 downto 0);
-  signal signbit       : std_logic;
-  signal signbit_d1    : std_logic;
-  signal signbit_d2    : std_logic;
-  signal signbit_d3    : std_logic;
-  signal round         : std_logic;
+  signal romr_datao    : std_logic_vector(15 downto 0):=(others => '0');
+  signal romr_addr     : std_logic_vector(7 downto 0):=(others => '0');
+  signal dividend      : signed(11 downto 0):=(others => '0');
+  signal dividend_d1   : unsigned(11 downto 0):=(others => '0');
+  signal reciprocal    : unsigned(15 downto 0):=(others => '0');
+  signal mult_out      : unsigned(27 downto 0):=(others => '0');
+  signal mult_out_s    : signed(11 downto 0):=(others => '0');
+  signal signbit       : std_logic:='0';
+  signal signbit_d1    : std_logic:='0';
+  signal signbit_d2    : std_logic:='0';
+  signal signbit_d3    : std_logic:='0';
+  signal round         : std_logic:='0';
   
 begin
 

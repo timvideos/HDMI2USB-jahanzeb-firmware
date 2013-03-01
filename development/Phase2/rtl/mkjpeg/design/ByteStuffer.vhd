@@ -105,15 +105,15 @@ architecture RTL of ByteStuffer is
 
   signal huf_data_val   : std_logic_vector(3 downto 0);
   signal wdata_reg      : std_logic_vector(15 downto 0);
-  signal wraddr         : unsigned(23 downto 0);
-  signal wr_n_cnt       : unsigned(1 downto 0);
-  signal huf_buf_sel_s  : std_logic;
-  signal rd_en          : std_logic;
-  signal rd_en_d1       : std_logic;
-  signal huf_rd_req_s   : std_logic;
-  signal latch_byte     : std_logic_vector(7 downto 0);
-  signal data_valid     : std_logic;
-  signal wait_for_ndata : std_logic;
+  signal wraddr         : unsigned(23 downto 0):=(others=>'0');
+  signal wr_n_cnt       : unsigned(1 downto 0):=(others=>'0');
+  signal huf_buf_sel_s  : std_logic:='0';
+  signal rd_en          : std_logic:='0';
+  signal rd_en_d1       : std_logic:='0';
+  signal huf_rd_req_s   : std_logic:='0';
+  signal latch_byte     : std_logic_vector(7 downto 0):=(others=>'0');
+  signal data_valid     : std_logic:='0';
+  signal wait_for_ndata : std_logic:='0';
   
 -------------------------------------------------------------------------------
 -- Architecture: begin
