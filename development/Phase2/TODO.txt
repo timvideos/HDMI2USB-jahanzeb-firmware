@@ -4,3 +4,5 @@
 - Scripts to build and test without using the ISE GUI.
 - new faster jpeg encoder needed (may be)
 
+-- testing comments from eclips 
+
