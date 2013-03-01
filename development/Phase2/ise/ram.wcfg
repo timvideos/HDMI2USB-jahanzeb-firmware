@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Dropbox/vWorker/phase2/ise/ram_buffer_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="numeric_std" />
+            <top_module name="ram_buffer_tb" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="textio" />
+            <top_module name="vcomponents" />
+            <top_module name="vital_primitives" />
+            <top_module name="vital_timing" />
+            <top_module name="vl_types" />
+            <top_module name="vpkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="/ram_buffer_tb/uut/c3_calib_done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">c3_calib_done</obj_property>
+      <obj_property name="ObjectShortName">c3_calib_done</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff0000</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ram_buffer_tb/uut/store_img" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">store_img</obj_property>
+      <obj_property name="ObjectShortName">store_img</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ram_buffer_tb/uut/read_img" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">read_img</obj_property>
+      <obj_property name="ObjectShortName">read_img</obj_property>
+   </wvobject>
+   <wvobject fp_name="group162" type="group">
+      <obj_property name="label">io</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_wdata_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata_in[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata_in[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_wren_in" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren_in</obj_property>
+         <obj_property name="ObjectShortName">iram_wren_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_clk</obj_property>
+         <obj_property name="ObjectShortName">iram_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/store_img" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">store_img</obj_property>
+         <obj_property name="ObjectShortName">store_img</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/read_img" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">read_img</obj_property>
+         <obj_property name="ObjectShortName">read_img</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_wdata_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wdata_out[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata_out[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_wren_out" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_wren_out</obj_property>
+         <obj_property name="ObjectShortName">iram_wren_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/iram_fifo_afull" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">iram_fifo_afull</obj_property>
+         <obj_property name="ObjectShortName">iram_fifo_afull</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/clk_jpg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk_jpg</obj_property>
+         <obj_property name="ObjectShortName">clk_jpg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">error</obj_property>
+         <obj_property name="ObjectShortName">error</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group131" type="group">
+      <obj_property name="label">fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/ram_buffer_tb/uut/full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/almost_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_full</obj_property>
+         <obj_property name="ObjectShortName">almost_full</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/almost_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">almost_empty</obj_property>
+         <obj_property name="ObjectShortName">almost_empty</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/valid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/store_img" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">store_img</obj_property>
+         <obj_property name="ObjectShortName">store_img</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/dout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dout[23:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/din" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">din[23:0]</obj_property>
+         <obj_property name="ObjectShortName">din[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group134" type="group">
+      <obj_property name="label">wr_port</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_cmd_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_cmd_empty</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_cmd_empty</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_cmd_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_cmd_full</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_cmd_full</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/wr_state" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">wr_state</obj_property>
+         <obj_property name="ObjectShortName">wr_state</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_cmd_byte_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_cmd_byte_addr[29:0]</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_cmd_byte_addr[29:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_cmd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_cmd_en</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_cmd_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_clk0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_clk0</obj_property>
+         <obj_property name="ObjectShortName">c3_clk0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_en</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_data[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_full</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_full</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_empty</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_empty</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/counter_wr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">counter_wr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">counter_wr[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_underrun" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_underrun</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_underrun</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p3_wr_error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p3_wr_error</obj_property>
+         <obj_property name="ObjectShortName">c3_p3_wr_error</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/wradd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">wradd[29:0]</obj_property>
+         <obj_property name="ObjectShortName">wradd[29:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group161" type="group">
+      <obj_property name="label">rd_port</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_cmd_byte_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_cmd_byte_addr[29:0]</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_cmd_byte_addr[29:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_cmd_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_cmd_empty</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_cmd_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_cmd_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_cmd_full</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_cmd_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_clk0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_clk0</obj_property>
+         <obj_property name="ObjectShortName">c3_clk0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_cmd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_cmd_en</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_cmd_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/clk_jpg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk_jpg</obj_property>
+         <obj_property name="ObjectShortName">clk_jpg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_en</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_en</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_data[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#800000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_full</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_empty</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_overflow" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_overflow</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_overflow</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/c3_p2_rd_error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">c3_p2_rd_error</obj_property>
+         <obj_property name="ObjectShortName">c3_p2_rd_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/rdadd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">rdadd[29:0]</obj_property>
+         <obj_property name="ObjectShortName">rdadd[29:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/counter_rd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">counter_rd[7:0]</obj_property>
+         <obj_property name="ObjectShortName">counter_rd[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ram_buffer_tb/uut/rd_state" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">rd_state</obj_property>
+         <obj_property name="ObjectShortName">rd_state</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

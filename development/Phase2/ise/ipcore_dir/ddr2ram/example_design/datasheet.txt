@@ -1,0 +1,72 @@
+
+
+CORE Generator Options:
+   Target Device              : xc6slx45-csg324
+   Speed Grade                : -3
+   HDL                        : vhdl
+   Synthesis Tool             : Foundation_ISE
+
+MIG Output Options:
+   Component Name             : ddr2ram
+   No of Controllers          : 1
+   Hardware Test Bench           : enabled
+
+    
+/*******************************************************/
+/*                  Controller 3                       */
+/*******************************************************/
+Controller Options : 
+   Memory                  : DDR2_SDRAM
+   Interface               : NATIVE
+   Design Clock Frequency  : 3200 ps (312.50 MHz)
+   Memory Type             : Components
+   Memory Part             : MT47H64M16XX-25E
+   Equivalent Part(s)      : MT47H64M16HR-25E
+   Row Address             : 13
+   Column Address          : 10
+   Bank Address            : 3
+   Data Mask               : enabled
+
+Memory Options :
+   Burst Length                       : 4(010)
+   CAS Latency                        : 5
+   DQS# Enable                        : Enable
+   DLL Enable                         : Enable-Normal
+   OCD Operation                      : OCD Exit
+   Output Drive Strength              : Fullstrength
+   Outputs                            : Enable
+   Additive Latency (AL)              : 0
+   RDQS Enable                        : Disable
+   RTT (nominal) - ODT                : 50ohms       
+   High Temparature Self Refresh Rate : Disable
+
+User Interface Parameters :
+   Configuration Type     : Two 32-bit bi-directional and four 32-bit unidirectional ports
+   Ports Selected         : Port2, Port3
+   Memory Address Mapping : ROW_BANK_COLUMN
+
+   Arbitration Algorithm  : Round Robin
+
+   Arbitration            : 
+      Time Slot0 : 23
+      Time Slot1 : 32
+      Time Slot2 : 23
+      Time Slot3 : 32
+      Time Slot4 : 23
+      Time Slot5 : 32
+      Time Slot6 : 23
+      Time Slot7 : 32
+      Time Slot8 : 23
+      Time Slot9 : 32
+      Time Slot10: 23
+      Time Slot11: 32
+
+FPGA Options :
+   Class for Address and Control       : II
+   Class for Data                      : II
+   Memory Interface Pin Termination    : CALIB_TERM
+   DQ/DQS                              : 25 Ohms
+   Bypass Calibration                  : enabled
+   Debug Signals for Memory Controller : Disable
+   Input Clock Type                    : Single-Ended 
+    
