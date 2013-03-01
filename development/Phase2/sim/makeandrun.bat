@@ -1,3 +1,3 @@
-gcc uvc.c -o uvc.exe
-uvc.exe
+gcc cy2jpg.c -o cy2jpg.exe
+cy2jpg.exe
 

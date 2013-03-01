@@ -56,7 +56,7 @@
 -- "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 ------------------------------------------------------------------------------
 -- CLK_OUT1___100.000______0.000______50.0______200.000____150.000
--- CLK_OUT2___116.000______0.000______50.0______372.414____150.000
+-- CLK_OUT2____90.000______0.000______50.0______422.222____150.000
 --
 ------------------------------------------------------------------------------
 -- "Input Clock   Freq (MHz)    Input Jitter (UI)"
@@ -115,8 +115,8 @@ begin
   dcm_sp_inst: DCM_SP
   generic map
    (CLKDV_DIVIDE          => 2.000,
-    CLKFX_DIVIDE          => 25,
-    CLKFX_MULTIPLY        => 29,
+    CLKFX_DIVIDE          => 10,
+    CLKFX_MULTIPLY        => 9,
     CLKIN_DIVIDE_BY_2     => FALSE,
     CLKIN_PERIOD          => 10.0,
     CLKOUT_PHASE_SHIFT    => "NONE",

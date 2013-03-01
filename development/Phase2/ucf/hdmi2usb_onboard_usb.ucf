@@ -27,15 +27,12 @@
 #-- ///  * http://copyfree.org/licenses/mit/license.txt
 #-- ///
 #-- //////////////////////////////////////////////////////////////////////////////
-
 CONFIG VCCAUX = 3.3;
 
 #NET "clk100" TNM_NET = "clk100";
 #TIMESPEC "TS_clk100" = PERIOD "clk100" 10 ns HIGH 50%;
-
 ## Constraint for RX0
 ##
-
 NET "hdmi_RX_TX/dvi_rx0/rxclk" TNM_NET = DVI_CLOCK0;
 TIMESPEC TS_DVI_CLOCK0 = PERIOD "DVI_CLOCK0" 100 MHz HIGH 50%;
 
@@ -140,7 +137,6 @@ NET "sw<2>" LOC = "C14" |IOSTANDARD = LVCMOS33;
 #NET "sw<5>" LOC = "R5" | IOSTANDARD = LVCMOS33;
 #NET "sw<6>" LOC = "T5" | IOSTANDARD = LVCMOS33;
 #NET "sw<7>" LOC = "E4" | IOSTANDARD = LVCMOS33;
-
 ############################################################################
 NET "fdata<0>" IOSTANDARD = LVCMOS33 |LOC = "A2"; # Schematic name: U1-FD0
 NET "fdata<1>" IOSTANDARD = LVCMOS33 |LOC = "D6"; # Schematic name: U1-FD1
@@ -150,31 +146,148 @@ NET "fdata<4>" IOSTANDARD = LVCMOS33 |LOC = "A3"; # Schematic name: U1 FD4
 NET "fdata<5>" IOSTANDARD = LVCMOS33 |LOC = "B4"; # Schematic name: U1-FD5
 NET "fdata<6>" IOSTANDARD = LVCMOS33 |LOC = "A4"; # Schematic name: U1-FD6
 NET "fdata<7>" IOSTANDARD = LVCMOS33 |LOC = "C5"; # Schematic name: U1-FD7
-NET "fdata<*>" DRIVE=12 | SLEW=SLOW;
+NET "fdata<*>" DRIVE=12 |SLEW=SLOW;
 
-NET "flagA" IOSTANDARD = LVCMOS33 |LOC = "B9" | SLEW=SLOW | DRIVE=12; # Schematic name: U1-FLAGA
-NET "flagB" IOSTANDARD = LVCMOS33 |LOC = "A9" | SLEW=SLOW | DRIVE=12; # Schematic name: U1-FLAGB
-NET "flagC" IOSTANDARD = LVCMOS33 |LOC = "C15" | SLEW=SLOW | DRIVE=12; # Schematic name: U1-FLAGC
-
-NET "faddr<0>" IOSTANDARD = LVCMOS33 |LOC = "A14" | DRIVE=12 | SLEW=SLOW; # Schematic name: 
-NET "faddr<1>" IOSTANDARD = LVCMOS33 |LOC = "B14" | DRIVE=12 | SLEW=SLOW; # Schematic name:
- 
-NET "ifclk" IOSTANDARD = LVCMOS33 |LOC = "C10" | SLEW=SLOW; # Schematic name: 
-
-NET "slrd" IOSTANDARD = LVCMOS33 |LOC = "F13" | DRIVE=12 | SLEW=SLOW | PULLUP; # Schematic name: # pullled up 
-NET "sloe" IOSTANDARD = LVCMOS33 |LOC = "A15" | DRIVE=12 | SLEW=SLOW | PULLUP; # Schematic name: # pullled up 
-NET "slwr" IOSTANDARD = LVCMOS33 |LOC = "E13" | DRIVE=12 | SLEW=SLOW | PULLUP; # Schematic name: # pullled up 
-
-#NET "A0" IOSTANDARD = LVCMOS33 |LOC = "A5"; # Schematic name: # pullled up 
+NET "flagA" IOSTANDARD = LVCMOS33 |LOC = "B9" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGA
+NET "flagB" IOSTANDARD = LVCMOS33 |LOC = "A9" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGB
+NET "flagC" IOSTANDARD = LVCMOS33 |LOC = "C15" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGC
+NET "faddr<0>" IOSTANDARD = LVCMOS33 |LOC = "A14" |DRIVE=12 |SLEW=SLOW; # Schematic name: 
+NET "faddr<1>" IOSTANDARD = LVCMOS33 |LOC = "B14" |DRIVE=12 |SLEW=SLOW; # Schematic name:
+NET "ifclk" IOSTANDARD = LVCMOS33 |LOC = "C10" |SLEW=SLOW; # Schematic name: 
+NET "slrd" IOSTANDARD = LVCMOS33 |LOC = "F13" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
+NET "sloe" IOSTANDARD = LVCMOS33 |LOC = "A15" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
+NET "slwr" IOSTANDARD = LVCMOS33 |LOC = "E13" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
 NET "slcs" IOSTANDARD = LVCMOS33 |LOC = "B2"; # Schematic name: # connect it to ground to dedicate this bus only ( has pull down resistor in Atlys)
-
-NET "pktend" IOSTANDARD = LVCMOS33 |LOC = "c4" | DRIVE=12 | SLEW=SLOW; # Schematic name: 
+NET "pktend" IOSTANDARD = LVCMOS33 |LOC = "c4" |DRIVE=12 |SLEW=SLOW; # Schematic name: 
 ####################################################################
 
 
-
 NET "uvc_enable" IOSTANDARD = LVCMOS33 |LOC = "M8"; 
+
+############################################################################
+############################### DDR2 RAM ###################################
+NET "mcb3_dram_ck"   LOC = "G3"; # Bank = 3, Pin name = IO_L46P_M3CLK,     		  Sch name = DDR-CK_P
+NET "mcb3_dram_ck_n"   LOC = "G1"; # Bank = 3, Pin name = IO_L46N_M3CLKN,    		  Sch name = DDR-CK_N
+NET "mcb3_dram_cke"    LOC = "H7"; # Bank = 3, Pin name = IO_L53P_M3CKE,       		  Sch name = DDR-CKE
+NET "mcb3_dram_ras_n"   LOC = "L5"; # Bank = 3, Pin name = IO_L43P_GCLK23_M3RASN,		  Sch name = DDR-RAS
+NET "mcb3_dram_cas_n"   LOC = "K5"; # Bank = 3, Pin name = IO_L43N_GCLK22_IRDY2_M3CASN, Sch name = DDR-CAS
+NET "mcb3_dram_we_n"    LOC = "E3"; # Bank = 3, Pin name = IO_L50P_M3WE,   			  Sch name = DDR-WE
+NET "mcb3_rzq"	  LOC = "L6"; # Bank = 3, Pin name = IO_L31P,   				  Sch name = RZQ
+NET "mcb3_zio"	  LOC = "C2"; # Bank = 3, Pin name = IO_L83P,   				  Sch name = ZIO
+NET "mcb3_dram_ba<0>"    LOC = "F2"; # Bank = 3, Pin name = IO_L48P_M3BA0,        		  Sch name = DDR-BA0
+NET "mcb3_dram_ba<1>"    LOC = "F1"; # Bank = 3, Pin name = IO_L48N_M3BA1,        		  Sch name = DDR-BA1
+NET "mcb3_dram_ba<2>"    LOC = "E1"; # Bank = 3, Pin name = IO_L50N_M3BA2,       		  Sch name = DDR-BA2
+NET "mcb3_dram_a<0>"     LOC = "J7"; # Bank = 3, Pin name = IO_L47P_M3A0,        		  Sch name = DDR-A0
+NET "mcb3_dram_a<1>"     LOC = "J6"; # Bank = 3, Pin name = IO_L47N_M3A1,        		  Sch name = DDR-A1
+NET "mcb3_dram_a<2>"     LOC = "H5"; # Bank = 3, Pin name = IO_L49N_M3A2,     			  Sch name = DDR-A2
+NET "mcb3_dram_a<3>"     LOC = "L7"; # Bank = 3, Pin name = IO_L45P_M3A3,     			  Sch name = DDR-A3
+NET "mcb3_dram_a<4>"     LOC = "F3"; # Bank = 3, Pin name = IO_L51N_M3A4,     			  Sch name = DDR-A4
+NET "mcb3_dram_a<5>"     LOC = "H4"; # Bank = 3, Pin name = IO_L44P_GCLK21_M3A5,     	  Sch name = DDR-A5
+NET "mcb3_dram_a<6>"     LOC = "H3"; # Bank = 3, Pin name = IO_L44N_GCLK20_M3A6,    	  Sch name = DDR-A6
+NET "mcb3_dram_a<7>"     LOC = "H6"; # Bank = 3, Pin name = IO_L49P_M3A7,    			  Sch name = DDR-A7
+NET "mcb3_dram_a<8>"     LOC = "D2"; # Bank = 3, Pin name = IO_L52P_M3A8,    			  Sch name = DDR-A8
+NET "mcb3_dram_a<9>"     LOC = "D1"; # Bank = 3, Pin name = IO_L52N_M3A9,   			  Sch name = DDR-A9
+NET "mcb3_dram_a<10>"    LOC = "F4"; # Bank = 3, Pin name = IO_L51P_M3A10,        		  Sch name = DDR-A10
+NET "mcb3_dram_a<11>"    LOC = "D3"; # Bank = 3, Pin name = IO_L54N_M3A11,   			  Sch name = DDR-A11
+NET "mcb3_dram_a<12>"    LOC = "G6"; # Bank = 3, Pin name = IO_L53N_M3A12,       		  Sch name = DDR-A12
+NET "mcb3_dram_dq<0>"    LOC = "L2"; # Bank = 3, Pin name = IO_L37P_M3DQ0,       		  Sch name = DDR-DQ0
+NET "mcb3_dram_dq<1>"    LOC = "L1"; # Bank = 3, Pin name = IO_L37N_M3DQ1,       		  Sch name = DDR-DQ1
+NET "mcb3_dram_dq<2>"    LOC = "K2"; # Bank = 3, Pin name = IO_L38P_M3DQ2,       		  Sch name = DDR-DQ2
+NET "mcb3_dram_dq<3>"    LOC = "K1"; # Bank = 3, Pin name = IO_L38N_M3DQ3,       		  Sch name = DDR-DQ3
+NET "mcb3_dram_dq<4>"    LOC = "H2"; # Bank = 3, Pin name = IO_L41P_GCLK27_M3DQ4,        Sch name = DDR-DQ4
+NET "mcb3_dram_dq<5>"    LOC = "H1"; # Bank = 3, Pin name = IO_L41N_GCLK26_M3DQ5,        Sch name = DDR-DQ5
+NET "mcb3_dram_dq<6>"    LOC = "J3"; # Bank = 3, Pin name = IO_L40P_M3DQ6,       		  Sch name = DDR-DQ6
+NET "mcb3_dram_dq<7>"    LOC = "J1"; # Bank = 3, Pin name = IO_L40N_M3DQ7,       		  Sch name = DDR-DQ7
+NET "mcb3_dram_dq<8>"    LOC = "M3"; # Bank = 3, Pin name = IO_L36P_M3DQ8,    			  Sch name = DDR-DQ8
+NET "mcb3_dram_dq<9>"    LOC = "M1"; # Bank = 3, Pin name = IO_L36N_M3DQ9,        		  Sch name = DDR-DQ9
+NET "mcb3_dram_dq<10>"   LOC = "N2"; # Bank = 3, Pin name = IO_L35P_M3DQ10,        	  Sch name = DDR-DQ10
+NET "mcb3_dram_dq<11>"   LOC = "N1"; # Bank = 3, Pin name = IO_L35N_M3DQ11,        	  Sch name = DDR-DQ11
+NET "mcb3_dram_dq<12>"   LOC = "T2"; # Bank = 3, Pin name = IO_L33P_M3DQ12,       		  Sch name = DDR-DQ12
+NET "mcb3_dram_dq<13>"   LOC = "T1"; # Bank = 3, Pin name = IO_L33N_M3DQ13,    		  Sch name = DDR-DQ13
+NET "mcb3_dram_dq<14>"   LOC = "U2"; # Bank = 3, Pin name = IO_L32P_M3DQ14,        	  Sch name = DDR-DQ14
+NET "mcb3_dram_dq<15>"   LOC = "U1"; # Bank = 3, Pin name = IO_L32N_M3DQ15,        	  Sch name = DDR-DQ15
+NET "mcb3_dram_udqs"   LOC="P2"; # Bank = 3, Pin name = IO_L34P_M3UDQS,       		  Sch name = DDR-UDQS_P
+NET "mcb3_dram_udqs_n"  LOC="P1"; # Bank = 3, Pin name = IO_L34N_M3UDQSN,        		  Sch name = DDR-UDQS_N
+NET "mcb3_dram_dqs"   LOC="L4"; # Bank = 3, Pin name = IO_L39P_M3LDQS,        		  Sch name = DDR-LDQS_P
+NET "mcb3_dram_dqs_n"  LOC="L3"; # Bank = 3, Pin name = IO_L39N_M3LDQSN,        		  Sch name = DDR-LDQS_N
+NET "mcb3_dram_dm"    LOC="K3"; # Bank = 3, Pin name = IO_L42N_GCLK24_M3LDM,          Sch name = DDR-LDM
+NET "mcb3_dram_udm"    LOC="K4"; # Bank = 3, Pin name = IO_L42P_GCLK25_TRDY2_M3UDM,	  Sch name = DDR-UDM
+NET "mcb3_dram_odt"    LOC="K6"; # Bank = 3, Pin name = IO_L45N_M3ODT,        		  Sch name = DDR-ODT
+NET "mcb3_dram_dq<*>"    IN_TERM = NONE;
+NET "mcb3_dram_dqs"   IN_TERM = NONE;
+NET "mcb3_dram_dqs_n"   IN_TERM = NONE;
+NET "mcb3_dram_udqs"   IN_TERM = NONE;
+NET "mcb3_dram_udqs_n"   IN_TERM = NONE;
+
+NET "mcb3_dram_dq<*>"    IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_a<*>"     IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_ba<*>"    IOSTANDARD = SSTL18_II;
+
+NET "mcb3_dram_dqs"   IOSTANDARD = DIFF_SSTL18_II;
+NET "mcb3_dram_dqs_n"   IOSTANDARD = DIFF_SSTL18_II;
+NET "mcb3_dram_udqs"   IOSTANDARD = DIFF_SSTL18_II;
+NET "mcb3_dram_udqs_n"   IOSTANDARD = DIFF_SSTL18_II;
+NET "mcb3_dram_ck"    IOSTANDARD = DIFF_SSTL18_II;
+NET "mcb3_dram_ck_n"    IOSTANDARD = DIFF_SSTL18_II;
+
+NET "mcb3_dram_cke"      IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_ras_n"     IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_cas_n"     IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_we_n"      IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_odt"      IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_dm"      IOSTANDARD = SSTL18_II;
+NET "mcb3_dram_udm"      IOSTANDARD = SSTL18_II;
+NET "mcb3_zio"      IOSTANDARD = SSTL18_II;
+NET "mcb3_rzq"      IOSTANDARD = SSTL18_II;
+
+##################################################################################
+CONFIG MCB_PERFORMANCE= STANDARD;
+##################################################################################
+# Timing Ignore constraints for paths crossing the clock domain 
+##################################################################################
+NET  "ram_bufferComp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/selfrefresh_mcb_mode" TIG;
+NET  "ram_bufferComp/ramComp/c3_pll_lock" TIG;
+INST "ram_bufferComp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/DONE_SOFTANDHARD_CAL*" TIG;
+
+#Please uncomment the below TIG if used in a design which enables self-refresh mode
+#NET "ram_bufferComp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/SELFREFRESH_MCB_REQ" TIG;
+NET "ram_bufferComp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/CKE_Train" TIG; ## This path exists for DDR2 only
+
+############################################################################
+## Clock constraints                                                        
+############################################################################
+NET "ram_bufferComp/ramComp/memc3_infrastructure_inst/sys_clk_ibufg" TNM_NET = "SYS_CLK3";
+TIMESPEC "TS_SYS_CLK3" = PERIOD "SYS_CLK3"  3.2  ns HIGH 50 %;
+############################################################################
 NET "clk" TNM_NET = clk;
 TIMESPEC TS_clk = PERIOD "clk" 10 ns HIGH 50%;
-
-#XIL_MAP_KEEP_KH_ON_TERMINAL_BLOCKS 
+#Created by Constraints Editor (xc6slx45-csg324-3) - 2013/02/28
+NET "jpeg_encoder/jpegencoder/U_Huffman/VLC_size<0>" TPTHRU = "huff_gr0";
+NET "jpeg_encoder/jpegencoder/U_Huffman/VLC_size<1>" TPTHRU = "huff_gr0";
+NET "jpeg_encoder/jpegencoder/U_Huffman/VLC_size<2>" TPTHRU = "huff_gr0";
+NET "jpeg_encoder/jpegencoder/U_Huffman/VLC_size<3>" TPTHRU = "huff_gr0";
+NET "jpeg_encoder/jpegencoder/U_Huffman/VLC_size<4>" TPTHRU = "huff_gr0";
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_0" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_1" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_2" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_3" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_4" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_5" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_6" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_7" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_8" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_9" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_10" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_11" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_12" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_13" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_14" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_15" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_16" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_17" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_18" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_19" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_20" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_21" TNM = huff_gr2;
+INST "jpeg_encoder/jpegencoder/U_Huffman/word_reg_22" TNM = huff_gr2;
+TIMESPEC TS_huffman = FROM "FFS" TO "huff_gr2" TS_clk DATAPATHONLY;

@@ -8,10 +8,28 @@
 <!-- Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/bytefifoFPGA.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/ddr2ram.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/bytefifoFPGA_synth.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/iodrp_controller.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/iodrp_mcb_controller.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/mcb_raw_wrapper.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/mcb_soft_calibration.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/mcb_soft_calibration_top.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/memc3_infrastructure.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Dropbox/vWorker/phase2/ise/ipcore_dir/ddr2ram/user_design/rtl/memc3_wrapper.vhd&quot; into library work</arg>
 </msg>
 
 </messages>
