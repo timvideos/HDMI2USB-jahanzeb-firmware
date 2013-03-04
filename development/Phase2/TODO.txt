@@ -3,6 +3,3 @@
 - Comprehensive test benches to allow people to modify firmware without a device.
 - Scripts to build and test without using the ISE GUI.
 - new faster jpeg encoder needed (may be)
-
--- testing comments from eclips 
-

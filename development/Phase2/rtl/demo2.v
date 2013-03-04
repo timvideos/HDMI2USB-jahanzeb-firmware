@@ -52,7 +52,7 @@
  
 */
 
-module hdmi2usb(
+module demo2(
 input wire rst_n,    //% The pink reset button active low
 input wire clk,      //% 100 MHz osicallator
 input wire [3:0]  RX0_TMDS, //% HDMI RX
@@ -66,34 +66,15 @@ output wire scl_lcd, //% DDC scl connected with LCD
 inout wire sda_pc, //% DDC sda connected with PC
 inout wire sda_lcd, //% DDC sda connected with LCD
 
-//-- USB Chip
+//-- OUT RAM
 inout wire [7:0] fdata, //% USB chip data port
 input wire flagA,flagB,flagC, //% USB chip falgs
 output wire [1:0] faddr, //% USB fifo select
 output wire slwr,slrd,sloe,pktend,slcs, //% USB fifo signals 
 input wire ifclk, //% Clock for USB fifo
 
-//-- ddr2RAM
-inout [15:0] mcb3_dram_dq,
-output [12:0] mcb3_dram_a,
-output [2:0] mcb3_dram_ba,
-output mcb3_dram_ras_n,
-output mcb3_dram_cas_n,
-output mcb3_dram_we_n,
-output mcb3_dram_cke,
-output mcb3_dram_dm,
-inout mcb3_dram_udqs,
-inout mcb3_dram_udqs_n,
-inout mcb3_rzq,
-inout mcb3_zio,
-output mcb3_dram_udm,
-output mcb3_dram_odt,
-
-inout mcb3_dram_dqs,
-inout mcb3_dram_dqs_n,
-output mcb3_dram_ck,
-output mcb3_dram_ck_n
-
+//-- UVC signals 
+input wire uvc_enable
 );
 
 //% internal wires and regs
@@ -101,12 +82,13 @@ output mcb3_dram_ck_n
 wire [15:0] resX,resY;
 wire rgb_de,hsync,vsync,pclk;
 wire clk10x,ram_wren;
-wire [23:0] rgb,rgb0,rgb_data,rgb_dummy,iram_wdata;
+wire [23:0] rgb,rgb0,rgb_data,rgb_dummy;
 wire [7:0] ram_byte;
 reg [23:0] rgb_q;
 wire [7:0] fifo_data;
 wire [7:0] sda_byte;
 wire jpeg_fifo_full;
+// wire fifo_empty;
 wire jpeg_error;
 wire done;
 wire jpeg_busy;
@@ -115,7 +97,7 @@ wire clk_100,clk_jpeg;
 
 //% combinational logic
 assign LED[0] = jpeg_error;
-assign LED[1] = ram_error;
+assign LED[1] = uvc_enable;
 assign LED[2] = jpeg_busy;
 assign LED[3] = vsync;
 assign LED[4] = rgb_de;
@@ -173,6 +155,7 @@ edid_master_slave_hack edid_hack(
 );
 
 //% HDMI decoder and encoder  
+// dvi_dummy hdmi_RX_TX(
 dvi_demo hdmi_RX_TX(
 .rst_n(rst_n),    
 .clk(clk_100),       
@@ -201,78 +184,43 @@ calc_res calcres(
 );
 
 //% jpeg encoder
-jpeg_encoder_top jpeg_encoder
+//jpeg_encoder_top jpeg_encoder
+jpeg_encoder_top_dummy jpeg_encoder	// pre encoded jpeg -- fastet synthsis
+// jpeg_encoder_top_dummy_2 jpeg_encoder // embaded RGB
 (
+.iram_wdata(rgb),
+.iram_wren(rgb_de),
+
+
 .clk(clk_jpeg),
-.rst_n(rst_n),
+.iram_clk(clk_jpeg),
 
-.iram_wdata(iram_wdata),
-.iram_wren(iram_wren),
-.iram_fifo_afull(iram_fifo_afull),
-.store_img(store_img),
-.read_img(read_img),
 
-.ram_byte(ram_byte),
-.ram_wren(ram_wren),
-.outif_almost_full(jpeg_fifo_full),
+
+.rgb_start(vsync),
+
 // .resx(resX),
 // .resy(resY),
 .resx(16'd1024),
 .resy(16'd768),
 
 
-.rgb_start(vsync),
+.rst_n(rst_n),
+.ram_byte(ram_byte),
+.ram_wren(ram_wren),
+.outif_almost_full(jpeg_fifo_full),
 .done(done),
 .error(jpeg_error),
 .jpeg_busy(jpeg_busy),
 .jpeg_enable(jpeg_enable)
 );
 
+
 clkGen clkGenComp
 (
 .CLK_IN1(clk),
 .CLK_OUT1(clk_100),
 .CLK_OUT2(clk_jpeg)
-);
-
-
-ram_buffer ram_bufferComp
-(
-.mcb3_dram_dq(mcb3_dram_dq),
-.mcb3_dram_a(mcb3_dram_a),
-.mcb3_dram_ba(mcb3_dram_ba),
-.mcb3_dram_ras_n(mcb3_dram_ras_n),
-.mcb3_dram_cas_n(mcb3_dram_cas_n),
-.mcb3_dram_we_n(mcb3_dram_we_n),
-.mcb3_dram_cke(mcb3_dram_cke),
-.mcb3_dram_dm(mcb3_dram_dm),
-.mcb3_dram_udqs(mcb3_dram_udqs),
-.mcb3_dram_udqs_n(mcb3_dram_udqs_n),
-.mcb3_rzq(mcb3_rzq),
-.mcb3_zio(mcb3_zio), 
-.mcb3_dram_udm(mcb3_dram_udm),
-.mcb3_dram_odt(mcb3_dram_odt),
-
-.mcb3_dram_dqs(mcb3_dram_dqs),
-.mcb3_dram_dqs_n(mcb3_dram_dqs_n),
-.mcb3_dram_ck(mcb3_dram_ck),
-.mcb3_dram_ck_n(mcb3_dram_ck_n),
-
-.iram_wdata_in(rgb),
-.iram_wren_in(rgb_de),
-.iram_clk(pclk),
-
-.store_img(store_img),
-.read_img(read_img),
-
-.iram_wdata_out(iram_wdata),
-.iram_wren_out(iram_wren),
-.iram_fifo_afull(iram_fifo_afull),
-
-.clk(clk_100),
-.clk_jpg(clk_jpeg),
-.rst(rst),
-.error(ram_error)
 );
 
 endmodule

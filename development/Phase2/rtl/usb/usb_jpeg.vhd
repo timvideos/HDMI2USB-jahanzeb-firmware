@@ -141,7 +141,7 @@ signal jpeg_byte_q_q: std_logic_vector(7 downto 0);
 signal counter: std_logic_vector(7 downto 0);
 signal wrightcount: std_logic_vector(11 downto 0);
 
-type states is (uvc_wait,cdc_in_send_edid_1,uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,uvc_send_header,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
+type states is (uvc_wait,cdc_in_send_edid_1,uvc_in_pktend,uvc_send_data,uvc_set_add,cdc_in_send_edid_pktend,s_reset, cdc_out_set_add,cdc_out_read,cdc_out_read_data,cdc_in_send_edid_0);
 signal ps : states;
 
 

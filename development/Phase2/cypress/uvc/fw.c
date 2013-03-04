@@ -75,23 +75,39 @@ WORD   pStringDscr;
 WORD   pUserDscr;   
 WORD   pVSUserDscr;   
 
+// BYTE valuesArray[26]=    
+// {
+	// 0x00,0x00,                       /* bmHint : No fixed parameters */
+    // 0x01,                            /* Use 1st Video format index */
+    // 0x01,                            /* Use 1st Video frame index */
+    // 0x2A,0x2C,0x0A,0x00,             /* Desired frame interval in 100ns */
+    // 0x00,0x00,                       /* Key frame rate in key frame/video frame units */
+    // 0x01,0x00,                       /* PFrame rate in PFrame / key frame units */
+    // 0x00,0x00,                       /* Compression quality control */
+    // 0x00,0x00,                       /* Window size for average bit rate */
+    // 0x00,0x00,                       /* Internal video streaming i/f latency in ms */
+    // 0x00,0x80,0x0C,0x00,    //00 0C 80 00       /* Max video frame size in bytes (800KB) */
+    // 0x00,0x02,0x00,0x00              /* No. of bytes device can rx in single payload (512) */
+
+// };
 BYTE valuesArray[26]=    
 {
-	0x00,0x00,                       /* bmHint : No fixed parameters */
+	0x01,0x00,                       /* bmHint : No fixed parameters */
     0x01,                            /* Use 1st Video format index */
     0x01,                            /* Use 1st Video frame index */
-//    0x2A,0x2C,0x0A,0x00,             /* Desired frame interval in 100ns */
-    0x0A,0x8B,0x02,0x00,             /* Desired frame interval in 100ns */ //00 02 8B 0A
-    0x00,0x00,                       /* Key frame rate in key frame/video frame units */
-    0x00,0x00,                       /* PFrame rate in PFrame / key frame units */
+    0x2A,0x2C,0x0A,0x00,             /* Desired frame interval in 100ns */
+	
+    0x01,0x00,                       /* Key frame rate in key frame/video frame units */
+    0x01,0x00,                       /* PFrame rate in PFrame / key frame units */
     0x00,0x00,                       /* Compression quality control */
-    0x00,0x00,                       /* Window size for average bit rate */
-    0xF0,0x00,                       /* Internal video streaming i/f latency in ms */
-//    0x00,0x90,0x01,0x00,  //00 01 90 00           /* Max video frame size in bytes (100KB) */
-//    0x00,0x40,0x06,0x00,    //00 06 40 00       /* Max video frame size in bytes (400KB) */
-    0x00,0x80,0x0C,0x00,    //00 0C 80 00       /* Max video frame size in bytes (800KB) */
-    0x00,0x02,0x00,0x00              /* No. of bytes device can rx in single payload (1024) */
-//    0x00,0x00,0xBA,0x6F              /* No. of bytes device can rx in single payload */
+    0xf0,0x00,                       /* Window size for average bit rate */
+	
+    0x02,0x00,                       /* Internal video streaming i/f latency in ms */
+    // 0x00,0x00,0x48,0x00,   			/* Max video frame size in bytes*/
+    0x00,0x00,0x90,0x00,   			/* Max video frame size in bytes*/
+	
+    0x00,0x02,0x00,0x00              /* No. of bytes device can rx in single payload (512) */
+
 };
 //-----------------------------------------------------------------------------
 // Prototypes
@@ -214,7 +230,9 @@ void main(void)
 
 EP2CFG = 0xA2;                //out 512 bytes, 2x, bulk
 SYNCDELAY; 
-EP6CFG = 0xE2;                // in 512 bytes, 2x, bulk
+// EP6CFG = 0xE2;                // in 512 bytes, 2x, bulk
+EP6CFG = 0xD2;                // in 512 bytes, 2x, iso (11 01 00 10)
+
 
 SYNCDELAY;         
 EP4CFG = 0xE2;                // in 512 bytes, 2x, bulk

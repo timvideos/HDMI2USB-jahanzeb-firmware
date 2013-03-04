@@ -1,10 +1,10 @@
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     1
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     1
 
 
-MACRO ASSEMBLER A51 V7.08a
+MACRO ASSEMBLER A51 V6.10
 OBJECT MODULE PLACED IN .\output\uvc_bulk.obj
-ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE uvc_bulk.a51 SET(SMALL) DEBUG PRINT(.\output\uvc_bulk.lst) OBJECT(.\output
-                      \uvc_bulk.obj) EP
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE .\uvc_bulk.a51 SET(SMALL) DEBUG PRINT(.\output\uvc_bulk.lst) OBJECT(.\outp
+                      ut\uvc_bulk.obj) EP
 
 LOC  OBJ            LINE     SOURCE
 
@@ -41,7 +41,7 @@ LOC  OBJ            LINE     SOURCE
   0003                31     ET_INT       equ   3   ;; Endpoint type: Interrupt
                       32     
                       33     public       DeviceDscr, DeviceQualDscr, HighSpeedConfigDscr, FullSpeedConfigDscr, StringDs
-                             cr,UserDscr
+                             cr,UserDscr, vsheaderend, vsheader
                       34     ; public                VSUserDscrEnd
                       35     ;public         CSInterfaceDscr, CSInterfaceDscrEND, CSVSInterfaceDscr, CSVSInterfaceDscrEN
                              D
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 0007 40               53     db  64 ; 7 bMaxPacketSize0 1 Maximum packet size for endpoint zero
 0008 9AFB             54     dw  9AFBH; 8 idVendor 2 Vendor ID
 000A 9AFB             55     dw  9AFBH; 10 idProduct 2 Product ID
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     2
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     2
 
 000C 0100             56     dw  0100H; 12 bcdDevice 2 Device release number (BCD)
 000E 02               57     db      02H; 14 iManufacturer 1 Index of string descriptor for the manufacturer
@@ -90,230 +90,286 @@ LOC  OBJ            LINE     SOURCE
 001C                  76     HighSpeedConfigDscr:  
 001C 09               77         db 09H                           ;/* Descriptor size */
 001D 02               78         db DSCR_CONFIG;CY_U3P_USB_CONFIG_DESCR,        ;/* Configuration descriptor type */
-001E BD00             79         db 0BDH,00H                      ;/* Length of this descriptor and all sub descriptors 
-                             */
-0020 02               80         db 02H                           ;/* Number of interfaces */
-0021 01               81         db 01H                           ;/* Configuration number */
-0022 00               82         db 00H                           ;/* COnfiguration string index */
-0023 80               83         db 80H                           ;/* Config characteristics - bus powered */
-0024 FA               84         db 0FAH                           ;/* Max power consumption of device (in 2mA unit) : 5
+001E BA               79             db   (HighSpeedConfigDscrEnd-HighSpeedConfigDscr) mod 256 ;; Total Length (LSB)
+001F 00               80             db   (HighSpeedConfigDscrEnd-HighSpeedConfigDscr)  /  256 ;; Total Length (MSB)
+0020 02               81         db 02H                           ;/* Number of interfaces */
+0021 01               82         db 01H                           ;/* Configuration number */
+0022 00               83         db 00H                           ;/* COnfiguration string index */
+0023 80               84         db 80H                           ;/* Config characteristics - bus powered */
+0024 FA               85         db 0FAH                           ;/* Max power consumption of device (in 2mA unit) : 5
                              00mA */
-                      85     
-                      86         ;/* Interface association descriptor */
-0025 08               87         db 08H                           ;/* Descriptor size */
-0026 0B               88         db 0Bh;CY_FX_INTF_ASSN_DSCR_TYPE,      ;/* Interface association descr type */
-0027 00               89         db 00H                           ;/* I/f number of first video control i/f */
-0028 02               90         db 02H                           ;/* Number of video streaming i/f */
-0029 0E               91         db 0EH                           ;/* CC_VIDEO : Video i/f class code */
-002A 03               92         db 03H                           ;/* SC_VIDEO_INTERFACE_COLLECTION : subclass code */
-002B 00               93         db 00H                           ;/* Protocol : not used */
-002C 00               94         db 00H                           ;/* String desc index for interface */
-                      95     
-                      96         ;/* Standard video control interface descriptor */
-002D 09               97         db 09H                           ;/* Descriptor size */
-002E 04               98         db DSCR_INTRFC ;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
-002F 00               99         db 00H                           ;/* Interface number */
-0030 00              100         db 00H                           ;/* Alternate setting number */
-0031 01              101         db 01H                           ;/* Number of end points */
-0032 0E              102         db 0EH                           ;/* CC_VIDEO : Interface class */
-0033 01              103         db 01H                           ;/* CC_VIDEOCONTROL : Interface sub class */
-0034 00              104         db 00H                           ;/* Interface protocol code */
-0035 00              105         db 00H                           ;/* Interface descriptor string index */
-                     106     
-                     107         ;/* Class specific VC interface header descriptor */
-0036 0D              108         db 0DH                           ;/* Descriptor size */
-0037 24              109         db 24H                           ;/* Class Specific I/f header descriptor type */
-0038 01              110         db 01H                           ;/* Descriptor sub type : VC_HEADER */
-0039 0001            111         db 00H,01H                      ;/* Revision of class spec : 1.0 */
-003B 5000            112         db 50H,00H                      ;/* Total size of class specific descriptors (till outp
+                      86     
+                      87         ;/* Interface association descriptor */
+0025 08               88         db 08H                           ;/* Descriptor size */
+0026 0B               89         db 0Bh;CY_FX_INTF_ASSN_DSCR_TYPE,      ;/* Interface association descr type */
+0027 00               90         db 00H                           ;/* I/f number of first video control i/f */
+0028 02               91         db 02H                           ;/* Number of video streaming i/f */
+0029 0E               92         db 0EH                           ;/* CC_VIDEO : Video i/f class code */
+002A 03               93         db 03H                           ;/* SC_VIDEO_INTERFACE_COLLECTION : subclass code */
+002B 00               94         db 00H                           ;/* Protocol : not used */
+002C 00               95         db 00H                           ;/* String desc index for interface */
+                      96     
+                      97         ;/* Standard video control interface descriptor */
+002D 09               98         db 09H                           ;/* Descriptor size */
+002E 04               99         db DSCR_INTRFC ;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
+002F 00              100         db 00H                           ;/* Interface number */
+0030 00              101         db 00H                           ;/* Alternate setting number */
+0031 00              102         db 00H                           ;/* Number of end points */
+0032 0E              103         db 0EH                           ;/* CC_VIDEO : Interface class */
+0033 01              104         db 01H                           ;/* CC_VIDEOCONTROL : Interface sub class */
+0034 00              105         db 00H                           ;/* Interface protocol code */
+0035 00              106         db 00H                           ;/* Interface descriptor string index */
+                     107     
+                     108         ;/* Class specific VC interface header descriptor */
+0036 0D              109         db 0DH                           ;/* Descriptor size */
+0037 24              110         db 24H                           ;/* Class Specific I/f header descriptor type */
+0038 01              111         db 01H                           ;/* Descriptor sub type : VC_HEADER */
+0039 0001            112         db 00H,01H                      ;/* Revision of class spec : 1.0 */
+003B 5000            113         db 50H,00H                      ;/* Total size of class specific descriptors (till outp
                              ut terminal) */
-003D 006CDC02        113         db 00H,6CH,0DCH,02H            ;/* Clock frequency : 48MHz */
-0041 01              114         db 01H                           ;/* Number of streaming interfaces */
-0042 01              115         db 01H                           ;/* Video streaming I/f 1 belongs to VC i/f */
-                     116     
-                     117         ;/* Input (camera) terminal descriptor */
-0043 12              118         db 12H                           ;/* Descriptor size */
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     3
+003D 006CDC02        114         db 00H,6CH,0DCH,02H            ;/* Clock frequency : 48MHz */
+0041 01              115         db 01H                           ;/* Number of streaming interfaces */
+0042 01              116         db 01H                           ;/* Video streaming I/f 1 belongs to VC i/f */
+                     117     
+                     118         ;/* Input (camera) terminal descriptor */
+0043 12              119         db 12H                           ;/* Descriptor size */
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     3
 
-0044 24              119         db 24H                           ;/* Class specific interface desc type */
-0045 02              120         db 02H                           ;/* Input Terminal Descriptor type */
-0046 01              121         db 01H                           ;/* ID of this terminal */
-0047 0102            122         db 01H,02H                      ;/* Camera terminal type */
-0049 00              123         db 00H                           ;/* No association terminal */
-004A 00              124         db 00H                           ;/* String desc index : not used */
-004B 0000            125         db 00H,00H                      ;/* No optical zoom supported */
-004D 0000            126         db 00H,00H                      ;/* No optical zoom supported */
-004F 0000            127         db 00H,00H                      ;/* No optical zoom supported */
-0051 03              128         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
+0044 24              120         db 24H                           ;/* Class specific interface desc type */
+0045 02              121         db 02H                           ;/* Input Terminal Descriptor type */
+0046 01              122         db 01H                           ;/* ID of this terminal */
+0047 0102            123         db 01H,02H                      ;/* Camera terminal type */
+0049 00              124         db 00H                           ;/* No association terminal */
+004A 00              125         db 00H                           ;/* String desc index : not used */
+004B 0000            126         db 00H,00H                      ;/* No optical zoom supported */
+004D 0000            127         db 00H,00H                      ;/* No optical zoom supported */
+004F 0000            128         db 00H,00H                      ;/* No optical zoom supported */
+0051 03              129         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
                               */
-0052 000000          129         db 00H,00H,00H                 ;/* No controls supported */
-                     130     
-                     131         ;/* Processing unit descriptor */
-0055 0C              132         db 0CH                           ;/* Descriptor size */
-0056 24              133         db 24H                           ;/* Class specific interface desc type */
-0057 05              134         db 05H                           ;/* Processing unit descriptor type */
-0058 02              135         db 02H                           ;/* ID of this terminal */
-0059 01              136         db 01H                           ;/* Source ID : 1 : conencted to input terminal */
-005A 0040            137         db 00H,40H                      ;/* Digital multiplier */
-005C 03              138         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
+0052 000000          130         db 00H,00H,00H                 ;/* No controls supported */
+                     131     
+                     132         ;/* Processing unit descriptor */
+0055 0C              133         db 0CH                           ;/* Descriptor size */
+0056 24              134         db 24H                           ;/* Class specific interface desc type */
+0057 05              135         db 05H                           ;/* Processing unit descriptor type */
+0058 02              136         db 02H                           ;/* ID of this terminal */
+0059 01              137         db 01H                           ;/* Source ID : 1 : conencted to input terminal */
+005A 0040            138         db 00H,40H                      ;/* Digital multiplier */
+005C 03              139         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
                               */
-005D 000000          139         db 00H,00H,00H                 ;/* No controls supported */
-0060 00              140         db 00H                           ;/* String desc index : not used */
-                     141     
-                     142         ;/* Extension unit descriptor */
-0061 1C              143         db 1CH                           ;/* Descriptor size */
-0062 24              144         db 24H                           ;/* Class specific interface desc type */
-0063 06              145         db 06H                           ;/* Extension unit descriptor type */
-0064 03              146         db 03H                           ;/* ID of this terminal */
-0065 FFFFFFFF        147         db 0FFH,0FFH,0FFH,0FFH            ;/* 16 byte GUID */
-0069 FFFFFFFF        148         db 0FFH,0FFH,0FFH,0FFH
-006D FFFFFFFF        149         db 0FFH,0FFH,0FFH,0FFH
-0071 FFFFFFFF        150         db 0FFH,0FFH,0FFH,0FFH
-0075 00              151         db 00H                           ;/* Number of controls in this terminal */
-0076 01              152         db 01H                           ;/* Number of input pins in this terminal */
-0077 02              153         db 02H                           ;/* Source ID : 2 : connected to proc unit */
-0078 03              154         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
+005D 000000          140         db 00H,00H,00H                 ;/* No controls supported */
+0060 00              141         db 00H                           ;/* String desc index : not used */
+                     142     
+                     143         ;/* Extension unit descriptor */
+0061 1C              144         db 1CH                           ;/* Descriptor size */
+0062 24              145         db 24H                           ;/* Class specific interface desc type */
+0063 06              146         db 06H                           ;/* Extension unit descriptor type */
+0064 03              147         db 03H                           ;/* ID of this terminal */
+0065 FFFFFFFF        148         db 0FFH,0FFH,0FFH,0FFH            ;/* 16 byte GUID */
+0069 FFFFFFFF        149         db 0FFH,0FFH,0FFH,0FFH
+006D FFFFFFFF        150         db 0FFH,0FFH,0FFH,0FFH
+0071 FFFFFFFF        151         db 0FFH,0FFH,0FFH,0FFH
+0075 00              152         db 00H                           ;/* Number of controls in this terminal */
+0076 01              153         db 01H                           ;/* Number of input pins in this terminal */
+0077 02              154         db 02H                           ;/* Source ID : 2 : connected to proc unit */
+0078 03              155         db 03H                           ;/* Size of controls field for this terminal : 3 bytes
                               */
-0079 000000          155         db 00H,00H,00H                 ;/* No controls supported */
-007C 00              156         db 00H                           ;/* String desc index : not used */
-                     157     
-                     158         ;/* Output terminal descriptor */
-007D 09              159         db 09H                           ;/* Descriptor size */
-007E 24              160         db 24H                           ;/* Class specific interface desc type */
-007F 03              161         db 03H                           ;/* Output terminal descriptor type */
-0080 04              162         db 04H                           ;/* ID of this terminal */
-0081 0101            163         db 01H,01H                      ;/* USB Streaming terminal type */
-0083 00              164         db 00H                           ;/* No association terminal */
-0084 03              165         db 03H                           ;/* Source ID : 3 : connected to extn unit */
-0085 00              166         db 00H                           ;/* String desc index : not used */
-                     167     
-                     168         ;/* Video control status interrupt endpoint descriptor */
-0086 07              169         db 07H                           ;/* Descriptor size */
-0087 05              170         db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
-0088 81              171         db 81H;CY_FX_EP_CONTROL_STATUS,        ;/* Endpoint address and description */
-0089 03              172         db ET_INT;CY_U3P_USB_EP_INTR,             ;/* Interrupt end point type */
-008A 4000            173         db 40H,00H                      ;/* Max packet size = 64 bytes */
-008C 08              174         db 08H                           ;/* Servicing interval : 8ms */
-                     175     
-                     176         ;/* Class specific interrupt endpoint descriptor */
-008D 05              177         db 05H                           ;/* Descriptor size */
-008E 25              178         db 25H                           ;/* Class specific endpoint descriptor type */
-008F 03              179         db ET_INT;CY_U3P_USB_EP_INTR,             ;/* End point sub type */
-0090 4000            180         db 40H,00H                      ;/* Max packet size = 64 bytes */
-                     181     
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     4
+0079 000000          156         db 00H,00H,00H                 ;/* No controls supported */
+007C 00              157         db 00H                           ;/* String desc index : not used */
+                     158     
+                     159         ;/* Output terminal descriptor */
+007D 09              160         db 09H                           ;/* Descriptor size */
+007E 24              161         db 24H                           ;/* Class specific interface desc type */
+007F 03              162         db 03H                           ;/* Output terminal descriptor type */
+0080 04              163         db 04H                           ;/* ID of this terminal */
+0081 0101            164         db 01H,01H                      ;/* USB Streaming terminal type */
+0083 00              165         db 00H                           ;/* No association terminal */
+0084 03              166         db 03H                           ;/* Source ID : 3 : connected to extn unit */
+0085 00              167         db 00H                           ;/* String desc index : not used */
+                     168     
+                     169         ; ;/* Video control status interrupt endpoint descriptor */
+                     170         ; db 07H                           ;/* Descriptor size */
+                     171         ; db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+                     172         ; db 81H;CY_FX_EP_CONTROL_STATUS,        ;/* Endpoint address and description */
+                     173         ; db ET_INT;CY_U3P_USB_EP_INTR,             ;/* Interrupt end point type */
+                     174         ; db 40H,00H                      ;/* Max packet size = 64 bytes */
+                     175         ; db 88H                           ;/* Servicing interval : 8ms */
+                     176     
+                     177         ; ;/* Class specific interrupt endpoint descriptor */
+                     178         ; db 05H                           ;/* Descriptor size */
+                     179         ; db 25H                           ;/* Class specific endpoint descriptor type */
+                     180         ; db ET_INT;CY_U3P_USB_EP_INTR,             ;/* End point sub type */
+                     181         ; db 40H,00H                      ;/* Max packet size = 64 bytes */
+                     182     
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     4
 
-                     182         ;/* Standard video streaming interface descriptor (alternate setting 0) */
-0092 09              183         db 09H                           ;/* Descriptor size */
-0093 04              184         DB DSCR_INTRFC;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
-0094 01              185         db 01H                           ;/* Interface number */
-0095 00              186         db 00H                           ;/* Alternate setting number */
-0096 01              187         db 01H                           ;/* Number of end points : zero bandwidth */
-0097 0E              188         db 0EH                           ;/* Interface class : CC_VIDEO */
-0098 02              189         db 02H                           ;/* Interface sub class : CC_VIDEOSTREAMING */
-0099 00              190         db 00H                           ;/* Interface protocol code : undefined */
-009A 00              191         db 00H                           ;/* Interface descriptor string index */
-                     192     
-                     193         ;/* Endpoint descriptor for streaming video data */
-009B 07              194         db 07H                           ;/* Descriptor size */
-009C 05              195         db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
-009D 86              196         db 86H            ;/* Endpoint address and description */
-009E 02              197         db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
-009F 00              198         db 00H
-00A0 02              199             db 02H                     ;/* 512 Bytes Maximum Packet Size. */
-00A1 00              200         db 00H                           ;/* Servicing interval for data transfers */
-                     201     
-                     202         ;/* Class-specific video streaming input header descriptor */
-00A2 0E              203         db 0EH                           ;/* Descriptor size */
-00A3 24              204         db 24H                           ;/* Class-specific VS i/f type */
-00A4 01              205         db 01H                           ;/* Descriptotor subtype : input header */
-00A5 01              206         db 01H                           ;/* 1 format desciptor follows */
-00A6 1900            207         db 19H,00H                      ;/* Total size of class specific VS descr */
-00A8 86              208         DB 86H             ;/* EP address for BULK video data */
-00A9 00              209         db 00H                           ;/* No dynamic format change supported */
-00AA 04              210         db 04H                           ;/* Output terminal ID : 4 */
-00AB 01              211         db 01H                           ;/* Still image capture method 1 supported */
-00AC 01              212         db 01H                           ;/* Hardware trigger supported for still image */
-00AD 00              213         db 00H                           ;/* Hardware to initiate still image capture */
-00AE 01              214         db 01H                           ;/* Size of controls field : 1 byte */
-00AF 00              215         db 00H                           ;/* D2 : Compression quality supported */
-                     216     
-                     217         ;/* Class specific VS format descriptor */
-00B0 0B              218         db 0BH                           ;/* Descriptor size */
-00B1 24              219         db 24H                           ;/* Class-specific VS i/f type */
-00B2 06              220         db 06H                          ;/* Descriptotor subtype : VS_FORMAT_MJPEG */
-00B3 01              221         db 01H                           ;/* Format desciptor index */
-00B4 01              222         db 01H                           ;/* 1 Frame desciptor follows */
-00B5 01              223         db 01H                           ;/* Uses fixed size samples */
-00B6 01              224         db 01H                           ;/* Default frame index is 1 */
-00B7 00              225         db 00H                           ;/* Non interlaced stream not reqd. */
-00B8 00              226         db 00H                           ;/* Non interlaced stream not reqd. */
-00B9 00              227         db 00H                           ;/* Non interlaced stream */
-00BA 00              228         db 00H                           ;/* CopyProtect: duplication unrestricted */
-                     229     
-                     230         ;/* Class specific VS frame descriptor */
-00BB 1E              231         db 1EH                           ;/* Descriptor size */
-00BC 24              232         db 24H                           ;/* Class-specific VS I/f Type */
-00BD 07              233         db 07H                           ;/* Descriptotor subtype : VS_FRAME_MJPEG */
-00BE 01              234         db 01H                           ;/* Frame desciptor index */
-00BF 00              235         db 00H                           ;/* Still image capture method not supported */
-00C0 0004            236         db 00H,04H                      ;/* Width of the frame : 176 */
-00C2 0003            237         db 00H,03H                      ;/* Height of the frame : 144 */
-00C4 00C05D00        238         db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
-00C8 00C05D00        239         db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
-00CC 00580200        240         db 00H,58H,02H,00H           ;/* Maximum video or still frame size in bytes */
-00D0 2A2C0A00        241         db 2AH,2CH,0AH,00H            ;/* Default frame interval */
-00D4 01              242         db 01H                           ;/* Frame interval type : No of discrete intervals */
-00D5 2A2C0A00        243         db 2AH,2CH,0AH,00H            ;/* Frame interval 3 */
-                     244     
-00D9                 245     HighSpeedConfigDscrEnd:   
-                     246     
-00D9 00              247     db    00h               ;; pad
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     5
+                     183             
+                     184             
+                     185             
+                     186             
+                     187             
+                     188         ;/* Standard video streaming interface descriptor (alternate setting 0) */
+0086 09              189         db 09H                           ;/* Descriptor size */
+0087 04              190         DB DSCR_INTRFC;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
+0088 01              191         db 01H                           ;/* Interface number */
+0089 00              192         db 00H                           ;/* Alternate setting number */
+008A 00              193         db 00H                           ;/* Number of end points : zero bandwidth */
+008B 0E              194         db 0EH                           ;/* Interface class : CC_VIDEO */
+008C 02              195         db 02H                           ;/* Interface sub class : CC_VIDEOSTREAMING */
+008D 00              196         db 00H                           ;/* Interface protocol code : undefined */
+008E 00              197         db 00H                           ;/* Interface descriptor string index */
+                     198             
+                     199         ; ;/* Endpoint descriptor for streaming video data */
+                     200         ; db 07H                           ;/* Descriptor size */
+                     201         ; db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+                     202         ; db 86H            ;/* Endpoint address and description */
+                     203         ; db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+                     204         ; db 00H
+                     205             ; db 02H                     ;/* 512 Bytes Maximum Packet Size. */
+                     206         ; db 00H                           ;/* Servicing interval for data transfers */     
+                     207             
+                     208             
+                     209     
+008F                 210     vsheader:
+                     211         ;/* Class-specific video streaming input header descriptor */
+008F 0E              212         db 0EH                           ;/* Descriptor size */
+0090 24              213         db 24H                           ;/* Class-specific VS i/f type */
+0091 01              214         db 01H                           ;/* Descriptotor subtype : input header */
+0092 01              215         db 01H                           ;/* 1 format desciptor follows */
+                     216         ; db 19H,00H                      ;/* Total size of class specific VS descr */
+0093 37              217             db   (vsheaderend-vsheader) mod 256 ;; Total Length (LSB)
+0094 00              218             db   (vsheaderend-vsheader)  /  256 ;; Total Length (MSB)       
+0095 86              219         DB 86H             ;/* EP address for BULK video data */
+0096 00              220         db 00H                           ;/* No dynamic format change supported */
+0097 04              221         db 04H                           ;/* Output terminal ID : 4 */
+0098 01              222         db 01H                           ;/* Still image capture method 1 supported */
+0099 01              223         db 01H                           ;/* Hardware trigger supported for still image */
+009A 00              224         db 00H                           ;/* Hardware to initiate still image capture */
+009B 01              225         db 01H                           ;/* Size of controls field : 1 byte */
+009C 00              226         db 00H                           ;/* D2 : Compression quality supported */
+                     227     
+                     228         ;/* Class specific VS format descriptor */
+009D 0B              229         db 0BH                           ;/* Descriptor size */
+009E 24              230         db 24H                           ;/* Class-specific VS i/f type */
+009F 06              231         db 06H                          ;/* Descriptotor subtype : VS_FORMAT_MJPEG */
+00A0 01              232         db 01H                           ;/* Format desciptor index */
+00A1 01              233         db 01H                           ;/* 1 Frame desciptor follows */
+00A2 01              234         db 01H                           ;/* Uses fixed size samples */
+00A3 01              235         db 01H                           ;/* Default frame index is 1 */
+00A4 00              236         db 00H                           ;/* Non interlaced stream not reqd. */
+00A5 00              237         db 00H                           ;/* Non interlaced stream not reqd. */
+00A6 00              238         db 00H                           ;/* Non interlaced stream */
+00A7 00              239         db 00H                           ;/* CopyProtect: duplication unrestricted */
+                     240     
+                     241         ;/* Class specific VS frame descriptor */
+                     242         ; db 1EH                           ;/* Descriptor size */
+                     243         ; db 24H                           ;/* Class-specific VS I/f Type */
+                     244         ; db 07H                           ;/* Descriptotor subtype : VS_FRAME_MJPEG */
+                     245         ; db 01H                           ;/* Frame desciptor index */
+                     246         ; db 00H                           ;/* Still image capture method not supported */
+                     247         ; db 00H,04H                      ;/* Width of the frame : 176 */
+                     248         ; db 00H,03H                      ;/* Height of the frame : 144 */
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     5
 
-                     248     
-00DA                 249     FullSpeedConfigDscr:   
-                     250     
-00DA                 251     FullSpeedConfigDscrEnd:   
-                     252     
-00DA 00              253           db    00h               ;; pad
-00DB                 254     StringDscr:
-                     255     
-00DB                 256     StringDscr0:   
-00DB 04              257           db   StringDscr0End-StringDscr0      ;; String descriptor length
-00DC 03              258           db   DSCR_STRING
-00DD 0904            259           db   09H,04H
-00DF                 260     StringDscr0End:
-                     261     
-00DF                 262     StringDscr1:   
-00DF 12              263           db   StringDscr1End-StringDscr1      ;; String descriptor length
-00E0 03              264           db   DSCR_STRING
-00E1 4800            265           db   'H',00
-00E3 4400            266           db   'D',00
-00E5 4D00            267           db   'M',00
-00E7 4900            268           db   'I',00
-00E9 3200            269           db   '2',00
-00EB 5500            270           db   'U',00
-00ED 5300            271           db   'S',00
-00EF 4200            272           db   'B',00
-00F1                 273     StringDscr1End:
+                     249         ; db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
+                     250         ; db 00H,0C0H,5DH,00H            ;/* max bit rate bits/s */
+                     251         ; db 00H,58H,02H,00H           ;/* Maximum video or still frame size in bytes */
+                     252         ; db 2AH,2CH,0AH,00H            ;/* Default frame interval */
+                     253         ; db 01H                           ;/* Frame interval type : No of discrete intervals *
+                             /
+                     254         ; db 2AH,2CH,0AH,00H            ;/* Frame interval 3 */
+                     255             
+00A8 1E              256             db 1EH                           ;/* Descriptor size */
+00A9 24              257         db 24H                           ;/* Class-specific VS I/f Type */
+00AA 07              258         db 07H                           ;/* Descriptotor subtype : VS_FRAME_MJPEG */
+00AB 01              259         db 01H                           ;/* Frame desciptor index */
+00AC 02              260         db 02H                           ;/* Still image capture method not supported */
+00AD 0004            261         db 00H,04H                      ;/* Width of the frame : 176 */
+00AF 0003            262         db 00H,03H                      ;/* Height of the frame : 144 */
+00B1 00007008        263         db 00H,00H,70H,08H ; (08 70 00 00)  ;/* Min bit rate bits/s */
+00B5 0000A80C        264         db 00H,00H,0A8H,0CH   ;  (0C A8 00 00) ;/* max bit rate bits/s */
+                     265     
+00B9 00004800        266         db 00H,00H,48H,00H     ;(00 48 00 00)      ;/* Maximum video or still frame size in byt
+                             es */
+                     267     
+00BD 2A2C0A00        268         db 2AH,2CH,0AH,00H            ;/* Default frame interval */
+                     269     
+00C1 01              270         db 01H                           ;/* Frame interval type : No of discrete intervals */
+00C2 2A2C0A00        271         db 2AH,2CH,0AH,00H            ;/* Frame interval 3 */
+                     272             
+00C6                 273     vsheaderend:
                      274     
-00F1                 275     StringDscr2:   
-00F1 0A              276           db   StringDscr2End-StringDscr2      ;; Descriptor length
-00F2 03              277           db   DSCR_STRING
-00F3 4A00            278           db   'J',00
-00F5 4100            279           db   'A',00
-00F7 4E00            280           db   'N',00
-00F9 4900            281           db   'I',00
-00FB                 282     StringDscr2End:
-                     283     
-00FB 00              284     db 0
+                     275         ;/* Standard video streaming interface descriptor (alternate setting 1) */
+00C6 09              276         db 09H                           ;/* Descriptor size */
+00C7 04              277         DB DSCR_INTRFC;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
+00C8 01              278         db 01H                           ;/* Interface number */
+00C9 01              279         db 01H                           ;/* Alternate setting number */
+00CA 01              280         db 01H                           ;/* Number of end points  */
+00CB 0E              281         db 0EH                           ;/* Interface class : CC_VIDEO */
+00CC 02              282         db 02H                           ;/* Interface sub class : CC_VIDEOSTREAMING */
+00CD 00              283         db 00H                           ;/* Interface protocol code : undefined */
+00CE 00              284         db 00H                           ;/* Interface descriptor string index */
                      285     
-00FC                 286     UserDscr:      
-00FC 0000            287           dw   0000H
-                     288           end
+                     286         ;/* Endpoint descriptor for streaming video data */
+00CF 07              287         db 07H                           ;/* Descriptor size */
+00D0 05              288         db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+00D1 86              289         db 86H            ;/* Endpoint address and description */
+                     290         ; db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+00D2 01              291         db ET_ISO;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+00D3 00              292         db 00H
+00D4 02              293             db 02H                     ;/* 512 Bytes Maximum Packet Size. */
+00D5 01              294         db 01H                           ;/* Servicing interval for data transfers */
+                     295     
+                     296     
+00D6                 297     HighSpeedConfigDscrEnd:   
+                     298     
+00D6 00              299     db    00h               ;; pad
+                     300     
+00D7                 301     FullSpeedConfigDscr:   
+                     302     
+                     303     
+00D7                 304     FullSpeedConfigDscrEnd:   
+                     305     
+00D7 00              306           db    00h               ;; pad
+00D8                 307     StringDscr:
+                     308     
+00D8                 309     StringDscr0:   
+00D8 04              310           db   StringDscr0End-StringDscr0      ;; String descriptor length
+00D9 03              311           db   DSCR_STRING
+00DA 0904            312           db   09H,04H
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     6
+
+00DC                 313     StringDscr0End:
+                     314     
+00DC                 315     StringDscr1:   
+00DC 12              316           db   StringDscr1End-StringDscr1      ;; String descriptor length
+00DD 03              317           db   DSCR_STRING
+00DE 4800            318           db   'H',00
+00E0 4400            319           db   'D',00
+00E2 4D00            320           db   'M',00
+00E4 4900            321           db   'I',00
+00E6 3200            322           db   '2',00
+00E8 5500            323           db   'U',00
+00EA 5300            324           db   'S',00
+00EC 4200            325           db   'B',00
+00EE                 326     StringDscr1End:
+                     327     
+00EE                 328     StringDscr2:   
+00EE 0A              329           db   StringDscr2End-StringDscr2      ;; Descriptor length
+00EF 03              330           db   DSCR_STRING
+00F0 4A00            331           db   'J',00
+00F2 4100            332           db   'A',00
+00F4 4E00            333           db   'N',00
+00F6 4900            334           db   'I',00
+00F8                 335     StringDscr2End:
+                     336     
+00F8 00              337     db 0
+                     338     
+00F9                 339     UserDscr:      
+00F9 0000            340           dw   0000H
+                     341           end
                                    
-A51 MACRO ASSEMBLER  UVC_BULK                                                             02/22/2013 17:11:33 PAGE     6
+A51 MACRO ASSEMBLER  UVC_BULK                                                             03/03/2013 22:41:56 PAGE     7
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -323,7 +379,7 @@ N A M E                 T Y P E  V A L U E   ATTRIBUTES
 
 DEVICEDSCR . . . . . .  C ADDR   0000H   R   SEG=DSCR
 DEVICEQUALDSCR . . . .  C ADDR   0012H   R   SEG=DSCR
-DSCR . . . . . . . . .  C SEG    00FEH       REL=PAGE
+DSCR . . . . . . . . .  C SEG    00FBH       REL=PAGE
 DSCR_CONFIG. . . . . .  N NUMB   0002H   A   
 DSCR_CONFIG_LEN. . . .  N NUMB   0009H   A   
 DSCR_DEVICE. . . . . .  N NUMB   0001H   A   
@@ -339,18 +395,20 @@ ET_BULK. . . . . . . .  N NUMB   0002H   A
 ET_CONTROL . . . . . .  N NUMB   0000H   A   
 ET_INT . . . . . . . .  N NUMB   0003H   A   
 ET_ISO . . . . . . . .  N NUMB   0001H   A   
-FULLSPEEDCONFIGDSCR. .  C ADDR   00DAH   R   SEG=DSCR
-FULLSPEEDCONFIGDSCREND  C ADDR   00DAH   R   SEG=DSCR
+FULLSPEEDCONFIGDSCR. .  C ADDR   00D7H   R   SEG=DSCR
+FULLSPEEDCONFIGDSCREND  C ADDR   00D7H   R   SEG=DSCR
 HIGHSPEEDCONFIGDSCR. .  C ADDR   001CH   R   SEG=DSCR
-HIGHSPEEDCONFIGDSCREND  C ADDR   00D9H   R   SEG=DSCR
-STRINGDSCR . . . . . .  C ADDR   00DBH   R   SEG=DSCR
-STRINGDSCR0. . . . . .  C ADDR   00DBH   R   SEG=DSCR
-STRINGDSCR0END . . . .  C ADDR   00DFH   R   SEG=DSCR
-STRINGDSCR1. . . . . .  C ADDR   00DFH   R   SEG=DSCR
-STRINGDSCR1END . . . .  C ADDR   00F1H   R   SEG=DSCR
-STRINGDSCR2. . . . . .  C ADDR   00F1H   R   SEG=DSCR
-STRINGDSCR2END . . . .  C ADDR   00FBH   R   SEG=DSCR
-USERDSCR . . . . . . .  C ADDR   00FCH   R   SEG=DSCR
+HIGHSPEEDCONFIGDSCREND  C ADDR   00D6H   R   SEG=DSCR
+STRINGDSCR . . . . . .  C ADDR   00D8H   R   SEG=DSCR
+STRINGDSCR0. . . . . .  C ADDR   00D8H   R   SEG=DSCR
+STRINGDSCR0END . . . .  C ADDR   00DCH   R   SEG=DSCR
+STRINGDSCR1. . . . . .  C ADDR   00DCH   R   SEG=DSCR
+STRINGDSCR1END . . . .  C ADDR   00EEH   R   SEG=DSCR
+STRINGDSCR2. . . . . .  C ADDR   00EEH   R   SEG=DSCR
+STRINGDSCR2END . . . .  C ADDR   00F8H   R   SEG=DSCR
+USERDSCR . . . . . . .  C ADDR   00F9H   R   SEG=DSCR
+VSHEADER . . . . . . .  C ADDR   008FH   R   SEG=DSCR
+VSHEADEREND. . . . . .  C ADDR   00C6H   R   SEG=DSCR
 
 
 REGISTER BANK(S) USED: 0 

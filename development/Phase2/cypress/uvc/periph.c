@@ -36,6 +36,7 @@
 
 #include "fx2.h"
 #include "fx2regs.h"
+#include "fx2sdly.h"
 
 extern BOOL   GotSUD;         // Received setup data flag
 extern BOOL   Sleep;
@@ -126,6 +127,21 @@ BOOL DR_GetConfiguration(void)   // Called when a Get Configuration command is r
 BOOL DR_SetInterface(void)       // Called when a Set Interface command is received
 {
    AlternateSetting = SETUPDAT[2];
+   
+   		SYNCDELAY;
+		FIFORESET = 0x80;             // activate NAK-ALL to avoid race conditions
+		SYNCDELAY;                    // see TRM section 15.14
+		FIFORESET = 0x02;             // reset, FIFO 2
+		SYNCDELAY;                    // 
+		FIFORESET = 0x04;             // reset, FIFO 4
+		SYNCDELAY;                    // 
+		FIFORESET = 0x06;             // reset, FIFO 6
+		SYNCDELAY;                    // 
+		FIFORESET = 0x08;             // reset, FIFO 8
+		SYNCDELAY;                    // 
+		FIFORESET = 0x00;             // deactivate NAK-ALL
+		SYNCDELAY;
+   
    return(TRUE);            // Handled by user code
 }
 

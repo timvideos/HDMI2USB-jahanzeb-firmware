@@ -30,7 +30,7 @@ ET_ISO       equ   1   ;; Endpoint type: Isochronous
 ET_BULK      equ   2   ;; Endpoint type: Bulk
 ET_INT       equ   3   ;; Endpoint type: Interrupt
 
-public       DeviceDscr, DeviceQualDscr, HighSpeedConfigDscr, FullSpeedConfigDscr, StringDscr,UserDscr
+public       DeviceDscr, DeviceQualDscr, HighSpeedConfigDscr, FullSpeedConfigDscr, StringDscr,UserDscr, vsheaderend, vsheader
 ; public 		VSUserDscrEnd
 ;public		CSInterfaceDscr, CSInterfaceDscrEND, CSVSInterfaceDscr, CSVSInterfaceDscrEND
 
@@ -76,7 +76,8 @@ db   00H; 9 Reserved 1 For future use
 HighSpeedConfigDscr:  
     db 09H                           ;/* Descriptor size */
     db DSCR_CONFIG;CY_U3P_USB_CONFIG_DESCR,        ;/* Configuration descriptor type */
-    db 0BDH,00H                      ;/* Length of this descriptor and all sub descriptors */
+	db   (HighSpeedConfigDscrEnd-HighSpeedConfigDscr) mod 256 ;; Total Length (LSB)
+	db   (HighSpeedConfigDscrEnd-HighSpeedConfigDscr)  /  256 ;; Total Length (MSB)
     db 02H                           ;/* Number of interfaces */
     db 01H                           ;/* Configuration number */
     db 00H                           ;/* COnfiguration string index */
@@ -98,7 +99,7 @@ HighSpeedConfigDscr:
     db DSCR_INTRFC ;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
     db 00H                           ;/* Interface number */
     db 00H                           ;/* Alternate setting number */
-    db 01H                           ;/* Number of end points */
+    db 00H                           ;/* Number of end points */
     db 0EH                           ;/* CC_VIDEO : Interface class */
     db 01H                           ;/* CC_VIDEOCONTROL : Interface sub class */
     db 00H                           ;/* Interface protocol code */
@@ -165,46 +166,56 @@ HighSpeedConfigDscr:
     db 03H                           ;/* Source ID : 3 : connected to extn unit */
     db 00H                           ;/* String desc index : not used */
 
-    ;/* Video control status interrupt endpoint descriptor */
-    db 07H                           ;/* Descriptor size */
-    db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
-    db 81H;CY_FX_EP_CONTROL_STATUS,        ;/* Endpoint address and description */
-    db ET_INT;CY_U3P_USB_EP_INTR,             ;/* Interrupt end point type */
-    db 40H,00H                      ;/* Max packet size = 64 bytes */
-    db 08H                           ;/* Servicing interval : 8ms */
+    ; ;/* Video control status interrupt endpoint descriptor */
+    ; db 07H                           ;/* Descriptor size */
+    ; db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+    ; db 81H;CY_FX_EP_CONTROL_STATUS,        ;/* Endpoint address and description */
+    ; db ET_INT;CY_U3P_USB_EP_INTR,             ;/* Interrupt end point type */
+    ; db 40H,00H                      ;/* Max packet size = 64 bytes */
+    ; db 88H                           ;/* Servicing interval : 8ms */
 
-    ;/* Class specific interrupt endpoint descriptor */
-    db 05H                           ;/* Descriptor size */
-    db 25H                           ;/* Class specific endpoint descriptor type */
-    db ET_INT;CY_U3P_USB_EP_INTR,             ;/* End point sub type */
-    db 40H,00H                      ;/* Max packet size = 64 bytes */
+    ; ;/* Class specific interrupt endpoint descriptor */
+    ; db 05H                           ;/* Descriptor size */
+    ; db 25H                           ;/* Class specific endpoint descriptor type */
+    ; db ET_INT;CY_U3P_USB_EP_INTR,             ;/* End point sub type */
+    ; db 40H,00H                      ;/* Max packet size = 64 bytes */
 
+	
+	
+	
+	
+	
     ;/* Standard video streaming interface descriptor (alternate setting 0) */
     db 09H                           ;/* Descriptor size */
     DB DSCR_INTRFC;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
     db 01H                           ;/* Interface number */
     db 00H                           ;/* Alternate setting number */
-    db 01H                           ;/* Number of end points : zero bandwidth */
+    db 00H                           ;/* Number of end points : zero bandwidth */
     db 0EH                           ;/* Interface class : CC_VIDEO */
     db 02H                           ;/* Interface sub class : CC_VIDEOSTREAMING */
     db 00H                           ;/* Interface protocol code : undefined */
     db 00H                           ;/* Interface descriptor string index */
+	
+    ; ;/* Endpoint descriptor for streaming video data */
+    ; db 07H                           ;/* Descriptor size */
+    ; db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+    ; db 86H            ;/* Endpoint address and description */
+    ; db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+    ; db 00H
+	; db 02H                     ;/* 512 Bytes Maximum Packet Size. */
+    ; db 00H                           ;/* Servicing interval for data transfers */	
+	
+	
 
-    ;/* Endpoint descriptor for streaming video data */
-    db 07H                           ;/* Descriptor size */
-    db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
-    db 86H            ;/* Endpoint address and description */
-    db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
-    db 00H
-	db 02H                     ;/* 512 Bytes Maximum Packet Size. */
-    db 00H                           ;/* Servicing interval for data transfers */
-
+vsheader:
     ;/* Class-specific video streaming input header descriptor */
     db 0EH                           ;/* Descriptor size */
     db 24H                           ;/* Class-specific VS i/f type */
     db 01H                           ;/* Descriptotor subtype : input header */
     db 01H                           ;/* 1 format desciptor follows */
-    db 19H,00H                      ;/* Total size of class specific VS descr */
+    ; db 19H,00H                      ;/* Total size of class specific VS descr */
+	db   (vsheaderend-vsheader) mod 256 ;; Total Length (LSB)
+	db   (vsheaderend-vsheader)  /  256 ;; Total Length (MSB)	
     DB 86H             ;/* EP address for BULK video data */
     db 00H                           ;/* No dynamic format change supported */
     db 04H                           ;/* Output terminal ID : 4 */
@@ -228,25 +239,67 @@ HighSpeedConfigDscr:
     db 00H                           ;/* CopyProtect: duplication unrestricted */
 
     ;/* Class specific VS frame descriptor */
-    db 1EH                           ;/* Descriptor size */
+    ; db 1EH                           ;/* Descriptor size */
+    ; db 24H                           ;/* Class-specific VS I/f Type */
+    ; db 07H                           ;/* Descriptotor subtype : VS_FRAME_MJPEG */
+    ; db 01H                           ;/* Frame desciptor index */
+    ; db 00H                           ;/* Still image capture method not supported */
+    ; db 00H,04H                      ;/* Width of the frame : 176 */
+    ; db 00H,03H                      ;/* Height of the frame : 144 */
+    ; db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
+    ; db 00H,0C0H,5DH,00H            ;/* max bit rate bits/s */
+    ; db 00H,58H,02H,00H           ;/* Maximum video or still frame size in bytes */
+    ; db 2AH,2CH,0AH,00H            ;/* Default frame interval */
+    ; db 01H                           ;/* Frame interval type : No of discrete intervals */
+    ; db 2AH,2CH,0AH,00H            ;/* Frame interval 3 */
+	
+	db 1EH                           ;/* Descriptor size */
     db 24H                           ;/* Class-specific VS I/f Type */
     db 07H                           ;/* Descriptotor subtype : VS_FRAME_MJPEG */
     db 01H                           ;/* Frame desciptor index */
-    db 00H                           ;/* Still image capture method not supported */
+    db 02H                           ;/* Still image capture method not supported */
     db 00H,04H                      ;/* Width of the frame : 176 */
     db 00H,03H                      ;/* Height of the frame : 144 */
-    db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
-    db 00H,0C0H,5DH,00H            ;/* Min bit rate bits/s */
-    db 00H,58H,02H,00H           ;/* Maximum video or still frame size in bytes */
+    db 00H,00H,70H,08H ; (08 70 00 00)	;/* Min bit rate bits/s */
+    db 00H,00H,0A8H,0CH   ;  (0C A8 00 00) ;/* max bit rate bits/s */
+
+    db 00H,00H,48H,00H     ;(00 48 00 00)      ;/* Maximum video or still frame size in bytes */
+
     db 2AH,2CH,0AH,00H            ;/* Default frame interval */
+
     db 01H                           ;/* Frame interval type : No of discrete intervals */
     db 2AH,2CH,0AH,00H            ;/* Frame interval 3 */
+	
+vsheaderend:
+
+    ;/* Standard video streaming interface descriptor (alternate setting 1) */
+    db 09H                           ;/* Descriptor size */
+    DB DSCR_INTRFC;CY_U3P_USB_INTRFC_DESCR,        ;/* Interface descriptor type */
+    db 01H                           ;/* Interface number */
+    db 01H                           ;/* Alternate setting number */
+    db 01H                           ;/* Number of end points  */
+    db 0EH                           ;/* Interface class : CC_VIDEO */
+    db 02H                           ;/* Interface sub class : CC_VIDEOSTREAMING */
+    db 00H                           ;/* Interface protocol code : undefined */
+    db 00H                           ;/* Interface descriptor string index */
+
+    ;/* Endpoint descriptor for streaming video data */
+    db 07H                           ;/* Descriptor size */
+    db DSCR_ENDPNT ;CY_U3P_USB_ENDPNT_DESCR,        ;/* Endpoint descriptor type */
+    db 86H            ;/* Endpoint address and description */
+    ; db ET_BULK;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+    db ET_ISO;CY_U3P_USB_EP_BULK,             ;/* Bulk Endpoint */
+    db 00H
+	db 02H                     ;/* 512 Bytes Maximum Packet Size. */
+    db 01H                           ;/* Servicing interval for data transfers */
+
 
 HighSpeedConfigDscrEnd:   
 
 db    00h               ;; pad
 
 FullSpeedConfigDscr:   
+
 
 FullSpeedConfigDscrEnd:   
 

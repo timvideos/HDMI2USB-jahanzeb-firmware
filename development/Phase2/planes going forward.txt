@@ -1,0 +1,60 @@
+Hi Jahanzeb,
+
+I've been thinking about our plans going forward and am proposing we do the following;
+
+Step 1: Finish the HDMI to UVC stage.
+Step 2: Integrate USB-UVC and USB-CDC functionality into a single core.
+
+Step 3 was originally design our own PCB, but I'd like to change it to the following.
+
+Step 3: Figure out if possible to use the Cypress chip onboard the Atlys instead of an off-board chip. Modify the code to support either set up.
+Step 4: Aggressively clean up the code and make a clean git repository which includes;
+ * Demo firmware which tests parts of the system
+		Demo Firmware
+		---------------------------
+		The point of these firmware are to test individual components of the system on the hardware.
+
+		EDID Hack - Pass thru with EDID hack with usb-cdc output information.
+		 * Tests the USB-CDC implementation.
+		 * Tests the EDID hack.
+
+		Static JPEG - Connects as UVC camera and uploads static image.
+		 * Tests the USB-UVC implementation.
+
+		Static Image Encode - Connects as UVC camera and uploads static image.
+		  * Tests the USB-UVC implementation.
+		  * Tests the JPEG encoder.
+ * Full firmware implementation
+ * Comprehensive test benches to allow people to modify firmware without a device.
+Step 5: Make all the above build-able and testable without using the ISE GUI.
+Step 6: Make the system build both on Linux and Windows
+
+If we are unable to make the on board Cypress Atlys chip work, I think our best bet is to make a Atlys extension board with the Cypress chip on it.
+
+At this point I'd like to release the current remaining milestones and look at doing extension work. While I'm sure you'd do a great job at designing the PCB, I'd prefer you to work on more firmware projects.
+
+The extension projects, listed in order of priority; (each extensions project would be separately paid work.)
+ * Add support for two output ports. The same output should appear on the both output ports.
+ * Add support for two input ports. The output should be switched via both sending a command on the USB-CDC port, or when the first input looses signal.
+ * Add support configurable support for the 4 remaining ports on the VMOD-MIB board. http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,648,870&Prod=VMOD-MIB
+ * Add support for VGA input capture port. This will require developing a custom VMOD board with a VGA connector on it.
+ * Creation of a USB stack with is compatible with the ULPI chips.
+ 
+ I'm not sure how I ended up forgetting to include the information below;
+
+Demo Firmware
+---------------------------
+The point of these firmware are to test individual components of the system on the hardware.
+
+EDID Hack - Pass thru with EDID hack with usb-cdc output information.
+ * Tests the USB-CDC implementation.
+ * Tests the EDID hack.
+
+Static JPEG - Connects as UVC camera and uploads static image.
+ * Tests the USB-UVC implementation.
+
+Static Image Encode - Connects as UVC camera and uploads static image.
+  * Tests the USB-UVC implementation.
+  * Tests the JPEG encoder.
+
+The idea is that you could work on the jpeg core without having to understand or know how the HDMI side works, or work on the HDMI side without having to worry about the jpeg, etc. Nice and modular :) 
