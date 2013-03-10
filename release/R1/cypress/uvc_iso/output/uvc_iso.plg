@@ -1,0 +1,26 @@
+Build target 'Target 1'
+compiling fw.c...
+compiling periph.c...
+assembling uvc.a51...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  GPCR2
+    MODULE:  .\output\fw.obj (FW)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  GPCR2
+    MODULE:  .\output\fw.obj (FW)
+    ADDRESS: 0037H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+    ADDRESS: 0048H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CDCDATADSCR
+    MODULE:  .\output\periph.obj (PERIPH)
+    ADDRESS: 004BH
+Program Size: data=67.5 xdata=37232 code=2526
+creating hex file from ".\output\uvc_iso"...
+".\output\uvc_iso" - 0 Error(s), 5 Warning(s).

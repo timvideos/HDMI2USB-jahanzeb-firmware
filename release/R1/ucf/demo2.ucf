@@ -1,0 +1,45 @@
+##############################################################################
+CONFIG VCCAUX = 3.3;
+
+##############################################################################
+# SYSCLK Input
+##############################################################################
+NET "clk"        LOC = "L15" |IOSTANDARD = LVCMOS33 ;
+NET "rst_n" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "rst_n" 		LOC = "T15" |IOSTANDARD = LVCMOS33 ;
+
+
+NET "clk" TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 10 ns HIGH 50%;
+
+
+
+##############################################################################
+# Reset button and LEDs and Mechanical Switches (SW)
+##############################################################################
+NET "LED<0>"   LOC = "U18" |IOSTANDARD = LVCMOS33;
+NET "LED<1>"   LOC = "M14" |IOSTANDARD = LVCMOS33;
+NET "LED<2>"   LOC = "N14" |IOSTANDARD = LVCMOS33;
+NET "LED<3>"   LOC = "L14" |IOSTANDARD = LVCMOS33;
+NET "LED<4>"   LOC = "M13" |IOSTANDARD = LVCMOS33;
+NET "LED<5>"   LOC = "D4"  |IOSTANDARD = LVCMOS33;
+NET "LED<6>"   LOC = "P16" |IOSTANDARD = LVCMOS33;
+NET "LED<7>"   LOC = "N12" |IOSTANDARD = LVCMOS33;
+
+NET "sw<0>" LOC = "A10" |IOSTANDARD = LVCMOS33;
+NET "sw<1>" LOC = "D14" |IOSTANDARD = LVCMOS33;
+NET "sw<2>" LOC = "C14" |IOSTANDARD = LVCMOS33;
+#NET "sw<3>" LOC = "P15" | IOSTANDARD = LVCMOS33;
+#NET "sw<4>" LOC = "P12" | IOSTANDARD = LVCMOS33;
+#NET "sw<5>" LOC = "R5" | IOSTANDARD = LVCMOS33;
+#NET "sw<6>" LOC = "T5" | IOSTANDARD = LVCMOS33;
+#NET "sw<7>" LOC = "E4" | IOSTANDARD = LVCMOS33;
+
+#############################################################################
+# SCL SDA
+#############################################################################
+NET "scl_pc"  LOC = "M16" |pullup |IOSTANDARD = LVCMOS33 ;
+NET "sda_pc"  LOC = "M18" |pullup |IOSTANDARD = LVCMOS33 ;
+
+#NET "scl_lcd"  LOC = "D9" |IOSTANDARD = LVCMOS33 ;
+NET "sda_lcd"  LOC = "C9" |pullup |IOSTANDARD = LVCMOS33 ;

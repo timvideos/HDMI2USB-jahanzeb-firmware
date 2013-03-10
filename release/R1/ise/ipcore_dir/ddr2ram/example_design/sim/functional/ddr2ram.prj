@@ -1,0 +1,34 @@
+vhdl  work  ../../rtl/example_top.vhd
+vhdl  work  ../../rtl/iodrp_controller.vhd
+vhdl  work  ../../rtl/iodrp_mcb_controller.vhd
+vhdl  work  ../../rtl/mcb_raw_wrapper.vhd
+vhdl  work  ../../rtl/mcb_soft_calibration.vhd
+vhdl  work  ../../rtl/mcb_soft_calibration_top.vhd
+vhdl  work  ../../rtl/memc3_infrastructure.vhd
+vhdl  work  ../../rtl/memc3_tb_top.vhd
+vhdl  work  ../../rtl/memc3_wrapper.vhd
+vhdl  work  ../../rtl/traffic_gen/afifo.vhd
+vhdl  work  ../../rtl/traffic_gen/cmd_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/cmd_prbs_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/data_prbs_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/init_mem_pattern_ctr.vhd
+vhdl  work  ../../rtl/traffic_gen/mcb_flow_control.vhd
+vhdl  work  ../../rtl/traffic_gen/mcb_traffic_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/rd_data_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/read_data_path.vhd
+vhdl  work  ../../rtl/traffic_gen/read_posted_fifo.vhd
+vhdl  work  ../../rtl/traffic_gen/sp6_data_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/tg_status.vhd
+vhdl  work  ../../rtl/traffic_gen/v6_data_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/wr_data_gen.vhd
+vhdl  work  ../../rtl/traffic_gen/write_data_path.vhd
+
+
+verilog  work  $XILINX/verilog/src/glbl.v
+vhdl  work  ./sim_tb_top.vhd
+verilog  work  ./ddr2_model_c3.v -d x1Gb -d sg25E -d x16 -i ./
+
+
+
+
+

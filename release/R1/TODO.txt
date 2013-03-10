@@ -1,0 +1,3 @@
+- Scripts to build and test without using the ISE GUI.
+- new conroller
+- new faster jpeg encoder needed (may be)

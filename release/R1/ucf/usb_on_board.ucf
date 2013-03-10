@@ -1,0 +1,22 @@
+############################################################################
+NET "fdata<0>" IOSTANDARD = LVCMOS33 |LOC = "A2"; # Schematic name: U1-FD0
+NET "fdata<1>" IOSTANDARD = LVCMOS33 |LOC = "D6"; # Schematic name: U1-FD1
+NET "fdata<2>" IOSTANDARD = LVCMOS33 |LOC = "C6"; # Schematic name: U1-FD2
+NET "fdata<3>" IOSTANDARD = LVCMOS33 |LOC = "B3"; # Schematic name: U1-FD3
+NET "fdata<4>" IOSTANDARD = LVCMOS33 |LOC = "A3"; # Schematic name: U1 FD4
+NET "fdata<5>" IOSTANDARD = LVCMOS33 |LOC = "B4"; # Schematic name: U1-FD5
+NET "fdata<6>" IOSTANDARD = LVCMOS33 |LOC = "A4"; # Schematic name: U1-FD6
+NET "fdata<7>" IOSTANDARD = LVCMOS33 |LOC = "C5"; # Schematic name: U1-FD7
+NET "fdata<*>" DRIVE=12 |SLEW=SLOW;
+NET "flagA" IOSTANDARD = LVCMOS33 |LOC = "B9" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGA
+NET "flagB" IOSTANDARD = LVCMOS33 |LOC = "A9" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGB
+NET "flagC" IOSTANDARD = LVCMOS33 |LOC = "C15" |SLEW=SLOW |DRIVE=12; # Schematic name: U1-FLAGC
+NET "faddr<0>" IOSTANDARD = LVCMOS33 |LOC = "A14" |DRIVE=12 |SLEW=SLOW; # Schematic name: 
+NET "faddr<1>" IOSTANDARD = LVCMOS33 |LOC = "B14" |DRIVE=12 |SLEW=SLOW; # Schematic name:
+NET "ifclk" IOSTANDARD = LVCMOS33 |LOC = "C10" |SLEW=SLOW; # Schematic name: 
+NET "slrd" IOSTANDARD = LVCMOS33 |LOC = "F13" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
+NET "sloe" IOSTANDARD = LVCMOS33 |LOC = "A15" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
+NET "slwr" IOSTANDARD = LVCMOS33 |LOC = "E13" |DRIVE=12 |SLEW=SLOW |PULLUP; # Schematic name: # pullled up 
+NET "slcs" IOSTANDARD = LVCMOS33 |LOC = "B2"; # Schematic name: # connect it to ground to dedicate this bus only ( has pull down resistor in Atlys)
+NET "pktend" IOSTANDARD = LVCMOS33 |LOC = "c4" |DRIVE=12 |SLEW=SLOW; # Schematic name: 
+############################################################################

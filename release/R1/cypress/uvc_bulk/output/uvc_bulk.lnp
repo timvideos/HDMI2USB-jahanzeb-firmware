@@ -1,0 +1,10 @@
+".\output\fw.obj",
+".\output\periph.obj",
+".\USBJmpTb.OBJ",
+".\EZUSB.LIB",
+".\output\uvc_bulk.obj" 
+TO ".\output\uvc_bulk" 
+PRINT(".\output\uvc_bulk.m51") RAMSIZE(256) 
+NOOVERLAY 
+CODE( 0X0000-0X3FFF )
+XDATA( 0XE000-0XE1FF )

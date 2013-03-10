@@ -1,0 +1,9 @@
+".\output\fw.obj",
+".\USBJmpTb.OBJ",
+".\EZUSB.LIB",
+".\output\DSCR.obj",
+".\output\periph.obj" 
+TO ".\output\hdmi2usb" 
+PRINT(".\output\hdmi2usb.m51") RAMSIZE(256) 
+CODE( 0x80 )
+XDATA( 0x1000 )

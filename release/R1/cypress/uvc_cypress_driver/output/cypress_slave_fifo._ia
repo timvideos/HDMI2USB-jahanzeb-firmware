@@ -1,0 +1,1 @@
+"cypress_slave_fifo.a51" SET (SMALL) DEBUG PRINT(.\output\cypress_slave_fifo.lst) OBJECT(.\output\cypress_slave_fifo.obj) EP

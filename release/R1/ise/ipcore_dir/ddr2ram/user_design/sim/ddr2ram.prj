@@ -1,0 +1,33 @@
+vhdl  work  ../rtl/ddr2ram.vhd
+vhdl  work  ../rtl/iodrp_controller.vhd
+vhdl  work  ../rtl/iodrp_mcb_controller.vhd
+vhdl  work  ../rtl/mcb_raw_wrapper.vhd
+vhdl  work  ../rtl/mcb_soft_calibration.vhd
+vhdl  work  ../rtl/mcb_soft_calibration_top.vhd
+vhdl  work  ../rtl/memc3_infrastructure.vhd
+vhdl  work  ../rtl/memc3_wrapper.vhd
+vhdl  work  ./afifo.vhd
+vhdl  work  ./cmd_gen.vhd
+vhdl  work  ./cmd_prbs_gen.vhd
+vhdl  work  ./data_prbs_gen.vhd
+vhdl  work  ./init_mem_pattern_ctr.vhd
+vhdl  work  ./mcb_flow_control.vhd
+vhdl  work  ./mcb_traffic_gen.vhd
+vhdl  work  ./rd_data_gen.vhd
+vhdl  work  ./read_data_path.vhd
+vhdl  work  ./read_posted_fifo.vhd
+vhdl  work  ./sp6_data_gen.vhd
+vhdl  work  ./tg_status.vhd
+vhdl  work  ./v6_data_gen.vhd
+vhdl  work  ./wr_data_gen.vhd
+vhdl  work  ./write_data_path.vhd
+vhdl  work  ./memc3_tb_top.vhd
+
+verilog  work  $XILINX/verilog/src/glbl.v
+vhdl  work  ./sim_tb_top.vhd
+verilog  work  ./ddr2_model_c3.v -d x1Gb -d sg25E -d x16 -i ./
+
+
+
+
+

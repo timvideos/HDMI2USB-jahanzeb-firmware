@@ -1,0 +1,108 @@
+**************************************************** 
+**** rtl
+This folder contains HDL files of the system each folder is further described below
+
+* tmds
+Contains the hdmi encoding and decoding core for more details read XILINX App note 495
+
+* edid 
+this block reading the edid structure from monitor. and tests if it is hdmi monitor or dvi if its hdmi it send a 720p hdmi edid to computer. if the monitor is dvi monitor it sends a 1024x768 resolution edid structure to computer. at the moment this module doesnot alter the edid structure received from monitor. it only send the pre-stored edid structure to computer.
+
+* jpeg 
+contains the resolution calculation(calc_res) for jpeg encoder. ram_buffer contains DDR2 module and states mechines to store and read the images from DDR2 RAM and pass it to jpeg encoder. jpeg_encoder_top is a jpeg encoder state mechine to control the jpeg encoder, pass quantizer values and image size. jpeg/design contains the core jpeg encoder for more details read documentation of mkjpeg from opencores.org
+
+* usb
+contains module to write data to cypress fifo. this will be replaced with a proper controller in near future. 
+
+* demos
+contains files for demos
+demo1: tests hdmi/dvi encoding and decoding modules and edid hack.
+demo2: configures the device with pre encoded jpeg image, to basically test the uvc data transfer.
+demo3: configures the with a fix rgb patteren to test the jpeg encoder and uvc data transfer
+
+****************************************************
+**** cypress
+* cdc
+Is a basically a cypress App note for CDC communication. Use usb2hdmi.inf for windows system to configure with proper cdc driver. 
+
+* uvc_bulk
+Is for configuring cypress chip as bulk uvc device it works fine with windows at the moment but unable to get it working with ubuntu.
+
+* uvc_iso 
+Is for configuring cypress chip as isochronus uvc device it works fine with windows and ubuntu.
+
+* uvc_cypress_driver
+configures the cypress chip as device as cypress streamer device primarily used for debuging using cypress Control Center.
+
+* uvc+cdc
+Contains the final version of the code to configure cypress device as both cdc and uvc device at the same time. Use usb2hdmi.inf for windows system to configure with proper cdc driver. uvc driver will be installed automatically.
+
+* to make hex file for EEPROM for cypress chip
+c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o hdmi2usb.iic hdmi2usb.hex
+
+****************************************************
+**** UCF
+* hdmi2usb.xcf 
+Is required for main implementation not for demos.
+
+* hdmi2usb_onboard_usb.ucf
+Is a ucf for implementation the main design with cypress usb chip on ATLYS board.
+
+* hdmi2usb_offboard_usb.ucf
+Is a ucf for implementation the main design with cypress usb chip on external board connected to ATLYS via VHDCI connector.
+
+Remaing ucf files are used for demos and can be used to create custom UCF files
+
+****************************************************
+**** tb
+This directory contains testbenches for testing different parts of the system
+
+* tb_edid_master_slave
+This file contains the testbenches to test the EDID master slave and edid hacking unit.
+signals to observe are in edid_master_slave_hack unit
+
+* jpeg_encoder_top_tb
+This tests the jpeg encoder core used in this system it generates a fixed pattern and write an encoded jpeg image in sim directory. 
+
+* ram_buffer_jpeg_encoder_tb
+This testbenches writes a fixed pattern in DDR2 RAM and then reads it from ram and encodes it as jpeg encoder and writes it to jpeg file and text file.
+
+****************************************************
+**** sim
+* compare.c
+Compares two encoded jpeg hex text files 
+
+* cy2jpg.c 
+Converts the text image obtained from cypress Control Center using cypress driver to jpeg image file.
+
+****************************************************
+**** DDR2
+If ddr2ram MIG core is modified all the settings will be lost and there are some changes will be required manually.
+for more details on MIG read tristesse.org/FPGA/XilinxMIGTutorial
+
+* modify the following parameters in \ise\ipcore_dir\ddr2ram\user_design\rtl\ddr2ram.vhd
+constant C3_CLKOUT0_DIVIDE       : integer := 1; 
+constant C3_CLKOUT1_DIVIDE       : integer := 1; 
+constant C3_CLKOUT2_DIVIDE       : integer := 8; 
+constant C3_CLKOUT3_DIVIDE       : integer := 4; 
+constant C3_CLKFBOUT_MULT        : integer := 25; 
+constant C3_DIVCLK_DIVIDE        : integer := 4; 
+
+* because of DCM in clock path the IBUFG needs to be removed manually from \ise\ipcore_dir\ddr2ram\user_design\rtl\memc3_infrastructure.vhd and connect the clock directly (sys_clk_ibufg <= sys_clk) 
+
+* For simulation 
+ - to access the complete ram in simulation define `define MAX_MEM in \ise\ipcore_dir\ddr2ram\user_design\sim\ddr2_model_c3.v 
+ - define the following parameters and changes in \ise\ipcore_dir\ddr2ram\user_design\sim\ddr2_model_parameters_c3.vh 
+	`define x1Gb
+	`define sg25E
+	`define x16
+	to stop the debuging messeges change the value of parameter DEBUG to 0.
+	
+****************************************************
+**** pre-build
+This folder contains the pre-build bit files and hex files to program the ATLYS board as uvc device use 
+hdmi2usb_onboard.bit
+uvc.hex
+
+
+

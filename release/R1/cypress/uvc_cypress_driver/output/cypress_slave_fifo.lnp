@@ -1,0 +1,10 @@
+".\output\fw.obj",
+".\output\periph.obj",
+".\USBJmpTb.OBJ",
+".\EZUSB.LIB",
+".\output\cypress_slave_fifo.obj" 
+TO ".\output\cypress_slave_fifo" 
+PRINT(".\output\cypress_slave_fifo.m51") RAMSIZE(256) 
+NOOVERLAY 
+CODE( 0X0000-0X3FFF )
+XDATA( 0XE000-0XE1FF )

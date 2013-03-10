@@ -1,0 +1,21 @@
+############################################################################
+NET "fdata<0>" IOSTANDARD = LVCMOS33 |LOC = "T11"; # Schematic name: U1-FD0
+NET "fdata<1>" IOSTANDARD = LVCMOS33 |LOC = "T12"; # Schematic name: U1-FD1
+NET "fdata<2>" IOSTANDARD = LVCMOS33 |LOC = "V12"; # Schematic name: U1-FD2
+NET "fdata<3>" IOSTANDARD = LVCMOS33 |LOC = "N10"; # Schematic name: U1-FD3
+NET "fdata<4>" IOSTANDARD = LVCMOS33 |LOC = "P11"; # Schematic name: U1 FD4
+NET "fdata<5>" IOSTANDARD = LVCMOS33 |LOC = "M10"; # Schematic name: U1-FD5
+NET "fdata<6>" IOSTANDARD = LVCMOS33 |LOC = "N9"; # Schematic name: U1-FD6
+NET "fdata<7>" IOSTANDARD = LVCMOS33 |LOC = "U11"; # Schematic name: U1-FD7
+NET "flagA" IOSTANDARD = LVCMOS33 |LOC = "N8"; # Schematic name: U1-FLAGA
+NET "flagB" IOSTANDARD = LVCMOS33 |LOC = "U15"; # Schematic name: U1-FLAGB
+NET "flagC" IOSTANDARD = LVCMOS33 |LOC = "U8"; # Schematic name: U1-FLAGC
+NET "faddr<0>" IOSTANDARD = LVCMOS33 |LOC = "M11"; # Schematic name: 
+NET "faddr<1>" IOSTANDARD = LVCMOS33 |LOC = "V13"; # Schematic name:
+NET "ifclk" IOSTANDARD = LVCMOS33 |LOC = "T8"; # Schematic name: 
+NET "slrd" IOSTANDARD = LVCMOS33 |LOC = "V11" |DRIVE = 16 ; # Schematic name: # pullled up 
+NET "sloe" IOSTANDARD = LVCMOS33 |LOC = "R11" |DRIVE = 16 ; # Schematic name: # pullled up 
+NET "slwr" IOSTANDARD = LVCMOS33 |LOC = "N11" |DRIVE = 16 ; # Schematic name: # pullled up 
+NET "slcs" IOSTANDARD = LVCMOS33 |LOC = "B2"; # Schematic name: # connect it to ground to dedicate this bus only ( has pull down resistor in Atlys)
+NET "pktend" IOSTANDARD = LVCMOS33 |LOC = "R8"; # Schematic name: //
+############################################################################

@@ -1,0 +1,9 @@
+".\output\fw.obj",
+".\output\Virtual.obj",
+".\USBJmpTb.OBJ",
+".\EZUSB.LIB",
+".\output\DSCR.obj" 
+TO ".\output\cdc" 
+PRINT(".\output\cdc.m51") RAMSIZE(256) 
+CODE( 0x80 )
+XDATA( 0x1000 )

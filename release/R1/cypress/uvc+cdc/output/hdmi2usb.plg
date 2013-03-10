@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision2 Build Log</h1>
+<h2>Project:</h2>
+D:\Dropbox\vWorker\phase2\cypress\uvc+cdc\hdmi2usb.uv2
+Project File Date:  03/10/2013
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling fw.c...
+assembling DSCR.a51...
+compiling periph.c...
+linking...
+Program Size: data=72.5 xdata=4471 code=2775
+creating hex file from ".\output\hdmi2usb"...
+".\output\hdmi2usb" - 0 Error(s), 0 Warning(s).
