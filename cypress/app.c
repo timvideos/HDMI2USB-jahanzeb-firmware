@@ -308,7 +308,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			EP0BCL = 0x00;                                     // Allow host transfer in
 			while ( EP0CS & bmEPBUSY );                        // Wait for data
-			jtagShiftBegin(*((uint32 *)EP0BUF), SETUPDAT[2]);  // Init numBits & flagByte
+			jtagShiftBegin(*((uint32 *)EP0BUF), (ProgOp)SETUPDAT[4], SETUPDAT[2]);  // Init numBits & flagByte
 			return true;
 			// Now that numBits & flagByte are set, this operation will continue in mainLoop()...
 		}

@@ -43,7 +43,7 @@ sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 #define ERROR_CSVF_BAD_COMMAND    2
 
 // Kick off a shift operation. Next time jtagExecuteShift() runs, it will execute the shift.
-void jtagShiftBegin(uint32 numBits, uint8 flagByte);
+void jtagShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte);
 
 // Return true if there's a shift operation pending
 bool jtagIsShiftPending(void);

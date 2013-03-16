@@ -22,12 +22,14 @@
 #include "defs.h"
 #include "../../vendorCommands.h"
 #include "debug.h"
+#include "../../prog.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // NeroJTAG Stuff
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 static xdata uint32 m_numBits = 0UL;
+static xdata ProgOp m_progOp = PROG_NOP;
 static xdata uint8 m_flagByte = 0x00;
 
 // THIS MUST BE THE FIRST FUNCTION IN THE FILE!
@@ -254,8 +256,9 @@ static uint8 shiftInOut(uint8 c) {
 
 // Kick off a shift operation. Next time jtagExecuteShift() runs, it will execute the shift.
 //
-void jtagShiftBegin(uint32 numBits, uint8 flagByte) {
+void jtagShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte) {
 	m_numBits = numBits;
+	m_progOp = progOp;
 	m_flagByte = flagByte;
 }
 
@@ -263,187 +266,196 @@ void jtagShiftBegin(uint32 numBits, uint8 flagByte) {
 //
 #define bitsToBytes(x) ((x>>3) + (x&7 ? 1 : 0))
 
-// Actually execute the shift operation initiated by jtagBeginShift(). This is done in a
-// separate method because vendor commands cannot read & write to bulk endpoints.
-//
-void jtagShiftExecute(void) {
-	if ( !(m_flagByte & bmDOJTAG) ) {
-		return;  // Nothing to do
-	}
-	//if ( m_numBits == 0UL ) {
-	//	return;  // Nothing to do
-	//}
+static const xdata uint8 *m_inPtr;
+static xdata uint8 *m_outPtr;
 
-	// Are there any JTAG send/receive operations to execute?
-	if ( (m_flagByte & bmSENDMASK) == bmSENDDATA ) {
-		if ( m_flagByte & bmNEEDRESPONSE ) {
-			// The host is giving us data, and is expecting a response (xdr)
-			xdata uint16 bitsRead, bitsRemaining;
-			xdata uint8 *inPtr, *outPtr, bytesRead, bytesRemaining;
-			while ( m_numBits ) {
-				while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP1OUT data
-				while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
-				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
-				bytesRead = EP1OUTBC;
-
-				inPtr = EP1OUTBUF;
-				outPtr = EP1INBUF;
-				if ( bitsRead == m_numBits ) {
-					// This is the last chunk
-					xdata uint8 tdoByte, tdiByte, leftOver, i;
-					bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
-					leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
-					bytesRemaining = (bitsRemaining>>3);
-					while ( bytesRemaining-- ) {
-						*outPtr++ = shiftInOut(*inPtr++);
-					}
-					tdiByte = *inPtr++;  // Now do the bits in the final byte
-					tdoByte = 0x00;
-					i = 1;
-					while ( i && leftOver ) {
-						leftOver--;
-						if ( (m_flagByte & bmISLAST) && !leftOver ) {
-							TMS = 1; // Exit Shift-DR state on next clock
-						}
-						TDI = tdiByte & 1;
-						tdiByte >>= 1;
-						if ( TDO ) {
-							tdoByte |= i;
-						}
-						TCK = 1;
-						TCK = 0;
-						i <<= 1;
-					}
-					*outPtr = tdoByte;
-				} else {
-					// This is not the last chunk
-					bytesRemaining = (bitsRead>>3);
-					while ( bytesRemaining-- ) {
-						*outPtr++ = shiftInOut(*inPtr++);
-					}
-				}
-				EP1OUTBC = 0x00;  // ready to accept more data from host
-				EP1INBC = bytesRead;  // send response back to host
-				m_numBits -= bitsRead;
-			}
-		} else {
-			// The host is giving us data, but does not need a response (xdn)
-			xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
-			while ( m_numBits ) {
-				while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
-				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
-				bytesRead = EP1OUTBC;
-
-				if ( bitsRead == m_numBits ) {
-					// This is the last chunk
-					xdata uint8 tdiByte, leftOver, i;
-					inPtr = EP1OUTBUF;
-					bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
-					leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
-					bytesRemaining = (bitsRemaining>>3);
-					while ( bytesRemaining-- ) {
-						shiftOut(*inPtr++);
-					}
-					tdiByte = *inPtr;  // Now do the bits in the final byte
-					i = 1;
-					while ( i && leftOver ) {
-						leftOver--;
-						if ( (m_flagByte & bmISLAST) && !leftOver ) {
-							TMS = 1; // Exit Shift-DR state on next clock
-						}
-						TDI = tdiByte & 1;
-						tdiByte >>= 1;
-						TCK = 1;
-						TCK = 0;
-						i <<= 1;
-					}
-				} else {
-					// This is not the last chunk, so we've to 512 bytes to shift
-					blockShiftOut(64);
-				}
-				EP1OUTBC = 0x00;  // ready to accept more data from host
-				m_numBits -= bitsRead;
-			}
-		}
-	} else {
-		if ( m_flagByte & bmNEEDRESPONSE ) {
-			// The host is not giving us data, but is expecting a response (x0r)
-			xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
-			xdata uint8 tdiByte;
-			if ( (m_flagByte & bmSENDMASK) == bmSENDZEROS ) {
-				tdiByte = 0x00;
-			} else {
-				tdiByte = 0xFF;
-			}
-			while ( m_numBits ) {
-				while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
-				bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
-				bytesRead = bitsToBytes(bitsRead);
-
-				outPtr = EP1INBUF;
-				if ( bitsRead == m_numBits ) {
-					// This is the last chunk
-					xdata uint8 tdoByte, leftOver, i;
-					bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
-					leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
-					bytesRemaining = (bitsRemaining>>3);
-					while ( bytesRemaining-- ) {
-						*outPtr++ = shiftInOut(tdiByte);
-					}
-					tdoByte = 0x00;
-					i = 1;
-					TDI = tdiByte & 1;
-					while ( i && leftOver ) {
-						leftOver--;
-						if ( (m_flagByte & bmISLAST) && !leftOver ) {
-							TMS = 1; // Exit Shift-DR state on next clock
-						}
-						if ( TDO ) {
-							tdoByte |= i;
-						}
-						TCK = 1;
-						TCK = 0;
-						i <<= 1;
-					}
-					*outPtr = tdoByte;
-				} else {
-					// This is not the last chunk
-					bytesRemaining = (bitsRead>>3);
-					while ( bytesRemaining-- ) {
-						*outPtr++ = shiftInOut(tdiByte);
-					}
-				}
-				EP1INBC = bytesRead;  // send response back to host
-				m_numBits -= bitsRead;
-			}
-		} else {
-			// The host is not giving us data, and does not need a response (x0n)
-			xdata uint32 bitsRemaining, bytesRemaining;
-			xdata uint8 tdiByte, leftOver;
-			if ( (m_flagByte & bmSENDMASK) == bmSENDZEROS ) {
-				tdiByte = 0x00;
-			} else {
-				tdiByte = 0xFF;
-			}
-			bitsRemaining = (m_numBits-1) & 0xFFFFFFF8;    // Now an integer number of bytes
-			leftOver = (uint8)(m_numBits - bitsRemaining); // How many bits in last byte (1-8)
+static void jtagIsSendingIsReceiving(void) {
+	xdata uint16 bitsRead, bitsRemaining;
+	xdata uint8 bytesRead, bytesRemaining;
+	while ( m_numBits ) {
+		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP1OUT data
+		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
+		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
+		bytesRead = EP1OUTBC;
+		
+		m_inPtr = EP1OUTBUF;
+		m_outPtr = EP1INBUF;
+		if ( bitsRead == m_numBits ) {
+			// This is the last chunk
+			xdata uint8 tdoByte, tdiByte, leftOver, i;
+			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
+			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
 			bytesRemaining = (bitsRemaining>>3);
 			while ( bytesRemaining-- ) {
-				shiftOut(tdiByte);
+				*m_outPtr++ = shiftInOut(*m_inPtr++);
 			}
-			TDI = tdiByte & 1;
-			while ( leftOver ) {
+			tdiByte = *m_inPtr++;  // Now do the bits in the final byte
+			tdoByte = 0x00;
+			i = 1;
+			while ( i && leftOver ) {
 				leftOver--;
 				if ( (m_flagByte & bmISLAST) && !leftOver ) {
 					TMS = 1; // Exit Shift-DR state on next clock
 				}
+				TDI = tdiByte & 1;
+				tdiByte >>= 1;
+				if ( TDO ) {
+					tdoByte |= i;
+				}
 				TCK = 1;
 				TCK = 0;
+				i <<= 1;
 			}
-			m_numBits = 0UL;
+			*m_outPtr = tdoByte;
+		} else {
+			// This is not the last chunk
+			bytesRemaining = (bitsRead>>3);
+			while ( bytesRemaining-- ) {
+				*m_outPtr++ = shiftInOut(*m_inPtr++);
+			}
 		}
+		EP1OUTBC = 0x00;  // ready to accept more data from host
+		EP1INBC = bytesRead;  // send response back to host
+		m_numBits -= bitsRead;
 	}
-	m_flagByte = 0x00;
+	m_progOp = PROG_NOP;
+}
+
+static void jtagIsSendingNotReceiving(void) {
+	xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
+	while ( m_numBits ) {
+		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
+		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
+		bytesRead = EP1OUTBC;
+		
+		if ( bitsRead == m_numBits ) {
+			// This is the last chunk
+			xdata uint8 tdiByte, leftOver, i;
+			m_inPtr = EP1OUTBUF;
+			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
+			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
+			bytesRemaining = (bitsRemaining>>3);
+			while ( bytesRemaining-- ) {
+				shiftOut(*m_inPtr++);
+			}
+			tdiByte = *m_inPtr;  // Now do the bits in the final byte
+			i = 1;
+			while ( i && leftOver ) {
+				leftOver--;
+				if ( (m_flagByte & bmISLAST) && !leftOver ) {
+					TMS = 1; // Exit Shift-DR state on next clock
+				}
+				TDI = tdiByte & 1;
+				tdiByte >>= 1;
+				TCK = 1;
+				TCK = 0;
+				i <<= 1;
+			}
+		} else {
+			// This is not the last chunk, so we've to 512 bytes to shift
+			blockShiftOut(64);
+		}
+		EP1OUTBC = 0x00;  // ready to accept more data from host
+		m_numBits -= bitsRead;
+	}
+	m_progOp = PROG_NOP;
+}
+
+static void jtagNotSendingIsReceiving(void) {
+	// The host is not giving us data, but is expecting a response (x0r)
+	xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
+	const xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
+	while ( m_numBits ) {
+		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
+		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
+		bytesRead = bitsToBytes(bitsRead);
+		
+		m_outPtr = EP1INBUF;
+		if ( bitsRead == m_numBits ) {
+			// This is the last chunk
+			xdata uint8 tdoByte, leftOver, i;
+			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
+			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
+			bytesRemaining = (bitsRemaining>>3);
+			while ( bytesRemaining-- ) {
+				*m_outPtr++ = shiftInOut(tdiByte);
+			}
+			tdoByte = 0x00;
+			i = 1;
+			TDI = tdiByte & 1;
+			while ( i && leftOver ) {
+				leftOver--;
+				if ( (m_flagByte & bmISLAST) && !leftOver ) {
+					TMS = 1; // Exit Shift-DR state on next clock
+				}
+				if ( TDO ) {
+					tdoByte |= i;
+				}
+				TCK = 1;
+				TCK = 0;
+				i <<= 1;
+			}
+			*m_outPtr = tdoByte;
+		} else {
+			// This is not the last chunk
+			bytesRemaining = (bitsRead>>3);
+			while ( bytesRemaining-- ) {
+				*m_outPtr++ = shiftInOut(tdiByte);
+			}
+		}
+		EP1INBC = bytesRead;  // send response back to host
+		m_numBits -= bitsRead;
+	}
+	m_progOp = PROG_NOP;
+}
+
+static void jtagNotSendingNotReceiving(void) {
+	// The host is not giving us data, and does not need a response (x0n)
+	xdata uint32 bitsRemaining, bytesRemaining;
+	const xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
+	xdata uint8 leftOver;
+	bitsRemaining = (m_numBits-1) & 0xFFFFFFF8;    // Now an integer number of bytes
+	leftOver = (uint8)(m_numBits - bitsRemaining); // How many bits in last byte (1-8)
+	bytesRemaining = (bitsRemaining>>3);
+	while ( bytesRemaining-- ) {
+		shiftOut(tdiByte);
+	}
+	TDI = tdiByte & 1;
+	while ( leftOver ) {
+		leftOver--;
+		if ( (m_flagByte & bmISLAST) && !leftOver ) {
+			TMS = 1; // Exit Shift-DR state on next clock
+		}
+		TCK = 1;
+		TCK = 0;
+	}
+	m_progOp = PROG_NOP;
+}
+
+// Actually execute the shift operation initiated by jtagBeginShift(). This is done in a
+// separate method because vendor commands cannot read & write to bulk endpoints.
+//
+void jtagShiftExecute(void) {
+	switch ( m_progOp ) {
+	case PROG_JTAG_ISSENDING_ISRECEIVING:
+		// The host is giving us data, and is expecting a response (xdr)
+		jtagIsSendingIsReceiving();
+		break;
+	case PROG_JTAG_ISSENDING_NOTRECEIVING:
+		// The host is giving us data, but does not need a response (xdn)
+		jtagIsSendingNotReceiving();
+		break;
+	case PROG_JTAG_NOTSENDING_ISRECEIVING:
+		// The host is not giving us data, but is expecting a response (x0r)
+		jtagNotSendingIsReceiving();
+		break;
+	case PROG_JTAG_NOTSENDING_NOTRECEIVING:
+		jtagNotSendingNotReceiving();
+		break;
+	case PROG_NOP:
+	default:
+		break;
+	}
 }
 
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.
