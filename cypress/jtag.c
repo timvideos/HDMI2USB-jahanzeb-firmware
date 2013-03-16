@@ -432,12 +432,16 @@ static void jtagNotSendingNotReceiving(void) {
 	m_progOp = PROG_NOP;
 }
 
-static void progParallel(void) {
+static void doProgram(bool isParallel) {
 	xdata uint8 bytesRead;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 		bytesRead = EP1OUTBC;
-		blockShiftBytes(bytesRead);
+		if ( isParallel ) {
+			blockShiftBytes(bytesRead);
+		} else {
+			blockShiftBits(bytesRead);
+		}
 		EP1OUTBC = 0x00;  // ready to accept more data from host
 		m_numBits -= bytesRead;
 	}
@@ -465,7 +469,10 @@ void jtagShiftExecute(void) {
 		jtagNotSendingNotReceiving();
 		break;
 	case PROG_PARALLEL:
-		progParallel();
+		doProgram(true);
+		break;
+	case PROG_SERIAL:
+		doProgram(false);
 		break;
 	case PROG_NOP:
 	default:
