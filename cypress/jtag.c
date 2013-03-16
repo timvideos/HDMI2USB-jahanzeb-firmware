@@ -113,7 +113,7 @@ static void shiftOut(uint8 c) {
 
 // JTAG-clock all 512 bytes from the EP2OUT FIFO buffer
 //
-static void blockShiftOut(uint8 count) {
+static void blockShiftBits(uint8 count) {
 	_asm
 		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
 		mov    _AUTOPTRL1, #_EP1OUTBUF
@@ -353,7 +353,7 @@ static void jtagIsSendingNotReceiving(void) {
 			}
 		} else {
 			// This is not the last chunk, so we've to 512 bytes to shift
-			blockShiftOut(64);
+			blockShiftBits(64);
 		}
 		EP1OUTBC = 0x00;  // ready to accept more data from host
 		m_numBits -= bitsRead;
@@ -432,6 +432,18 @@ static void jtagNotSendingNotReceiving(void) {
 	m_progOp = PROG_NOP;
 }
 
+static void progParallel(void) {
+	xdata uint8 bytesRead;
+	while ( m_numBits ) {
+		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
+		bytesRead = EP1OUTBC;
+		blockShiftBytes(bytesRead);
+		EP1OUTBC = 0x00;  // ready to accept more data from host
+		m_numBits -= bytesRead;
+	}
+	m_progOp = PROG_NOP;
+}
+
 // Actually execute the shift operation initiated by jtagBeginShift(). This is done in a
 // separate method because vendor commands cannot read & write to bulk endpoints.
 //
@@ -451,6 +463,9 @@ void jtagShiftExecute(void) {
 		break;
 	case PROG_JTAG_NOTSENDING_NOTRECEIVING:
 		jtagNotSendingNotReceiving();
+		break;
+	case PROG_PARALLEL:
+		progParallel();
 		break;
 	case PROG_NOP:
 	default:
