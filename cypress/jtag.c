@@ -259,12 +259,6 @@ void jtagShiftBegin(uint32 numBits, uint8 flagByte) {
 	m_flagByte = flagByte;
 }
 
-// See if a shift operation is pending
-//
-bool jtagIsShiftPending(void) {
-	return (m_numBits != 0);
-}
-
 // The minimum number of bytes necessary to store x bits
 //
 #define bitsToBytes(x) ((x>>3) + (x&7 ? 1 : 0))
@@ -273,6 +267,13 @@ bool jtagIsShiftPending(void) {
 // separate method because vendor commands cannot read & write to bulk endpoints.
 //
 void jtagShiftExecute(void) {
+	if ( !(m_flagByte & bmDOJTAG) ) {
+		return;  // Nothing to do
+	}
+	//if ( m_numBits == 0UL ) {
+	//	return;  // Nothing to do
+	//}
+
 	// Are there any JTAG send/receive operations to execute?
 	if ( (m_flagByte & bmSENDMASK) == bmSENDDATA ) {
 		if ( m_flagByte & bmNEEDRESPONSE ) {
@@ -442,6 +443,7 @@ void jtagShiftExecute(void) {
 			m_numBits = 0UL;
 		}
 	}
+	m_flagByte = 0x00;
 }
 
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.

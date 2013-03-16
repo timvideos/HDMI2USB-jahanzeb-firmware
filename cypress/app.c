@@ -202,9 +202,7 @@ void mainInit(void) {
 //
 void mainLoop(void) {
 	// If there is a JTAG shift operation pending, execute it now.
-	if ( jtagIsShiftPending() ) {
-		jtagShiftExecute();
-	}
+	jtagShiftExecute();
 	if ( smapIsProgPending() ) {
 		smapProgExecute();
 	}
