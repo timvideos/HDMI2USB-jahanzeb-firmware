@@ -18,6 +18,7 @@
 #define JTAG_H
 
 #include <makestuff.h>
+#include "../../prog.h"
 
 // Default TDO=PD0, TDI=PD1, TMS=PD2 & TCK=PD3. In reality this is overwritten
 // at runtime by jtagPatch().
@@ -36,12 +37,6 @@ sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 
 // Macros for NeroJTAG implementation
 #define ENDPOINT_SIZE 64
-#define bmNEEDRESPONSE (1<<0)
-#define bmISLAST       (1<<1)
-#define bmSENDZEROS    (0<<2)
-#define bmSENDONES     (1<<2)
-#define bmSENDDATA     (2<<2)
-#define bmSENDMASK     (3<<2)
 
 // Error codes for jtagCsvfPlay(void);
 #define ERROR_CSVF_FAILED_COMPARE 1
