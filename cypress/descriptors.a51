@@ -24,6 +24,8 @@
 
 .module DEV_DSCR 
 
+.include "date.inc"
+
 ; for Digilent Nexys2
 ;VID=0x1443
 ;PID=0x0005
@@ -293,13 +295,21 @@ string2:
 	.db    0
 	.ascii ' '
 	.db    0
-	.ascii 'v'
+	.db    ((DATE>>(7*4))&0xF) + 48
 	.db    0
-	.ascii '1'
+	.db    ((DATE>>(6*4))&0xF) + 48
 	.db    0
-	.ascii '.'
+	.db    ((DATE>>(5*4))&0xF) + 48
 	.db    0
-	.ascii '1'
+	.db    ((DATE>>(4*4))&0xF) + 48
+	.db    0
+	.db    ((DATE>>(3*4))&0xF) + 48
+	.db    0
+	.db    ((DATE>>(2*4))&0xF) + 48
+	.db    0
+	.db    ((DATE>>(1*4))&0xF) + 48
+	.db    0
+	.db    (DATE&0xF) + 48
 	.db    0
 string2end:
 

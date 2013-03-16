@@ -3,35 +3,96 @@
 #include <makestuff.h>
 #include "defs.h"
 
+#undef bmDONE
+
 // Bound signals with FPGA
-#define PROG_B PD0
-#define DONE   PD1
-#define CSI_B  PD2
-#define INIT_B PD5
+#define INIT PD5
+#define bmINIT bmBIT5
+#define DONE PD1
+#define bmDONE bmBIT1
+
+#define PROG   PD0
+#define bmPROG bmBIT0
+#define CSI    PD2
+#define bmCSI  bmBIT2
 #define CCLK   PD6
-#define SUSPEND_F PD7
-
-#define LED6   PB0
-#define M2     PB1
-#define VS2    PB2
+#define bmCCLK bmBIT6
+#define RDWR   PB4
+#define bmRDWR bmBIT4
 #define M0     PB3
-#define RDWR_B PB4
+#define bmM0   bmBIT3
 #define M1     PB5
+#define bmM1   bmBIT5
+#define M2     PB1
+#define bmM2   bmBIT1
 #define VS0    PB6
+#define bmVS0  bmBIT6
 #define VS1    PB7
-
-// Micro-controller modes
-#define WAIT_MODE       0xA1
-#define PORT_MODE       0xA2
-#define CONF_F_MODE     0xA7
+#define bmVS1  bmBIT7
+#define VS2    PB2
+#define bmVS2  bmBIT2
 
 // Micro-controller commands
 // FPGA configuration
-#define PROG_DONE    0xAB
-#define PROG_ERROR   0xAC
-#define INIT_B_LOW   0xB0
-#define DONE_LOW     0xB2
-#define F_NOT_READY  0xB3
+#define PROG_DONE  0xAB
+#define PROG_ERROR 0xAC
+#define INIT_LOW   0xB0
+#define DONE_LOW   0xB2
+#define NOT_READY  0xB3
+
+uint8 portAccess(uint8 portSelect, uint8 mask, uint8 ddrWrite, uint8 portWrite);
+
+uint8 tryReset(void) {
+	xdata uint8 response = 0x42;
+#ifdef DIRECT_RESET
+	// Assert PROG
+	PROG = 0;     // assert PROG to put FPGA in initialisation mode
+	OED &= ~(bmINIT | bmDONE);  // INIT & DONE inputs
+	OED |= bmPROG;  // PROG output; asserted
+
+	// Wait for INIT to assert
+	while ( INIT );  // wait for FPGA to acknowledge PROG assert
+
+	// Deassert PROG
+	PROG = 1;             // deassert PROG
+
+	// Wait for INIT to deassert
+	while ( !INIT );  // wait for FPGA to acknowledge PROG deassert
+
+	// Ensure FPGA is ready:
+	if ( DONE == 1 ) {
+		response = 0x23;
+	}
+#else
+	xdata uint8 tempByte;
+	
+	// Assert PROG, wait for INIT assert
+	do {
+		tempByte = portAccess(
+			3,
+			(bmPROG | bmINIT | bmDONE),  // mask
+			bmPROG,                      // ddr
+			0x00                         // port
+		);
+	} while ( tempByte & bmINIT );
+
+	// Deassert PROG, wait for INIT deassert
+	do {
+		tempByte = portAccess(
+			3,
+			(bmPROG | bmINIT | bmDONE),  // mask
+			bmPROG,                      // ddr
+			bmPROG                       // port
+		);
+	} while ( !(tempByte & bmINIT) );
+
+	// Ensure FPGA is ready:
+	if ( tempByte & bmDONE ) {
+		response = 0x23;
+	}
+#endif
+	return response;
+}
 
 static uint32 m_fpgaFileLen = 0;
 
@@ -46,36 +107,46 @@ void smapProgBegin(uint32 fileLen) {
 uint8 smapProgExecute(void) {
 	uint8 fpgaStatus = PROG_ERROR;
 
-	// Switch port B to being GPIO
+#ifdef INIT_SELECTMAP
+	// Port B config (won't take effect until FIFO mode is disabled
+	OEB = (bmRDWR | bmM0 | bmM1 | bmM2);
+	M2   = 1;      // M2 = 1 for SelectMap mode 
+	M1   = 1;      // M1 = 1 for SelectMap mode
+	M0   = 0;      // M0 = 0 for SelectMap mode
+	RDWR = 0;      // assert write mode
+
+	// Port D config
+	CSI = 0;       // assert FPGA chip select
+	OED |= bmCSI;
+
+	delay(500);
+
+	// Put FPGA in config mode (tri-state I/Os)
+	PROG = 0;     // assert PROG to put FPGA in initialisation mode
+	OED &= ~(bmINIT | bmDONE);  // INIT & DONE inputs
+	OED |= bmPROG;  // PROG output; asserted
+	while ( INIT != 0 );  // wait for FPGA to acknowledge PROG assert
+
+	// Now that FPGA is in config mode, we can disabale FIFO mode
 	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
 	
-	// Configure ports
-	OED = 0xC5; // set PD0/2/6/7 as outputs, the rest as inputs
-	OEA = 0xFF; // set port A as outputs (SelectMAP data bus)
-	OEB = 0xFF; // set port B as outputs
+	// CCLK output: low
+	CCLK = 0;      // set CCLK low
+	OED |= bmCCLK;
 
-	SUSPEND_F = 0;  // do not suspend the FPGA
-	PROG_B = 0;     // reset the FPGA
-	RDWR_B = 1;     // leave write mode disabled for now
-	CSI_B = 1;      // deassert FPGA chip select for now
+	// Set port A as outputs (SelectMAP data bus)
+	OEA = 0xFF;
 
-	CCLK  = 0;     // set CCLK low
-	
-	M2    = 1;    // M2 = 1 for SelectMap mode 
-	M1    = 1;    // M1 = 1 for SelectMap mode
-	M0    = 0;    // M0 = 0 for SelectMap mode
-	
-	delay(500); // 500ms
-	while (INIT_B != 0) {}; // wait for INIT_B to go low
-	PROG_B = 1;             // PROG_B back up
-	while (INIT_B != 1) {}; // Wait for INIT_B to do the same
-	RDWR_B = 0; // select write mode
-	CSI_B = 0;  // assert chip select
-	delay(500);
-	if (DONE == 1) {
-		fpgaStatus = F_NOT_READY;
+	// Deassert PROG. FPGA samples M[2:0], VS[2:0] here.
+	PROG = 1;             // deassert PROG
+	while ( INIT != 1 );  // wait for FPGA to acknowledge PROG deassert
+
+	// Ensure FPGA is ready:
+	if ( DONE == 1 ) {
+		fpgaStatus = NOT_READY;
 		goto cleanup;
 	}
+#endif
 
 	while ( m_fpgaFileLen > 0 ) { 
 		xdata BYTE i;
@@ -85,34 +156,26 @@ uint8 smapProgExecute(void) {
 		for ( i = 0; i < bytes; ++i ) {
 			IOA = EP1OUTBUF[i]; // output the byte on port A
 			CCLK = 0;     // tick the clock (low)
-			LED6 = 1;     // flash the LED, why not?
 			CCLK = 1;     // tick the clock (high)
-			LED6 = 0;     // keep flashing this LED
 		}
 		m_fpgaFileLen -= bytes;
-		if ( (INIT_B == 0) & (DONE == 0) ) {
-			fpgaStatus = INIT_B_LOW; // Init_B unexpectedly low
-			LED6 = 1; // turn LED off
-			goto cleanup;
-		}
+		//if ( (INIT == 0) & (DONE == 0) ) {
+		//	fpgaStatus = INIT_LOW; // INIT unexpectedly low
+		//	goto cleanup;
+		//}
 		EP1OUTBC = 0x00;
 	}
-	if (DONE == 1) {
-		// Keep the SOFT_RESET active for the time being
-		OEA = 0x00; // Port A as input
-		
-		CSI_B = 1;  // release chip select
-		RDWR_B = 1; // release write mode
-		// Set ports as input to avoid conflicts with application just
-		// downloaded
-		OEB = 0x00; // Port B as input
-		OED = 0x81; // Port D as input save for PROG_B and SUSPEND_F
-		fpgaStatus = PROG_DONE;
-	} else {
-		fpgaStatus = DONE_LOW;
-	}
+	//if ( DONE == 1 ) {
+	//	fpgaStatus = PROG_DONE;
+	//} else {
+	//	fpgaStatus = DONE_LOW;
+	//}
 
 cleanup:
+#ifdef INIT_SELECTMAP
+	OEA = 0x00; // Port A as input
+	OED &= ~bmCCLK; // tri-state CCLK
 	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
+#endif
 	return fpgaStatus;
 }

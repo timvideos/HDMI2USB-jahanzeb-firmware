@@ -30,6 +30,21 @@
 static xdata uint32 m_numBits = 0UL;
 static xdata uint8 m_flagByte = 0x00;
 
+// THIS MUST BE THE FIRST FUNCTION IN THE FILE!
+//
+// Transition the JTAG state machine to another state: clock "transitionCount" bits from
+// "bitPattern" into TMS, LSB-first.
+//
+void jtagClockFSM(uint32 bitPattern, uint8 transitionCount) {
+	while ( transitionCount-- ) {
+		TCK = 0;
+		TMS = bitPattern & 1;
+		bitPattern >>= 1;
+		TCK = 1;
+	}
+	TCK = 0;
+}
+
 // JTAG-clock the supplied byte into TDI, LSB first.
 //
 // Lifted from:
@@ -96,11 +111,11 @@ static void shiftOut(uint8 c) {
 
 // JTAG-clock all 512 bytes from the EP2OUT FIFO buffer
 //
-static void blockShiftOut(void) {
+static void blockShiftOut(uint8 count) {
 	_asm
 		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
 		mov    _AUTOPTRL1, #_EP1OUTBUF
-		mov    r0, #64
+		mov    r0, dpl
 	bsoLoop:
 		clr    _TCK
 		mov    a, _AUTODAT1
@@ -136,6 +151,21 @@ static void blockShiftOut(void) {
 		mov    _TDI, c
 		setb   _TCK
 		djnz   r0, bsoLoop
+		clr    _TCK
+	_endasm;
+}
+// Clock the specified number of bytes from EP1IN into port A.
+//
+static void blockShiftBytes(uint8 count) {
+	_asm
+		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
+		mov    _AUTOPTRL1, #_EP1OUTBUF
+		mov    r0, dpl
+	byteLoop:
+		clr    _TCK
+		mov    _IOA, _AUTODAT1
+		setb   _TCK
+		djnz   r0, byteLoop
 		clr    _TCK
 	_endasm;
 }
@@ -328,7 +358,7 @@ void jtagShiftExecute(void) {
 					}
 				} else {
 					// This is not the last chunk, so we've to 512 bytes to shift
-					blockShiftOut();
+					blockShiftOut(64);
 				}
 				EP1OUTBC = 0x00;  // ready to accept more data from host
 				m_numBits -= bitsRead;
@@ -414,19 +444,6 @@ void jtagShiftExecute(void) {
 	}
 }
 
-// Transition the JTAG state machine to another state: clock "transitionCount" bits from
-// "bitPattern" into TMS, LSB-first.
-//
-void jtagClockFSM(uint32 bitPattern, uint8 transitionCount) {
-	while ( transitionCount-- ) {
-		TCK = 0;
-		TMS = bitPattern & 1;
-		bitPattern >>= 1;
-		TCK = 1;
-	}
-	TCK = 0;
-}
-
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.
 // This is tuned to be as close to 2us per clock as possible (500kHz).
 //
@@ -475,7 +492,7 @@ void jtagClocks(uint32 numClocks) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // CSVF Player Stuff
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 // XSVF commands (from xapp503 appendix B)
 typedef enum {
 	XCOMPLETE    = 0x00,
@@ -755,13 +772,4 @@ uint8 jtagCsvfPlay(void) {
 cleanup:
 	return returnCode;
 }
-
-// Enable or disable the JTAG lines (i.e drive them or tristate them)
-//
-void jtagSetEnabled(bool enabled) {
-	if ( enabled ) {
-		JTAG_OE |= (bmTDI | bmTMS | bmTCK);
-	} else {
-		JTAG_OE &= ~(bmTDI | bmTMS | bmTCK);
-	}
-}		
+*/

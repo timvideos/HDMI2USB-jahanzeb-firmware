@@ -28,15 +28,26 @@
 
 // Function declarations
 void fifoSendPromData(uint32 bytesToSend);
-void initPorts(void);
 
 // SelectMap operations
 bool smapIsProgPending(void);
 void smapProgBegin(uint32 fileLen);
 uint8 smapProgExecute(void);
 
+// Patch operations
+void jtagPatch(
+	uint8 tdoPort, uint8 tdoBit,  // port and bit for TDO
+	uint8 tdiPort, uint8 tdiBit,  // port and bit for TDI
+	uint8 tmsPort, uint8 tmsBit,  // port and bit for TMS
+	uint8 tckPort, uint8 tckBit   // port and bit for TCK
+);
+
+void livePatch(uint8 patchClass, uint8 newByte);
+
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
+
+xdata uint8 setIntCount;
 
 // Called once at startup
 //
@@ -44,6 +55,8 @@ void mainInit(void) {
 
 	xdata uint8 thisByte = 0xFF;
 	xdata uint16 blockSize;
+
+	setIntCount = 23;
 
 	// This is only necessary for cases where you want to load firmware into the RAM of an FX2 that
 	// has already loaded firmware from an EEPROM. It should definitely be removed for firmwares
@@ -65,7 +78,8 @@ void mainInit(void) {
 	SYNCDELAY; CPUCS = bmCLKSPD1;  // 48MHz
 
 	// Drive IFCLK at 48MHz, enable slave FIFOs
-	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
+	//SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
+	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
 
 	// EP4 & EP8 are unused
 	SYNCDELAY; EP4CFG = 0x00;
@@ -110,18 +124,17 @@ void mainInit(void) {
 	// Auto-pointers
 	AUTOPTRSETUP = bmAPTREN | bmAPTR1INC | bmAPTR2INC;
 
-	// Port lines...
-	IOA = 0x00;
+	// Port lines all inputs...
+	IOA = 0xFF;
 	OEA = 0x00;
-	IOC = 0x00;
+	IOB = 0xFF;
+	OEB = 0x00;
+	IOC = 0xFF;
 	OEC = 0x00;
-	IOD = 0x00;
+	IOD = 0xFF;
 	OED = 0x00;
-	IOE = 0x00;
+	IOE = 0xFF;
 	OEE = 0x00;
-
-	// Disable JTAG mode by default (i.e don't drive JTAG pins)
-	jtagSetEnabled(false);
 
 #ifdef BOOT
 	promStartRead(false, 0x0000);
@@ -183,7 +196,6 @@ void mainInit(void) {
 	usartInit();
 	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
 #endif
-	initPorts();
 }
 
 // Called repeatedly while the device is idle
@@ -198,44 +210,53 @@ void mainLoop(void) {
 	}
 }
 
-xdata uint8 pins[5];
-xdata uint8 ddrs[5];
-void maskA(void) {
-	ddrs[0] &= ~bmJTAG;         // cannot alter JTAG lines
-	ddrs[0] |= (OEA & bmJTAG);  // current state
-	pins[0] &= ~bmJTAG;         // cannot alter JTAG lines
-	pins[0] |= (IOA & bmJTAG);  // current state
+void fifoSetEnabled(bool enabled) {
+	if ( enabled ) {
+		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
+	} else {
+		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
+	}
 }
-void doNothing(void) {
-	// No masking of Port C & D necessary because JTAG is on Port A
-}
-void maskC(void) {
-	ddrs[2] &= ~bmJTAG;         // cannot alter JTAG lines
-	ddrs[2] |= (OEC & bmJTAG);  // current state
-	pins[2] &= ~bmJTAG;         // cannot alter JTAG lines
-	pins[2] |= (IOC & bmJTAG);  // current state
-}
-void maskD(void) {
-	ddrs[3] &= ~bmJTAG;         // cannot alter JTAG lines
-	ddrs[3] |= (OED & bmJTAG);  // current state
-	pins[3] &= ~bmJTAG;         // cannot alter JTAG lines
-	pins[3] |= (IOD & bmJTAG);  // current state
-}
-typedef void (*MaskFunc)(void);
-const MaskFunc maskFunc[] = {maskA, doNothing, maskC, maskD, doNothing};
 
-void initPorts(void) {
-	pins[0] = IOA;
-	pins[1] = 0x00;
-	pins[2] = IOC;
-	pins[3] = IOD;
-	pins[4] = IOE;
-	ddrs[0] = OEA;
-	ddrs[1] = 0x00;
-	ddrs[2] = OEC;
-	ddrs[3] = OED;
-	ddrs[4] = OEE;
+#define MODE_FIFO (1<<1)
+
+uint8 handle_set_interface(uint8 ifc, uint8 alt);
+
+#define updateRegister(reg, val) tempByte = reg; tempByte &= ~mask; tempByte |= val; reg = tempByte
+
+uint8 portAccess(uint8 portSelect, uint8 mask, uint8 ddrWrite, uint8 portWrite) {
+	xdata uint8 tempByte = 0x00;
+	switch ( portSelect ) {
+	case 0:
+		updateRegister(IOA, portWrite);
+		updateRegister(OEA, ddrWrite);
+		tempByte = IOA;
+		break;
+	case 1:
+		updateRegister(IOB, portWrite);
+		updateRegister(OEB, ddrWrite);
+		tempByte = IOB;
+		break;
+	case 2:
+		updateRegister(IOC, portWrite);
+		updateRegister(OEC, ddrWrite);
+		tempByte = IOC;
+		break;
+	case 3:
+		updateRegister(IOD, portWrite);
+		updateRegister(OED, ddrWrite);
+		tempByte = IOD;
+		break;
+	case 4:
+		updateRegister(IOE, portWrite);
+		updateRegister(OEE, ddrWrite);
+		tempByte = IOE;
+		break;
+	}
+	return tempByte;
 }
+
+uint8 tryReset(void);
 
 // Called when a vendor command is received
 //
@@ -249,8 +270,12 @@ uint8 handleVendorCommand(uint8 cmd) {
 			xdata uint16 wBits = SETUP_VALUE();
 			xdata uint16 wMask = SETUP_INDEX();
 			if ( wMask & MODE_JTAG ) {
-				// When in JTAG mode, the JTAG lines are driven; tristate otherwise
-				jtagSetEnabled(wBits & MODE_JTAG ? true : false);
+				// Do nothing
+			} else if ( wMask & MODE_FIFO ) {
+				// Enable or disable FIFO mode
+				fifoSetEnabled(wBits & MODE_FIFO ? true : false);
+			} else {
+				return false;
 			}
 		} else {
 			// Get STATUS: return the diagnostic byte
@@ -332,42 +357,46 @@ uint8 handleVendorCommand(uint8 cmd) {
 			}
 			portWrite &= mask;
 			ddrWrite &= mask;
-			pins[portSelect] &= ~mask;  // clear existing relevant bits
-			pins[portSelect] |= portWrite; 
-			ddrs[portSelect] &= ~mask;
-			ddrs[portSelect] |= ddrWrite;
-			(*maskFunc[JTAG_PORT])();
 
-			// Get the state of the port D & B lines:
+			// Get the state of the port lines:
 			while ( EP0CS & bmEPBUSY );
-			switch ( portSelect ) {
-			case 0:
-				OEA = ddrs[0];
-				IOA = pins[0];
-				EP0BUF[0] = IOA;
-				break;
-			case 2:
-				OEC = ddrs[2];
-				IOC = pins[2];
-				EP0BUF[0] = IOC;
-				break;
-			case 3:
-				OED = ddrs[3];
-				IOD = pins[3];
-				EP0BUF[0] = IOD;
-				break;
-			case 4:
-				OEE = ddrs[4];
-				IOE = pins[4];
-				EP0BUF[0] = IOE;
-				break;
-			default:
-				EP0BUF[0] = 0xAA;
-				break;
-			}
+			EP0BUF[0] = portAccess(portSelect, mask, ddrWrite, portWrite);
 			EP0BCH = 0;
 			SYNCDELAY;
 			EP0BCL = 1;
+			return true;
+		}
+		break;
+
+	case CMD_PORT_MAP:
+		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
+			// It's an OUT operation - read from host and send to prom
+			if ( SETUP_LENGTH() != 8 ) {
+				return false;
+			}
+			EP0BCL = 0x00; // allow pc transfer in
+			while ( EP0CS & bmEPBUSY ); // wait for data
+			if ( EP0BCL != 8 ) {
+				return false;
+			}
+			jtagPatch(EP0BUF[0], EP0BUF[1], EP0BUF[2], EP0BUF[3], EP0BUF[4], EP0BUF[5], EP0BUF[6], EP0BUF[7]);
+			return true;
+		}
+		break;
+
+	case 0x90:
+		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
+			const xdata uint8 patchClass = SETUPDAT[4];
+			const xdata uint8 patchPort = SETUPDAT[5];
+			if ( patchClass < 4 ) {
+				const xdata uint8 patchBit = SETUPDAT[2];
+				livePatch(patchClass, 0x80 + (patchPort << 4) + patchBit);
+			} else {
+				livePatch(
+					patchClass, 
+					0x80 + (patchPort << 4)
+				);
+			}
 			return true;
 		}
 		break;
@@ -416,7 +445,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 			while ( EP0CS & bmEPBUSY ); // can't do this until EP0 is ready
 			EP0BUF[0] = 0xF0;
 			EP0BUF[1] = 0x0D;
-			EP0BUF[2] = 0x1E;
+			EP0BUF[2] = 0x1F;
 			EP0BCH=0;
 			SYNCDELAY;
 			EP0BCL=3;
@@ -424,10 +453,45 @@ uint8 handleVendorCommand(uint8 cmd) {
 			smapProgBegin(MAKEDWORD(SETUP_VALUE(), SETUP_INDEX()));
 		}
 		return true;
+
+	case CMD_SELECTMAP+1:
+		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			PD6 = 0;
+			PD6 = 1;
+			return true;
+		}
+		break;
+
+	case 0xC0:
+		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
+			// return the status byte and micro-controller mode
+			while ( EP0CS & bmEPBUSY ); // can't do this until EP0 is ready
+			EP0BUF[0] = tryReset();
+			EP0BCH = 0;
+			SYNCDELAY;
+			EP0BCL = 1;
+			return true;
+		}
+		break;
 	}
 	return false;  // unrecognised command
 }
 
+/*
 // Compose a packet to send on the EP6 FIFO, and commit it.
 //
 void fifoSendPromData(uint32 bytesToSend) {
@@ -460,3 +524,4 @@ void fifoSendPromData(uint32 bytesToSend) {
 		SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;     // Enable AUTOOUT again
 	}
 }
+*/

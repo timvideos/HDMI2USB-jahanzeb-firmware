@@ -60,6 +60,7 @@ static bool promWaitForAck(void) {
 	}
 }
 
+/*
 // Peek the current byte
 //
 uint8 promPeekByte() {
@@ -168,7 +169,7 @@ bool promStopRead(void) {
 
 	return false;
 }
-
+*/
 // Read "length" bytes from address "addr" in the attached EEPROM, and write them to RAM at "buf".
 //
 bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf) {

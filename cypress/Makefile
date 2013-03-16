@@ -26,23 +26,27 @@
 #   make FLAGS="-DEEPROM -DBOOT"
 #   sudo make eeprom
 #
-TARGET = firmware
-FX2LIBDIR=../../../../3rd/fx2lib
-LIBS = -L$(FX2LIBDIR)/lib fx2.lib
-INCS = -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
+TARGET := firmware
+FX2LIBDIR := ../../../../3rd/fx2lib
+LIBS := -L$(FX2LIBDIR)/lib fx2.lib
+INCS := -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
+MAKESTUFF_TODAY_DATE := $(shell date +%Y%m%d)
 
-CC_SRCS = $(shell ls *.c)
-AS_SRCS = $(shell ls *.a51)
-CC_OBJS = $(CC_SRCS:%.c=%.rel)
-AS_OBJS = $(AS_SRCS:%.a51=%.rel)
-CC = sdcc
-AS = asx8051
-CCFLAGS = -mmcs51 --code-size 0x3c00 --xram-size 0x0200 --xram-loc 0x3c00 -Wl"-b DSCR_AREA=0x3e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
+CC_SRCS := $(shell ls *.c)
+AS_SRCS := $(shell ls *.a51)
+CC_OBJS := $(CC_SRCS:%.c=%.rel)
+AS_OBJS := $(AS_SRCS:%.a51=%.rel)
+CC := sdcc
+AS := asx8051
+CCFLAGS := -mmcs51 --code-size 0x2e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x2f00" $(FLAGS)
 
-all: $(TARGET).hex
+all: date.inc jtagOffsets.h $(TARGET).hex
+
+foo: FORCE
+	@echo $(AS_OBJS)
 
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
-	$(CC) $(CCFLAGS) -o $@ $(CC_OBJS) $(AS_OBJS) $(LIBS)
+	$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
 
 %.rel: %.c
 	$(CC) $(CCFLAGS) -c --disable-warning 85 $(INCS) $?
@@ -50,10 +54,16 @@ $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
 %.rel: %.a51
 	$(AS) -logs $?
 
+jtagOffsets.h: jtag.rel
+	cat jtag.lst | ./lstParse.pl > jtagOffsets.h
+
+date.inc:
+	echo DATE=0x$(MAKESTUFF_TODAY_DATE) > $@
+
 firmware.c: $(FX2LIBDIR)/fw/fw.c
 	cp $(FX2LIBDIR)/fw/fw.c firmware.c
 
 clean: FORCE
-	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym firmware.c
+	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym firmware.c jtagOffsets.h date.inc
 
 FORCE:
