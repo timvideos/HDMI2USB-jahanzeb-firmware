@@ -40,7 +40,7 @@ CC := sdcc
 AS := asx8051
 CCFLAGS := -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
 
-all: date.inc jtagOffsets.h $(TARGET).hex
+all: date.inc progOffsets.h $(TARGET).hex
 
 foo: FORCE
 	@echo $(AS_OBJS)
@@ -54,8 +54,8 @@ $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
 %.rel: %.a51
 	$(AS) -logs $?
 
-jtagOffsets.h: jtag.rel
-	cat jtag.lst | ./lstParse.pl > jtagOffsets.h
+progOffsets.h: prog.rel
+	cat prog.lst | ./lstParse.pl > progOffsets.h
 
 date.inc:
 	echo DATE=0x$(MAKESTUFF_TODAY_DATE) > $@
@@ -64,6 +64,6 @@ firmware.c: $(FX2LIBDIR)/fw/fw.c
 	cp $(FX2LIBDIR)/fw/fw.c firmware.c
 
 clean: FORCE
-	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym firmware.c jtagOffsets.h date.inc
+	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym firmware.c progOffsets.h date.inc
 
 FORCE:

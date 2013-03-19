@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef JTAG_H
-#define JTAG_H
+#ifndef PROG_H
+#define PROG_H
 
 #include <makestuff.h>
 #include "../../vendorCommands.h"
 
 // Default TDO=PD0, TDI=PD1, TMS=PD2 & TCK=PD3. In reality this is overwritten
-// at runtime by jtagPatch().
+// at runtime by livePatch().
 #define JTAG_PORT 3
 #define TDO_BIT 0
 #define TDI_BIT 1
@@ -37,10 +37,6 @@ sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 
 // Macros for NeroJTAG implementation
 #define ENDPOINT_SIZE 64
-
-// Error codes for jtagCsvfPlay(void);
-#define ERROR_CSVF_FAILED_COMPARE 1
-#define ERROR_CSVF_BAD_COMMAND    2
 
 // Kick off a shift operation. Next time jtagExecuteShift() runs, it will execute the shift.
 void jtagShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte);
@@ -58,12 +54,5 @@ void jtagClockFSM(uint32 bitPattern, uint8 transitionCount);
 
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.
 void jtagClocks(uint32 numClocks);
-
-// Initialise the CSVF reader (assume previous call to promStartRead(addr) to position the EEPROM
-// reader at the start of the CSVF stream).
-void jtagCsvfInit(void);
-
-// Play the CSVF stream into the JTAG lines.
-uint8 jtagCsvfPlay(void);
 
 #endif

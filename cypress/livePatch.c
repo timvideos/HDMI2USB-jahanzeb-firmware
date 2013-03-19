@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <makestuff.h>
-#include "jtagOffsets.h"
+#include "progOffsets.h"
 
 const uint16 *xdata classList[] = {tdoList, tdiList, tmsList, tckList, ioaList};
 

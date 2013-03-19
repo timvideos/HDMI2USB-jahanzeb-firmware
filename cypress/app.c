@@ -22,7 +22,7 @@
 #include <makestuff.h>
 #include "../../vendorCommands.h"
 #include "prom.h"
-#include "jtag.h"
+#include "prog.h"
 #include "defs.h"
 #include "debug.h"
 

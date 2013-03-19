@@ -17,8 +17,8 @@
 #include <fx2regs.h>
 #include <fx2macros.h>
 #include <delay.h>
-#include "jtag.h"
-#include "prom.h"
+#include "prog.h"
+//#include "prom.h"
 #include "defs.h"
 #include "../../vendorCommands.h"
 #include "debug.h"
