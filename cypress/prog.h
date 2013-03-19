@@ -38,21 +38,18 @@ sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 // Macros for NeroJTAG implementation
 #define ENDPOINT_SIZE 64
 
-// Kick off a shift operation. Next time jtagExecuteShift() runs, it will execute the shift.
-void jtagShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte);
+// Kick off a shift operation. Next time progExecuteShift() runs, it will execute the shift.
+void progShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte);
 
-// Return true if there's a shift operation pending
-bool jtagIsShiftPending(void);
-
-// Actually execute the shift operation initiated by jtagBeginShift(). This is done in a
+// Actually execute the shift operation initiated by progBeginShift(). This is done in a
 // separate method because vendor commands cannot read & write to bulk endpoints.
-void jtagShiftExecute(void);
+void progShiftExecute(void);
 
 // Transition the JTAG state machine to another state: clock "transitionCount" bits from
 // "bitPattern" into TMS, LSB-first.
-void jtagClockFSM(uint32 bitPattern, uint8 transitionCount);
+void progClockFSM(uint32 bitPattern, uint8 transitionCount);
 
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.
-void jtagClocks(uint32 numClocks);
+void progClocks(uint32 numClocks);
 
 #endif

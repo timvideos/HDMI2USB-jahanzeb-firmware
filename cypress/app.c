@@ -120,62 +120,6 @@ void mainInit(void) {
 	IOE = 0xFF;
 	OEE = 0x00;
 
-#ifdef BOOT
-	promStartRead(false, 0x0000);
-	if ( promPeekByte() == 0xC2 ) {
-		promNextByte();    // VID(L)
-		promNextByte();    // VID(H)
-		promNextByte();    // PID(L)
-		promNextByte();    // PID(H)
-		promNextByte();    // DID(L)
-		promNextByte();    // DID(H)
-		promNextByte();    // Config byte
-		
-		promNextByte();    // Length(H)
-		thisByte = promPeekByte();
-		while ( !(thisByte & 0x80) ) {
-			blockSize = thisByte;
-			blockSize <<= 8;
-			
-			promNextByte();  // Length(L)
-			blockSize |= promPeekByte();
-			
-			blockSize += 2;  // Space taken by address
-			while ( blockSize-- ) {
-				promNextByte();
-			}
-			
-			promNextByte();  // Length(H)
-			thisByte = promPeekByte();
-		}
-		promNextByte();    // Length(L)
-		promNextByte();    // Address(H)
-		promNextByte();    // Address(L)
-		promNextByte();    // Last byte
-		promNextByte();    // First byte after the end of the firmware
-	}
-	jtagSetEnabled(true);
-	jtagCsvfInit();
-	m_diagnosticCode = jtagCsvfPlay();
-	jtagSetEnabled(false);
-	thisByte = promPeekByte();
-	promNextByte();
-	blockSize = promPeekByte();
-	promNextByte();
-	blockSize <<= 8;
-	blockSize |= promPeekByte();
-	promNextByte();
-	if ( thisByte ) {
-		if ( blockSize ) {
-			fifoSendPromData(0x10000UL + blockSize);
-		}
-	} else if ( blockSize ) {
-		fifoSendPromData(blockSize);
-	}
-	promStopRead();
-	USBCS &= ~bmDISCON;
-#endif
-
 #ifdef DEBUG
 	usartInit();
 	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
@@ -185,8 +129,8 @@ void mainInit(void) {
 // Called repeatedly while the device is idle
 //
 void mainLoop(void) {
-	// If there is a JTAG shift operation pending, execute it now.
-	jtagShiftExecute();
+	// If there is a shift operation pending, execute it now.
+	progShiftExecute();
 }
 
 void fifoSetEnabled(bool enabled) {
@@ -248,9 +192,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			xdata uint16 wBits = SETUP_VALUE();
 			xdata uint16 wMask = SETUP_INDEX();
-			if ( wMask & MODE_JTAG ) {
-				// Do nothing
-			} else if ( wMask & MODE_FIFO ) {
+			if ( wMask & MODE_FIFO ) {
 				// Enable or disable FIFO mode
 				fifoSetEnabled(wBits & MODE_FIFO ? true : false);
 			} else {
@@ -265,7 +207,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[3] = 'I';
 			EP0BUF[4] = m_diagnosticCode;        // Last operation diagnostic code
 			EP0BUF[5] = (IOA & bmBIT2) ? 0 : 1;  // Flags
-			EP0BUF[6] = 0x11;                    // NeroJTAG endpoints
+			EP0BUF[6] = 0x11;                    // NeroProg endpoints
 			EP0BUF[7] = 0x26;                    // CommFPGA endpoints
 			EP0BUF[8] = 0x00;                    // Reserved
 			EP0BUF[9] = 0x00;                    // Reserved
@@ -289,7 +231,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			EP0BCL = 0x00;                                     // Allow host transfer in
 			while ( EP0CS & bmEPBUSY );                        // Wait for data
-			jtagShiftBegin(*((uint32 *)EP0BUF), (ProgOp)SETUPDAT[4], SETUPDAT[2]);  // Init numBits & flagByte
+			progShiftBegin(*((uint32 *)EP0BUF), (ProgOp)SETUPDAT[4], SETUPDAT[2]);  // Init numBits & flagByte
 			return true;
 			// Now that numBits & flagByte are set, this operation will continue in mainLoop()...
 		}
@@ -301,7 +243,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			EP0BCL = 0x00;                                   // Allow host transfer in
 			while ( EP0CS & bmEPBUSY );                      // Wait for data
-			jtagClockFSM(*((uint32 *)EP0BUF), SETUPDAT[2]);  // Bit pattern, transitionCount
+			progClockFSM(*((uint32 *)EP0BUF), SETUPDAT[2]);  // Bit pattern, transitionCount
 			return true;
 		}
 		break;
@@ -310,7 +252,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 	//
 	case CMD_JTAG_CLOCK:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			jtagClocks(*((uint32 *)(SETUPDAT+2)));
+			progClocks(*((uint32 *)(SETUPDAT+2)));
 			return true;
 		}
 		break;

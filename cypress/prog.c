@@ -18,13 +18,12 @@
 #include <fx2macros.h>
 #include <delay.h>
 #include "prog.h"
-//#include "prom.h"
 #include "defs.h"
 #include "../../vendorCommands.h"
 #include "debug.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// NeroJTAG Stuff
+// NeroProg Stuff
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 static xdata uint32 m_numBits = 0UL;
@@ -36,7 +35,7 @@ static xdata uint8 m_flagByte = 0x00;
 // Transition the JTAG state machine to another state: clock "transitionCount" bits from
 // "bitPattern" into TMS, LSB-first.
 //
-void jtagClockFSM(uint32 bitPattern, uint8 transitionCount) {
+void progClockFSM(uint32 bitPattern, uint8 transitionCount) {
 	while ( transitionCount-- ) {
 		TCK = 0;
 		TMS = bitPattern & 1;
@@ -253,9 +252,9 @@ static uint8 shiftInOut(uint8 c) {
 	return c;
 }
 
-// Kick off a shift operation. Next time jtagExecuteShift() runs, it will execute the shift.
+// Kick off a shift operation. Next time progExecuteShift() runs, it will execute the shift.
 //
-void jtagShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte) {
+void progShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte) {
 	m_numBits = numBits;
 	m_progOp = progOp;
 	m_flagByte = flagByte;
@@ -447,10 +446,10 @@ static void doProgram(bool isParallel) {
 	m_progOp = PROG_NOP;
 }
 
-// Actually execute the shift operation initiated by jtagBeginShift(). This is done in a
+// Actually execute the shift operation initiated by progBeginShift(). This is done in a
 // separate method because vendor commands cannot read & write to bulk endpoints.
 //
-void jtagShiftExecute(void) {
+void progShiftExecute(void) {
 	switch ( m_progOp ) {
 	case PROG_JTAG_ISSENDING_ISRECEIVING:
 		// The host is giving us data, and is expecting a response (xdr)
@@ -482,7 +481,7 @@ void jtagShiftExecute(void) {
 // Keep TMS and TDI as they are, and clock the JTAG state machine "numClocks" times.
 // This is tuned to be as close to 2us per clock as possible (500kHz).
 //
-void jtagClocks(uint32 numClocks) {
+void progClocks(uint32 numClocks) {
 	_asm
 		mov r2, dpl
 		mov r3, dph
