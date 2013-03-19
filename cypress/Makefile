@@ -38,7 +38,7 @@ CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc
 AS := asx8051
-CCFLAGS := -mmcs51 --code-size 0x2e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x2f00" $(FLAGS)
+CCFLAGS := -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
 
 all: date.inc jtagOffsets.h $(TARGET).hex
 

@@ -26,22 +26,6 @@
 #include "defs.h"
 #include "debug.h"
 
-// Function declarations
-void fifoSendPromData(uint32 bytesToSend);
-
-// SelectMap operations
-bool smapIsProgPending(void);
-void smapProgBegin(uint32 fileLen);
-uint8 smapProgExecute(void);
-
-// Patch operations
-void jtagPatch(
-	uint8 tdoPort, uint8 tdoBit,  // port and bit for TDO
-	uint8 tdiPort, uint8 tdiBit,  // port and bit for TDI
-	uint8 tmsPort, uint8 tmsBit,  // port and bit for TMS
-	uint8 tckPort, uint8 tckBit   // port and bit for TCK
-);
-
 void livePatch(uint8 patchClass, uint8 newByte);
 
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
@@ -203,9 +187,6 @@ void mainInit(void) {
 void mainLoop(void) {
 	// If there is a JTAG shift operation pending, execute it now.
 	jtagShiftExecute();
-	if ( smapIsProgPending() ) {
-		smapProgExecute();
-	}
 }
 
 void fifoSetEnabled(bool enabled) {
@@ -368,22 +349,6 @@ uint8 handleVendorCommand(uint8 cmd) {
 
 	case CMD_PORT_MAP:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			// It's an OUT operation - read from host and send to prom
-			if ( SETUP_LENGTH() != 8 ) {
-				return false;
-			}
-			EP0BCL = 0x00; // allow pc transfer in
-			while ( EP0CS & bmEPBUSY ); // wait for data
-			if ( EP0BCL != 8 ) {
-				return false;
-			}
-			jtagPatch(EP0BUF[0], EP0BUF[1], EP0BUF[2], EP0BUF[3], EP0BUF[4], EP0BUF[5], EP0BUF[6], EP0BUF[7]);
-			return true;
-		}
-		break;
-
-	case 0x90:
-		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			const xdata uint8 patchClass = SETUPDAT[4];
 			const xdata uint8 patchPort = SETUPDAT[5];
 			if ( patchClass < 4 ) {
@@ -436,90 +401,6 @@ uint8 handleVendorCommand(uint8 cmd) {
 			}
 		}
 		return true;
-
-	case CMD_SELECTMAP:
-		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
-			// return the status byte and micro-controller mode
-			while ( EP0CS & bmEPBUSY ); // can't do this until EP0 is ready
-			EP0BUF[0] = 0xF0;
-			EP0BUF[1] = 0x0D;
-			EP0BUF[2] = 0x1F;
-			EP0BCH=0;
-			SYNCDELAY;
-			EP0BCL=3;
-		} else if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			smapProgBegin(MAKEDWORD(SETUP_VALUE(), SETUP_INDEX()));
-		}
-		return true;
-
-	case CMD_SELECTMAP+1:
-		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			PD6 = 0;
-			PD6 = 1;
-			return true;
-		}
-		break;
-
-	case 0xC0:
-		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
-			// return the status byte and micro-controller mode
-			while ( EP0CS & bmEPBUSY ); // can't do this until EP0 is ready
-			EP0BUF[0] = tryReset();
-			EP0BCH = 0;
-			SYNCDELAY;
-			EP0BCL = 1;
-			return true;
-		}
-		break;
 	}
 	return false;  // unrecognised command
 }
-
-/*
-// Compose a packet to send on the EP6 FIFO, and commit it.
-//
-void fifoSendPromData(uint32 bytesToSend) {
-	
-	xdata uint16 i, chunkSize;
-	xdata uint8 thisByte;
-
-	while ( bytesToSend ) {
-		chunkSize = (bytesToSend >= 512) ? 512 : (uint16)bytesToSend;
-
-		while ( !(EP2468STAT & bmEP2EMPTY) );  // Wait while FIFO remains "not empty" (i.e while busy)
-
-		SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
-		SYNCDELAY; FIFORESET = bmNAKALL;       // NAK all OUT packets from host
-		SYNCDELAY; FIFORESET = 2;              // Advance EP2 buffers to CPU domain	
-
-		for ( i = 0; i < chunkSize; i++ ) {
-			EP2FIFOBUF[i] = promPeekByte();      // Compose packet to send to EP2 FIFO
-			promNextByte();
-		}
-		SYNCDELAY; EP2BCH = MSB(chunkSize);    // Commit newly-sourced packet to FIFO
-		SYNCDELAY; EP2BCL = LSB(chunkSize);
-	
-		SYNCDELAY; OUTPKTEND = bmSKIP | 2;     // Skip uncommitted second, third & fourth packets
-		SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-		SYNCDELAY; OUTPKTEND = bmSKIP | 2;
-		bytesToSend -= chunkSize;
-
-		SYNCDELAY; FIFORESET = 0;              // Release "NAK all"
-		SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;     // Enable AUTOOUT again
-	}
-}
-*/
