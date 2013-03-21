@@ -1,0 +1,14 @@
+
+Use impact to program the hdmi2usb_onboard.bit device to the FPGA.
+
+libusb fxload comes from https://github.com/pbatard/fxload
+./fxload -vvv -t fx2 -D 1443:0007 -I uvc_bulk.hex
+
+You should be able to use 
+http://www.makestuff.eu/wordpress/software/fx2tools/
+./fx2loader --vidpid=1443:0007 uvc.hex ram
+
+Other links
+http://www.linux-usb.org/ezusb/
+
+
