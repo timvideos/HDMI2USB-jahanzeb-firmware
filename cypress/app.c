@@ -129,7 +129,7 @@ void mainInit(void) {
 	OEE = 0x00;
 
 #ifdef EEPROM
-	#include "init.c"
+	#include "init.inc"
 #endif
 
 #ifdef DEBUG
