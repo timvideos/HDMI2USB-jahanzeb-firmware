@@ -26,14 +26,6 @@
 
 .include "date.inc"
 
-; for Digilent Nexys2
-;VID=0x1443
-;PID=0x0005
-
-; for default FX2LP chip
-VID=0x04B4
-PID=0x8613
-
 ; descriptor types
 ; same as setupdat.h
 DSCR_DEVICE_TYPE=1
@@ -57,6 +49,7 @@ LEN=(highspd_dscr_realend-_highspd_dscr)
 LEN_LE=((LEN&0x00FF)<<8)+(LEN>>8)
 VID_LE=((VID&0x00FF)<<8)+(VID>>8)
 PID_LE=((PID&0x00FF)<<8)+(PID>>8)
+DID_LE=((DID&0x00FF)<<8)+(DID>>8)
 
 	.globl _dev_dscr, _dev_qual_dscr, _highspd_dscr, _fullspd_dscr, _dev_strings, _dev_strings_end
 
@@ -77,9 +70,7 @@ _dev_dscr:
 	.db    64                             ; bMaxPacketSize0 (EP0)
 	.dw    VID_LE                         ; idVendor
 	.dw    PID_LE                         ; idProduct
-;	.dw    0xB404                         ; idVendor
-;	.dw    0x1386                         ; idProduct
-	.dw    0x0000                         ; bcdDevice
+	.dw    DID_LE                         ; bcdDevice
 	.db    1                              ; iManufacturer
 	.db    2                              ; iProduct
 	.db    0                              ; iSerial

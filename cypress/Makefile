@@ -40,6 +40,10 @@ CC := sdcc
 AS := asx8051
 CCFLAGS := -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
 
+VID := 04B4
+PID := 8613
+DID := 0000
+
 all: date.inc progOffsets.h $(TARGET).hex
 
 foo: FORCE
@@ -59,6 +63,9 @@ progOffsets.h: prog.rel
 
 date.inc:
 	echo DATE=0x$(MAKESTUFF_TODAY_DATE) > $@
+	echo VID=0x$(VID) >> $@
+	echo PID=0x$(PID) >> $@
+	echo DID=0x$(DID) >> $@
 
 firmware.c: $(FX2LIBDIR)/fw/fw.c
 	cp $(FX2LIBDIR)/fw/fw.c firmware.c

@@ -33,6 +33,14 @@ xdata uint8 m_diagnosticCode = 0;
 
 xdata uint8 setIntCount;
 
+void fifoSetEnabled(bool enabled) {
+	if ( enabled ) {
+		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
+	} else {
+		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
+	}
+}
+
 // Called once at startup
 //
 void mainInit(void) {
@@ -120,6 +128,10 @@ void mainInit(void) {
 	IOE = 0xFF;
 	OEE = 0x00;
 
+#ifdef EEPROM
+	#include "init.c"
+#endif
+
 #ifdef DEBUG
 	usartInit();
 	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
@@ -131,14 +143,6 @@ void mainInit(void) {
 void mainLoop(void) {
 	// If there is a shift operation pending, execute it now.
 	progShiftExecute();
-}
-
-void fifoSetEnabled(bool enabled) {
-	if ( enabled ) {
-		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
-	} else {
-		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
-	}
 }
 
 #define MODE_FIFO (1<<1)
