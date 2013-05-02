@@ -31,8 +31,6 @@ void livePatch(uint8 patchClass, uint8 newByte);
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
 
-xdata uint8 setIntCount;
-
 void fifoSetEnabled(bool enabled) {
 	if ( enabled ) {
 		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
@@ -47,8 +45,6 @@ void mainInit(void) {
 
 	xdata uint8 thisByte = 0xFF;
 	xdata uint16 blockSize;
-
-	setIntCount = 23;
 
 	// This is only necessary for cases where you want to load firmware into the RAM of an FX2 that
 	// has already loaded firmware from an EEPROM. It should definitely be removed for firmwares
@@ -147,8 +143,6 @@ void mainLoop(void) {
 
 #define MODE_FIFO (1<<1)
 
-uint8 handle_set_interface(uint8 ifc, uint8 alt);
-
 #define updateRegister(reg, val) tempByte = reg; tempByte &= ~mask; tempByte |= val; reg = tempByte
 
 uint8 portAccess(uint8 portSelect, uint8 mask, uint8 ddrWrite, uint8 portWrite) {
@@ -183,8 +177,6 @@ uint8 portAccess(uint8 portSelect, uint8 mask, uint8 ddrWrite, uint8 portWrite) 
 	return tempByte;
 }
 
-uint8 tryReset(void);
-
 // Called when a vendor command is received
 //
 uint8 handleVendorCommand(uint8 cmd) {
@@ -194,8 +186,8 @@ uint8 handleVendorCommand(uint8 cmd) {
 	//
 	case CMD_MODE_STATUS:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			xdata uint16 wBits = SETUP_VALUE();
-			xdata uint16 wMask = SETUP_INDEX();
+			const xdata uint16 wBits = SETUP_VALUE();
+			const xdata uint16 wMask = SETUP_INDEX();
 			if ( wMask & MODE_FIFO ) {
 				// Enable or disable FIFO mode
 				fifoSetEnabled(wBits & MODE_FIFO ? true : false);
