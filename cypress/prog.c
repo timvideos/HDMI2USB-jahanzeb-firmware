@@ -320,7 +320,8 @@ static void jtagIsSendingIsReceiving(void) {
 }
 
 static void jtagIsSendingNotReceiving(void) {
-	xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
+	xdata uint16 bitsRead, bitsRemaining;
+	xdata uint8 bytesRead, bytesRemaining;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
@@ -361,7 +362,8 @@ static void jtagIsSendingNotReceiving(void) {
 
 static void jtagNotSendingIsReceiving(void) {
 	// The host is not giving us data, but is expecting a response (x0r)
-	xdata uint16 bitsRead, bitsRemaining, bytesRead, bytesRemaining;
+	xdata uint16 bitsRead, bitsRemaining;
+	xdata uint8 bytesRead, bytesRemaining;
 	const xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
