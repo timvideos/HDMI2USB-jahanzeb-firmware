@@ -32,6 +32,11 @@ void livePatch(uint8 patchClass, uint8 newByte);
 xdata uint8 m_diagnosticCode = 0;
 
 void fifoSetEnabled(bool enabled) {
+	// Ensure that CTL1 & CTL2 (fx2GotData_in & fx2GotRoom_in) default low (unasserted). This
+	// prevents the FX2 from falsely informing the FPGA that it's ready to talk when fifo mode is
+	// disabled.
+	GPIFIDLECTL = 0x00;
+
 	if ( enabled ) {
 		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
 	} else {
