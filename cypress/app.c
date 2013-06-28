@@ -31,13 +31,13 @@ void livePatch(uint8 patchClass, uint8 newByte);
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
 xdata uint8 m_diagnosticCode = 0;
 
-void fifoSetEnabled(bool enabled) {
+void fifoSetEnabled(uint8 mode) {
 	// Ensure that CTL1 & CTL2 (fx2GotData_in & fx2GotRoom_in) default low (unasserted). This
 	// prevents the FX2 from falsely informing the FPGA that it's ready to talk when fifo mode is
 	// disabled.
 	GPIFIDLECTL = 0x00;
 
-	if ( enabled ) {
+	if ( mode == 0x01 ) {
 		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
 	} else {
 		IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
@@ -146,7 +146,7 @@ void mainLoop(void) {
 	progShiftExecute();
 }
 
-#define MODE_FIFO (1<<1)
+#define FIFO_MODE 0x0000
 
 #define updateRegister(reg, val) tempByte = reg; tempByte &= ~mask; tempByte |= val; reg = tempByte
 
@@ -191,11 +191,11 @@ uint8 handleVendorCommand(uint8 cmd) {
 	//
 	case CMD_MODE_STATUS:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			const xdata uint16 wBits = SETUP_VALUE();
-			const xdata uint16 wMask = SETUP_INDEX();
-			if ( wMask & MODE_FIFO ) {
+			const xdata uint16 param = SETUP_VALUE();
+			const xdata uint8 value = SETUPDAT[4];
+			if ( param == FIFO_MODE ) {
 				// Enable or disable FIFO mode
-				fifoSetEnabled(wBits & MODE_FIFO ? true : false);
+				fifoSetEnabled(value);
 			} else {
 				return false;
 			}
