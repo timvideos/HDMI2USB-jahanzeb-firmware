@@ -1,0 +1,1 @@
+This directory contains VHDL/Verilog code for FPGA and Code for Cypress FX2LP USB Chip.

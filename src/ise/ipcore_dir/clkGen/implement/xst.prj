@@ -1,0 +1,2 @@
+vhdl work ../../clkGen.vhd
+vhdl work ../example_design/clkGen_exdes.vhd

@@ -1,0 +1,2 @@
+vhdl work ../../patternClk.vhd
+vhdl work ../example_design/patternClk_exdes.vhd
