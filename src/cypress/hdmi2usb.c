@@ -74,7 +74,7 @@ void TD_Init(void)             // Called once at startup
 void TD_Poll(void)             // Called repeatedly while the device is idle
 {
 
-/*
+
 if (!(EP1INCS & 0x02))      // check if EP1IN is available
   {
 	EP1INBUF[0] = 0x0A;       // if it is available, then fill the first 10 bytes of the buffer with 
@@ -89,7 +89,7 @@ if (!(EP1INCS & 0x02))      // check if EP1IN is available
 	EP1INBUF[9] = 0x00;
 	EP1INBC = 10;            // manually commit once the buffer is filled
   }
-*/
+
 
 }
 
