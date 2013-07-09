@@ -14,10 +14,10 @@ extern BOOL   GotSUD;         // Received setup data flag
 extern BOOL   Sleep;
 extern BOOL   Rwuen;
 extern BOOL   Selfpwr;
-extern BYTE xdata valuesArray[26];
+extern BYTE valuesArray[26];
 
 BYTE   Configuration;      // Current configuration
-BYTE   AlternateSetting = -1;   // Alternate settings
+BYTE   AlternateSetting = 0;   // Alternate settings
 
 void TD_Poll(void);
 
@@ -31,26 +31,17 @@ BOOL DR_SetConfiguration();
 void TD_Init(void)             // Called once at startup
 {
 	// Return FIFO setings back to default just in case previous firmware messed with them.
-	// SYNCDELAY; PINFLAGSAB   = 0x00;
-	// SYNCDELAY; PINFLAGSCD   = 0x00;
-	// SYNCDELAY; FIFOPINPOLAR = 0x00;
+	SYNCDELAY; PINFLAGSAB   = 0x00;
+	SYNCDELAY; PINFLAGSCD   = 0x00;
+	SYNCDELAY; FIFOPINPOLAR = 0x00;
 	
 	// Global settings
 	//SYNCDELAY; REVCTL = 0x03;
 	SYNCDELAY; CPUCS  = ((CPUCS & ~bmCLKSPD) | bmCLKSPD1);  // 48MHz
-	
-	// IFCLKSRC 3048MHZ IFCLKOE IFCLKPOL  ASYNC GSTATE IFCFG1 IFCFG0
-	// IFCLKSRC=1 , FIFOs executes on internal clk source
-	// xMHz=1 , 48MHz internal clk rate
-	// IFCLKOE=1 , IFCLK pin signal at 48MHz
-	// IFCLKPOL=0 , invert IFCLK pin signal from internal clk
-	// ASYNC=0 , master samples asynchronous
-	// GSTATE=0 , Drive GPIF states out on PORTE[2:0], debug WF
-	// IFCFG[1:0]=11, FX2 in GPIF master mode
 	SYNCDELAY; IFCONFIG = 0xE3; //1110 0011 
 	
 	// EP1OUT & EP1IN
-	SYNCDELAY; EP1OUTCFG = 0xA0;
+	SYNCDELAY; EP1OUTCFG = 0x00;
 	SYNCDELAY; EP1INCFG  = 0xA0;
 	
 	// VALID DIR TYPE1 TYPE0 SIZE 0 BUF1 BUF0
@@ -70,57 +61,20 @@ void TD_Init(void)             // Called once at startup
 	SYNCDELAY; EP6AUTOINLENH = 0x04;
 	SYNCDELAY; EP6AUTOINLENL = 0x00;
 	
-	// SYNCDELAY; FIFORESET = 0x80;
-	// SYNCDELAY; FIFORESET = 0x82;
-	// SYNCDELAY; FIFORESET = 0x84;
-	// SYNCDELAY; FIFORESET = 0x86;
-	// SYNCDELAY; FIFORESET = 0x00;
-	
-	// SYNCDELAY; OUTPKTEND = 0x82;  
-	// SYNCDELAY; OUTPKTEND = 0x82;
-
-//==============================================================================
-
 	SYNCDELAY; REVCTL = 0x03; // REVCTL.0 and REVCTL.1 set to 1
-	
-	// EP2CFG = 0xA2; // EP2 is DIR=OUT, TYPE=BULK, SIZE=512, BUF=2x
-	// SYNCDELAY;
 	SYNCDELAY; FIFORESET = 0x80; // Reset the FIFO
 	SYNCDELAY; FIFORESET = 0x82;
 	SYNCDELAY; FIFORESET = 0x84;
 	SYNCDELAY; FIFORESET = 0x86;
 	SYNCDELAY; FIFORESET = 0x00;
-	SYNCDELAY; EP2FIFOCFG = 0x00; // EP2 is AUTOOUT=0, AUTOIN=0, ZEROLEN=0, WORDWIDE=0
-	SYNCDELAY; OUTPKTEND = 0x82; // Arm both EP2 buffers to “prime the pump”
-	SYNCDELAY; OUTPKTEND = 0x82;
-
-	EP1OUTBC = 0;
-//==========================================================
 
 
 }
 
 void TD_Poll(void)             // Called repeatedly while the device is idle
 {
-BYTE i;
 
-
-if (!(EP1OUTCS&0x02))
-{
-	//SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
-	SYNCDELAY; FIFORESET = bmNAKALL;       // NAK all OUT packets from host
-	SYNCDELAY; FIFORESET = 2;   
-	for(i=0;i<EP1OUTBC;i++)
-	EP2FIFOBUF[i] = EP1OUTBUF[i];
-		
-	SYNCDELAY; EP2BCH = 0;
-	SYNCDELAY; EP2BCL = EP1OUTBC;
-
-	SYNCDELAY; OUTPKTEND = 0x82;     // Skip uncommitted second packet
-	SYNCDELAY; FIFORESET = 0;              // Release "NAK all"
-	EP1OUTBC = 0;
-}
-
+/*
 if (!(EP1INCS & 0x02))      // check if EP1IN is available
   {
 	EP1INBUF[0] = 0x0A;       // if it is available, then fill the first 10 bytes of the buffer with 
@@ -135,7 +89,7 @@ if (!(EP1INCS & 0x02))      // check if EP1IN is available
 	EP1INBUF[9] = 0x00;
 	EP1INBC = 10;            // manually commit once the buffer is filled
   }
-
+*/
 
 }
 
@@ -182,44 +136,45 @@ BOOL DR_SetInterface(void)       // Called when a Set Interface command is recei
 	if (AlternateSetting == 1)
 	{	
 		//while ( !(EP2468STAT & bmEP2EMPTY) );  // Wait while FIFO remains "not empty" (i.e while busy)
-		//SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
+		SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
 		SYNCDELAY; FIFORESET = bmNAKALL;       // NAK all OUT packets from host
 		SYNCDELAY; FIFORESET = 2;              // Advance EP2 buffers to CPU domain			
 
-		SYNCDELAY; EP2FIFOBUF[0] = 'U';			
-		SYNCDELAY; EP2FIFOBUF[1] = 'F';
-		SYNCDELAY; EP2FIFOBUF[2] = 'U';		
-		SYNCDELAY; EP2FIFOBUF[3] = 'V';	
-		SYNCDELAY; EP2FIFOBUF[4] = 'U';		
+		SYNCDELAY; 
+		EP2FIFOBUF[0] = 'U';			
+		EP2FIFOBUF[1] = 'F';
+		EP2FIFOBUF[2] = 'U';		
+		EP2FIFOBUF[3] = 'V';	
+		EP2FIFOBUF[4] = 'U';		
 		
 		if (valuesArray[2] == 1) // Formate MJPEG 
 		{
-			SYNCDELAY; EP2FIFOBUF[5] = 'J';		
+			EP2FIFOBUF[5] = 'J';		
 		} else { // Formate RAW 
-			SYNCDELAY; EP2FIFOBUF[5] = 'R';				
+			EP2FIFOBUF[5] = 'R';				
 		}
 		
-		SYNCDELAY; EP2FIFOBUF[6] = 'U';	
+		EP2FIFOBUF[6] = 'U';	
 		
 		if (valuesArray[3] == 1) // Frame DVI // not implemented bz Atlys doesnot support the HPD
 		{
-			SYNCDELAY; EP2FIFOBUF[7] = 'D';
+			EP2FIFOBUF[7] = 'D';
 		} else { // Frame HDMI
 		
-			SYNCDELAY; EP2FIFOBUF[7] = 'H';
+			EP2FIFOBUF[7] = 'H';
 		}
 		
 		
 		// turn on USB
-		SYNCDELAY; EP2FIFOBUF[8] = 'U';		
-		SYNCDELAY; EP2FIFOBUF[9] = 'N';	
+		EP2FIFOBUF[8] = 'U';		
+		EP2FIFOBUF[9] = 'N';	
 		
 		SYNCDELAY; EP2BCH = 0;
 		SYNCDELAY; EP2BCL = 10;
 		
 		SYNCDELAY; OUTPKTEND = 0x82;     // Skip uncommitted second packet
 		SYNCDELAY; FIFORESET = 0;              // Release "NAK all"
-		//SYNCDELAY; EP2FIFOCFG = 0x10;  // Auto	
+		SYNCDELAY; EP2FIFOCFG = 0x10;  // Auto	
 
 		// reset UVC fifo
 		SYNCDELAY; FIFORESET = 0x80;
@@ -328,6 +283,7 @@ void ISR_Highspeed(void) interrupt 0
    EZUSB_IRQ_CLEAR();
    USBIRQ = bmHSGRANT;
 }
+
 void ISR_Ep0ack(void) interrupt 0
 {
 }

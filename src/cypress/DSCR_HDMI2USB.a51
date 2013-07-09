@@ -436,10 +436,10 @@ vsheaderend:
 	db   02H                ; Max packet size (MSB)
 	db   00H                ; Polling interval
 
-	;; EP1OUT Descriptor
+	;; EP2OUT Descriptor
 	db   DSCR_ENDPNT_LEN    ; Descriptor length
 	db   DSCR_ENDPNT        ; Descriptor type
-	db   01H                ; Endpoint number, and direction
+	db   02H                ; Endpoint number, and direction
 	db   ET_BULK            ; Endpoint type
 	db   00H                ; Maximum packet size (LSB)
 	db   02H                ; Max packet size (MSB)
@@ -448,11 +448,12 @@ vsheaderend:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 HighSpeedConfigDscrEnd:   
 
-
+db    00h               ;; pad
 
 FullSpeedConfigDscr:   
 FullSpeedConfigDscrEnd:   
 
+      db    00h               ;; pad
 
 
 StringDscr:
@@ -482,6 +483,7 @@ StringDscr2:
       db   'I',00
 StringDscr2End:
 
+db 0
 UserDscr:      
       dw   0000H
       end

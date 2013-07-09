@@ -37,13 +37,13 @@ Options 1,0,0  // Target 'Target 1'
  GenApp=1
  GenLib=0
  GenHex=1
- Debug=0
- Browse=0
+ Debug=1
+ Browse=1
  LstDir (.\)
  HexSel=0
  MG32K=0
  TGMORE=0
- RunUsr 0 0 <>
+ RunUsr 0 0 <c:\cypress\usb\bin\hex2bix -i -f 0xC2 -o VirtualCom.iic VirtualCom.hex>
  RunUsr 1 0 <>
  BrunUsr 0 0 <>
  BrunUsr 1 0 <>
@@ -113,6 +113,6 @@ Options 1,0,0  // Target 'Target 1'
   OPTDBG 505,-1,()()()()()()()()()() ()()()()
  FLASH1 { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }
  FLASH2 ()
- FLASH3 ("" ())
+ FLASH3 ()
 EndOpt
 

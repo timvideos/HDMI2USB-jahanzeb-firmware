@@ -53,7 +53,7 @@ WORD   pConfigDscr;
 WORD   pOtherConfigDscr;   
 WORD   pStringDscr;   
 
-BYTE xdata valuesArray[26]=    
+BYTE valuesArray[26]=    
 {
 	0x01,0x00,                       /* bmHint : No fixed parameters */
     0x01,                            /* Use 1st Video format index */
@@ -71,8 +71,8 @@ BYTE xdata valuesArray[26]=
     0x00,0x04,0x00,0x00              /* No. of bytes device can rx in single payload (1024) */
 };
 
-BYTE xdata fps[2][4] = {{0x2A,0x2C,0x0A,0x00},{0x54,0x58,0x14,0x00}}; // 15 ,7
-BYTE xdata frameSize[2][4] = {{0x00,0x00,0x18,0x00},{0x00,0x20,0x1C,0x00}};// Dvi , HDMI
+BYTE fps[2][4] = {{0x2A,0x2C,0x0A,0x00},{0x54,0x58,0x14,0x00}}; // 15 ,7
+BYTE frameSize[2][4] = {{0x00,0x00,0x18,0x00},{0x00,0x20,0x1C,0x00}};// Dvi , HDMI
 
 
 //-----------------------------------------------------------------------------
