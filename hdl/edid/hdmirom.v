@@ -41,7 +41,7 @@ reg [7:0] data ;
 
 reg[7:0] mem [1023:0] /* synthesis syn_ramstyle="block_ram" */;
 
-initial $readmemh("..//rtl//edid//hdmirom.hex", mem);       
+initial $readmemh("..//hdl//edid//hdmirom.hex", mem);       
 
 
 always @ (posedge clk)
