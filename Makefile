@@ -1,7 +1,8 @@
 INTSTYLE = ise
 # INTSTYLE = silent
 
-
+BUILD_DIR = build # build directiry for temp files
+	
 
 # Top Level
 all: syn tran map par trce bit
@@ -11,7 +12,8 @@ syn:
 	@echo "========================================================="
 	@echo "                       Synthesizing                      "
 	@echo "========================================================="
-	@cd  build; \
+	@mkdir -p $(BUILD_DIR)
+	@cd $(BUILD_DIR); \
 	xst \
 	-intstyle $(INTSTYLE) \
 	-filter "../ise/iseconfig/filter.filter" \
@@ -22,6 +24,7 @@ tran:
 	@echo "========================================================="
 	@echo "                        Translate                        "
 	@echo "========================================================="	
+	@cd $(BUILD_DIR); \
 	ngdbuild \
 	-filter "../ise/iseconfig/filter.filter" \
 	-intstyle $(INTSTYLE) \
@@ -35,6 +38,7 @@ map:
 	@echo "========================================================="
 	@echo "                          Map                            "
 	@echo "========================================================="
+	@cd $(BUILD_DIR); \
 	map \
 	-filter "../ise/iseconfig/filter.filter" \
 	-intstyle $(INTSTYLE) \
@@ -56,6 +60,7 @@ par:
 	@echo "========================================================="
 	@echo "                     Place & Route                       "
 	@echo "========================================================="
+	@cd $(BUILD_DIR); \
 	par \
 	-filter "../ise/iseconfig/filter.filter" -w \
 	-intstyle $(INTSTYLE) \
@@ -67,6 +72,7 @@ trce:
 	@echo "========================================================="
 	@echo "                        Trace                            "
 	@echo "========================================================="
+	@cd $(BUILD_DIR); \
 	trce \
 	-filter "../ise/iseconfig/filter.filter" \
 	-intstyle $(INTSTYLE) \
@@ -81,10 +87,12 @@ bit:
 	@echo "========================================================="
 	@echo "                        Bitgen                           "
 	@echo "========================================================="
+	@cd $(BUILD_DIR); \
 	bitgen \
 	-filter "../ise/iseconfig/filter.filter" \
 	-intstyle $(INTSTYLE) \
 	-f ../ise/hdmi2usb.ut hdmi2usb.ncd 
 
 clean:
+	rm -R $(BUILD_DIR)
 

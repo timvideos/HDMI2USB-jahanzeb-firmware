@@ -1,5 +1,3 @@
-set -tmpdir ""
-set -xsthdpdir ""
 run
 -ifn ../ise/hdmi2usb.prj
 -ofn hdmi2usb
