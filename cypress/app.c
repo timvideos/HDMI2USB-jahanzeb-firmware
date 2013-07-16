@@ -26,6 +26,8 @@
 #include "defs.h"
 #include "debug.h"
 
+extern const uint8 dev_strings[];
+
 void livePatch(uint8 patchClass, uint8 newByte);
 
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
@@ -135,7 +137,27 @@ void mainInit(void) {
 
 #ifdef DEBUG
 	usartInit();
-	usartSendString("MakeStuff FPGALink/FX2 v1.1\r");
+	{
+		const uint8 *s = dev_strings;
+		uint8 len;
+		s = s + *s;
+		len = (*s)/2 - 1;
+		s += 2;
+		while ( len ) {
+			usartSendByte(*s);
+			s += 2;
+			len--;
+		}
+		usartSendByte(' ');
+		len = (*s)/2 - 1;
+		s += 2;
+		while ( len ) {
+			usartSendByte(*s);
+			s += 2;
+			len--;
+		}
+		usartSendByte('\r');
+	}
 #endif
 }
 
@@ -148,35 +170,43 @@ void mainLoop(void) {
 
 #define FIFO_MODE 0x0000
 
-#define updateRegister(reg, val) tempByte = reg; tempByte &= ~mask; tempByte |= val; reg = tempByte
+#define updatePort(port) \
+	if ( CONCAT(OE, port) | bitMask ) { \
+		CONCAT(OE, port) = drive ? (CONCAT(OE, port) | bitMask) : (CONCAT(OE, port) & ~bitMask); \
+		CONCAT(IO, port) = high  ? (CONCAT(IO, port) | bitMask) : (CONCAT(IO, port) & ~bitMask); \
+	} else { \
+		CONCAT(IO, port) = high  ? (CONCAT(IO, port) | bitMask) : (CONCAT(IO, port) & ~bitMask); \
+		CONCAT(OE, port) = drive ? (CONCAT(OE, port) | bitMask) : (CONCAT(OE, port) & ~bitMask); \
+	} \
+	tempByte = (CONCAT(IO, port) & bitMask) ? 0x01 : 0x00
 
-uint8 portAccess(uint8 portSelect, uint8 mask, uint8 ddrWrite, uint8 portWrite) {
-	xdata uint8 tempByte = 0x00;
-	switch ( portSelect ) {
+uint8 portAccess(uint8 portNumber, uint8 bitMask, uint8 drive, uint8 high) {
+	uint8 tempByte = 0x00;
+	#ifdef DEBUG
+		usartSendByteHex(portNumber);
+		usartSendByte(':');
+		usartSendByteHex(bitMask);
+		usartSendByte(':');
+		usartSendByteHex(drive);
+		usartSendByte(':');
+		usartSendByteHex(high);
+		usartSendByte('\r');
+	#endif
+	switch ( portNumber ) {
 	case 0:
-		updateRegister(IOA, portWrite);
-		updateRegister(OEA, ddrWrite);
-		tempByte = IOA;
+		updatePort(A);
 		break;
 	case 1:
-		updateRegister(IOB, portWrite);
-		updateRegister(OEB, ddrWrite);
-		tempByte = IOB;
+		updatePort(B);
 		break;
 	case 2:
-		updateRegister(IOC, portWrite);
-		updateRegister(OEC, ddrWrite);
-		tempByte = IOC;
+		updatePort(C);
 		break;
 	case 3:
-		updateRegister(IOD, portWrite);
-		updateRegister(OED, ddrWrite);
-		tempByte = IOD;
+		updatePort(D);
 		break;
 	case 4:
-		updateRegister(IOE, portWrite);
-		updateRegister(OEE, ddrWrite);
-		tempByte = IOE;
+		updatePort(E);
 		break;
 	}
 	return tempByte;
@@ -260,29 +290,19 @@ uint8 handleVendorCommand(uint8 cmd) {
 
 	// Set various mode bits, or fetch status information
 	//
-	case CMD_PORT_IO:
+	case CMD_PORT_BIT_IO:
 		if ( SETUP_TYPE == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR) ) {
-			const xdata uint8 portSelect = SETUPDAT[4];
-			const xdata uint8 mask = SETUPDAT[5];
-			xdata uint8 ddrWrite = SETUPDAT[2];
-			xdata uint8 portWrite = SETUPDAT[3];
-
-			//usartSendString("Got: ");
-			//usartSendByteHex(portSelect);
-			//usartSendByteHex(mask);
-			//usartSendByteHex(ddrWrite);
-			//usartSendByteHex(portWrite);
-			//usartSendByte('\r');
-
-			if ( portSelect > 4 ) {
-				return false;  // illegal port
+			const xdata uint8 portNumber = SETUPDAT[2];
+			const xdata uint8 bitNumber = SETUPDAT[3];
+			const xdata uint8 drive = SETUPDAT[4];
+			const xdata uint8 high = SETUPDAT[5];
+			if ( portNumber > 4 || bitNumber > 7 ) {
+				return false;  // illegal port or bit
 			}
-			portWrite &= mask;
-			ddrWrite &= mask;
 
 			// Get the state of the port lines:
 			while ( EP0CS & bmEPBUSY );
-			EP0BUF[0] = portAccess(portSelect, mask, ddrWrite, portWrite);
+			EP0BUF[0] = portAccess(portNumber, (1<<bitNumber), drive, high);
 			EP0BCH = 0;
 			SYNCDELAY;
 			EP0BCL = 1;

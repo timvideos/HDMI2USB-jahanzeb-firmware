@@ -218,43 +218,24 @@ string0end:
 string1:
 	.db    string1end-string1
 	.db    DSCR_STRING_TYPE
-	.ascii 'S'
-	.db    0
-	.ascii 'w'
+	.ascii 'M'
 	.db    0
 	.ascii 'a'
 	.db    0
-	.ascii 't'
-	.db    0
-	.ascii 'o'
-	.db    0
-	.ascii 'n'
-	.db    0
-	.ascii ' '
-	.db    0
-	.ascii 'E'
-	.db    0
-	.ascii 'l'
+	.ascii 'k'
 	.db    0
 	.ascii 'e'
 	.db    0
-	.ascii 'c'
+	.ascii 'S'
 	.db    0
 	.ascii 't'
 	.db    0
-	.ascii 'r'
+	.ascii 'u'
 	.db    0
-	.ascii 'o'
+	.ascii 'f'
 	.db    0
-	.ascii 'n'
+	.ascii 'f'
 	.db    0
-	.ascii 'i'
-	.db    0
-	.ascii 'c'
-	.db    0
-	.ascii 's'
-	.db    0
-
 string1end:
 
 string2:

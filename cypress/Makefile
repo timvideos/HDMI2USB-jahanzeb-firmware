@@ -39,10 +39,11 @@ AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc
 AS := asx8051
 CCFLAGS := -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
+#CCFLAGS := -mmcs51 --code-size 0x2e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x2f00" $(FLAGS)
 
-VID := 04B4
-PID := 8613
-DID := 0000
+VID := 1D50
+PID := 602B
+DID := 0002
 
 all: date.inc progOffsets.h $(TARGET).hex
 
