@@ -47,9 +47,6 @@ DID := 0002
 
 all: date.inc progOffsets.h $(TARGET).hex
 
-foo: FORCE
-	@echo $(AS_OBJS)
-
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
 	$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
 
