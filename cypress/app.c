@@ -60,6 +60,10 @@ void mainInit(void) {
 	RENUMERATE_UNCOND();
 #endif
 
+	// Clear wakeup (see AN15813: http://www.cypress.com/?docID=4633)
+	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
+	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
+
 	// Disable alternate functions for PORTA 0,1,3 & 7.
 	PORTACFG = 0x00;
 
