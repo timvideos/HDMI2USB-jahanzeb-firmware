@@ -1,8 +1,8 @@
-# HDMI2USB - A HDMI Capturing Solution
+# HDMI2USB - A HDMI/DVI Capturing Solution
 
-HDMI2USB is a device to capture HDMI, DVI and Displayport and send it on USB
-port as UVC video. The device attaches computer as a standard webcam so there
-is no need of installing additional drivers.
+HDMI2USB is a device to capture HDMI and DVI (and Displayport with cheap active
+adapters) and send it on USB port as UVC video. The device attaches computer as
+a standard webcam so there is no need of installing additional drivers.
 
 More information about the device can be found in the
 [wiki @ https://github.com/timvideos/HDMI2USB/wiki](https://github.com/timvideos/HDMI2USB/wiki).
