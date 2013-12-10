@@ -262,7 +262,7 @@ uint8 handleVendorCommand(uint8 cmd) {
 
 	// Clock data into and out of the JTAG chain. Reads from EP2OUT and writes to EP4IN.
 	//
-	case CMD_JTAG_CLOCK_DATA:
+	case CMD_PROG_CLOCK_DATA:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
 			EP0BCL = 0x00;                                     // Allow host transfer in
 			while ( EP0CS & bmEPBUSY );                        // Wait for data
@@ -316,8 +316,16 @@ uint8 handleVendorCommand(uint8 cmd) {
 
 	case CMD_PORT_MAP:
 		if ( SETUP_TYPE == (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR) ) {
-			const xdata uint8 patchClass = SETUPDAT[4];
+			xdata uint8 patchClass = SETUPDAT[4];
 			const xdata uint8 patchPort = SETUPDAT[5];
+			if ( patchClass == 0x00 ) {
+				// Patch class zero is just an anchor for the less flexible Harvard architecture
+				// micros like the AVR; since the FX2LP has a Von Neumann architecture it can
+				// efficiently self-modify its code, so the port mapping can be done individually,
+				// so there's no need for an anchor to group mapping operations together.
+				return true;
+			}
+			patchClass--;
 			if ( patchClass < 4 ) {
 				const xdata uint8 patchBit = SETUPDAT[2];
 				livePatch(patchClass, 0x80 + (patchPort << 4) + patchBit);

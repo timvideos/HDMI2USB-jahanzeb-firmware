@@ -471,7 +471,7 @@ void progShiftExecute(void) {
 	case PROG_PARALLEL:
 		doProgram(true);
 		break;
-	case PROG_SERIAL:
+	case PROG_SPI_SEND:
 		doProgram(false);
 		break;
 	case PROG_NOP:
