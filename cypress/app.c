@@ -136,7 +136,9 @@ void mainInit(void) {
 	OEE = 0x00;
 
 #ifdef EEPROM
-	#include "init.inc"
+	#ifdef BSP
+		#include STR(boards/BSP.c)
+	#endif
 #endif
 
 #ifdef DEBUG
