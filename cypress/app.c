@@ -246,12 +246,12 @@ uint8 handleVendorCommand(uint8 cmd) {
 			EP0BUF[5] = (IOA & bmBIT2) ? 0 : 1;  // Flags
 			EP0BUF[6] = 0x11;                    // NeroProg endpoints
 			EP0BUF[7] = 0x26;                    // CommFPGA endpoints
-			EP0BUF[8] = 0x00;                    // Reserved
-			EP0BUF[9] = 0x00;                    // Reserved
-			EP0BUF[10] = 0x00;                   // Reserved
-			EP0BUF[11] = 0x00;                   // Reserved
-			EP0BUF[12] = 0x00;                   // Reserved
-			EP0BUF[13] = 0x00;                   // Reserved
+			EP0BUF[8] = 0xFF;                    // Firmware ID MSB
+			EP0BUF[9] = 0xFF;                    // Firmware ID LSB
+			EP0BUF[10] = (uint8)(DATE>>24);      // Version MSB
+			EP0BUF[11] = (uint8)(DATE>>16);      // Version
+			EP0BUF[12] = (uint8)(DATE>>8);       // Version
+			EP0BUF[13] = (uint8)DATE;            // Version LSB
 			EP0BUF[14] = 0x00;                   // Reserved
 			EP0BUF[15] = 0x00;                   // Reserved
 			
