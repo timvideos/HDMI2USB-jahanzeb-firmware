@@ -30,7 +30,14 @@ TARGET := firmware
 FX2LIBDIR := ../../../../3rd/fx2lib
 LIBS := -L$(FX2LIBDIR)/lib fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
-MAKESTUFF_TODAY_DATE := $(shell date +%Y%m%d)
+
+BRANCH := $(shell TRY=$(CURDIR); BRANCH=dev; while [ "$${TRY}" != "/" ]; do if [ -e "$${TRY}/.branch" ]; then BRANCH=$$(cat "$${TRY}/.branch"); break; fi; TRY=$$(dirname $${TRY}); done; echo $${BRANCH})
+USE_BRANCH := $(shell echo $(BRANCH) | grep -Pc '^2\d\d\d\d\d\d\d$$')
+ifeq ($(USE_BRANCH),0)
+	FIRMWARE_VERSION := $(shell date +%Y%m%d)
+else
+	FIRMWARE_VERSION := $(BRANCH)
+endif
 
 CC_SRCS := $(shell ls *.c)
 AS_SRCS := $(shell ls *.a51)
@@ -38,8 +45,8 @@ CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc
 AS := asx8051
-CCFLAGS := -DDATE=0x$(MAKESTUFF_TODAY_DATE) -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
-#CCFLAGS := -DDATE=0x$(MAKESTUFF_TODAY_DATE) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x3e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
+CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
+#CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x3e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
 
 VID := 1D50
 PID := 602B
@@ -60,7 +67,7 @@ progOffsets.h: prog.rel
 	cat prog.lst | ./lstParse.pl > progOffsets.h
 
 date.inc:
-	echo DATE=0x$(MAKESTUFF_TODAY_DATE) > $@
+	echo DATE=0x$(FIRMWARE_VERSION) > $@
 	echo VID=0x$(VID) >> $@
 	echo PID=0x$(PID) >> $@
 	echo DID=0x$(DID) >> $@
