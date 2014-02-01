@@ -19,12 +19,18 @@
 #   SDCC from http://sdcc.sourceforge.net
 #   fx2lib from http://fx2lib.wiki.sourceforge.net
 #
-# To build without CSVF & FPGA bootstrap from EEPROM
+# To build a firmware suitable for loading into RAM:
 #   make
 #
-# To build a firmware suitable for loading from EEPROM, with CSVF & FPGA bootstrap
-#   make FLAGS="-DEEPROM -DBOOT"
-#   sudo make eeprom
+# To build a firmware suitable for loading from EEPROM:
+#   make FLAGS="-DEEPROM"
+#
+# You can also include board-specific initialisation like this (see "boards" subdirectory):
+#   make FLAGS="-DEEPROM -DBSP=aes220"
+#
+# This Makefile assumes a recent version of SDCC. If you're still using an older
+# version with the asx8051 assembler, build like this:
+#   make AS8051=asx8051
 #
 TARGET := firmware
 FX2LIBDIR := ../../../../3rd/fx2lib
@@ -44,7 +50,8 @@ AS_SRCS := $(shell ls *.a51)
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc
-AS := asx8051
+AS8051 := sdas8051
+AS := $(AS8051)
 CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
 #CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x3e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
 

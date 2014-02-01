@@ -26,9 +26,9 @@
 // NeroProg Stuff
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-static xdata uint32 m_numBits = 0UL;
-static xdata ProgOp m_progOp = PROG_NOP;
-static xdata uint8 m_flagByte = 0x00;
+static __xdata uint32 m_numBits = 0UL;
+static __xdata ProgOp m_progOp = PROG_NOP;
+static __xdata uint8 m_flagByte = 0x00;
 
 // THIS MUST BE THE FIRST FUNCTION IN THE FILE!
 //
@@ -63,7 +63,7 @@ static void shiftOut(uint8 c) {
 	
 	(void)c; /* argument passed in DPL */
 	
-	_asm
+	__asm
 		mov  A,DPL
 		;; Bit0
 		rrc  A
@@ -106,13 +106,13 @@ static void shiftOut(uint8 c) {
 		setb _TCK
 		nop
 		clr  _TCK
-	_endasm;
+	__endasm;
 }
 
 // JTAG-clock all 512 bytes from the EP2OUT FIFO buffer
 //
 static void blockShiftBits(uint8 count) {
-	_asm
+	__asm
 		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
 		mov    _AUTOPTRL1, #_EP1OUTBUF
 		mov    r0, dpl
@@ -152,12 +152,12 @@ static void blockShiftBits(uint8 count) {
 		setb   _TCK
 		djnz   r0, bsoLoop
 		clr    _TCK
-	_endasm;
+	__endasm;
 }
 // Clock the specified number of bytes from EP1IN into port A.
 //
 static void blockShiftBytes(uint8 count) {
-	_asm
+	__asm
 		mov    _AUTOPTRH1, #_EP1OUTBUF >> 8
 		mov    _AUTOPTRL1, #_EP1OUTBUF
 		mov    r0, dpl
@@ -167,7 +167,7 @@ static void blockShiftBytes(uint8 count) {
 		setb   _TCK
 		djnz   r0, byteLoop
 		clr    _TCK
-	_endasm;
+	__endasm;
 }
 
 // JTAG-clock the supplied byte into TDI, MSB first. Return the byte clocked out of TDO.
@@ -190,7 +190,7 @@ static uint8 shiftInOut(uint8 c) {
 	
 	(void)c; /* argument passed in DPL */
 	
-	_asm
+	__asm
 		mov  A, DPL
 
 		;; Bit0
@@ -245,7 +245,7 @@ static uint8 shiftInOut(uint8 c) {
 		
 		mov  DPL, A
 		ret
-	_endasm;
+	__endasm;
 
 	/* return value in DPL */
 
@@ -264,12 +264,12 @@ void progShiftBegin(uint32 numBits, ProgOp progOp, uint8 flagByte) {
 //
 #define bitsToBytes(x) ((x>>3) + (x&7 ? 1 : 0))
 
-static const xdata uint8 *m_inPtr;
-static xdata uint8 *m_outPtr;
+static const __xdata uint8 *m_inPtr;
+static __xdata uint8 *m_outPtr;
 
 static void jtagIsSendingIsReceiving(void) {
-	xdata uint16 bitsRead, bitsRemaining;
-	xdata uint8 bytesRead, bytesRemaining;
+	__xdata uint16 bitsRead, bitsRemaining;
+	__xdata uint8 bytesRead, bytesRemaining;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP1OUT data
 		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
@@ -280,7 +280,7 @@ static void jtagIsSendingIsReceiving(void) {
 		m_outPtr = EP1INBUF;
 		if ( bitsRead == m_numBits ) {
 			// This is the last chunk
-			xdata uint8 tdoByte, tdiByte, leftOver, i;
+			__xdata uint8 tdoByte, tdiByte, leftOver, i;
 			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
 			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
 			bytesRemaining = (bitsRemaining>>3);
@@ -320,8 +320,8 @@ static void jtagIsSendingIsReceiving(void) {
 }
 
 static void jtagIsSendingNotReceiving(void) {
-	xdata uint16 bitsRead, bitsRemaining;
-	xdata uint8 bytesRead, bytesRemaining;
+	__xdata uint16 bitsRead, bitsRemaining;
+	__xdata uint8 bytesRead, bytesRemaining;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
@@ -329,7 +329,7 @@ static void jtagIsSendingNotReceiving(void) {
 		
 		if ( bitsRead == m_numBits ) {
 			// This is the last chunk
-			xdata uint8 tdiByte, leftOver, i;
+			__xdata uint8 tdiByte, leftOver, i;
 			m_inPtr = EP1OUTBUF;
 			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
 			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
@@ -362,9 +362,9 @@ static void jtagIsSendingNotReceiving(void) {
 
 static void jtagNotSendingIsReceiving(void) {
 	// The host is not giving us data, but is expecting a response (x0r)
-	xdata uint16 bitsRead, bitsRemaining;
-	xdata uint8 bytesRead, bytesRemaining;
-	const xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
+	__xdata uint16 bitsRead, bitsRemaining;
+	__xdata uint8 bytesRead, bytesRemaining;
+	const __xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
 		bitsRead = (m_numBits >= (ENDPOINT_SIZE<<3)) ? ENDPOINT_SIZE<<3 : m_numBits;
@@ -373,7 +373,7 @@ static void jtagNotSendingIsReceiving(void) {
 		m_outPtr = EP1INBUF;
 		if ( bitsRead == m_numBits ) {
 			// This is the last chunk
-			xdata uint8 tdoByte, leftOver, i;
+			__xdata uint8 tdoByte, leftOver, i;
 			bitsRemaining = (bitsRead-1) & 0xFFF8;        // Now an integer number of bytes
 			leftOver = (uint8)(bitsRead - bitsRemaining); // How many bits in last byte (1-8)
 			bytesRemaining = (bitsRemaining>>3);
@@ -411,9 +411,9 @@ static void jtagNotSendingIsReceiving(void) {
 
 static void jtagNotSendingNotReceiving(void) {
 	// The host is not giving us data, and does not need a response (x0n)
-	xdata uint32 bitsRemaining, bytesRemaining;
-	const xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
-	xdata uint8 leftOver;
+	__xdata uint32 bitsRemaining, bytesRemaining;
+	const __xdata uint8 tdiByte = (m_flagByte & bmSENDONES) ? 0xFF : 0x00;
+	__xdata uint8 leftOver;
 	bitsRemaining = (m_numBits-1) & 0xFFFFFFF8;    // Now an integer number of bytes
 	leftOver = (uint8)(m_numBits - bitsRemaining); // How many bits in last byte (1-8)
 	bytesRemaining = (bitsRemaining>>3);
@@ -433,7 +433,7 @@ static void jtagNotSendingNotReceiving(void) {
 }
 
 static void doProgram(bool isParallel) {
-	xdata uint8 bytesRead;
+	__xdata uint8 bytesRead;
 	while ( m_numBits ) {
 		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
 		bytesRead = EP1OUTBC;
@@ -484,7 +484,7 @@ void progShiftExecute(void) {
 // This is tuned to be as close to 2us per clock as possible (500kHz).
 //
 void progClocks(uint32 numClocks) {
-	_asm
+	__asm
 		mov r2, dpl
 		mov r3, dph
 		mov r4, b
@@ -522,5 +522,5 @@ void progClocks(uint32 numClocks) {
 		cjne r4, #255, jcLoop
 		dec r5
 		cjne r5, #255, jcLoop
-	_endasm;
+	__endasm;
 }

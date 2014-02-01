@@ -24,8 +24,8 @@
 #define BANK_1       0xAA
 #define READ         0x01
 
-static xdata uint8 m_currentByte;
-static xdata uint16 m_addr;
+static __xdata uint8 m_currentByte;
+static __xdata uint16 m_addr;
 static bool m_bank;
 
 bool promStartRead(bool bank, uint16 addr);
@@ -35,7 +35,7 @@ bool promStopRead(void);
 // there was a bus error, else return false if the operation completed successfully.
 //
 static bool promWaitForDone(void) {
-	xdata uint8 i;
+	__xdata uint8 i;
 	while ( !((i = I2CS) & bmDONE) );  // Poll the done bit
 	if ( i & bmBERR ) {
 		return true;
@@ -49,7 +49,7 @@ static bool promWaitForDone(void) {
 // operation completed successfully.
 //
 static bool promWaitForAck(void) {
-	xdata uint8 i;
+	__xdata uint8 i;
 	while ( !((i = I2CS) & bmDONE) );  // Poll the done bit
 	if ( i & bmBERR ) {
 		return true;
@@ -96,7 +96,7 @@ bool promNextByte(void) {
 // Start a read operation at the specified address. The first byte is read so it can be peeked.
 //
 bool promStartRead(bool bank, uint16 addr) {
-	xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+	__xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
 
 	m_bank = bank;
 	m_addr = addr + 1;
@@ -150,7 +150,7 @@ bool promStartRead(bool bank, uint16 addr) {
 //
 bool promStopRead(void) {
 
-	xdata uint8 i;
+	__xdata uint8 i;
 
 	// Wait for current operation to finish
 	//
@@ -172,9 +172,9 @@ bool promStopRead(void) {
 */
 // Read "length" bytes from address "addr" in the attached EEPROM, and write them to RAM at "buf".
 //
-bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf) {
-	xdata uint8 i;
-	const xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+bool promRead(bool bank, uint16 addr, uint8 length, __xdata uint8 *buf) {
+	__xdata uint8 i;
+	const __xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
 
 	#ifdef DEBUG
 		usartSendString("promRead(");
@@ -252,9 +252,9 @@ bool promRead(bool bank, uint16 addr, uint8 length, xdata uint8 *buf) {
 
 // Read "length" bytes from RAM at "buf", and write them to the attached EEPROM at address "addr".
 //
-bool promWrite(bool bank, uint16 addr, uint8 length, const xdata uint8 *buf) {
-	xdata uint8 i;
-	const xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
+bool promWrite(bool bank, uint16 addr, uint8 length, const __xdata uint8 *buf) {
+	__xdata uint8 i;
+	const __xdata uint8 i2cAddr = bank ? BANK_1 : BANK_0;
 
 	#ifdef DEBUG
 		usartSendString("promWrite(");

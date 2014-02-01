@@ -30,10 +30,10 @@
 
 // Addressable bits on Port A, C or D for the four JTAG lines (named after the FPGA pins they
 // connect to). TDO is an input, the rest are outputs.
-sbit at (0x80 + 16*JTAG_PORT + TDO_BIT) TDO; // Port bit to use for TDO
-sbit at (0x80 + 16*JTAG_PORT + TDI_BIT) TDI; // Port bit to use for TDI
-sbit at (0x80 + 16*JTAG_PORT + TMS_BIT) TMS; // Port bit to use for TMS
-sbit at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
+__sbit __at (0x80 + 16*JTAG_PORT + TDO_BIT) TDO; // Port bit to use for TDO
+__sbit __at (0x80 + 16*JTAG_PORT + TDI_BIT) TDI; // Port bit to use for TDI
+__sbit __at (0x80 + 16*JTAG_PORT + TMS_BIT) TMS; // Port bit to use for TMS
+__sbit __at (0x80 + 16*JTAG_PORT + TCK_BIT) TCK; // Port bit to use for TCK
 
 // Macros for NeroJTAG implementation
 #define ENDPOINT_SIZE 64

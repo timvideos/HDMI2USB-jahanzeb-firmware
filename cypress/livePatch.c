@@ -17,15 +17,15 @@
 #include <makestuff.h>
 #include "progOffsets.h"
 
-const uint16 *xdata classList[] = {tdoList, tdiList, tmsList, tckList, ioaList};
+const uint16 *__xdata classList[] = {tdoList, tdiList, tmsList, tckList, ioaList};
 
 // Base address of JTAG code
 void progClockFSM(uint32 bitPattern, uint8 transitionCount);
 
 void livePatch(uint8 patchClass, uint8 newByte) {
-	xdata uint8 *xdata const codeBase = (xdata uint8 *)progClockFSM;
-	xdata uint16 thisOffset;
-	const uint16 *xdata ptr = classList[patchClass];
+	__xdata uint8 *__xdata const codeBase = (__xdata uint8 *)progClockFSM;
+	__xdata uint16 thisOffset;
+	const uint16 *__xdata ptr = classList[patchClass];
 	thisOffset = *ptr++;
 	while ( thisOffset ) {
 		*(codeBase + thisOffset) = newByte;

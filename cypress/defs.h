@@ -55,8 +55,8 @@
 #define REQTYPE_STANDARD    (0 << 5)
 #define REQTYPE_VENDOR      (2 << 5)
 
-sfr at 0x9c AUTODAT1;
-sfr at 0x9f AUTODAT2;
+__sfr __at 0x9c AUTODAT1;
+__sfr __at 0x9f AUTODAT2;
 
 // Defines to allow use of camelCase.
 #define mainInit(x) main_init(x)
