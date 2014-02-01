@@ -83,6 +83,6 @@ firmware.c: $(FX2LIBDIR)/fw/fw.c
 	cp $(FX2LIBDIR)/fw/fw.c firmware.c
 
 clean: FORCE
-	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym firmware.c progOffsets.h date.inc
+	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym *.lk firmware.c progOffsets.h date.inc
 
 FORCE:
