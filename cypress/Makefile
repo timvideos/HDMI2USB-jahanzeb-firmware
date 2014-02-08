@@ -38,7 +38,7 @@ LIBS := -L$(FX2LIBDIR)/lib fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
 
 BRANCH := $(shell TRY=$(CURDIR); BRANCH=dev; while [ "$${TRY}" != "/" ]; do if [ -e "$${TRY}/.branch" ]; then BRANCH=$$(cat "$${TRY}/.branch"); break; fi; TRY=$$(dirname $${TRY}); done; echo $${BRANCH})
-USE_BRANCH := $(shell echo $(BRANCH) | grep -Pc '^2\d\d\d\d\d\d\d$$')
+USE_BRANCH := $(shell echo $(BRANCH) | grep -Ec '^2[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$$')
 ifeq ($(USE_BRANCH),0)
 	FIRMWARE_VERSION := $(shell date +%Y%m%d)
 else
