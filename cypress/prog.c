@@ -435,7 +435,7 @@ static void jtagNotSendingNotReceiving(void) {
 static void doProgram(bool isParallel) {
 	__xdata uint8 bytesRead;
 	while ( m_numBits ) {
-		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP2OUT data
+		while ( EP01STAT & bmEP1OUTBSY );  // Wait for some EP1OUT data
 		bytesRead = EP1OUTBC;
 		if ( isParallel ) {
 			blockShiftBytes(bytesRead);
@@ -444,6 +444,24 @@ static void doProgram(bool isParallel) {
 		}
 		EP1OUTBC = 0x00;  // ready to accept more data from host
 		m_numBits -= bytesRead;
+	}
+	m_progOp = PROG_NOP;
+}
+
+static void progSerRecv(void) {
+	// Read bytes from SPI
+	__xdata uint8 chunkSize, i;
+	while ( m_numBits ) {
+		while ( EP01STAT & bmEP1INBSY );   // Wait for space for EP1IN data
+		chunkSize = (m_numBits >= ENDPOINT_SIZE) ? ENDPOINT_SIZE : m_numBits;
+		m_outPtr = EP1INBUF;
+		i = chunkSize;
+		while ( i ) {
+			*m_outPtr++ = shiftInOut(0x00);
+			i--;
+		}
+		EP1INBC = chunkSize;  // send response back to host
+		m_numBits -= chunkSize;
 	}
 	m_progOp = PROG_NOP;
 }
@@ -473,6 +491,9 @@ void progShiftExecute(void) {
 		break;
 	case PROG_SPI_SEND:
 		doProgram(false);
+		break;
+	case PROG_SPI_RECV:
+		progSerRecv();
 		break;
 	case PROG_NOP:
 	default:
