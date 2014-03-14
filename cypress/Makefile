@@ -71,7 +71,7 @@ $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
 	$(AS) -logs $?
 
 progOffsets.h: prog.rel
-	cat prog.lst | ./lstParse.pl > progOffsets.h
+	cat prog.lst | ./lstParse.py > progOffsets.h
 
 date.inc:
 	echo DATE=0x$(FIRMWARE_VERSION) > $@
