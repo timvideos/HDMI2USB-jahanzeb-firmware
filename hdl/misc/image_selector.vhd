@@ -1,6 +1,6 @@
 LIBRARY IEEE;
 USE ieee.std_logic_1164.all;
-USE ieee.std_logic_arith.all;		 
+USE ieee.std_logic_arith.all;
 USE ieee.std_logic_unsigned.all;
 
 Library UNISIM;
@@ -8,8 +8,8 @@ use UNISIM.vcomponents.all;
 
 
 entity image_selector is
-port 
-(	
+port
+(
 	-- HMDI input 0
 	rgb_H0		: in std_logic_vector(23 downto 0);
 	de_H0		: in std_logic;
@@ -18,7 +18,7 @@ port
 	vsync_H0	: in std_logic;
 	resX_H0		: in std_logic_vector(15 downto 0);
 	resY_H0		: in std_logic_vector(15 downto 0);
-	
+
 	-- HMDI input 1
 	rgb_H1		: in std_logic_vector(23 downto 0);
 	de_H1		: in std_logic;
@@ -28,17 +28,17 @@ port
 	resX_H1		: in std_logic_vector(15 downto 0);
 	resY_H1		: in std_logic_vector(15 downto 0);
 
-	
-	-- Test Pattern 
+
+	-- Test Pattern
 	rgb_tp		: in std_logic_vector(23 downto 0);
 	de_tp		: in std_logic;
 	pclk_tp		: in std_logic;
 	hsync_tp	: in std_logic;
-	vsync_tp	: in std_logic;	
+	vsync_tp	: in std_logic;
 	resX_tp		: in std_logic_vector(15 downto 0);
 	resY_tp		: in std_logic_vector(15 downto 0);
-	
-	
+
+
 	-- VGA input
 	rgb_vga		: in std_logic_vector(23 downto 0);
 	de_vga		: in std_logic;
@@ -47,25 +47,25 @@ port
 	vsync_vga	: in std_logic;
 	resX_vga	: in std_logic_vector(15 downto 0);
 	resY_vga	: in std_logic_vector(15 downto 0);
-	
-	
+
+
 	-- selector_cmd
 	selector_cmd : in std_logic_vector(12 downto 0);
-	
-	-- selected output 
+
+	-- selected output
 	rgb		: out std_logic_vector(23 downto 0);
 	de		: out std_logic;
 	hsync	: out std_logic;
 	vsync	: out std_logic;
 	resX	: out std_logic_vector(15 downto 0);
 	resY	: out std_logic_vector(15 downto 0);
-	
+
 	-- for HDMI Matrix input
 	rgb_H		: out std_logic_vector(23 downto 0);
 	de_H		: out std_logic;
 	pclk_H	: out std_logic;
-	
-	
+
+
 	clk   	: in  std_logic;
 	rst   : in  std_logic
 );
@@ -90,9 +90,25 @@ COMPONENT image_selector_fifo
   );
 END COMPONENT;
 
+COMPONENT heart_beater is
+Generic(	HB_length		: integer :=5;		--length of the heart beat in pixels
+			HB_width       : integer :=5;		--width of the heart beat in pixels
+			alt_aft_frame	: integer :=3		--alternate color after this many frames (max value 31)
+		);
+PORT
+(
+	rst    : in std_logic;
+	din    : in std_logic_vector(23 downto 0);
+	wr_en  : in std_logic;
+	pclk_i : in std_logic;
+	resX	 : in std_logic_vector(15 downto 0);
+	resY	 : in std_logic_vector(15 downto 0);
+	dout   : out std_logic_vector(23 downto 0)
+
+);
+END COMPONENT;
 
 signal pclk_i : std_logic;
-
 signal hdmi_clk : std_logic;
 --signal vga_tp_clk : std_logic;
 signal full : std_logic;
@@ -111,6 +127,7 @@ signal de_i : std_logic;
 signal rgb_q		: std_logic_vector(23 downto 0);
 signal rgb_i		: std_logic_vector(23 downto 0);
 signal din		: std_logic_vector(23 downto 0);
+signal din_q		: std_logic_vector(23 downto 0);
 
 signal Y		: std_logic_vector(17 downto 0);
 signal Y1		: std_logic_vector(14 downto 0);
@@ -155,6 +172,9 @@ signal vsync_tp_q : std_logic;
 signal resX_tp_q : std_logic_vector(15 downto 0);
 signal resY_tp_q : std_logic_vector(15 downto 0);
 
+signal resX_signal : std_logic_vector(15 downto 0);
+signal resY_signal : std_logic_vector(15 downto 0);
+
 
 
 
@@ -162,7 +182,10 @@ begin
 
 
 
-pclk_H		<= pclk_i;
+pclk_H		<= pclk_i;--clk input to HDMI Matrix
+
+resX			<= resX_signal;
+resY			<= resY_signal;
 
 process(rst,pclk_H0)
 begin
@@ -216,46 +239,46 @@ end process;
 process(rst,pclk_i)
 begin
 	if rst = '1' then
-		valid 		<= '0';	
+		valid 		<= '0';
 		rgb_i		<= (others => '0');
 		hsync	<= '0';
 		vsync	<= '0';
-		resX	<= (others => '0');
-		resY 	<= (others => '0');
+		resX_signal	<= (others => '0');
+		resY_signal	<= (others => '0');
 		selector 	<= (others => '0');
-	elsif rising_edge(pclk_i) then	
-	
+	elsif rising_edge(pclk_i) then
+
 	selector <= selector_cmd;
-	
+
 		case selector(1 downto 0) is
-			when "00" => -- hdmi 0 		
+			when "00" => -- hdmi 0
 				rgb_i		<= rgb_H0_q;
 				de_i		<= de_H0_q;
 				hsync	<= hsync_H0_q;
 				vsync	<= vsync_H0_q;
-				resX	<= resX_H0_q;
-				resY 	<= resY_H0_q;				
-			when "01" => -- hdmi 1 
+				resX_signal	<= resX_H0_q;
+				resY_signal 	<= resY_H0_q;
+			when "01" => -- hdmi 1
 				rgb_i		<= rgb_H1_q;
 				de_i		<= de_H1_q;
 				hsync	<= hsync_H1_q;
-				vsync	<= vsync_H1_q;			
-				resX	<= resX_H1_q;
-				resY 	<= resY_H1_q;								
-			-- when "10" => -- VGA  
+				vsync	<= vsync_H1_q;
+				resX_signal	<= resX_H1_q;
+				resY_signal	<= resY_H1_q;
+			-- when "10" => -- VGA
 				-- rgb_i		<= rgb_vga_q;
 				-- valid		<= de_vga_q;
 				-- hsync	<= hsync_vga_q;
-				-- vsync	<= vsync_vga_q;			
-				-- resX	<= resX_vga_q;
-				-- resY 	<= resY_vga_q;	
+				-- vsync	<= vsync_vga_q;
+				-- resX_signal	<= resX_vga_q;
+				-- resY_signal	<= resY_vga_q;
 			when "11" => -- Test Pattern
 				rgb_i		<= rgb_tp_q;
 				de_i		<= de_tp_q;
 				hsync	<= hsync_tp_q;
-				vsync	<= vsync_tp_q;			
-				resX	<= resX_tp_q;
-				resY 	<= resY_tp_q;
+				vsync	<= vsync_tp_q;
+				resX_signal	<= resX_tp_q;
+				resY_signal	<= resY_tp_q;
 			when others =>
 		end case;
 	end if;
@@ -298,7 +321,7 @@ port map (
 
 
 Y <= Y1 + Y2 + Y3;
-rgb_H		<= din;
+rgb_H		<= din_q;
 de_H		<= wr_en;
 
 imgprocess: process(rst,pclk_i)
@@ -306,7 +329,7 @@ begin
 if rst = '1' then
 
 	rgb_q <= (others => '0');
-	
+
 elsif rising_edge(pclk_i) then
 
 Y1 <= conv_std_logic_vector(113,7)*blue_qqq;
@@ -319,12 +342,12 @@ rgb_q <= (blue_i & green_i & red_i);
 din <= rgb_q;
 wr_en <= de_qqqqq;
 
-		de_q 	<= de_i;	
+		de_q 	<= de_i;
 		de_qq 	<= de_q;
-		de_qqq 	<= de_qq;		
-		de_qqqq	<= de_qqq;		
-		de_qqqqq<= de_qqqq;		
-		
+		de_qqq 	<= de_qq;
+		de_qqqq	<= de_qqq;
+		de_qqqqq<= de_qqqq;
+
 
 		if selector(10) = '1' then blue_q 	<= rgb_i(23 downto 16); else blue_q 	<= (others => '0'); end if;
 		if selector(11) = '1' then green_q 	<= rgb_i(15 downto 8); else green_q 	<= (others => '0'); end if;
@@ -337,21 +360,21 @@ wr_en <= de_qqqqq;
 			when "11" => blue_qq <= (blue_q(7 downto 5) & "00000");
 			when others =>
 		end case;
-		
+
 		case selector(7 downto 6) is -- green
 			when "00" => green_qq <= green_q;
 			when "01" => green_qq <= (green_q(7 downto 3) & "000");
 			when "10" => green_qq <= (green_q(7 downto 4) & "0000");
-			when "11" => green_qq <= (green_q(7 downto 5) & "00000");	
-			when others =>			
+			when "11" => green_qq <= (green_q(7 downto 5) & "00000");
+			when others =>
 		end case;
-		
+
 		case selector(9 downto 8) is -- red
 			when "00" => red_qq <= red_q;
 			when "01" => red_qq <= (red_q(7 downto 3) & "000");
 			when "10" => red_qq <= (red_q(7 downto 4) & "0000");
 			when "11" => red_qq <= (red_q(7 downto 5) & "00000");
-			when others =>			
+			when others =>
 		end case;
 
 		if selector(3) = '1' then
@@ -361,29 +384,29 @@ wr_en <= de_qqqqq;
 		else
 			blue_qqq 	<= blue_qq;
 			green_qqq 	<= green_qq;
-			red_qqq 	<= red_qq;				
+			red_qqq 	<= red_qq;
 		end if;
 
 
 		if selector(2) = '1' then
 			blue_i 	<= blue_qqq;
 			green_i 	<= green_qqq;
-			red_i 	<= red_qqq;	
-		else 			
+			red_i 	<= red_qqq;
+		else
 			blue_i 	<= Y(17 downto 10);
 			green_i 	<= Y(17 downto 10);
-			red_i 	<= Y(17 downto 10);	
+			red_i 	<= Y(17 downto 10);
 		end if;
-		
-end if;-- clk 
-end process; -- imgprocess  
+
+end if;-- clk
+end process; -- imgprocess
 
 selector_fifo : image_selector_fifo
   PORT MAP (
     rst => rst,
     wr_clk => pclk_i,
     rd_clk => clk,
-    din => din,
+    din => din_q,
     wr_en => wr_en,
     rd_en => '1',
     dout => rgb,
@@ -393,5 +416,19 @@ selector_fifo : image_selector_fifo
     almost_empty => almost_empty,
     valid => de
   );
-  
+Inst_heart_beater: heart_beater
+GENERIC MAP (
+         HB_length => 5,
+         HB_width  => 5,
+		 alt_aft_frame=>30
+      )
+PORT MAP(
+		rst =>rst ,
+		din => din,
+		wr_en => wr_en,
+		pclk_i => pclk_i,
+		resX => resX_signal,
+		resY => resY_signal,
+		dout => din_q
+	);
 end architecture;
