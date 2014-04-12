@@ -47,7 +47,20 @@ ARCHITECTURE behavior OF jpeg_encoder_top_tb IS
   file f_capture_bin       : char_file;
   constant CAPTURE_ORAM    : string := "..\sim\OUT_RAM.txt";
   constant CAPTURE_BIN     : string := "..\sim\test_out.jpg";
- 
+
+  file infile                 : TEXT open read_mode is "..\sim\test.txt";
+  shared variable inline      : LINE;
+  shared variable image_line  : std_logic_vector(0 to 3*1024*8-1):=(others => '0');
+  --1024x768
+  constant const_resx         : std_logic_vector(15  downto 0) := X"0400";
+  constant const_resy         : std_logic_vector(15  downto 0) := X"0300";
+  --1280x720
+  --constant const_resx         : std_logic_vector(15  downto 0) := X"0500";
+  --constant const_resy         : std_logic_vector(15  downto 0) := X"02D0";
+  --640x480
+  --constant const_resx         : std_logic_vector(15  downto 0) := X"0280";
+  --constant const_resy         : std_logic_vector(15  downto 0) := X"01E0";
+
     -- Component Declaration for the Unit Under Test (UUT)
 component jpeg_encoder_top is
   port 
@@ -150,6 +163,7 @@ end component jpeg_encoder_top;
    -- constant pclk_period : time :=  13.4680 ns; -- 74.25 MHz // 720p60
    -- constant pclk_period : time :=  7 ns; 
  
+   signal x_cnt       : integer := 0;
 BEGIN
 ----------------------------------
  p_capture : process
@@ -233,8 +247,9 @@ BEGIN
 		rst_n <= '0';
       wait for 100 ns;	
 		rst_n <= '1';
-		-- resx <= X"0500";resy <= X"02D0"; -- 1280×720  (921600)
-		resx <= X"0400";resy <= X"0300"; -- 1024x768 (786432)
+    resx <= const_resx;
+    resy <= const_resy;
+    
 		assert false report "Start of simulation" severity warning;
 		
 		wait for pclk_period*1024;
@@ -282,23 +297,46 @@ BEGIN
    end process;
    
 data_proc:process(clk)
-	
-   begin
-   if rising_edge(clk) then
-   
-   
-	iram_wren <= '0';	
-	if w_start = '1' and w_start2 = '0' and iram_fifo_afull = '0' and read_img = '1' then
-	
-		 if total_send = std_logic_vector(unsigned(resx)*unsigned(resy)) then
-			w_start2 <= '1';
-		else			
-			total_send <= std_logic_vector(unsigned(total_send) + 1);
-			iram_wdata <= total_send(23 downto 0);			
-			iram_wren <= '1';	
-		end if;
-	end if;
-	end if;
-	
-   end process;
+
+    variable data_word   : std_logic_vector(23 downto 0):=(others => '0');
+    variable data_word2  : std_logic_vector(23 downto 0):=(others => '0');
+
+  begin
+    if rising_edge(clk) then
+      iram_wren <= '0';
+      if w_start = '1' and w_start2 = '0' and iram_fifo_afull = '0' and read_img = '1' then
+        if total_send = std_logic_vector(unsigned(const_resx)*unsigned(const_resy)) then
+          w_start2 <= '1';
+        else
+          total_send <= std_logic_vector(unsigned(total_send) + 1);
+
+          data_word := image_line(3*8*x_cnt to 3*8*x_cnt+3*8-1);
+          data_word2(7 downto 0)   := data_word(23 downto 16);
+          data_word2(15 downto 8)  := data_word(15 downto 8);
+          data_word2(23 downto 16) := data_word(7 downto 0);
+
+
+          iram_wdata <= data_word2(23 downto 0);
+          iram_wren <= '1';
+
+          if x_cnt < to_integer(unsigned(const_resx)) - 1 then
+            x_cnt <= x_cnt + 1;
+          else
+            x_cnt <= 0;
+          end if;
+
+        end if;
+      end if;
+    end if;
+
+  end process;
+
+read_line:process(x_cnt)
+  begin
+    if x_cnt=0 then
+      READLINE(infile,inline);
+      HREAD(inline,image_line(0 to 3*to_integer(unsigned(const_resx))*8-1));
+    end if;
+  end process;
+
 END;
