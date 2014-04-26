@@ -93,6 +93,13 @@ bit:
 	-intstyle $(INTSTYLE) \
 	-f ../ise/hdmi2usb.ut hdmi2usb.ncd 
 
+xsvf:
+	@echo "========================================================="
+	@echo "                        xsvf file                        "
+	@echo "========================================================="
+	@cd $(BUILD_DIR); \
+	impact -batch ../ucf/hdmi2usb.batch
+
 clean:
 	rm -R $(BUILD_DIR)
 
