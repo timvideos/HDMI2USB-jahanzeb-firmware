@@ -1,0 +1,6 @@
+setPreference -pref KeepSVF:True
+setMode -bs
+setCable -port xsvf -file hdmi2usb.xsvf
+addDevice -p 1 -file hdmi2usb.bit
+program -p 1
+quit
