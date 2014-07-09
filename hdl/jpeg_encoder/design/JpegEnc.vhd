@@ -96,7 +96,10 @@ entity JpegEnc is
         ram_byte           : out std_logic_vector(7 downto 0);
         ram_wren           : out std_logic;
         ram_wraddr         : out std_logic_vector(23 downto 0);
-        outif_almost_full  : in  std_logic        
+        outif_almost_full  : in  std_logic;
+
+        --debug signal
+        frame_size         : out std_logic_vector(23 downto 0)
    );
 end entity JpegEnc;
 
@@ -482,7 +485,10 @@ begin
         ram_wren           => bs_ram_wren,
         ram_wraddr         => bs_ram_wraddr
     );
-    
+
+  --debug signal
+  frame_size <= num_enc_bytes;
+
   -------------------------------------------------------------------
   -- JFIF Generator
   -------------------------------------------------------------------
