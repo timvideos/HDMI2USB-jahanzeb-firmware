@@ -60,7 +60,10 @@ port
 	-- others
 	start 				: in std_logic;
 	done			   	: out std_logic;
-	busy	   			: out std_logic
+	busy	   			: out std_logic;
+
+	--debug signal
+	frame_size			: out std_logic_vector(23 downto 0)
 );
 end entity jpeg_encoder_top;
 
@@ -95,7 +98,10 @@ component JpegEnc is
         ram_byte           : out std_logic_vector(7 downto 0);
         ram_wren           : out std_logic;
         ram_wraddr         : out std_logic_vector(23 downto 0);
-        outif_almost_full  : in  std_logic
+        outif_almost_full  : in  std_logic;
+
+        -- debug signal
+        frame_size         : out std_logic_vector(23 downto 0)
 
    );
 end component JpegEnc;
@@ -216,6 +222,9 @@ signal iram_wdata_i		: std_logic;
 
 signal resx_q 	: std_logic_vector(15  DOWNTO 0);
 signal resy_q 	: std_logic_vector(15 DOWNTO 0);
+
+-- debug
+signal frame_size_s     : std_logic_vector(23 downto 0);
 
 begin
 
@@ -361,6 +370,7 @@ resy_q <= resy;
 				ps <= s_reset;
 				done <= '1';
 				busy <= '0';
+				frame_size <= frame_size_s;
 			else
 				OPB_ABus   	<= (others => '0');
 				OPB_BE      <= (others => '0');
@@ -381,9 +391,14 @@ END IF;
 END PROCESS sync;
 
 iram_wdata_i <= iram_wren and enable;
+
+
 -------------------------------------------------------------
 jpegencoder: JpegEnc port map
 (
+--debug signal
+frame_size         => frame_size_s,
+
 CLK                => clk,
 RST                => rst,
 
