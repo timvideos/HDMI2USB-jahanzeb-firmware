@@ -147,6 +147,10 @@ port
 	mcb3_dram_ck	: out std_logic;
 	mcb3_dram_ck_n	: out std_logic;
 
+	--UART
+	rx : in std_logic;
+	tx : out std_logic;
+
 	rst_n : in std_logic;
 	clk	: in std_logic
 );

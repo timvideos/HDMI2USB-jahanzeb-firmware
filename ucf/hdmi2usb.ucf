@@ -288,3 +288,7 @@ INST "ddr2_comp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_c
 ###NET "image_buffer_comp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/SELFREFRESH_MCB_REQ" TIG;
 NET "ddr2_comp/ramComp/memc3_wrapper_inst/memc3_mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/CKE_Train" TIG; ## This path exists for DDR2 only
 #########################################################################################################
+##UART
+net rx LOC=A16  |  IOSTANDARD=LVCMOS33;
+net tx LOC=B16  |  IOSTANDARD=LVCMOS33; 
+####################################################################################
