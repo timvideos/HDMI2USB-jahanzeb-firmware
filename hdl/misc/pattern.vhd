@@ -56,8 +56,6 @@ port
  );
 end component;
 
-
-
 signal counterX : std_logic_vector(15 downto 0);
 signal counterY : std_logic_vector(15 downto 0);
 signal resX_i : std_logic_vector(15 downto 0);
@@ -81,8 +79,19 @@ signal hsync_i : std_logic;
 signal vActive : std_logic;
 signal hActive : std_logic;
 
-begin
+signal frameCounter : std_logic_vector(5 downto 0) := (others => '0');
+signal secondTimeout : std_logic;
+signal color : std_logic := '0';
+signal barWidth : integer;
 
+-- Color of bars defined here. May be customized
+type colorsArray is array (0 to 7) of std_logic_vector(23 downto 0);
+constant colors_1 : colorsArray := (X"ffffff", X"000000", X"0000ff", X"00ff00", X"ff0000", X"00ffff", X"ff00ff", X"ffff00");
+constant colors_2 : colorsArray := (X"000000", X"ffffff", X"ffff00", X"ff00ff", X"00ffff", X"ff0000", X"00ff00", X"0000ff");
+
+signal colors : colorsArray := colors_1;
+
+begin
 
 RESF: if (SIMULATION = "FALSE" ) generate
 	resX_i <= X"0400";
@@ -95,6 +104,8 @@ RESF: if (SIMULATION = "FALSE" ) generate
 	spX <= 136;
 	bpX <= 160;
 	fpX <= 24;
+	
+	barWidth <= 128;
 
 end generate;
 REST: if (SIMULATION = "TRUE" ) generate
@@ -109,6 +120,7 @@ REST: if (SIMULATION = "TRUE" ) generate
 	bpX <= 10;
 	fpX <= 2;
 	
+	barWidth <= 64;
 	
 end generate;
 
@@ -170,14 +182,65 @@ begin
 			counterX <= (others => '0');			
 		end if;
 	
-		if vActive = '1' and hActive = '1' then	
-			data <= data +1;
+		-- Generate 8 coloured, equally-space, vertical bars
+		if vActive = '1' and hActive = '1' then
+			if counterX < (spX+bpX+barWidth) then
+				data <= colors(0);
+			elsif counterX < (spX+bpX+barWidth*2) then
+				data <= colors(1);
+			elsif counterX < (spX+bpX+barWidth*3) then
+				data <= colors(2);
+			elsif counterX < (spX+bpX+barWidth*4) then
+				data <= colors(3);
+			elsif counterX < (spX+bpX+barWidth*5) then
+				data <= colors(4);
+			elsif counterX < (spX+bpX+barWidth*6) then
+				data <= colors(5);
+			elsif counterX < (spX+bpX+barWidth*7) then
+				data <= colors(6);
+			else			
+				data <= colors(7);
+			end if;
 		end if;
-
 		
 	end if;
 end process;
 
+
+-- Frame Counter process to count 1 Second
+-- Since we have 1024*768@60Hz, 1 second occurs after 60 VSYNC Pulses
+frameCount: process(rst_n,vsync_i)
+begin
+	if rst_n = '0' then
+		frameCounter <= (others => '0');
+	
+	elsif rising_edge(vsync_i) then
+		frameCounter <= frameCounter + 1;
+		if frameCounter = "111011" then
+            secondTimeout <= '1';
+            frameCounter <= "000000";
+		else
+			secondTimeout <= '0';
+		end if;
+	end if;
+end process;
+
+-- Alternate color of bars every second. Next color is complement of previous color.
+process(rst_n, secondTimeout)
+begin
+	if rst_n = '0' then
+		color <= '0';
+		colors <= colors_1;
+	
+	elsif rising_edge(secondTimeout) then
+		color <= color xor '1';
+		if color = '0' then
+			colors <= colors_1;
+		else
+			colors <= colors_2;
+		end if;
+	end if;
+end process;
 
 patternClk_com : patternClk
 port map
