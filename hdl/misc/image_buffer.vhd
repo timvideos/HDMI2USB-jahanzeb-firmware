@@ -48,6 +48,8 @@ generic(
     C3_MEM_BANKADDR_WIDTH     : integer := 3
 );
 port(
+	no_frame_read                           : out std_logic; --debug signal
+	write_img_s                             : out std_logic; --debug signal
 	mcb3_dram_dq                            : inout  std_logic_vector(C3_NUM_DQ_PINS-1 downto 0);
 	mcb3_dram_a                             : out std_logic_vector(C3_MEM_ADDR_WIDTH-1 downto 0);
 	mcb3_dram_ba                            : out std_logic_vector(C3_MEM_BANKADDR_WIDTH-1 downto 0);
@@ -350,7 +352,22 @@ end if; -- uvc_rst  -- clk
 
 end process;
 
+-- Controls the no_frame_read signal
+debug:process(clk_img,rst)
+begin
+	if rst = '1' then
+		no_frame_read <= '0';
+	elsif rising_edge(clk) then
+		if rd_wr_state = wait_for_start2 then
+			no_frame_read <= '1';
+		elsif rd_wr_state = wait_for_start1 then
+			no_frame_read <= '0';
+		end if;
+	end if;
+end process;
 
+-- debug signal
+write_img_s <= write_img;
 
 clk_out <= clk_img;
 clk_img <= c3_clk0;
@@ -427,9 +444,9 @@ end process;
 
 -- ram write
 
-ramwrite: process(rst,clk_img)
+ramwrite: process(uvc_rst,clk_img)
 begin
-if rst = '1' then
+if uvc_rst = '1' then
 	wrAdd <= "000000000000000000000000000000";
 	counter_wr <= (others => '0');
 	c3_p3_cmd_byte_addr <= (others => '0');
