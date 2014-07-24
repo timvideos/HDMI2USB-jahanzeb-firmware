@@ -150,7 +150,7 @@ port
 	--UART
 	rx : in std_logic;
 	tx : out std_logic;
-
+	
 	rst_n : in std_logic;
 	clk	: in std_logic
 );
@@ -259,7 +259,7 @@ signal uart_en: std_logic;
 signal clk_50Mhz:std_logic;
 signal frame_size:std_logic_vector(23 downto 0);
 
-signal clk_s:std_logic;
+signal clk_s:std_logic;	
 ---------------------------------------------------------------------------------------------------------------------	
 begin
 
@@ -268,7 +268,7 @@ slcs <= '0';
 slwr <= slwr_i;
 
 LED(0) <= de_H0;
-LED(1) <= de_H1;
+LED(1) <= de_H0;
 LED(2) <= usb_cmd(1);
 LED(3) <= flagB; -- full flag
 LED(4) <= flagC; -- empty flag 
@@ -276,7 +276,7 @@ LED(5) <= slwr_i;
 LED(6) <= selector_cmd(0);
 LED(7) <= selector_cmd(1);
 
-pktend <= pktend_s;
+pktend<=pktend_s;
 
 debouncerBtnc : entity work.debouncer
 	port map(clk    => img_clk,
@@ -311,8 +311,9 @@ debouncerBtnr : entity work.debouncer
 		     
 jpeg_encoder : entity work.jpeg_encoder_top
 	port map(
-		     frame_size        => frame_size,	--debug signal
-		     clk               => img_clk,
+			  --debug signal
+			  frame_size        => frame_size,
+			  clk               => img_clk,
 		     uvc_rst             => uvc_rst,
 		     iram_wdata        => img_out,
 		     iram_wren         => img_out_en,
@@ -347,9 +348,11 @@ ddr2_comp : entity work.image_buffer
 		        C3_MEM_ADDR_WIDTH     => C3_MEM_ADDR_WIDTH,
 		        C3_MEM_BANKADDR_WIDTH => C3_MEM_BANKADDR_WIDTH)
 	port map(
-		     no_frame_read    => no_frame_read,	--debug signal
-		     write_img_s      => write_img,	--debug signal
-		     mcb3_dram_dq     => mcb3_dram_dq,
+			  --debug signals
+			  no_frame_read    => no_frame_read,
+			  write_img_s        => write_img,
+			  
+			  mcb3_dram_dq     => mcb3_dram_dq,
 		     mcb3_dram_a      => mcb3_dram_a,
 		     mcb3_dram_ba     => mcb3_dram_ba,
 		     mcb3_dram_ras_n  => mcb3_dram_ras_n,
@@ -572,7 +575,7 @@ testpattern_comp : entity work.pattern
 		     
 controller_comp : entity work.controller
 	port map(
-		     status           => status,
+				status           => status,
 		     usb_cmd          => usb_cmd,
 		     jpeg_encoder_cmd => jpeg_encoder_cmd,
 		     selector_cmd     => selector_cmd,
@@ -589,33 +592,39 @@ controller_comp : entity work.controller
 		     rst              => rst,
 		     ifclk            => ifclk,
 		     clk              => img_clk);
-
-debug_module: entity work.debug_top
-	port map(
-		clk		=> clk,
-		clk_50Mhz 	=> clk_50Mhz,
-		rst		=> rst,
-		vsync		=> vsync,
-		no_frame_read	=> no_frame_read,
-		pktend		=> pktend_s,
-		jpg_busy 	=> jpg_busy,
-		write_img	=> write_img,
-		sw		=> sw,
-		uart_en		=> uart_en,
-		frame_size	=>frame_size,
-		clk1		=>clk_s,
-		uart_byte	=> uart_byte
+debug_module: entity work.debug_top PORT MAP(
+		clk => clk,
+		clk_50Mhz => clk_50Mhz,
+		rst => rst,
+		vsync => vsync,
+		no_frame_read => no_frame_read,
+		pktend => pktend_s,
+		jpg_busy => jpg_busy,
+		write_img => write_img,
+		sw => sw,
+		uart_en => uart_en,
+		frame_size=> frame_size,
+		device_state=>  "0" &(de_H0 or vsync_H0 or hsync_H0) & 
+									(de_H1 or vsync_H1 or hsync_H1)
+									& usb_cmd(1) & selector_cmd(0) 
+							&selector_cmd(1) & jpeg_encoder_cmd(1 downto 0),
+		resX=>resX,
+		resY=>resY,
+		clk1=>clk_s,
+		uart_byte => uart_byte
 	);
-
-uart_module: entity work.uart
-	port map(
-		clk	=> clk_50Mhz,
-		reset	=> '0',
-		rd_uart	=>'0' ,
-		wr_uart	=> uart_en,
-		rx	=> rx,
-		w_data	=> uart_byte,
-		tx	=> tx
+uart_module: entity work.uart PORT MAP(
+		clk => clk_50Mhz,
+		reset => '0',
+		rd_uart =>'0' ,
+		wr_uart => uart_en,
+		rx => rx,
+		w_data => uart_byte,
+		tx => tx
 	);
+	
+
+
+			  
 
 end architecture rtl;

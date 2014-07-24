@@ -27,20 +27,6 @@
 -- ///  * http://copyfree.org/licenses/mit/license.txt
 -- ///
 -- //////////////////////////////////////////////////////////////////////////////
-
---The debug module collects counters from the system for debugging.
---The following counters will be supported:
-
--- - Device State
--- - Resolution 
--- - in frame rate
--- - frame rate
--- - frame rate write time
--- - processing time
--- - frame drop count
--- - frame size
--- Use the dubugging program to access the counters
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
