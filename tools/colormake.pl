@@ -20,6 +20,10 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+if ((! -t STDOUT) && $ENV{'COLORMAKE'} ne "force" ) {
+   exec cat;
+}
+
 # Some useful color codes, see end of file for more.
 #
 $col_black =        "\033[30m";
