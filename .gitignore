@@ -1,3 +1,4 @@
 build/
 *.lnk
 /.project
+tools/makestuff
