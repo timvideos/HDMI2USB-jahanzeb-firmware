@@ -1,12 +1,12 @@
+COLORMAKETOOL = "../tools/colormake.pl"
+
 INTSTYLE = ise
 # INTSTYLE = silent
 
 BUILD_DIR = build # build directiry for temp files
-	
 
 # Top Level
 all: syn tran map par trce bit
-
 
 syn:
 	@echo "========================================================="
@@ -18,7 +18,8 @@ syn:
 	-intstyle $(INTSTYLE) \
 	-filter "../ise/iseconfig/filter.filter" \
 	-ifn "../ise/hdmi2usb.xst" \
-	-ofn "hdmi2usb.syr"
+	-ofn "hdmi2usb.syr" \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 	
 tran:
 	@echo "========================================================="
@@ -32,7 +33,8 @@ tran:
 	-sd ../ipcore_dir \
 	-nt timestamp \
 	-uc ../ucf/hdmi2usb.ucf \
-	-p xc6slx45-csg324-3 hdmi2usb.ngc hdmi2usb.ngd  
+	-p xc6slx45-csg324-3 hdmi2usb.ngc hdmi2usb.ngd \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 map:
 	@echo "========================================================="
@@ -54,7 +56,8 @@ map:
 	-mt off -ir off \
 	-pr b -lc off \
 	-power off \
-	-o hdmi2usb_map.ncd hdmi2usb.ngd hdmi2usb.pcf 
+	-o hdmi2usb_map.ncd hdmi2usb.ngd hdmi2usb.pcf \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 par:
 	@echo "========================================================="
@@ -66,7 +69,8 @@ par:
 	-intstyle $(INTSTYLE) \
 	-ol high \
 	-xe n \
-	-mt off hdmi2usb_map.ncd hdmi2usb.ncd hdmi2usb.pcf 
+	-mt off hdmi2usb_map.ncd hdmi2usb.ncd hdmi2usb.pcf \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 trce:
 	@echo "========================================================="
@@ -81,7 +85,8 @@ trce:
 	-n 3 \
 	-fastpaths \
 	-xml hdmi2usb.twx hdmi2usb.ncd \
-	-o hdmi2usb.twr hdmi2usb.pcf 
+	-o hdmi2usb.twr hdmi2usb.pcf \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 bit:
 	@echo "========================================================="
@@ -91,14 +96,16 @@ bit:
 	bitgen \
 	-filter "../ise/iseconfig/filter.filter" \
 	-intstyle $(INTSTYLE) \
-	-f ../ise/hdmi2usb.ut hdmi2usb.ncd 
+	-f ../ise/hdmi2usb.ut hdmi2usb.ncd \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 xsvf:
 	@echo "========================================================="
 	@echo "                        xsvf file                        "
 	@echo "========================================================="
 	@cd $(BUILD_DIR); \
-	impact -batch ../ucf/hdmi2usb.batch
+	impact -batch ../ucf/hdmi2usb.batch \
+        | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 clean:
 	rm -R $(BUILD_DIR)
