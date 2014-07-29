@@ -74,7 +74,7 @@ entity usb_top is
 	de_H0 		: in std_logic; -- to check activity on hdmi
 	de_H1 		: in std_logic; -- to check activity on hdmi
 
-	status 				: in std_logic_vector(3 downto 0);			
+	status 				: in std_logic_vector(4 downto 0);
 	usb_cmd				: in std_logic_vector(2 downto 0); -- UVCpayloadheader(0),  raw/jpeg(1), uvc on/off(2)
 	jpeg_encoder_cmd	: in std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 	selector_cmd 		: in std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
@@ -86,6 +86,10 @@ entity usb_top is
 	cmd_en 			: out std_logic;
 	cmd 			: out std_logic_vector(7 downto 0);
 	
+	--debug
+	debug_byte  : in std_logic_vector(7 downto 0);
+	debug_index : out integer range 0 to 15;
+
 	-- clk,rst
 	rst 		: in std_logic;	
 	clk 		: in std_logic
@@ -318,6 +322,8 @@ cdc_in_comp: entity work.cdc_in
 			jpeg_encoder_cmd  => jpeg_encoder_cmd,
 			selector_cmd 	  => selector_cmd,
 			hdmi_cmd		  => hdmi_cmd,
+			debug_byte      => debug_byte,
+			debug_index     => debug_index,
 			rst			      => rst,
 			clk 		      => clk
 			 );
