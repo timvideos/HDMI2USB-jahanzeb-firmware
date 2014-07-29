@@ -32,6 +32,7 @@ LIBRARY IEEE;
 USE ieee.std_logic_1164.all;
 USE ieee.std_logic_arith.all;		 
 USE ieee.std_logic_unsigned.all;
+USE ieee.std_logic_misc.all;
 
 entity cdc_in is 
 port (
@@ -61,13 +62,15 @@ port (
 	rgb_de1 	: in std_logic; -- to check activity on hdmi
 	
 	-- command signals
-	status 				: in std_logic_vector(3 downto 0);			
+	status 				: in std_logic_vector(4 downto 0);
 	usb_cmd				: in std_logic_vector(2 downto 0); -- UVCpayloadheader(0),  raw/jpeg(1), uvc on/off(2)
 	jpeg_encoder_cmd	: in std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 	selector_cmd 		: in std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
 	hdmi_cmd			: in std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi
 	
-
+	--debug
+	debug_byte			: in  std_logic_vector(7 downto 0);
+	debug_index			: out integer range 0 to 15;
   
   	-- clk,rst
 	rst			: in std_logic;	
@@ -118,7 +121,7 @@ signal edid_write_add_edid1 : std_logic_vector(6 downto 0);
 signal edid_write_add : std_logic_vector(7 downto 0);
 signal edid_read_add : std_logic_vector(7 downto 0);
 
-signal status_q : std_logic_vector(3 downto 0);
+signal status_q : std_logic_vector(4 downto 0);
 signal counter : std_logic_vector(8 downto 0);
 signal working : std_logic;
 
@@ -135,7 +138,7 @@ signal pktend_i : std_logic;
 
 begin -- of architecture
 
-
+debug_index <= conv_integer(unsigned(counter));
 ----------- Sync Logic
 
 usbFifoProcess:process(rst,clk)
@@ -149,7 +152,7 @@ elsif rising_edge(clk) then
 	wr_en <= '0';
 
 	if working = '0' then
-		working <= status(0) or status(1) or status(2) or status(3);	
+		working <= or_reduce(status);
 		status_q <= status;
 		counter <= (others=>'0');
 		
@@ -225,6 +228,13 @@ elsif rising_edge(clk) then
 				edid_read_add <= counter(7 downto 0);
 				din <= edid_read_data;
 				wr_en <= '1';
+			end if;
+		elsif status_q(4) = '1' then
+			if counter = 14 then
+				working <= '0';
+			else
+				wr_en <= '1';
+				din <= debug_byte;
 			end if;
 
 		end if;	
