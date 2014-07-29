@@ -1,0 +1,16 @@
+language: bash
+
+before_install:
+    - env | sort
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - eval $(ssh-agent -s)
+    - echo $SSH_KEY | base64 -d > .travis.key
+    - chmod 0600 .travis.key
+    - ssh-add .travis.key
+    - ssh-add -L
+
+install:
+    - true
+
+script:
+    - git push hdmi2usb@build.hdmi2usb.tv:build --all --force
