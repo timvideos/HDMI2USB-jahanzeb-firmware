@@ -58,15 +58,21 @@ entity debug_top is
     sw            : in  std_logic_vector(7 downto 0);
     uart_en       : out std_logic;
     frame_size    : in  std_logic_vector(23 downto 0);
-    device_state  : in  std_logic_vector(7 downto 0);
+    de_H0         : in  std_logic;	--Data enable for HDMI0
+    vsync_H0      : in  std_logic;
+    hsync_H0      : in  std_logic;
+    de_H1         : in  std_logic;	--Data enable for HDMI1
+    vsync_H1      : in  std_logic;
+    hsync_H1      : in  std_logic;
+    jpgORraw      : in  std_logic;
+    input_source  : in  std_logic_vector(1 downto 0);
+    encoding_Q    : in  std_logic_vector(1 downto 0);
     resX          : in  std_logic_vector(15 downto 0);
     resY          : in  std_logic_vector(15 downto 0);
 
-    clk2 : out std_logic;
-    clk1 : out std_logic;
-    p    : out std_logic;
-
-    uart_byte : out std_logic_vector(7 downto 0)
+    debug_byte  : out std_logic_vector(7 downto 0);
+    debug_index : in  integer range 0 to 15;
+    uart_byte   : out std_logic_vector(7 downto 0)
     );
 end debug_top;
 
@@ -110,14 +116,16 @@ architecture Behavioral of debug_top is
   signal f_send_state     : f_send_states;
   signal uart_en_f        : std_logic;
   signal uart_en1         : std_logic;
+  signal device_state     : std_logic_vector(7 downto 0);
   type send_array is array(0 to 15) of std_logic_vector(7 downto 0);
   signal uart_send_array  : send_array;
   signal byte_cnt         : integer range 0 to 15;
+  signal debug_byte_q     : std_logic_vector(7 downto 0);
+  constant N_BYTES        : integer := 14;
 
 begin
 
   clk_50Mhz <= clk_50Mhz_s;
-  clk1      <= jpg_busy_s;
   process(clk, rst)
   begin
     if rst = '1' then
@@ -150,9 +158,11 @@ begin
     end if;
   end process clk_gen;
 
-  switch_case <= sw(2 downto 0);
+  send         <= clk_1hz;
+  device_state <= "0" & (de_H0 or vsync_H0 or hsync_H0) &
+                  (de_H1 or vsync_H1 or hsync_H1) &
+                  jpgORraw & input_source & encoding_Q;
 
-  send                <= clk_1hz;
   uart_send_array(0)  <= X"AA";
   uart_send_array(1)  <= device_state;
   uart_send_array(2)  <= resX(15 downto 8);
@@ -169,6 +179,8 @@ begin
   uart_send_array(13) <= frame_size(7 downto 0);
 
 
+  debug_byte <= uart_send_array(debug_index);
+
   array_send : process(clk_50Mhz_s, rst)
   begin
     if rst = '1' then
@@ -183,65 +195,20 @@ begin
           if send_q = '0' and send = '1' then
             uart_en   <= '1';
             uart_byte <= uart_send_array(0);
-            byte_cnt  <= 1;
+            byte_cnt  <= byte_cnt+1;
           end if;
-        when 1 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(1);
-          byte_cnt  <= byte_cnt+1;
-        when 2 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(2);
-          byte_cnt  <= byte_cnt+1;
-        when 3 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(3);
-          byte_cnt  <= byte_cnt+1;
-        when 4 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(4);
-          byte_cnt  <= byte_cnt+1;
-        when 5 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(5);
-          byte_cnt  <= byte_cnt+1;
-        when 6 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(6);
-          byte_cnt  <= byte_cnt+1;
-        when 7 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(7);
-          byte_cnt  <= byte_cnt+1;
-        when 8 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(8);
-          byte_cnt  <= byte_cnt+1;
-        when 9 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(9);
-          byte_cnt  <= byte_cnt+1;
-        when 10 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(10);
-          byte_cnt  <= byte_cnt+1;
-        when 11 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(11);
-          byte_cnt  <= byte_cnt+1;
-        when 12 =>
-          uart_en   <= '1';
-          uart_byte <= uart_send_array(12);
-          byte_cnt  <= byte_cnt+1;
-        when 13 =>
+        when N_BYTES-1 =>
           uart_en   <= '1';
           uart_byte <= uart_send_array(13);
           byte_cnt  <= 0;
         when others =>
-          byte_cnt <= 0;
+          uart_en   <= '1';
+          uart_byte <= uart_send_array(byte_cnt);
+          byte_cnt  <= byte_cnt+1;
       end case;
     end if;
   end process;
+
 
   Inst_counters : counters port map(
     clk              => clk,
