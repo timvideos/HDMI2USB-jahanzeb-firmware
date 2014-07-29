@@ -128,11 +128,11 @@ begin
   out_frame_cntr : process(clk, rst)
   begin
     if rst = '1' then
+      frame_rate_cnt <= (others => '0');
     elsif rising_edge(clk) then
       clk_1hz_q <= clk_1hz;
       pktend_q  <= pktend;
       if (clk_1hz_q = '0' and clk_1hz = '1')then
-        frame_rate     <= frame_rate_cnt;
         frame_rate_cnt <= (others => '0');
       elsif (pktend_q = '0' and pktend = '1') then
         frame_rate_cnt <= frame_rate_cnt+1;
@@ -140,21 +140,37 @@ begin
     end if;
   end process;
 
+  process(clk_1hz, rst)
+  begin
+    if rst = '1' then
+      frame_rate <= (others => '0');
+    elsif rising_edge(clk_1hz) then
+      frame_rate <= frame_rate_cnt;
+    end if;
+  end process;
+
   --input frame rate
   input_frame_cntr : process(clk, rst)
   begin
     if rst = '1' then
-      in_frame_rate <= (others => '0');
-      in_frame_cnt  <= (others => '0');
-      vsync_q       <= '0';
+      in_frame_cnt <= (others => '0');
+      vsync_q      <= '0';
     elsif rising_edge(clk) then
       vsync_q <= vsync;
       if (clk_1hz_q = '0' and clk_1hz = '1') then
-        in_frame_rate <= in_frame_cnt;
-        in_frame_cnt  <= (others => '0');
+        in_frame_cnt <= (others => '0');
       elsif(vsync_q = '0' and vsync = '1') then
         in_frame_cnt <= in_frame_cnt+1;
       end if;
+    end if;
+  end process;
+
+  process(clk_1hz, rst)
+  begin
+    if rst = '1' then
+      in_frame_rate <= (others => '0');
+    elsif rising_edge(clk_1hz) then
+      in_frame_rate <= in_frame_cnt;
     end if;
   end process;
 
