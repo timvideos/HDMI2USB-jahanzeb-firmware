@@ -10,7 +10,7 @@
 These label refers to the "type" of the issue.
 
  * `type-bug`         - This issue talks about something that currently doesn't work, but should.
- * `type-enhancement` - This issue talks about something that should be added but currently not implimented.
+ * `type-enhancement` - This issue talks about something that should be added but currently not implemented.
  * `type-pie-in-sky`  - This issue talks about something we'd like to have in the future but is still a long way off and not currently being focused on.
  * `type-question`    - This issue is just a question that needs to be answered and probably needs some type of research.
 
@@ -18,10 +18,11 @@ These label refers to the "type" of the issue.
 
 These labels don't really fit into the other categories.
 
- * `hardware` - This issue relates to the creation and production of a physical device. It probably needs PCB design and electrical knowledge.
- * `software` - This issue relates to the creation of software on a host computer.
+ * `hardware`       - This issue relates to the creation and production of a physical device. It probably needs PCB design and electrical knowledge.
+ * `software`       - This issue relates to the creation of software on a host computer.
+ * `infrastructure` - This issue related to infrastructure around the project like the build system, continuous integration, etc.
 
- * `new-project` - This issue relates to starting a new project which is related to the HDMI2USB project (and probably reuses / interfaces with the project).
+ * `new-project`     - This issue relates to starting a new project which is related to the HDMI2USB project (and probably reuses / interfaces with the project).
  * `kind-of-related` - This issue is only kind of related to the HDMI2USB project. It could be a tool that would be useful for the HDMI2USB or some other type of thing.
 
 #### `firmware-XXXX` Labels
