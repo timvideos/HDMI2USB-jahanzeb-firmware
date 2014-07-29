@@ -10,7 +10,7 @@
 These label refers to the "type" of the issue.
 
  * `type-bug`         - This issue talks about something that currently doesn't work, but should.
- * `type-enhancement` - This issue talks about something that should be added but currently not implimented.
+ * `type-enhancement` - This issue talks about something that should be added but currently not implemented.
  * `type-pie-in-sky`  - This issue talks about something we'd like to have in the future but is still a long way off and not currently being focused on.
  * `type-question`    - This issue is just a question that needs to be answered and probably needs some type of research.
 
