@@ -47,7 +47,7 @@ USE ieee.std_logic_unsigned.all;
 entity controller is
 port
 (
-	status 				: out std_logic_vector(3 downto 0);		
+	status 				: out std_logic_vector(4 downto 0);		
 	usb_cmd				: out std_logic_vector(2 downto 0); -- UVCpayloadheader(0),  raw/jpeg(1), uvc on/off(2)
 	jpeg_encoder_cmd	: out std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 	selector_cmd 		: out std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
@@ -124,6 +124,7 @@ usb_cmd <= usb_cmd_i;
 jpeg_encoder_cmd <= jpeg_encoder_cmd_i;
 selector_cmd <= selector_cmd_i;
 hdmi_cmd <= hdmi_cmd_i;
+
 
 
 -- CMD Decoder
@@ -354,9 +355,14 @@ elsif rising_edge(clk) then
 						selector_cmd_i(5 downto 4) <= "10";			
 					when X"33" => 
 						selector_cmd_i(5 downto 4) <= "11";	
-					when others => 	
-				end case;			
-			
+					when others =>
+				end case;
+			 when X"44" | X"64" => --Debug
+				case cmd  is
+					when X"53" | X"73" => --Status
+						status(4) <= '1';
+					when others=>
+				end case;	
 					
 			when others =>		
 		end case; -- case add		
