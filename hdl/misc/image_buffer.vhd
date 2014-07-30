@@ -232,7 +232,7 @@ signal wr_state : write_states;
 type read_states is (read_cmd,reset,read_data,read_wait,wait_data);
 signal rd_state : read_states;
 
-type rd_wr_states is (s_reset,wait_for_start1,wait_for_start2,wait_for_busy,wait_for_done,wait_for_read_finish);
+type rd_wr_states is (s_reset,wait_for_start1,wait_for_line_ready,wait_for_busy,wait_for_done,wait_for_write_finish,wait_for_read_finish);
 signal rd_wr_state : rd_wr_states;
 
 -- fifo signals
@@ -273,6 +273,8 @@ signal read_img 	: std_logic;
 signal vsync_rising_edge 	: std_logic;
 signal vsync_q 	: std_logic;
 
+signal line_ready : std_logic;
+
 
 begin -- Architecture 
 
@@ -296,38 +298,43 @@ vsync_q <= vsync;
 			read_img 	<= '0';
 			jpg_start <= '0';
 			rd_wr_state <= wait_for_start1;
-				
+		-- Wait for start of frame
 		when wait_for_start1 =>		
 			if vsync_rising_edge = '1' then
-				rd_wr_state <= wait_for_start2;
+				rd_wr_state <= wait_for_line_ready;
 				write_img <= '1';
 			end if;
 			
-			
-		when wait_for_start2 =>
-			if vsync_rising_edge = '1' then	
-				wrAdd_q <= wrAdd;
-				to_send <= resX(10 downto 0)*resY(10 downto 0)*"10";
-				write_img <= '0';				
+		-- Wait for 8 line to be written
+		when wait_for_line_ready =>
+			if line_ready = '1' then
 								
 				if jpg_or_raw = '1' then 
 					rd_wr_state <= wait_for_busy;
 					jpg_start <= '1';				
+					wrAdd_q <= (others=>'1');
 				else
-					rd_wr_state <= wait_for_read_finish;
+					rd_wr_state <= wait_for_write_finish;
 					
 				end if;
 			end if;
-			
+		-- Wait for encoder to start
 		when wait_for_busy =>
 			if jpg_busy = '1' then
-				rd_wr_state <= wait_for_read_finish;
+				rd_wr_state <= wait_for_write_finish;
 				jpg_start <= '0';	
 								
 			end if;
-		
-		when wait_for_read_finish => 	
+		-- Wait for end of frame
+		when wait_for_write_finish =>
 			read_img <= '1';		
+			if vsync_rising_edge = '1' then
+				wrAdd_q <= wrAdd;
+				to_send <= resX(10 downto 0)*resY(10 downto 0)*"10";
+				write_img <= '0';
+				rd_wr_state <= wait_for_read_finish;
+			end if;
+		when wait_for_read_finish =>
 			if wrAdd_q = rdAdd  then
 				read_img <= '0';
 				if jpg_or_raw = '1' then 
@@ -357,8 +364,8 @@ debug:process(clk_img,rst)
 begin
 	if rst = '1' then
 		no_frame_read <= '0';
-	elsif rising_edge(clk) then
-		if rd_wr_state = wait_for_start2 then
+	elsif rising_edge(clk_img) then
+		if rd_wr_state = wait_for_line_ready then
 			no_frame_read <= '1';
 		elsif rd_wr_state = wait_for_start1 then
 			no_frame_read <= '0';
@@ -444,9 +451,9 @@ end process;
 
 -- ram write
 
-ramwrite: process(uvc_rst,clk_img)
+ramwrite: process(rst,clk_img)
 begin
-if uvc_rst = '1' then
+if rst = '1' then
 	wrAdd <= "000000000000000000000000000000";
 	counter_wr <= (others => '0');
 	c3_p3_cmd_byte_addr <= (others => '0');
@@ -455,6 +462,7 @@ if uvc_rst = '1' then
 	rd_en <= '0';	
 	c3_p3_cmd_instr <= "000"; -- prepare to write
 	c3_p3_cmd_bl <= "111111"; --total words to write
+	line_ready <= '0';
 	wr_state <= reset;
 elsif falling_edge(clk_img) then
 
@@ -468,7 +476,8 @@ elsif falling_edge(clk_img) then
 
 		when  reset =>
 			wrAdd <= (others => '0');
-			counter_wr <= (others => '0');		
+			counter_wr <= (others => '0');
+			line_ready <= '0';
 			if (c3_calib_done = '1' ) then
 				wr_state <= write_data;				
 			end if;
@@ -505,6 +514,10 @@ elsif falling_edge(clk_img) then
 			wrAdd <= wrAdd +256;
 
 		when write_wait =>
+			-- Checks whether 8 lines have been written
+			if conv_integer(unsigned(wrAdd)) > conv_integer(unsigned(resX * ("100000"))) then
+				line_ready <= '1';
+			end if;
 			if c3_p3_wr_empty = '1' then
 				wr_state <= write_data;
 			end if;
