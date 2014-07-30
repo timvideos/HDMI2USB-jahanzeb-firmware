@@ -249,7 +249,6 @@ signal jpeg_en : std_logic;
 signal jpg_fifo_afull : std_logic;
 signal error_ram : std_logic;
 signal to_send : std_logic_vector(23 downto 0);
-signal pktend_s:std_logic;
 
 --debug signals
 signal write_img:std_logic;
@@ -277,7 +276,6 @@ LED(5) <= slwr_i;
 LED(6) <= selector_cmd(0);
 LED(7) <= selector_cmd(1);
 
-pktend <= pktend_s;
 
 debouncerBtnc : entity work.debouncer
 	port map(clk    => img_clk,
@@ -541,7 +539,7 @@ usb_comp: entity work.usb_top
 		     slwr             => slwr_i,
 		     slrd             => slrd,
 		     sloe             => sloe,
-		     pktend           => pktend_s,
+		     pktend           => pktend,
 		     ifclk            => ifclk,
 		     resX_H0          => resX_H0,
 		     resY_H0          => resY_H0,
@@ -577,8 +575,7 @@ testpattern_comp : entity work.pattern
 		     rst_n => rst_n);	
 		     
 controller_comp : entity work.controller
-	port map(
-		     status           => status,
+	port map(status           => status,
 		     usb_cmd          => usb_cmd,
 		     jpeg_encoder_cmd => jpeg_encoder_cmd,
 		     selector_cmd     => selector_cmd,
