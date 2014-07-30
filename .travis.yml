@@ -8,6 +8,7 @@ before_install:
     - chmod 0600 .travis.key
     - ssh-add .travis.key
     - ssh-add -L
+    - ssh hdmi2usb@build.hdmi2usb.tv /bin/true
 
 install:
     - true
