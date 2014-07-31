@@ -1,3 +1,7 @@
+
+# We use the special PIPESTATUS which is bash only below.
+SHELL := /bin/bash
+
 COLORMAKETOOL = "../tools/colormake.pl"
 
 INTSTYLE = ise
