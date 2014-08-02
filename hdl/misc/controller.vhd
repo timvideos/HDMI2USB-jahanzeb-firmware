@@ -51,6 +51,7 @@ port
 	usb_cmd				: out std_logic_vector(2 downto 0); -- UVCpayloadheader(0),  raw/jpeg(1), uvc on/off(2)
 	jpeg_encoder_cmd	: out std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 	selector_cmd 		: out std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
+	HB_on		        : out std_logic;
 	hdmi_cmd			: out std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi	
 	hdmi_dvi			: in std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi	
 	rdy_H				: in std_logic_vector(1 downto 0);	
@@ -90,6 +91,7 @@ END COMPONENT;
 signal usb_cmd_i			: std_logic_vector(2 downto 0); -- UVCpayloadheader(0),  raw/jpeg(1), uvc on/off(2)
 signal jpeg_encoder_cmd_i	: std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 signal selector_cmd_i 		: std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
+signal HB_on_i			: std_logic;
 signal hdmi_cmd_i			: std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi
 signal hdmi_dvi_q			: std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi
 
@@ -124,7 +126,7 @@ usb_cmd <= usb_cmd_i;
 jpeg_encoder_cmd <= jpeg_encoder_cmd_i;
 selector_cmd <= selector_cmd_i;
 hdmi_cmd <= hdmi_cmd_i;
-
+HB_on <= HB_on_i;
 
 -- CMD Decoder
 process(rst,clk)
@@ -136,6 +138,7 @@ if rst = '1' then
 	jpeg_encoder_cmd_i			<= "00"; -- encodingQuality(1 downto 0)	
 	selector_cmd_i(3 downto 0) 	<= "0111"; -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) 
 	selector_cmd_i(12 downto 4) <= "111000000"; --(4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
+	HB_on_i						<= '1';
 	hdmi_cmd_i					<= "11"; -- if 1 then dvi else hdmi
 	uvc_rst_i 					<= '1';
 	pressed 					<= '0';
@@ -304,6 +307,8 @@ elsif rising_edge(clk) then
 						selector_cmd_i(2) <= '1';
 					when X"49" | X"69" => -- Invert Color					
 						selector_cmd_i(3) <= not selector_cmd_i(3);
+					when X"48" | X"68" => -- Heart Beat On/Off
+						HB_on_i <= not HB_on_i;
 					when others => 					
 				end case;			
 			

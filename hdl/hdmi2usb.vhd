@@ -250,6 +250,7 @@ signal jpg_fifo_afull : std_logic;
 signal error_ram : std_logic;
 signal to_send : std_logic_vector(23 downto 0);
 signal pktend_s:std_logic;
+signal HB_on : std_logic;
 
 --debug signals
 signal write_img:std_logic;
@@ -421,6 +422,8 @@ img_sel_comp : entity work.image_selector
 		     resX_vga     => resX_vga,
 		     resY_vga     => resY_vga,
 		     selector_cmd => selector_cmd,
+		     HB_on        => HB_on,
+		     HB_sw	  => sw(0),
 		     rgb          => rgb,
 		     de           => de,
 		     hsync        => hsync,
@@ -582,6 +585,7 @@ controller_comp : entity work.controller
 		     usb_cmd          => usb_cmd,
 		     jpeg_encoder_cmd => jpeg_encoder_cmd,
 		     selector_cmd     => selector_cmd,
+		     HB_on	      => HB_on,
 		     hdmi_cmd         => hdmi_cmd,
 			 hdmi_dvi		  => dvi_only,
 		     rdy_H            => (rdy_H1 & rdy_H0),

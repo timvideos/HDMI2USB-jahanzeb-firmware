@@ -51,8 +51,12 @@ port
 	
 	-- selector_cmd
 	selector_cmd : in std_logic_vector(12 downto 0);
-	
-	-- selected output 
+
+	--Heart Beat Signals
+	HB_on	     : in std_logic;   -- Port control of heart beat
+	HB_sw        : in std_logic;   -- Switch Control of heart beat
+
+	-- selected output
 	rgb		: out std_logic_vector(23 downto 0);
 	de		: out std_logic;
 	hsync	: out std_logic;
@@ -90,9 +94,29 @@ COMPONENT image_selector_fifo
   );
 END COMPONENT;
 
+COMPONENT heart_beater is
+Generic(	HB_length      : integer :=5;		--length of the heart beat in pixels
+	        HB_width       : integer :=5;		--width of the heart beat in pixels
+		alt_aft_frame  : integer :=3		--alternate color after this many frames (max value 31)
+		);
+PORT
+(
+	clk    : in std_logic;
+	rst    : in std_logic;
+        HB_on  : in std_logic;
+	HB_sw  : in std_logic;
+	din    : in std_logic_vector(23 downto 0);
+	vsync  : in std_logic;
+	wr_en  : in std_logic;
+	pclk_i : in std_logic;
+	resX	 : in std_logic_vector(15 downto 0);
+	resY	 : in std_logic_vector(15 downto 0);
+	dout   : out std_logic_vector(23 downto 0)
+
+);
+END COMPONENT;
 
 signal pclk_i : std_logic;
-
 signal hdmi_clk : std_logic;
 --signal vga_tp_clk : std_logic;
 signal full : std_logic;
@@ -111,6 +135,7 @@ signal de_i : std_logic;
 signal rgb_q		: std_logic_vector(23 downto 0);
 signal rgb_i		: std_logic_vector(23 downto 0);
 signal din		: std_logic_vector(23 downto 0);
+signal din_q		: std_logic_vector(23 downto 0);
 
 signal Y		: std_logic_vector(17 downto 0);
 signal Y1		: std_logic_vector(14 downto 0);
@@ -155,6 +180,9 @@ signal vsync_tp_q : std_logic;
 signal resX_tp_q : std_logic_vector(15 downto 0);
 signal resY_tp_q : std_logic_vector(15 downto 0);
 
+signal resX_signal : std_logic_vector(15 downto 0);
+signal resY_signal : std_logic_vector(15 downto 0);
+signal vsync_s	   : std_logic;
 
 
 
@@ -162,7 +190,10 @@ begin
 
 
 
-pclk_H		<= pclk_i;
+pclk_H		<= pclk_i;--clk input to HDMI Matrix
+
+resX			<= resX_signal;
+resY			<= resY_signal;
 
 process(rst,pclk_H0)
 begin
@@ -220,11 +251,11 @@ begin
 		rgb_i		<= (others => '0');
 		hsync	<= '0';
 		vsync	<= '0';
-		resX	<= (others => '0');
-		resY 	<= (others => '0');
+		resX_signal	<= (others => '0');
+		resY_signal	<= (others => '0');
 		selector 	<= (others => '0');
-	elsif rising_edge(pclk_i) then	
-	
+	elsif rising_edge(pclk_i) then
+
 	selector <= selector_cmd;
 	
 		case selector(1 downto 0) is
@@ -233,29 +264,32 @@ begin
 				de_i		<= de_H0_q;
 				hsync	<= hsync_H0_q;
 				vsync	<= vsync_H0_q;
-				resX	<= resX_H0_q;
-				resY 	<= resY_H0_q;				
-			when "01" => -- hdmi 1 
+				resX_signal	<= resX_H0_q;
+				resY_signal 	<= resY_H0_q;
+				vsync_s <= vsync_H0_q;
+			when "01" => -- hdmi 1
 				rgb_i		<= rgb_H1_q;
 				de_i		<= de_H1_q;
 				hsync	<= hsync_H1_q;
-				vsync	<= vsync_H1_q;			
-				resX	<= resX_H1_q;
-				resY 	<= resY_H1_q;								
-			-- when "10" => -- VGA  
+				vsync	<= vsync_H1_q;
+				resX_signal	<= resX_H1_q;
+				resY_signal	<= resY_H1_q;
+				vsync_s <= vsync_H1_q;
+			-- when "10" => -- VGA
 				-- rgb_i		<= rgb_vga_q;
 				-- valid		<= de_vga_q;
 				-- hsync	<= hsync_vga_q;
-				-- vsync	<= vsync_vga_q;			
-				-- resX	<= resX_vga_q;
-				-- resY 	<= resY_vga_q;	
+				-- vsync	<= vsync_vga_q;
+				-- resX_signal	<= resX_vga_q;
+				-- resY_signal	<= resY_vga_q;
 			when "11" => -- Test Pattern
 				rgb_i		<= rgb_tp_q;
 				de_i		<= de_tp_q;
 				hsync	<= hsync_tp_q;
-				vsync	<= vsync_tp_q;			
-				resX	<= resX_tp_q;
-				resY 	<= resY_tp_q;
+				vsync	<= vsync_tp_q;
+				resX_signal	<= resX_tp_q;
+				resY_signal	<= resY_tp_q;
+				vsync_s <= vsync_tp_q;
 			when others =>
 		end case;
 	end if;
@@ -298,7 +332,7 @@ port map (
 
 
 Y <= Y1 + Y2 + Y3;
-rgb_H		<= din;
+rgb_H		<= din_q;
 de_H		<= wr_en;
 
 imgprocess: process(rst,pclk_i)
@@ -383,7 +417,7 @@ selector_fifo : image_selector_fifo
     rst => rst,
     wr_clk => pclk_i,
     rd_clk => clk,
-    din => din,
+    din => din_q,
     wr_en => wr_en,
     rd_en => '1',
     dout => rgb,
@@ -393,5 +427,23 @@ selector_fifo : image_selector_fifo
     almost_empty => almost_empty,
     valid => de
   );
-  
+Inst_heart_beater: heart_beater
+GENERIC MAP (
+         HB_length => 5,-- length of heart beat in pixel
+         HB_width  => 5,-- width of heart beat in pixel
+	alt_aft_frame=>30 --the color alternates after this many frames
+      )
+PORT MAP(
+		clk => clk,
+		rst =>rst ,
+		HB_on => HB_on,
+		HB_sw => HB_sw,
+		din => din,
+		wr_en => wr_en,
+		vsync => vsync_s,
+		pclk_i => pclk_i,
+		resX => resX_signal,
+		resY => resY_signal,
+		dout => din_q
+	);
 end architecture;
