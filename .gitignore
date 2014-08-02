@@ -2,3 +2,15 @@ build/
 *.lnk
 /.project
 tools/makestuff
+*.swp
+*.bdl
+*.lso
+*.ngc
+*.ngd
+*.ngr
+*.srp
+*.xrpt
+/_xmsgs
+/_ngo
+/xst
+/xlnx_auto_0_xdb
