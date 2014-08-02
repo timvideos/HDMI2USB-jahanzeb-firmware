@@ -14,4 +14,4 @@ install:
     - true
 
 script:
-    - git push hdmi2usb@build.hdmi2usb.tv:build --all --force
+    - git push hdmi2usb@build.hdmi2usb.tv:build -force
