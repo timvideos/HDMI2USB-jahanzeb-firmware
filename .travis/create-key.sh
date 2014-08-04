@@ -40,7 +40,28 @@ cd $SCRIPT_DIR/..
 
 # Get travis information for this repo
 TRAVIS_USER="$(travis whoami --no-interactive)"
+TRAVIS_USER_COLORFUL="$(travis whoami --interactive)"
 TRAVIS_REPO="$(travis settings --no-interactive | head -1)"
+TRAVIS_REPO_COLORFUL="$(script -q -c "travis env --interactive list" /dev/null | head -1 | sed -e's/#.* //')"
+
+echo "$TRAVIS_USER_COLORFUL and setting keys for $TRAVIS_REPO_COLORFUL"
+while true; do
+    read -p "Is this correct? " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+echo
+if travis env list | grep -q "TRAVIS_SSHKEY_VALUE="; then
+    echo "Travis already has a ssh key set, remove the old key before running."
+    echo "You can do this by running the following command:"
+    echo "$ travis env unset TRAVIS_SSHKEY_VALUE"
+    exit 1
+fi
+
+exit 1
 
 # Create the key if needed
 if [ ! -e $TRAVIS_KEYFILE ];then
