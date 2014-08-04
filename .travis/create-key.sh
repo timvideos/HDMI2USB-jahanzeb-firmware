@@ -1,20 +1,26 @@
 #!/bin/bash
 # vim: set ts=4 sw=4 et sts=4 ai:
+#
+# Copyright (c) 2014, Tim 'mithro' Ansell
+# All rights reserved.
+#
+# Avaliable under MIT license - http://opensource.org/licenses/MIT
+# See ../LICENSE file for full text.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $SCRIPT_DIR/config.sh
 
-
 set -e
 
 if ! which travis > /dev/null; then
-    echo "I need the travis tool installed to upload the SSH key."
-    echo "Please follow the instructions at XXXXXX"
+    echo "The travis tool is needed to upload the SSH key."
+    echo "Please install it by follow the instructions at"
+    echo " http://blog.travis-ci.com/2013-01-14-new-client/"
     exit 1
 fi
 
 if ! which ssh-keygen > /dev/null; then
-    echo "I need the ssh-keygen tool to generate a SSH key."
+    echo "The ssh-keygen tool to generate a SSH key."
     echo "Please install openssh-client."
     if [ -e /etc/lsb-release ]; then
         source /etc/lsb-release
