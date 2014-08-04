@@ -59,3 +59,7 @@ ssh-add -L
 
 # Test the SSH connection to build.hdmi2usb.tv
 ssh hdmi2usb@build.hdmi2usb.tv echo "SSH connection works!"
+
+BRANCH_NAME="$TRAVIS_REPO_SLUG/$TRAVIS_BRANCH/number-$TRAVIS_JOB_ID-$TRAVIS_JOB_NUMBER/build-$TRAVIS_BUILD_ID-$TRAVIS_BUILD_NUMBER"
+git branch $BRANCH_NAME
+echo "Using branch name of '$BRANCH_NAME'"
