@@ -1,0 +1,9 @@
+# vim: set syntax=sshconfig:
+
+Host *
+	# Use a control channel, use -S none to disable.
+	ControlPath ~/.ssh/master-%r@%h:%p
+	ControlMaster auto
+	# Keep those connections alive!
+	TCPKeepAlive yes
+	ServerAliveInterval 30

@@ -14,3 +14,5 @@ tools/makestuff
 /_ngo
 /xst
 /xlnx_auto_0_xdb
+.travis/id_rsa
+.travis/id_rsa.pub
