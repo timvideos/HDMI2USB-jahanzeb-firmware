@@ -3,6 +3,10 @@
 SCRIPT="$(readlink -f ${BASH_SOURCE[0]})"
 SCRIPT_PATH="$(dirname $SCRIPT)"
 
+if [ -z $XILINX_PATH ]; then
+    XILINX_PATH=/opt/Xilinx
+fi
+
 set -x
 set -e
 
@@ -55,7 +59,7 @@ fi
 rm $XSVF || true
 (
 	cd $SCRIPT_PATH/..
-	. /opt/Xilinx/14.7/ISE_DS/settings64.sh
+	. "$XILINX_PATH/14.7/ISE_DS/settings64.sh"
 	make xsvf
 )
 [ -e $XVSF ]
@@ -66,8 +70,8 @@ if [ ! -e $HEX ]; then
 	exit 1
 fi
 
-# DEVICE=1443:0007 # Atlys with Digilent firmware
-DEVICE=04b4:8613 # Unconfigured Cypress chip
+DEVICE=1443:0007 # Atlys with Digilent firmware
+# DEVICE=04b4:8613 # Unconfigured Cypress chip
 
 echo "Loading FPGALink onto board."
 $FLCLI_BIN -v 1d50:602b:0002 -i $DEVICE
