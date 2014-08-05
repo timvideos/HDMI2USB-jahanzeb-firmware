@@ -7,6 +7,8 @@ a standard webcam so there is no need of installing additional drivers.
 More information about the device can be found in the
 [wiki @ https://github.com/timvideos/HDMI2USB/wiki](https://github.com/timvideos/HDMI2USB/wiki).
 
+[![Build Status](https://travis-ci.org/timvideos/HDMI2USB.svg?branch=master)](https://travis-ci.org/timvideos/HDMI2USB)
+
 # Firmware
 
 This repository contains the **source code** for the various firmware in the
