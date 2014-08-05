@@ -95,7 +95,7 @@ architecture RTL of DCT1D is
   signal ramwe_s         : STD_LOGIC:='0';
   signal wmemsel_reg     : STD_LOGIC:='0';	
   signal stage2_reg      : STD_LOGIC:='0'; 
-  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'0'); 
+  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'1');
   signal col_2_reg       : UNSIGNED(RAMADRR_W/2-1 downto 0):=(others=>'0'); 
   signal ramwaddro_s     : STD_LOGIC_VECTOR(RAMADRR_W-1 downto 0):=(others=>'0');
   
@@ -147,7 +147,7 @@ begin
       row_reg         <= (others => '0');
       wmemsel_reg     <= '0';
       col_2_reg       <= (others => '0'); 
-    elsif clk = '1' and clk'event then
+    elsif rising_edge(clk) then
       stage2_reg     <= '0';
       ramwe_s        <= '0';
  
