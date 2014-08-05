@@ -7,3 +7,5 @@ Host *
 	# Keep those connections alive!
 	TCPKeepAlive yes
 	ServerAliveInterval 30
+	# Forward the Travis environment to the server.
+	SendEnv TRAVIS_*
