@@ -32,19 +32,19 @@ library IEEE;
   use IEEE.STD_LOGIC_1164.all;
   use IEEE.NUMERIC_STD.all;
   
-entity RAMF is 
-  generic (
-        RAMD_W : INTEGER := 12;
-        RAMA_W : INTEGER := 6  
-  );  
-  port (      
-        d                 : in  STD_LOGIC_VECTOR(RAMD_W-1 downto 0);
-        waddr             : in  STD_LOGIC_VECTOR(RAMA_W-1 downto 0);
-        raddr             : in  STD_LOGIC_VECTOR(RAMA_W-1 downto 0);
-        we                : in  STD_LOGIC;
-        clk               : in  STD_LOGIC;
-        
-        q                 : out STD_LOGIC_VECTOR(RAMD_W-1 downto 0)
+ entity RAMF is 
+   generic (
+     RAMD_W : INTEGER := 12;
+     RAMA_W : INTEGER := 6  
+     );     
+   port (      
+     d      : in  STD_LOGIC_VECTOR(RAMD_W-1 downto 0);
+     waddr  : in  STD_LOGIC_VECTOR(RAMA_W-1 downto 0);
+     raddr  : in  STD_LOGIC_VECTOR(RAMA_W-1 downto 0);
+     we     : in  STD_LOGIC;
+     clk    : in  STD_LOGIC;
+     
+     q      : out STD_LOGIC_VECTOR(RAMD_W-1 downto 0)
   );
 end RAMF;   
 
@@ -87,7 +87,7 @@ end RTL;
 
 library IEEE;
   use IEEE.STD_LOGIC_1164.all;
-  use IEEE.STD_LOGIC_UNSIGNED.all;
+  use IEEE.numeric_std.all;
 library WORK;
   
 entity FIFO is   
@@ -111,9 +111,9 @@ end FIFO;
 
 architecture RTL of FIFO is
 
-  signal raddr_reg        : STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
-  signal waddr_reg        : STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
-  signal count_reg        : STD_LOGIC_VECTOR(ADDR_WIDTH downto 0);
+  signal raddr_reg        : unsigned(ADDR_WIDTH-1 downto 0);
+  signal waddr_reg        : unsigned(ADDR_WIDTH-1 downto 0);
+  signal count_reg        : unsigned(ADDR_WIDTH downto 0);
   signal rd_en_reg        : STD_LOGIC;
   signal wr_en_reg        : STD_LOGIC;
   signal empty_reg        : STD_LOGIC;
@@ -160,27 +160,27 @@ begin
         q            => ramq     
   ); 
   
-  ramd                    <= datai;
+  ramd          <= datai;
   
-  ramwaddr                <= waddr_reg;
+  ramwaddr      <= std_logic_vector(waddr_reg);
   
-  ramenw                  <= wr_en_reg;
+  ramenw        <= wr_en_reg;
   
-  ramraddr                <= raddr_reg;
+  ramraddr      <= std_logic_vector(raddr_reg);
 
-  ramenr                  <= '1';      
+  ramenr        <= '1';      
   
-  datao                   <= ramq;
+  datao         <= ramq;
   
-  emptyo                  <= empty_reg;
+  emptyo        <= empty_reg;
   
-  fullo                   <= full_reg;
+  fullo         <= full_reg;
   
-  rd_en_reg               <= (rinc and not empty_reg);                      
+  rd_en_reg     <= (rinc and not empty_reg);                      
   
-  wr_en_reg               <= (winc and not full_reg); 
+  wr_en_reg     <= (winc and not full_reg); 
   
-  count <= count_reg;    
+  count <= std_logic_vector(count_reg);    
 
   process(clk)
   begin 
@@ -188,7 +188,7 @@ begin
       if rst = '1' then
         empty_reg         <= '1';   
       else
-        if count_reg = ZEROS_C or
+        if count_reg = unsigned(ZEROS_C) or
           (count_reg = 1 and rd_en_reg = '1' and wr_en_reg = '0') then
           empty_reg       <= '1';
         else
@@ -218,10 +218,10 @@ begin
   begin 
     if clk = '1' and clk'event then
       if rst = '1' then
-        raddr_reg         <= (others => '0');   
+        raddr_reg <= (others => '0');   
       else
         if rd_en_reg = '1' then
-          raddr_reg       <= raddr_reg + '1';
+          raddr_reg <= raddr_reg + to_unsigned(1, raddr_reg'length);
         end if; 
       end if;
     end if;
@@ -231,10 +231,10 @@ begin
   begin 
     if clk = '1' and clk'event then
       if rst = '1' then
-        waddr_reg         <= (others => '0');  
+        waddr_reg <= (others => '0');  
       else        
         if wr_en_reg = '1' then
-          waddr_reg       <= waddr_reg + '1';
+          waddr_reg <= waddr_reg + to_unsigned(1, waddr_reg'length);
         end if;
       end if;
     end if;
@@ -248,9 +248,9 @@ begin
       else
         if (rd_en_reg = '1' and wr_en_reg = '0') or (rd_en_reg = '0' and wr_en_reg = '1') then
           if rd_en_reg = '1' then
-            count_reg     <= count_reg - '1';
+            count_reg     <= count_reg - to_unsigned(1, count_reg'length);
           else
-            count_reg     <= count_reg + '1';
+            count_reg     <= count_reg + to_unsigned(1, count_reg'length);
           end if;
         end if;
       end if;
