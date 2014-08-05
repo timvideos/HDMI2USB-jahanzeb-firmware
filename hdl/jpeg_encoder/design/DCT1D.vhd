@@ -60,23 +60,23 @@ library WORK;
 -- ENTITY
 --------------------------------------------------------------------------------
 entity DCT1D is	 
-	port(	  
-		  clk          : in STD_LOGIC;  
-		  rst          : in std_logic;
-      dcti         : in std_logic_vector(IP_W-1 downto 0);
-      idv          : in STD_LOGIC;
-      romedatao    : in T_ROM1DATAO;
-      romodatao    : in T_ROM1DATAO;
+  port(	  
+    clk          : in STD_LOGIC;  
+    rst          : in std_logic;
+    dcti         : in std_logic_vector(IP_W-1 downto 0);
+    idv          : in STD_LOGIC;
+    romedatao    : in T_ROM1DATAO;
+    romodatao    : in T_ROM1DATAO;
 
-      odv          : out STD_LOGIC;
-      dcto         : out std_logic_vector(OP_W-1 downto 0);
-      romeaddro    : out T_ROM1ADDRO;
-      romoaddro    : out T_ROM1ADDRO;
-      ramwaddro    : out STD_LOGIC_VECTOR(RAMADRR_W-1 downto 0);
-      ramdatai     : out STD_LOGIC_VECTOR(RAMDATA_W-1 downto 0);
-      ramwe        : out STD_LOGIC;
-      wmemsel      : out STD_LOGIC		
-		);
+    odv          : out STD_LOGIC;
+    dcto         : out std_logic_vector(OP_W-1 downto 0);
+    romeaddro    : out T_ROM1ADDRO;
+    romoaddro    : out T_ROM1ADDRO;
+    ramwaddro    : out STD_LOGIC_VECTOR(RAMADRR_W-1 downto 0);
+    ramdatai     : out STD_LOGIC_VECTOR(RAMDATA_W-1 downto 0);
+    ramwe        : out STD_LOGIC;
+    wmemsel      : out STD_LOGIC		
+    );
 end DCT1D;
 
 --------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ architecture RTL of DCT1D is
   signal ramwe_s         : STD_LOGIC:='0';
   signal wmemsel_reg     : STD_LOGIC:='0';	
   signal stage2_reg      : STD_LOGIC:='0'; 
-  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'0'); 
+  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'1'); 
   signal col_2_reg       : UNSIGNED(RAMADRR_W/2-1 downto 0):=(others=>'0'); 
   signal ramwaddro_s     : STD_LOGIC_VECTOR(RAMADRR_W-1 downto 0):=(others=>'0');
   
@@ -147,7 +147,7 @@ begin
       row_reg         <= (others => '0');
       wmemsel_reg     <= '0';
       col_2_reg       <= (others => '0'); 
-    elsif clk = '1' and clk'event then
+    elsif rising_edge(clk) then
       stage2_reg     <= '0';
       ramwe_s        <= '0';
  
@@ -210,8 +210,7 @@ begin
         col_2_reg      <= (others => '0');
       end if;
       ----------------------------------   
-      
-      
+            
     end if;
   end process;
   
