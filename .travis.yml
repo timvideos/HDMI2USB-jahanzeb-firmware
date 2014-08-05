@@ -5,3 +5,10 @@ install:
 
 script:
     - git push hdmi2usb@build.hdmi2usb.tv:build "$BRANCH_NAME"
+
+notifications:
+    email:
+        - hdmi2usb-spam@googlegroups.com
+    irc:
+        - "chat.freenode.net#timvideos"
+        - "chat.freenode.net#hdmi2usb"
