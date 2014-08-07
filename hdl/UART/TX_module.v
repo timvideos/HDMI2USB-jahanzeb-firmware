@@ -99,7 +99,7 @@ module uart_tx
                         n_next = 0;
                      end
                   else
-                     s_next = s + 1;
+                     s_next = s + 1'b1;
             end
          else if(state==data)
             begin
@@ -112,10 +112,10 @@ module uart_tx
                         if (n==(DBIT-1))
                            state_next = stop ;
                         else
-                           n_next = n + 1;
+                           n_next = n + 1'b1;
                      end
                   else
-                     s_next = s + 1;
+                     s_next = s + 1'b1;
             end
          else if(state==stop)
             begin
@@ -127,7 +127,7 @@ module uart_tx
                         tx_done_tck = 1'b1;
                      end
                   else
-                     s_next = s + 1;
+                     s_next = s + 1'b1;
             end
    end
 
