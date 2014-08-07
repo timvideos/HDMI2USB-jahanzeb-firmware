@@ -91,12 +91,13 @@ always @(posedge clk) begin
 		out_en <=0;
 	end else begin // clk 
 	
-	out_en <=0;
-	scl_counter <= scl_counter +1;
+	out_en <= 0;
 	
 	if (scl_counter == 499) begin
 		scl <= ~ scl;
 		scl_counter <= 0;
+        end else begin
+		scl_counter <= scl_counter + 1'b1;
 	end
 	
 	scl_q <= scl;
@@ -132,7 +133,7 @@ always @(posedge clk) begin
 
 			WRITE_BYTE_ADD_W: begin//3
 				if (scl_fallingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdaout <= address_w[bitcount];
 					if (bitcount==0) begin
 						state <= FREE_SDA_ADD_W;
@@ -160,7 +161,7 @@ always @(posedge clk) begin
 
 			WRITE_BYTE_REG: begin//6
 				if (scl_fallingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdaout <= reg0[bitcount];
 					if (bitcount==0) begin
 						state <= FREE_SDA_REG;
@@ -202,7 +203,7 @@ always @(posedge clk) begin
 
 			WRITE_BYTE_ADD_R: begin//9
 				if (scl_fallingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdaout <= address_r[bitcount];
 					if (bitcount==0) begin
 						state <= FREE_SDA_ADD_R;
@@ -230,7 +231,7 @@ always @(posedge clk) begin
 	
 			READ_DATA: begin //12
 				if (scl_risingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdadata[bitcount] <= sdain;
 					if (bitcount==0) begin
 						out_en <= 1;
