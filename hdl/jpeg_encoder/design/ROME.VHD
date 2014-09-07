@@ -54,7 +54,7 @@
 
 library IEEE; 
   use IEEE.STD_LOGIC_1164.all;
-  use IEEE.STD_LOGIC_arith.all;
+  use IEEE.numeric_std.all;
   use WORK.MDCT_PKG.all;
 
 entity ROME is 
@@ -74,74 +74,72 @@ architecture RTL of ROME is
   constant rom : ROM_TYPE := 
     (
     (others => '0'),                
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP+AP+AP,ROMDATA_W ),   
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP+AP+AP,ROMDATA_W ),   
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     conv_std_logic_vector( AP+AP+AP,ROMDATA_W ),   
-     conv_std_logic_vector( AP+AP+AP,ROMDATA_W ),   
-     conv_std_logic_vector( AP+AP+AP+AP,ROMDATA_W ),
+     std_logic_vector( to_signed(AP,          ROMDATA_W) ),
+     std_logic_vector( to_signed(AP,          ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP,          ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP+AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP,          ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP+AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP,       ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP+AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP+AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP+AP+AP, ROMDATA_W) ),
+                                     
+     (others => '0'),                
+     std_logic_vector( to_signed(BM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CM+BM, ROMDATA_W) ),
+     std_logic_vector( to_signed(CP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CP+BM, ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(BM, ROMDATA_W) ),
+     std_logic_vector( to_signed(BP, ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(BP+CM, ROMDATA_W) ),
+     std_logic_vector( to_signed(CM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(BP+CP, ROMDATA_W) ),
+     std_logic_vector( to_signed(CP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(BP,    ROMDATA_W) ),
+     (others => '0'),                
+                                     
+     (others => '0'),                
+     std_logic_vector( to_signed(AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AM,    ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(AM,    ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(AM+AM, ROMDATA_W) ),
+     std_logic_vector( to_signed(AM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AP+AP, ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(AP,    ROMDATA_W) ),
+     (others => '0'),                
+     std_logic_vector( to_signed(AP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(AM,    ROMDATA_W) ),
+     (others => '0'),                
                                      
                                      
      (others => '0'),                
-     conv_std_logic_vector( BM,ROMDATA_W ),         
-     conv_std_logic_vector( CM,ROMDATA_W ),         
-     conv_std_logic_vector( CM+BM,ROMDATA_W ),      
-     conv_std_logic_vector( CP,ROMDATA_W ),         
-     conv_std_logic_vector( CP+BM,ROMDATA_W ),      
+     std_logic_vector( to_signed(CM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(BP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(BP+CM, ROMDATA_W) ),
+     std_logic_vector( to_signed(BM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(BM+CM, ROMDATA_W) ),
      (others => '0'),                
-     conv_std_logic_vector( BM,ROMDATA_W ),         
-     conv_std_logic_vector( BP,ROMDATA_W ),         
+     std_logic_vector( to_signed(CM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CP,    ROMDATA_W) ),
      (others => '0'),                
-     conv_std_logic_vector( BP+CM,ROMDATA_W ),      
-     conv_std_logic_vector( CM,ROMDATA_W ),         
-     conv_std_logic_vector( BP+CP,ROMDATA_W ),      
-     conv_std_logic_vector( CP,ROMDATA_W ),         
-     conv_std_logic_vector( BP,ROMDATA_W ),         
-     (others => '0'),                
-                                     
-                                     
-     (others => '0'),                
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AM,ROMDATA_W ),         
-     (others => '0'),                
-     conv_std_logic_vector( AM,ROMDATA_W ),         
-     (others => '0'),                
-     conv_std_logic_vector( AM+AM,ROMDATA_W ),      
-     conv_std_logic_vector( AM,ROMDATA_W ),         
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AP+AP,ROMDATA_W ),      
-     (others => '0'),                
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     (others => '0'),                
-     conv_std_logic_vector( AP,ROMDATA_W ),         
-     conv_std_logic_vector( AM,ROMDATA_W ),         
-     (others => '0'),                
-                                     
-                                     
-     (others => '0'),                
-     conv_std_logic_vector( CM,ROMDATA_W ),         
-     conv_std_logic_vector( BP,ROMDATA_W ),         
-     conv_std_logic_vector( BP+CM,ROMDATA_W ),      
-     conv_std_logic_vector( BM,ROMDATA_W ),         
-     conv_std_logic_vector( BM+CM,ROMDATA_W ),      
-     (others => '0'),                
-     conv_std_logic_vector( CM,ROMDATA_W ),         
-     conv_std_logic_vector( CP,ROMDATA_W ),         
-     (others => '0'),                
-     conv_std_logic_vector( CP+BP,ROMDATA_W ),      
-     conv_std_logic_vector( BP,ROMDATA_W ),         
-     conv_std_logic_vector( CP+BM,ROMDATA_W ),      
-     conv_std_logic_vector( BM,ROMDATA_W ),         
-     conv_std_logic_vector( CP,ROMDATA_W ),         
+     std_logic_vector( to_signed(CP+BP, ROMDATA_W) ),
+     std_logic_vector( to_signed(BP,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CP+BM, ROMDATA_W) ),
+     std_logic_vector( to_signed(BM,    ROMDATA_W) ),
+     std_logic_vector( to_signed(CP,    ROMDATA_W) ),
      (others => '0')
      );                
   
@@ -150,9 +148,9 @@ begin
   
   process(clk)
   begin
-   if clk = '1' and clk'event then
-    datao <= rom(CONV_INTEGER(UNSIGNED(addr)) ); 
-   end if;
+    if rising_edge(clk) then
+      datao <= rom(to_integer(unsigned(addr)) );
+    end if;
   end process;  
       
 end RTL;    
