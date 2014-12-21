@@ -3,7 +3,7 @@
 #include "debug.h"
 
 #ifdef DEBUG
-sbit at 0xB7 USART; // Port D7
+__sbit __at 0xB7 USART; // Port D7
 #define BAUD 32
 
 void usartInit(void) {
@@ -13,7 +13,7 @@ void usartInit(void) {
 
 void usartSendByte(uint8 c) {
 	(void)c; /* argument passed in DPL */
-	_asm
+	__asm
 		mov a, dpl
 		mov r1, #9
 		clr c
@@ -29,10 +29,10 @@ void usartSendByte(uint8 c) {
 		setb _USART
 		mov r0, #BAUD
 		djnz r0, .
-	_endasm;
+	__endasm;
 }
 void usartSendByteHex(uint8 byte) {
-	xdata uint8 ch;
+	__xdata uint8 ch;
 	ch = (byte >> 4) & 0x0F;
 	ch += (ch < 10 ) ? '0' : 'A' - 10;
 	usartSendByte(ch);
@@ -41,7 +41,7 @@ void usartSendByteHex(uint8 byte) {
 	usartSendByte(ch);
 }
 void usartSendWordHex(uint16 word) {
-	xdata uint8 ch;
+	__xdata uint8 ch;
 	ch = (word >> 12) & 0x0F;
 	ch += (ch < 10 ) ? '0' : 'A' - 10;
 	usartSendByte(ch);
@@ -56,7 +56,7 @@ void usartSendWordHex(uint16 word) {
 	usartSendByte(ch);
 }
 void usartSendLongHex(uint32 word) {
-	xdata uint8 ch;
+	__xdata uint8 ch;
 	ch = (word >> 28) & 0x0F;
 	ch += (ch < 10 ) ? '0' : 'A' - 10;
 	usartSendByte(ch);
