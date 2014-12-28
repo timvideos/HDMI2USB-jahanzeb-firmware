@@ -59,7 +59,7 @@ DID_LE=((DID&0x00FF)<<8)+(DID>>8)
 	.globl _dev_dscr, _dev_qual_dscr, _highspd_dscr, _fullspd_dscr, _dev_strings, _dev_strings_end
 
 ; These need to be in code memory. If they aren't you'll have to
-; manully copy them somewhere in code memory otherwise SUDPTRH:L
+; manually copy them somewhere in code memory otherwise SUDPTRH:L
 ; don't work right
 
 	.area DSCR_AREA (CODE)
@@ -147,7 +147,7 @@ highspd_dscr_end:
         .db 0x24                         ;/* Class specific interface desc type */
         .db 0x05                         ;/* Processing unit descriptor type */
         .db 0x02                         ;/* ID of this terminal */
-        .db 0x01                         ;/* Source ID : 1 : conencted to input terminal */
+        .db 0x01                         ;/* Source ID : 1 : connected to input terminal */
         .db 0x00,0x00                    ;/* Digital multiplier */
         .db 0x03                         ;/* Size of controls field for this terminal : 3 bytes */
         .db 0x00,0x00,0x00               ;/* No controls supported */
@@ -195,8 +195,8 @@ vsheader:
         ;/* Class-specific video streaming input header descriptor */
         .db 0x0F                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS i/f type */
-        .db 0x01                         ;/* Descriptotor subtype : input header */
-        .db 0x02                         ;/* 2 format desciptor follows */
+        .db 0x01                         ;/* Descriptor subtype : input header */
+        .db 0x02                         ;/* 2 format descriptor follows */
         .db <(vsheaderend-vsheader)      ;; Total Length (LSB)
         .db >(vsheaderend-vsheader)      ;; Total Length (MSB)
         .db 0x86                         ;/* EP address for BULK video data */
@@ -214,9 +214,9 @@ vsheader:
         ;/* Class specific VS format descriptor */
         .db 0x0B                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS i/f type */
-        .db 0x06                         ;/* Descriptotor subtype : VS_FORMAT_MJPEG */
-        .db 0x01                         ;/* Format desciptor index */
-        .db 0x02                         ;/* 2 Frame desciptor follows */
+        .db 0x06                         ;/* Descriptor subtype : VS_FORMAT_MJPEG */
+        .db 0x01                         ;/* Format descriptor index */
+        .db 0x02                         ;/* 2 Frame descriptor follows */
         .db 0x01                         ;/* Uses fixed size samples */
         .db 0x01                         ;/* Default frame index is 1 */
         .db 0x00                         ;/* Non interlaced stream not reqd. */
@@ -227,8 +227,8 @@ vsheader:
         ;/* Class specific VS frame descriptor */       1
         .db 0x1E                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS I/f Type */
-        .db 0x07                         ;/* Descriptotor subtype : VS_FRAME_MJPEG */
-        .db 0x01                         ;/* Frame desciptor index */
+        .db 0x07                         ;/* Descriptor subtype : VS_FRAME_MJPEG */
+        .db 0x01                         ;/* Frame descriptor index */
         .db 0x02                         ;/* Still image capture method not supported */
         .db 0x00,0x04                    ;/* Width of the frame : 1024 */
         .db 0x00,0x03                    ;/* Height of the frame : 768 */
@@ -242,8 +242,8 @@ vsheader:
         ;/* Class specific VS frame descriptor */       2
         .db 0x1E                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS I/f Type */
-        .db 0x07                         ;/* Descriptotor subtype : VS_FRAME_MJPEG */
-        .db 0x02                         ;/* Frame desciptor index */
+        .db 0x07                         ;/* Descriptor subtype : VS_FRAME_MJPEG */
+        .db 0x02                         ;/* Frame descriptor index */
         .db 0x02                         ;/* Still image capture method not supported */
         .db 0x00,0x05                    ;/* Width of the frame : 1280 */
         .db 0xD0,0x02                    ;/* Height of the frame : 720 */
@@ -270,7 +270,7 @@ vsheader:
         .db 0x1B                         ; /* Descriptor size */
         .db 0x24                         ; /* Class-specific VS I/f Type */
         .db 0x04                         ; /* Subtype : uncompressed format I/F */
-        .db 0x02                         ; /* Format desciptor index (only one format is supported) */
+        .db 0x02                         ; /* Format descriptor index (only one format is supported) */
         .db 0x02                         ; /* number of frame descriptor followed */
         .db 0x59,0x55,0x59,0x32          ; /* GUID, globally unique identifier used to identify streaming-encoding format: YUY2  */
         .db 0x00,0x00,0x10,0x00
@@ -279,15 +279,15 @@ vsheader:
         .db 0x10                         ;/* Number of bits per pixel used to specify color in the decoded video frame. 0 if not applicable: 10 bit per pixel */
         .db 0x01                         ;/* Optimum Frame Index for this stream: 1 */
         .db 0x00                         ;/* X dimension of the picture aspect ratio: Non-interlaced in progressive scan */
-        .db 0x00                         ;/* Y dimension of the pictuer aspect ratio: Non-interlaced in progressive scan*/
+        .db 0x00                         ;/* Y dimension of the picture aspect ratio: Non-interlaced in progressive scan*/
         .db 0x00                         ;/* Interlace Flags: Progressive scanning, no interlace */
         .db 0x00                         ;/* duplication of the video stream restriction: 0 - no restriction */
 
         ; Frame descriptors 1
         .db 0x1E                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS I/f Type */
-        .db 0x05                         ;/* Descriptotor subtype uncompressed frame I/F  */
-        .db 0x01                         ;/* Frame desciptor index */
+        .db 0x05                         ;/* Descriptor subtype uncompressed frame I/F  */
+        .db 0x01                         ;/* Frame descriptor index */
         .db 0x02                         ;/* Still image capture method not supported */
         .db 0x00,0x04                    ;/* Width of the frame : 1024 */
         .db 0x00,0x03                    ;/* Height of the frame : 768 */
@@ -302,8 +302,8 @@ vsheader:
         ; Frame descriptors 2
         .db 0x1E                         ;/* Descriptor size */
         .db 0x24                         ;/* Class-specific VS I/f Type */
-        .db 0x05                         ;/* Descriptotor subtype uncompressed frame I/F  */
-        .db 0x02                         ;/* Frame desciptor index */
+        .db 0x05                         ;/* Descriptor subtype uncompressed frame I/F  */
+        .db 0x02                         ;/* Frame descriptor index */
         .db 0x02                         ;/* Still image capture method not supported */
         .db 0x00,0x05                    ;/* Width of the frame : 1280 */
         .db 0xD0,0x02                    ;/* Height of the frame : 720 */
