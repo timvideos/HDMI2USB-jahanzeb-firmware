@@ -85,6 +85,14 @@ date.inc:
 firmware.c: $(FX2LIBDIR)/fw/fw.c
 	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c > firmware.c
 
+check_int2jt: $(TARGET).hex
+	@export REQUESTED=$(shell grep "INT2JT=" $(TARGET).map | sed -e's/INT2JT=//'); \
+	export ACTUAL=$(shell grep "C:.*INT2JT" $(TARGET).map | sed -e's/C: *0*\([^ ]*\)  _INT2JT.*/0x\1/' | tr A-Z a-z ); \
+	if [ "$$REQUESTED" != "$$ACTUAL" ]; then \
+		echo "INT2JT at $$ACTUAL but requested $$REQUESTED"; \
+		exit 1; \
+	fi
+
 clean: FORCE
 	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym *.lk firmware.c progOffsets.h date.inc
 
