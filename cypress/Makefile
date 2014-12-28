@@ -46,7 +46,7 @@ else
 endif
 
 CC_SRCS := $(shell ls *.c)
-AS_SRCS := $(shell ls *.a51)
+AS_SRCS := descriptors.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc

@@ -22,28 +22,25 @@
 ; change however you want but leave 
 ; the descriptor pointers so the setupdat.c file works right 
 
-.module DEV_DSCR 
-
+.module DEV_DSCR
 .include "date.inc"
 
-; descriptor types
-; same as setupdat.h
-DSCR_DEVICE_TYPE=1
-DSCR_CONFIG_TYPE=2
-DSCR_STRING_TYPE=3
-DSCR_INTERFACE_TYPE=4
-DSCR_ENDPOINT_TYPE=5
-DSCR_DEVQUAL_TYPE=6
+        DSCR_DEVICE_TYPE   =    1        ;; Descriptor type: Device
+        DSCR_CONFIG_TYPE   =    2        ;; Descriptor type: Configuration
+        DSCR_STRING_TYPE   =    3        ;; Descriptor type: String
+        DSCR_INTERFACE_TYPE =   4        ;; Descriptor type: Interface
+        DSCR_ENDPOINT_TYPE =    5        ;; Descriptor type: Endpoint
+        DSCR_DEVQUAL_TYPE  =    6        ;; Descriptor type: Device Qualifier
 
 ; for the repeating interfaces
-DSCR_INTERFACE_LEN=9
-DSCR_ENDPOINT_LEN=7
+        DSCR_INTERFACE_LEN =    9
+        DSCR_ENDPOINT_LEN  =    7
 
 ; endpoint types
-ENDPOINT_TYPE_CONTROL=0
-ENDPOINT_TYPE_ISO=1
-ENDPOINT_TYPE_BULK=2
-ENDPOINT_TYPE_INT=3
+        ENDPOINT_TYPE_CONTROL = 0        ;; Endpoint type: Control
+        ENDPOINT_TYPE_ISO  =    1        ;; Endpoint type: Isochronous
+        ENDPOINT_TYPE_BULK =    2        ;; Endpoint type: Bulk
+        ENDPOINT_TYPE_INT  =    3        ;; Endpoint type: Interrupt
 
 LEN=(highspd_dscr_realend-_highspd_dscr)
 LEN_LE=((LEN&0x00FF)<<8)+(LEN>>8)
@@ -61,20 +58,20 @@ DID_LE=((DID&0x00FF)<<8)+(DID>>8)
 
 ; DEVICE DESCRIPTOR
 _dev_dscr:
-	.db    dev_dscr_end-_dev_dscr         ; bLength
-	.db    DSCR_DEVICE_TYPE               ; bDescriptorType
-	.dw    0x0002                         ; bcdUSB          (2.0)
-	.db    0x00                           ; bDeviceClass    (Defined at Interface level)
-	.db    0x00                           ; bDeviceSubClass (Defined at Interface level)
-	.db    0x00                           ; bDeviceProtocol (Defined at Interface level)
-	.db    64                             ; bMaxPacketSize0 (EP0)
-	.dw    VID_LE                         ; idVendor
-	.dw    PID_LE                         ; idProduct
-	.dw    DID_LE                         ; bcdDevice
-	.db    1                              ; iManufacturer
-	.db    2                              ; iProduct
-	.db    0                              ; iSerial
-	.db    1                              ; bNumConfigurations
+	.db    dev_dscr_end-_dev_dscr         ; 0 bLength 1 Descriptor size in bytes (12h)
+	.db    DSCR_DEVICE_TYPE               ; 1 bDescriptorType 1 The constant DEVICE (01h)
+	.dw    0x0002                         ; 2 bcdUSB 2 USB specification release number (BCD)
+	.db    0x00                           ; 4 bDeviceClass 1 Class code (Defined at Interface level)
+	.db    0x00                           ; 5 bDeviceSubclass 1 Subclass code (Defined at Interface level)
+	.db    0x00                           ; 6 bDeviceProtocol 1 Protocol Code (Defined at Interface level)
+	.db    64                             ; 7 bMaxPacketSize0 1 Maximum packet size for endpoint zero
+	.dw    VID_LE                         ; 8 idVendor 2 Vendor ID
+	.dw    PID_LE                         ; 10 idProduct 2 Product ID
+	.dw    DID_LE                         ; 12 bcdDevice 2 Device release number (BCD)
+	.db    1                              ; 14 iManufacturer 1 Index of string descriptor for the manufacturer
+	.db    2                              ; 15 iProduct 1 Index of string descriptor for the product
+	.db    0                              ; 16 iSerialNumber 1 Index of string descriptor for the serial number
+	.db    1                              ; 17 bNumConfigurations 1 Number of possible configurations
 dev_dscr_end:
 
 ; CONFIGURATION DESCRIPTOR
@@ -157,17 +154,16 @@ highspd_dscr_end:
 highspd_dscr_realend:
 
 _dev_qual_dscr:
-	.db    dev_qualdscr_end-_dev_qual_dscr  ; bLength
-	.db    DSCR_DEVQUAL_TYPE                ; bDescriptorType
-	.dw    0x0002                           ; bcdUSB          (2.0)
-	.db    0x00                             ; bDeviceClass    (Defined at Interface level)
-	.db    0x00                             ; bDeviceSubClass (Defined at Interface level)
-	.db    0x00                             ; bDeviceProtocol (Defined at Interface level)
-	.db    64                               ; bMaxPacketSize0 (EP0)
-	.db    1                                ; bNumConfigurations
-	.db    0                                ; bReserved
+	.db    dev_qualdscr_end-_dev_qual_dscr  ; 0 bLength 1 Descriptor size in bytes (0Ah)
+	.db    DSCR_DEVQUAL_TYPE                ; 1 bDescriptorType 1 The constant DEVICE_QUALIFIER (06h)
+	.dw    0x0002                           ; 2 bcdUSB 2 USB specification release number (BCD)
+	.db    0x00                             ; 4 bDeviceClass 1 Class code (Defined at Interface level)
+	.db    0x00                             ; 5 bDeviceSubclass 1 Subclass code (Defined at Interface level)
+	.db    0x00                             ; 6 bDeviceProtocol 1 Protocol Code (Defined at Interface level)
+	.db    64                               ; 7 bMaxPacketSize0 1 Maximum packet size for endpoint zero
+	.db    1                                ; 8 bNumConfigurations 1 Number of possible configurations
+	.db    0                                ; 9 Reserved 1 For future use
 dev_qualdscr_end:
-
 
 .even
 _fullspd_dscr:
@@ -209,14 +205,15 @@ fullspd_dscr_realend:
 
 	.even
 _dev_strings:
-_string0:
-	.db    string0end-_string0       ; len
+string0:
+	.db    string0end-string0        ; String descriptor length
 	.db    DSCR_STRING_TYPE
 	.db    0x09, 0x04                ; 0x0409 is the language code for English.
 string0end:
 
+; Manufacture
 string1:
-	.db    string1end-string1
+       	.db    string1end-string1        ; String descriptor length
 	.db    DSCR_STRING_TYPE
 	.ascii 'M'
 	.db    0
@@ -238,6 +235,7 @@ string1:
 	.db    0
 string1end:
 
+; Product
 string2:
 	.db    string2end-string2
 	.db    DSCR_STRING_TYPE
