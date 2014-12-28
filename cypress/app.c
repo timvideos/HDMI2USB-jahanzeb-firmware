@@ -70,7 +70,7 @@ void mainInit(void) {
 	// Disable alternate functions for PORTA 0,1,3 & 7.
 	PORTACFG = 0x00;
 
-	// Return FIFO setings back to default just in case previous firmware messed with them.
+	// Return FIFO settings back to default just in case previous firmware messed with them.
 	SYNCDELAY; PINFLAGSAB = 0x00;
 	SYNCDELAY; PINFLAGSCD = 0x00;
 	SYNCDELAY; FIFOPINPOLAR = 0x00;
@@ -83,12 +83,6 @@ void mainInit(void) {
 	//SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
 	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
 
-	// EP4 & EP8 are unused
-	SYNCDELAY; EP4CFG = 0x00;
-	SYNCDELAY; EP8CFG = 0x00;
-	SYNCDELAY; EP4FIFOCFG = 0x00;
-	SYNCDELAY; EP8FIFOCFG = 0x00;
-
 	// EP1OUT & EP1IN
 	SYNCDELAY; EP1OUTCFG = (bmVALID | bmBULK);
 	SYNCDELAY; EP1INCFG = (bmVALID | bmBULK);
@@ -96,6 +90,12 @@ void mainInit(void) {
 	// EP2OUT & EP6IN are quad-buffered bulk endpoints
 	SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
 	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
+
+	// EP4 & EP8 are unused
+	SYNCDELAY; EP4CFG = 0x00;
+	SYNCDELAY; EP8CFG = 0x00;
+	SYNCDELAY; EP4FIFOCFG = 0x00;
+	SYNCDELAY; EP8FIFOCFG = 0x00;
 
 	// Reset FIFOs for EP2OUT & EP6IN
 	SYNCDELAY; FIFORESET = bmNAKALL;
