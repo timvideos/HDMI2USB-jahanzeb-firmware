@@ -62,7 +62,9 @@ VID := 1D50
 PID := 602B
 DID := 0002
 
-all: date.inc progOffsets.h $(TARGET).hex
+.PHONY: all clean check check_int2jt
+
+all: date.inc progOffsets.h $(TARGET).hex check
 
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
 	$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
@@ -93,7 +95,7 @@ check_int2jt: $(TARGET).hex
 		exit 1; \
 	fi
 
-clean: FORCE
-	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym *.lk firmware.c progOffsets.h date.inc
+check: check_int2jt
 
-FORCE:
+clean:
+	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym *.lk firmware.c progOffsets.h date.inc
