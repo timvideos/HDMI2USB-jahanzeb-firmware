@@ -26,6 +26,9 @@
 #include "defs.h"
 #include "debug.h"
 
+#include "cdc.h"
+#include "uvc.h"
+
 extern const uint8 dev_strings[];
 
 void livePatch(uint8 patchClass, uint8 newByte);
@@ -221,6 +224,12 @@ uint8 portAccess(uint8 portNumber, uint8 bitMask, uint8 drive, uint8 high) {
 // Called when a vendor command is received
 //
 uint8 handleVendorCommand(uint8 cmd) {
+	if (handleUVCCommand(cmd))
+            return true;
+	if (handleCDCCommand(cmd))
+            return true;
+
+
 	switch(cmd) {
 
 	// Set various mode bits, or fetch status information
