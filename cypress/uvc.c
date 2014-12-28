@@ -42,24 +42,24 @@ BOOL handleUVCCommand(BYTE cmd) {
 
         EP0BCH = 0;
         EP0BCL = 26;
-        SYNCDELAY; 
+        SYNCDELAY;
         while(EP0CS & bmEPBUSY);
         while (EP0BCL != 26);
 
         valuesArray[2] = EP0BUF[2]; // formate
         valuesArray[3] = EP0BUF[3];        // frame
-        
-        // fps 
+
+        // fps
         valuesArray[4] = fps[EP0BUF[2]-1][0];
         valuesArray[5] = fps[EP0BUF[2]-1][1];
         valuesArray[6] = fps[EP0BUF[2]-1][2];
         valuesArray[7] = fps[EP0BUF[2]-1][3];
-        
+
         valuesArray[18] = frameSize[EP0BUF[3]-1][0];
         valuesArray[19] = frameSize[EP0BUF[3]-1][1];
         valuesArray[20] = frameSize[EP0BUF[3]-1][2];
         valuesArray[21] = frameSize[EP0BUF[3]-1][3];
-        
+
         EP0BCH = 0; // ACK
         EP0BCL = 0; // ACK
 		return TRUE;
