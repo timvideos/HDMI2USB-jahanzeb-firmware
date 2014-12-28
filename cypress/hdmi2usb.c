@@ -30,7 +30,7 @@ BOOL DR_SetConfiguration();
 
 void TD_Init(void)             // Called once at startup
 {
-	// Return FIFO setings back to default just in case previous firmware messed with them.
+	// Return FIFO settings back to default just in case previous firmware messed with them.
 	SYNCDELAY; PINFLAGSAB   = 0x00;
 	SYNCDELAY; PINFLAGSCD   = 0x00;
 	SYNCDELAY; FIFOPINPOLAR = 0x00;
