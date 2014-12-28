@@ -402,7 +402,7 @@ vsheaderend:
         .db ENDPOINT_TYPE_INT            ; Endpoint type
         .db 0x10                         ; Maximum packet size (LSB)
         .db 0x00                         ; Max packet size (MSB)
-        .db 0x11                         ; Polling interval
+        .db 0x08                         ; Polling interval
 
 
         ;; Virtual COM Port Data Interface Descriptor
