@@ -53,7 +53,7 @@ CC := sdcc
 AS8051 := sdas8051
 AS := $(AS8051)
 ifeq ($(USE_16K),1)
-	CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x3e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
+	CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
 else
 	CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
 endif
