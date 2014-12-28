@@ -36,6 +36,7 @@ BOOL handleUVCCommand(BYTE cmd) {
     switch(cmd) {
 
     case CLEAR_FEATURE:                  // *** Clear Feature
+        // FIXME: WTF is 0x21 !?
         if (SETUPDAT[0] != 0x21)
 		    return FALSE;
 
@@ -63,9 +64,9 @@ BOOL handleUVCCommand(BYTE cmd) {
         EP0BCL = 0; // ACK
 		return TRUE;
 
-    case GET_CUR:
-    case GET_MIN:
-    case GET_MAX:
+    case UVC_GET_CUR:
+    case UVC_GET_MIN:
+    case UVC_GET_MAX:
         SUDPTRCTL = 0x01;
         for (i=0;i<26;i++)
             EP0BUF[i] = valuesArray[i];
@@ -73,8 +74,19 @@ BOOL handleUVCCommand(BYTE cmd) {
         SYNCDELAY;
         EP0BCL = 26;
         return TRUE;
-   default:
-        return FALSE;
-   }
-}
 
+    // FIXME: What do these do????
+    // case UVC_SET_CUR:
+    // case UVC_GET_RES:
+    // case UVC_GET_LEN:
+    // case UVC_GET_INFO:
+
+    // case UVC_GET_DEF:
+    // FIXME: Missing this case causes the following errors
+    // uvcvideo: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+    // Unhandled Vendor Command: 87
+
+    default:
+        return FALSE;
+    }
+}
