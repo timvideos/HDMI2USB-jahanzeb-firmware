@@ -177,11 +177,11 @@ void mainInit(void) {
 //
 void mainLoop(void) {
 
-void TD_Poll(void)             // Called repeatedly while the device is idle
-{
-
 /*
 code from HDMI2USB/cypress/hdmi2usb.c
+
+void TD_Poll(void)             // Called repeatedly while the device is idle
+{
 
 if (!(EP1INCS & 0x02))      // check if EP1IN is available
   {
