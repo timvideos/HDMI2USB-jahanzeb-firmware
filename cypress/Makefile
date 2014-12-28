@@ -85,7 +85,7 @@ date.inc:
 	echo DID=0x$(DID) >> $@
 
 firmware.c: $(FX2LIBDIR)/fw/fw.c
-	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c > firmware.c
+	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c | sed -e's/<serial.h>/"softserial.h"/' > firmware.c
 
 check_int2jt: $(TARGET).hex
 	@export REQUESTED=$(shell grep "INT2JT=" $(TARGET).map | sed -e's/INT2JT=//'); \
