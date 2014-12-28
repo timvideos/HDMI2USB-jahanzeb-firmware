@@ -63,6 +63,10 @@ void mainInit(void) {
 	RENUMERATE_UNCOND();
 #endif
 
+// Needs to be matched to stuff in HDMI2USB/cypress/hdmi2usb.c TD_Init
+// void TD_Init(void)             // Called once at startup
+
+
 	// Clear wakeup (see AN15813: http://www.cypress.com/?docID=4633)
 	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
 	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
