@@ -90,3 +90,141 @@ BOOL handleUVCCommand(BYTE cmd) {
         return FALSE;
     }
 }
+
+/*
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+// From hdmi2usb/cypress/hdmi2usb.c
+// ----------------------------------------------------------------------------
+
+BYTE   Configuration;      // Current configuration
+BYTE   AlternateSetting = 0;   // Alternate settings
+
+BOOL DR_SetInterface(void)       // Called when a Set Interface command is received
+{
+   AlternateSetting = SETUPDAT[2];
+
+	if (AlternateSetting == 1)
+	{
+		//while ( !(EP2468STAT & bmEP2EMPTY) );  // Wait while FIFO remains "not empty" (i.e while busy)
+		SYNCDELAY; EP2FIFOCFG = 0x00;          // Disable AUTOOUT
+		SYNCDELAY; FIFORESET = bmNAKALL;       // NAK all OUT packets from host
+		SYNCDELAY; FIFORESET = 2;              // Advance EP2 buffers to CPU domain
+
+		SYNCDELAY;
+		EP2FIFOBUF[0] = 'U';
+		EP2FIFOBUF[1] = 'F';
+		EP2FIFOBUF[2] = 'U';
+		EP2FIFOBUF[3] = 'V';
+		EP2FIFOBUF[4] = 'U';
+
+		if (valuesArray[2] == 1) // Formate MJPEG
+		{
+			EP2FIFOBUF[5] = 'J';
+		} else { // Formate RAW
+			EP2FIFOBUF[5] = 'R';
+		}
+
+		EP2FIFOBUF[6] = 'U';
+
+		if (valuesArray[3] == 1) // Frame DVI // not implemented because Atlys does not support the HPD
+		{
+			EP2FIFOBUF[7] = 'D';
+		} else { // Frame HDMI
+
+			EP2FIFOBUF[7] = 'H';
+		}
+
+		// turn on USB
+		EP2FIFOBUF[8] = 'U';
+		EP2FIFOBUF[9] = 'N';
+
+		SYNCDELAY; EP2BCH = 0;
+		SYNCDELAY; EP2BCL = 10;
+
+		SYNCDELAY; OUTPKTEND = 0x82;     // Skip uncommitted second packet
+		SYNCDELAY; FIFORESET = 0;        // Release "NAK all"
+		SYNCDELAY; EP2FIFOCFG = 0x10;    // Auto
+
+		// reset UVC fifo
+		SYNCDELAY; FIFORESET = 0x80;
+		SYNCDELAY; FIFORESET = 0x06;
+		SYNCDELAY; FIFORESET = 0x00;
+	}
+
+   return(TRUE);            // Handled by user code
+}
+
+BOOL DR_GetInterface(void)       // Called when a Set Interface command is received
+{
+   EP0BUF[0] = AlternateSetting;
+   EP0BCH = 0;
+   EP0BCL = 1;
+   return(TRUE);            // Handled by user code
+}
+
+// From examples/bulkloop/bulkloop.c
+// ----------------------------------------------------------------------------
+
+// this firmware only supports 0,0
+BOOL handle_get_interface(BYTE ifc, BYTE* alt_ifc) {
+ printf ( "Get Interface\n" );
+ if (ifc==0) {*alt_ifc=0; return TRUE;} else { return FALSE;}
+}
+BOOL handle_set_interface(BYTE ifc, BYTE alt_ifc) {
+ printf ( "Set interface %d to alt: %d\n" , ifc, alt_ifc );
+
+ if (ifc==0&&alt_ifc==0) {
+    // SEE TRM 2.3.7
+    // reset toggles
+    RESETTOGGLE(0x02);
+    RESETTOGGLE(0x86);
+    // restore endpoints to default condition
+    RESETFIFO(0x02);
+    EP2BCL=0x80;
+    SYNCDELAY;
+    EP2BCL=0X80;
+    SYNCDELAY;
+    RESETFIFO(0x86);
+    return TRUE;
+ } else
+    return FALSE;
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+// From hdmi2usb/cypress/hdmi2usb.c
+// ----------------------------------------------------------------------------
+BOOL DR_GetConfiguration(void)   // Called when a Get Configuration command is received
+{
+   EP0BUF[0] = Configuration;
+   EP0BCH = 0;
+   EP0BCL = 1;
+   return(TRUE);            // Handled by user code
+}
+
+BOOL DR_SetConfiguration(void)   // Called when a Set Configuration command is received
+{
+
+   Configuration = SETUPDAT[2];
+   return(TRUE);            // Handled by user code
+}
+
+// From examples/bulkloop/bulkloop.c
+// ----------------------------------------------------------------------------
+
+// get/set configuration
+BYTE handle_get_configuration() {
+ return 1;
+ }
+BOOL handle_set_configuration(BYTE cfg) {
+ return cfg==1 ? TRUE : FALSE; // we only handle cfg 1
+}
+
+*/
+
