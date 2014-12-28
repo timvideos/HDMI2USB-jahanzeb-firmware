@@ -76,29 +76,31 @@ void mainInit(void) {
 	SYNCDELAY; FIFOPINPOLAR = 0x00;
 
 	// Global settings
-	SYNCDELAY; REVCTL = (bmDYN_OUT | bmENH_PKT);
-	SYNCDELAY; CPUCS = bmCLKSPD1;  // 48MHz
+	SYNCDELAY; REVCTL = (bmDYN_OUT | bmENH_PKT); // 0x03
+	SYNCDELAY; CPUCS = bmCLKSPD1;  // 48MHz 0x10
 
 	// Drive IFCLK at 48MHz, enable slave FIFOs
 	//SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmFIFOS);
-	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS);
+	SYNCDELAY; IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmPORTS); // 0xe0
 
 	// EP1OUT & EP1IN
-	SYNCDELAY; EP1OUTCFG = (bmVALID | bmBULK);
-	SYNCDELAY; EP1INCFG = (bmVALID | bmBULK);
+	SYNCDELAY; EP1OUTCFG = (bmVALID | bmBULK); // 0xa0
+	SYNCDELAY; EP1INCFG = (bmVALID | bmBULK); // 0xa0
 
 	// EP2OUT & EP6IN are quad-buffered bulk endpoints
-	SYNCDELAY; EP2CFG = (bmVALID | bmBULK);
-	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR);
-
-	// EP4 & EP8 are unused
+	SYNCDELAY; EP2CFG = (bmVALID | bmBULK); // 0xa0
 	SYNCDELAY; EP4CFG = 0x00;
+	SYNCDELAY; EP6CFG = (bmVALID | bmBULK | bmDIR); // 0xe0
 	SYNCDELAY; EP8CFG = 0x00;
+
+	// EP2OUT & EP6IN automatically commit packets
+	SYNCDELAY; EP2FIFOCFG = bmAUTOOUT; // 0x10
 	SYNCDELAY; EP4FIFOCFG = 0x00;
+	SYNCDELAY; EP6FIFOCFG = bmAUTOIN; // 0x08
 	SYNCDELAY; EP8FIFOCFG = 0x00;
 
 	// Reset FIFOs for EP2OUT & EP6IN
-	SYNCDELAY; FIFORESET = bmNAKALL;
+	SYNCDELAY; FIFORESET = bmNAKALL; // 0x80
 	SYNCDELAY; FIFORESET = 2;  // reset EP2OUT
 	SYNCDELAY; FIFORESET = 6;  // reset EP6IN
 	SYNCDELAY; FIFORESET = 0x00;
@@ -107,14 +109,11 @@ void mainInit(void) {
 	EP1OUTBC = 0x00;
 
 	// Arm the EP2OUT buffers. Done four times because it's quad-buffered
-	SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT
+	SYNCDELAY; OUTPKTEND = bmSKIP | 2;  // EP2OUT 0x82
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 	SYNCDELAY; OUTPKTEND = bmSKIP | 2;
 
-	// EP2OUT & EP6IN automatically commit packets
-	SYNCDELAY; EP2FIFOCFG = bmAUTOOUT;
-	SYNCDELAY; EP6FIFOCFG = bmAUTOIN;
 
 	// Auto-commit 512-byte packets from EP6IN (master may commit early by asserting PKTEND)
 	SYNCDELAY; EP6AUTOINLENH = 0x02;
@@ -124,7 +123,7 @@ void mainInit(void) {
 	I2CTL |= bm400KHZ;
 
 	// Auto-pointers
-	AUTOPTRSETUP = bmAPTREN | bmAPTR1INC | bmAPTR2INC;
+	AUTOPTRSETUP = bmAPTREN | bmAPTR1INC | bmAPTR2INC; // 0x07
 
 	// Port lines all inputs...
 	IOA = 0xFF;
