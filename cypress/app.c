@@ -172,6 +172,32 @@ void mainInit(void) {
 // Called repeatedly while the device is idle
 //
 void mainLoop(void) {
+
+void TD_Poll(void)             // Called repeatedly while the device is idle
+{
+
+/*
+code from HDMI2USB/cypress/hdmi2usb.c
+
+if (!(EP1INCS & 0x02))      // check if EP1IN is available
+  {
+	EP1INBUF[0] = 0x0A;       // if it is available, then fill the first 10 bytes of the buffer with
+	EP1INBUF[1] = 0x20;       // appropriate data.
+	EP1INBUF[2] = 0x00;
+	EP1INBUF[3] = 0x00;
+	EP1INBUF[4] = 0x00;
+	EP1INBUF[5] = 0x00;
+	EP1INBUF[6] = 0x00;
+	EP1INBUF[7] = 0x02;
+	EP1INBUF[8] = 0x00;
+	EP1INBUF[9] = 0x00;
+	EP1INBC = 10;            // manually commit once the buffer is filled
+  }
+
+
+}
+*/
+
 	// If there is a shift operation pending, execute it now.
 	progShiftExecute();
 }
