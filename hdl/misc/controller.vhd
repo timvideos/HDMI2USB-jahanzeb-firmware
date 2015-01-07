@@ -52,6 +52,11 @@ port
 	jpeg_encoder_cmd	: out std_logic_vector(1 downto 0); -- encodingQuality(1 downto 0)	
 	selector_cmd 		: out std_logic_vector(12 downto 0); -- (1:0 source ) (2 gray/color) (3 inverted/not-inverted) (4:5 blue depth) (6:7 green depth) (8:9 red depth) (10 blue on/off) (11 green on/off) (12 red on/off)
 	HB_on		        : out std_logic;
+	uart_rd			: out std_logic;
+	uart_rx_empty  : in std_logic;
+        uart_din       : in std_logic_vector(7 downto 0);
+        uart_clk       : in std_logic;
+        usb_or_uart    : in std_logic;	
 	hdmi_cmd			: out std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi	
 	hdmi_dvi			: in std_logic_vector(1 downto 0); -- if 1 then dvi else hdmi	
 	rdy_H				: in std_logic_vector(1 downto 0);	
@@ -117,6 +122,11 @@ signal vsync_q :  STD_LOGIC;
 signal vsync_rising_edge :  STD_LOGIC;
 signal pressed :  STD_LOGIC;
 signal toggle :  STD_LOGIC;
+signal uart_rd_s : STD_LOGIC;
+signal empty_s : STD_LOGIC;
+signal fifo_din : STD_LOGIC_VECTOR(7 downto 0);
+signal fifo_clk : STD_LOGIC;
+signal fifo_wr : STD_LOGIC;
 
 
 begin
@@ -375,8 +385,35 @@ elsif rising_edge(clk) then
 end if; -- clk
 end process;
 
+uart_rd <= uart_rd_s;
 
+uart_ctrl : process(uart_clk, uart_rx_empty, empty_s)
+begin
+if rst = '1' then
+	uart_rd_s <= '0';
+elsif rising_edge(uart_clk) then
+	empty_s <= uart_rx_empty;
+end if;
+if empty_s = '1' and uart_rx_empty = '0' then
+		uart_rd_s <= '1';
+end if;
+if empty_s = uart_rx_empty then
+		uart_rd_s <= '0';
+end if;
+end process;		
 
+fifo_mux: process(usb_or_uart, uart_rd_s, cmd_en, uart_din, cmd_byte, uart_clk, ifclk)
+begin
+if usb_or_uart = '0' then
+	fifo_din <= cmd_byte;
+	fifo_wr <= cmd_en;
+	fifo_clk <= ifclk;
+else
+	fifo_din <= uart_din;
+	fifo_wr <= uart_rd_s;
+	fifo_clk <= uart_clk;
+end if;
+end process;
 
 cmd <= dout(7 downto 0);
 add <= dout(15 downto 8);
@@ -384,10 +421,10 @@ add <= dout(15 downto 8);
 cmdfifo_comp : cmdfifo
   PORT MAP (
     rst => rst,
-    wr_clk => ifclk,
+    wr_clk => fifo_clk,
     rd_clk => clk,
-    din => cmd_byte, 
-    wr_en => cmd_en,
+    din => fifo_din, 
+    wr_en => fifo_wr,
     rd_en => rd_en,
     dout => dout,
     full => full,
