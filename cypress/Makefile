@@ -37,6 +37,11 @@ FX2LIBDIR := ../../../../3rd/fx2lib
 LIBS := -L$(FX2LIBDIR)/lib fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
 
+# Settings specific for the TimVideo hdmi2usb firmware
+AS8051 := sdas8051
+FLAGS +="-DDEBUG"
+USE_16K := 1
+
 BRANCH := $(shell TRY=$(CURDIR); BRANCH=dev; while [ "$${TRY}" != "/" ]; do if [ -e "$${TRY}/.branch" ]; then BRANCH=$$(cat "$${TRY}/.branch"); break; fi; TRY=$$(dirname $${TRY}); done; echo $${BRANCH})
 USE_BRANCH := $(shell echo $(BRANCH) | grep -Ec '^2[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$$')
 ifeq ($(USE_BRANCH),0)
@@ -84,8 +89,12 @@ date.inc:
 	echo PID=0x$(PID) >> $@
 	echo DID=0x$(DID) >> $@
 
-firmware.c: $(FX2LIBDIR)/fw/fw.c
+firmware.c: $(FX2LIBDIR)/fw/fw.c progOffsets.h
 	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c | sed -e's/<serial.h>/"softserial.h"/' > firmware.c
+
+descriptors.a51: date.inc
+
+livePatch.c: progOffsets.h
 
 check_int2jt: $(TARGET).hex
 	@export REQUESTED=$(shell grep "INT2JT=" $(TARGET).map | sed -e's/INT2JT=//'); \
@@ -98,4 +107,5 @@ check_int2jt: $(TARGET).hex
 check: check_int2jt
 
 clean:
-	rm -f *.iic *.asm *.hex *.lnk *.lst *.map *.mem *.rel *.rst *.sym *.lk firmware.c progOffsets.h date.inc
+	$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
+		*.lk firmware.c progOffsets.h firmware.hex date.inc
