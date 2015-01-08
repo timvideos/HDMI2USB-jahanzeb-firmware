@@ -251,6 +251,10 @@ signal error_ram : std_logic;
 signal to_send : std_logic_vector(23 downto 0);
 signal pktend_s:std_logic;
 signal HB_on : std_logic;
+signal rd_uart_s : std_logic;
+signal rx_empty_s : std_logic;
+signal uart_din_s : std_logic_vector(7 downto 0);
+signal dout : std_logic_vector(15 downto 0);
 
 --debug signals
 signal write_img:std_logic;
@@ -586,6 +590,11 @@ controller_comp : entity work.controller
 		     jpeg_encoder_cmd => jpeg_encoder_cmd,
 		     selector_cmd     => selector_cmd,
 		     HB_on	      => HB_on,
+	             uart_rd          => rd_uart_s,
+	             uart_rx_empty    => rx_empty_s,
+	             uart_din         => uart_din_s,
+	             uart_clk         => clk_50Mhz,
+           	     usb_or_uart      => sw(1),
 		     hdmi_cmd         => hdmi_cmd,
 			 hdmi_dvi		  => dvi_only,
 		     rdy_H            => (rdy_H1 & rdy_H0),
@@ -632,12 +641,14 @@ debug_module: entity work.debug_top
 uart_module: entity work.uart
 	port map(
 		clk	=> clk_50Mhz,
-		reset	=> '0',
-		rd_uart	=> '0',
+		reset	=> rst,
+		rd_uart	=> rd_uart_s,
+		r_data => uart_din_s,
+		rx_empty => rx_empty_s,
 		wr_uart	=> uart_en,
 		rx	=> rx,
 		w_data	=> uart_byte,
 		tx	=> tx
 	);
 
-end architecture rtl;
+end architecture rtl;	
