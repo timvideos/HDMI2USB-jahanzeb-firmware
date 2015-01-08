@@ -15,6 +15,8 @@
 //#define UVC_GET_INFO                                    (0x86)
 //#define UVC_GET_DEF                                     (0x87)
 
+
+
 BOOL handleUVCCommand(BYTE cmd);
 
 #endif // UVC_H

@@ -437,7 +437,7 @@ vsheaderend:
 highspd_dscr_realend:
 
 _dev_qual_dscr:
-	.db    dev_qualdscr_end-_dev_qual_dscr  ; 0 bLength 1 Descriptor size in bytes (0Ah)
+	.db    0xF9                             ; dev_qualdscr_end-_dev_qual_dscr  ; 0 bLength 1 Descriptor size in bytes (0Ah)
 	.db    DSCR_DEVQUAL_TYPE                ; 1 bDescriptorType 1 The constant DEVICE_QUALIFIER (06h)
 	.dw    0x0002                           ; 2 bcdUSB 2 USB specification release number (BCD)
         .db    0xEF                             ; 4 bDeviceClass 1 Class code (Defined at Interface level)

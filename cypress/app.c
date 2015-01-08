@@ -30,7 +30,8 @@
 #include "uvc.h"
 
 extern const uint8 dev_strings[];
-
+void TD_Init(void);
+void TD_Poll(void);
 void livePatch(uint8 patchClass, uint8 newByte);
 
 // General-purpose diagnostic code, for debugging. See CMD_GET_DIAG_CODE vendor command.
@@ -56,6 +57,8 @@ void mainInit(void) {
 	__xdata uint8 thisByte = 0xFF;
 	__xdata uint16 blockSize;
 
+	
+
 	// This is only necessary for cases where you want to load firmware into the RAM of an FX2 that
 	// has already loaded firmware from an EEPROM. It should definitely be removed for firmwares
 	// which are themselves to be loaded from EEPROM.
@@ -66,7 +69,7 @@ void mainInit(void) {
 // Needs to be matched to stuff in HDMI2USB/cypress/hdmi2usb.c TD_Init
 // void TD_Init(void)             // Called once at startup
 
-
+	
 	// Clear wakeup (see AN15813: http://www.cypress.com/?docID=4633)
 	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
 	WAKEUPCS = bmWU | bmDPEN | bmWUEN;
@@ -74,6 +77,7 @@ void mainInit(void) {
 	// Disable alternate functions for PORTA 0,1,3 & 7.
 	PORTACFG = 0x00;
 
+	/*
 	// Return FIFO settings back to default just in case previous firmware messed with them.
 	SYNCDELAY; PINFLAGSAB = 0x00;
 	SYNCDELAY; PINFLAGSCD = 0x00;
@@ -146,7 +150,10 @@ void mainInit(void) {
 		#include STR(boards/BSP.c)
 	#endif
 #endif
-
+	*/
+	I2CTL |= bm400KHZ;
+	TD_Init();
+	
 #ifdef DEBUG
 	usartInit();
 	{
@@ -201,9 +208,9 @@ if (!(EP1INCS & 0x02))      // check if EP1IN is available
 
 }
 */
-
+	TD_Poll();
 	// If there is a shift operation pending, execute it now.
-	progShiftExecute();
+	//progShiftExecute();
 }
 
 #define FIFO_MODE 0x0000
@@ -418,4 +425,145 @@ uint8 handleVendorCommand(uint8 cmd) {
 		return true;
 	}
 	return false;  // unrecognised command
+}
+
+void TD_Init(void)             // Called once at startup
+{
+	// Return FIFO setings back to default just in case previous firmware messed with them.
+	SYNCDELAY; PINFLAGSAB   = 0x00;
+	SYNCDELAY; PINFLAGSCD   = 0x00;
+	SYNCDELAY; FIFOPINPOLAR = 0x00;
+	
+	// Global settings
+	//SYNCDELAY; REVCTL = 0x03;
+	SYNCDELAY; CPUCS  = ((CPUCS & ~bmCLKSPD) | bmCLKSPD1);  // 48MHz
+	
+    /* IFCONFIG Register
+     *      Structure: 
+     *          BIT 7   : IFCLKSRC, FIFO/GPIF Clock Source, 
+     *                      Selects b/w internal and external sources: 0 = external, 1 = internal
+     *          BIT 6   : 3048MHZ, Internal FIFO/GPIF Clock Frequency. 
+     *                      Selects b/w the 30- and 48-MHz internal clock: 0 = 30 MHz, 1 = 48 MHz. This bit has no effect when IFCONFIG.7 = 0.
+     *          BIT 5   : IFCLKOE, IFCLK pin output enable. 
+     *                      Output enable for the internal clock source: 0 = disable(tristate), 1 = enable(drive). This bit has no effect when IFCONFIG.7 = 0.
+     *          BIT 4   : IFCLKPOL, Invert the IFCLK signal. 
+     *                      Inverts the polarity of the interface clock (whether it’s internal or external): 0 = normal, 1 = inverted.
+     *          BIT 3   : ASYNC, FIFO/GPIF Asynchronous Mode
+     *                      When ASYNC=0, the FIFO/GPIF operate synchronously: a clock is supplied either internally or externally on the IFCLK pin; the FIFO control signals function as read and write enable signals for the clock signal.
+     *                      When ASYNC=1, the FIFO/GPIF operate asynchronously: no clock signal input to IFCLK isrequired; the FIFO control signals function directly as read and write strobes.
+     *          BIT 2   : GSTATE, Drive GSTATE [2:0] on PORTE [2:0].
+     *                      When GSTATE=1, three bits in Port E take on the signals shown in Table 15-6. The GSTATE bits, which indicate GPIF states, are used for diagnostic purposes. 
+     *          BIT 1-0 : IFCFG, Select Interface Mode (Ports, GPIF, or Slave FIFO)
+     *                      Required to be 0b11 for Slave FIFO. See Page 15-16 TRM
+     */
+     
+    SYNCDELAY; IFCONFIG = 0xE3; // Internal Clock, 48MHz, IFCLK output enable to pin, Normal Polarity, Synchronous FIFO, Nothing to do with GSTATE, Set interface mode to Slave FIFO.
+	
+    
+    
+    
+    
+	// EP1OUT & EP1IN
+    /* 
+     * Endpoint 1 IN/OUT Configuration Registers
+     *      Structure:
+     *          BIT 7   : VALID, Activate an Endpoint. Set VALID=1 to activate an endpoint, and VALID=0 to de-activate it.
+     *          BIT 6   : Unused
+     *          BIT 5-4 : TYPE, Defines the Endpoint Type
+     *                           _______________________________
+     *                          | TYPE1 | TYPE0 | Endpoint Type |
+     *                          |_______|_______|_______________|
+     *                          | 0     | 0     |   Invalid     |
+     *                          | 0     | 1     |   Invalid     |
+     *                          | 1     | 0     | BULK (default)|
+     *                          | 1     | 1     |  INTERRUPT    |
+     *                          |_______|_______|_______________|
+     * 
+     *          BIT 3-0 : Unused
+     */
+    
+    SYNCDELAY; EP1OUTCFG = 0x00;  // Disable Endpoint1 OUT
+	SYNCDELAY; EP1INCFG  = 0xA0;  // Activate Endpoint1 IN,BULK Type
+	
+	
+    
+    
+    // VALID DIR TYPE1 TYPE0 SIZE 0 BUF1 BUF0
+    /* EPxCGF Register for configuring Endpoints
+     * 
+     * EPxCGF, x = 2, 4, 6 & 8
+     * 
+     *      Structure:
+     *          Bit 7   : VALID, Set VALID=1 to activate an endpoint, and VALID=0 to de-activate it
+     *          Bit 6   : DIR, 0=OUT, 1=IN
+     *          BIT 5-4 : TYPE, Defines the Endpoint Type
+     *                           _______________________________
+     *                          | TYPE1 | TYPE0 | Endpoint Type |
+     *                          |_______|_______|_______________|
+     *                          | 0     | 0     |   Invalid     |
+     *                          | 0     | 1     | ISOCHRONOUS   |
+     *                          | 1     | 0     | BULK (default)|
+     *                          | 1     | 1     |  INTERRUPT    |
+     *                          |_______|_______|_______________|
+     *           
+     *          BIT 3   : SIZE, Sets Size of Endpoint Buffer.0 = 512 bytes, 1 = 1024 bytes
+     *                      Note: Endpoints 4 and 8 can only be 512 bytes. Endpoints 2 and 6 are selectable.
+     *          BIT 2   : Unused
+     *          BIT 1-0 : Buffering Type/Amount 
+     *                       _________________________
+     *                      | BUF1 | BUF0 | Buffering |
+     *                      |______|______|___________|
+     *                      |   0  |   0  |   Quad    |
+     *                      |   0  |   1  |  Invalid  |
+     *                      |   1  |   0  |  Double   |
+     *                      |   1  |   1  |  Triple   |
+     *                      |______|______|___________|
+     */
+    
+	SYNCDELAY; EP2CFG = 0xA2;  // Activate, OUT Direction, BULK Type, 512  bytes Size, Double buffered
+	SYNCDELAY; EP4CFG = 0xE2;  // Activate, IN  Direction, BULK Type, 512  bytes Size, Double buffered
+	SYNCDELAY; EP6CFG = 0xDA;  // Activate, IN  Direction, ISO  Type, 1024 bytes Size, Double buffered
+	SYNCDELAY; EP8CFG = 0x00;  // Disable Endpoint 8
+	
+	// 0 INFM1 OEP1 AUTOOUT AUTOIN ZEROLENIN 0 WORDWIDE
+	SYNCDELAY; EP2FIFOCFG = 0x10;  // Auto
+	SYNCDELAY; EP4FIFOCFG = 0x0C;
+	SYNCDELAY; EP6FIFOCFG = 0x0C;
+	SYNCDELAY; EP8FIFOCFG = 0x00;
+	
+	SYNCDELAY; EP4AUTOINLENH = 0x02;
+	SYNCDELAY; EP4AUTOINLENL = 0x00;
+	SYNCDELAY; EP6AUTOINLENH = 0x04;
+	SYNCDELAY; EP6AUTOINLENL = 0x00;
+	
+	SYNCDELAY; REVCTL = 0x03; // REVCTL.0 and REVCTL.1 set to 1
+	SYNCDELAY; FIFORESET = 0x80; // Reset the FIFO
+	SYNCDELAY; FIFORESET = 0x82;
+	SYNCDELAY; FIFORESET = 0x84;
+	SYNCDELAY; FIFORESET = 0x86;
+	SYNCDELAY; FIFORESET = 0x00;
+
+
+}
+
+void TD_Poll(void)             // Called repeatedly while the device is idle
+{
+
+
+if (!(EP1INCS & 0x02))      // check if EP1IN is available
+  {
+	EP1INBUF[0] = 0x0A;       // if it is available, then fill the first 10 bytes of the buffer with 
+	EP1INBUF[1] = 0x20;       // appropriate data. 
+	EP1INBUF[2] = 0x00;
+	EP1INBUF[3] = 0x00;
+	EP1INBUF[4] = 0x00;
+	EP1INBUF[5] = 0x00;
+	EP1INBUF[6] = 0x00;
+	EP1INBUF[7] = 0x02;
+	EP1INBUF[8] = 0x00;
+	EP1INBUF[9] = 0x00;
+	EP1INBC = 10;            // manually commit once the buffer is filled
+  }
+
+
 }

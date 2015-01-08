@@ -20,6 +20,13 @@
 #include <makestuff.h>
 #include "defs.h"
 
+////////////////////////////////////////////////////////
+//   NOTE: Functions reimplemented in uvc.c
+//         hence, all lines below have been commented
+////////////////////////////////////////////////////////
+
+/*
+
 static uint8 currentConfiguration;  // Current configuration
 
 //#define SYNCDELAY() SYNCDELAY4
@@ -61,3 +68,4 @@ uint8 handle_set_interface(uint8 ifc, uint8 alt) {
 		return false;
 	}
 }
+*/
