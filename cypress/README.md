@@ -6,7 +6,7 @@ FIXME: Check this is correct!!!
 | Endpoint | Direction | Transfer type | Used? | Comments                              |
 | -------- | --------- | ------------- | ----- | --------------------------------------|
 |     0    |     -     | CONTROL       | No    | USB Reserved                          |
-|     1    |     -     | -             | No    | Unused, can be freed                  |
+|     1    |    IN     | INT           | Yes   | CDC Polling/Int?                      |
 |     2    |    OUT    | BULK          | Yes   | Used for UART TX                      |
 |     4    |    IN     | BULK          | Yes   | Used for UART RX                      |
 |     6    |    IN     | BULK          | Yes   | Used for sending UVC camera data      |
@@ -30,14 +30,19 @@ FIXME: Check this is correct!!!
 `make clean; make AS8051=sdas8051 FLAGS="-DDEBUG" USE_16K=1`
 
 Compile fx2lib in ../../../../3rd/fx2lib/ with
-`make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT`
+`make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT"`
 
 Flash with;
 `sudo ./lin.x64/dbg/fx2loader -v 0925:3881 ../../libs/libfpgalink/firmware/fx2/firmware.hex ram`
 
 # TODO
 
- - [ ] Finish the set interface stuff in uvc.c
- - [ ] Set up the endpoint FIFOs correctly
- - [ ] Get TD_poll stuff working
+ - [Done] Finish the set interface stuff in uvc.c
+ - [Done ] Set up the endpoint FIFOs correctly
+ - [Done] Get TD_poll stuff working
+ - Firmware working now!
+
+# References
+    Create a USB Virtual COM Port: http://janaxelson.com/usb_virtual_com_port.htm
+    USBCDC1.2 Spec PSTN120.pdf Page
 
