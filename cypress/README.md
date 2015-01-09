@@ -27,7 +27,7 @@ FIXME: Check this is correct!!!
 
 # Building
 
-`make clean; make AS8051=sdas8051 FLAGS="-DDEBUG" USE_16K=1`
+`make`
 
 Compile fx2lib in ../../../../3rd/fx2lib/ with
 `make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT"`

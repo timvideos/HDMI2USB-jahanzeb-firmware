@@ -51,7 +51,7 @@ else
 endif
 
 CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c
-AS_SRCS := descriptors.a51
+AS_SRCS := descriptors_hdmi2usb.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
 CC := sdcc
@@ -100,7 +100,7 @@ date.inc:
 	@echo PID=0x$(PID) >> $@
 	@echo DID=0x$(DID) >> $@
 
-descriptors.a51: date.inc
+descriptors_hdmi2usb.a51: date.inc
 
 livePatch.c: progOffsets.h
 
