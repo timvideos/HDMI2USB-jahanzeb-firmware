@@ -39,25 +39,24 @@ INCS := -I sdcc -I$(FX2LIBDIR)/include -I.
 FLAGS +="-DDEBUG"
 USE_16K := 1
 
-BRANCH := $(shell TRY=$(CURDIR); BRANCH=dev; while [ "$${TRY}" != "/" ]; do if [ -e "$${TRY}/.branch" ]; then BRANCH=$$(cat "$${TRY}/.branch"); break; fi; TRY=$$(dirname $${TRY}); done; echo $${BRANCH})
-USE_BRANCH := $(shell echo $(BRANCH) | grep -Ec '^2[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$$')
-ifeq ($(USE_BRANCH),0)
-	FIRMWARE_VERSION := $(shell date +%Y%m%d)
-else
-	FIRMWARE_VERSION := $(BRANCH)
-endif
+# Must only be hex numbers
+FIRMWARE_VERSION := $(shell date +%Y%m%d)
 
 CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c
 AS_SRCS := descriptors_hdmi2usb.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
+
 CC := sdcc
 AS8051 := sdas8051
 AS := $(AS8051)
+
+CFLAGS += -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 $(FLAGS)
+
 ifeq ($(USE_16K),1)
-	CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x3e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x3f00" $(FLAGS)
+	CFLAGS += --code-size 0x3e00 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x2e00" -Wl"-b INT2JT=0x3f00"
 else
-	CCFLAGS := -DDATE=0x$(FIRMWARE_VERSION) -mmcs51 --code-size 0x1e00 --xram-loc 0xe000 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00" $(FLAGS)
+	CFLAGS += --code-size 0x1e00 --xram-size 0x0200 -Wl"-b DSCR_AREA=0x1e00" -Wl"-b INT2JT=0x1f00"
 endif
 
 VID := 1D50
@@ -76,13 +75,13 @@ endif
 
 .PHONY: all clean check check_int2jt
 
-all: date.inc progOffsets.h $(TARGET).hex check
+all: $(TARGET).hex
 
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
-	$(Q_LINK)$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
+	$(Q_LINK)$(CC) $(CFLAGS) -o $@ $+ $(LIBS)
 
 %.rel: %.c
-	$(Q_CC)$(CC) $(CCFLAGS) -c --disable-warning 85 $(INCS) $?
+	$(Q_CC)$(CC) $(CFLAGS) -c --disable-warning 85 $(INCS) $?
 
 %.rel: %.a51
 	$(Q_AS)$(AS) -logs $?
