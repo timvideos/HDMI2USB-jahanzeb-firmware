@@ -5,7 +5,6 @@
 *.sym
 date.inc
 descriptors.a51
-firmware.c
 firmware.hex
 firmware.lk
 firmware.map

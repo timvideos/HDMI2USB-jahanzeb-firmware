@@ -50,7 +50,7 @@ else
 	FIRMWARE_VERSION := $(BRANCH)
 endif
 
-CC_SRCS := $(shell ls *.c)
+CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c
 AS_SRCS := descriptors.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
@@ -100,9 +100,6 @@ date.inc:
 	@echo PID=0x$(PID) >> $@
 	@echo DID=0x$(DID) >> $@
 
-firmware.c: $(FX2LIBDIR)/fw/fw.c progOffsets.h
-	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c | sed -e's/<serial.h>/"softserial.h"/' > firmware.c
-
 descriptors.a51: date.inc
 
 livePatch.c: progOffsets.h
@@ -119,4 +116,4 @@ check: check_int2jt
 
 clean:
 	$(Q_RM)$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
-		*.lk firmware.c progOffsets.h firmware.hex date.inc
+		*.lk progOffsets.h firmware.hex date.inc
