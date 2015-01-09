@@ -67,27 +67,38 @@ VID := 1D50
 PID := 602B
 DID := 0002
 
+# Use make V=1 for a verbose build.
+ifndef V
+	Q_CC=@echo      '      CC ' $@;
+	Q_AS=@echo      '      AS ' $@;
+	Q_LINK=@echo    '    LINK ' $@;
+	Q_RM=@echo      '   CLEAN ';
+	Q_OBJCOPY=@echo ' OBJCOPY ' $@;
+	Q_GEN=@echo     '     GEN ' $@;
+endif
+
 .PHONY: all clean check check_int2jt
 
 all: date.inc progOffsets.h $(TARGET).hex check
 
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
-	$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
+	$(Q_LINK)$(CC) $(CCFLAGS) -o $@ $+ $(LIBS)
 
 %.rel: %.c
-	$(CC) $(CCFLAGS) -c --disable-warning 85 $(INCS) $?
+	$(Q_CC)$(CC) $(CCFLAGS) -c --disable-warning 85 $(INCS) $?
 
 %.rel: %.a51
-	$(AS) -logs $?
+	$(Q_AS)$(AS) -logs $?
 
 progOffsets.h: prog.rel
-	cat prog.lst | ./lstParse.py > progOffsets.h
+	$(Q_GEN)cat prog.lst | ./lstParse.py > progOffsets.h
 
 date.inc:
-	echo DATE=0x$(FIRMWARE_VERSION) > $@
-	echo VID=0x$(VID) >> $@
-	echo PID=0x$(PID) >> $@
-	echo DID=0x$(DID) >> $@
+	$(Q_GEN)
+	@echo DATE=0x$(FIRMWARE_VERSION) > $@
+	@echo VID=0x$(VID) >> $@
+	@echo PID=0x$(PID) >> $@
+	@echo DID=0x$(DID) >> $@
 
 firmware.c: $(FX2LIBDIR)/fw/fw.c progOffsets.h
 	sed -e's/DEBUG_FIRMWARE/DEBUG/' $(FX2LIBDIR)/fw/fw.c | sed -e's/<serial.h>/"softserial.h"/' > firmware.c
@@ -107,5 +118,5 @@ check_int2jt: $(TARGET).hex
 check: check_int2jt
 
 clean:
-	$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
+	$(Q_RM)$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
 		*.lk firmware.c progOffsets.h firmware.hex date.inc
