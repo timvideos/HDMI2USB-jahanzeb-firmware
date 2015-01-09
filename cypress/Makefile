@@ -25,20 +25,17 @@
 # To build a firmware suitable for loading from EEPROM:
 #   make FLAGS="-DEEPROM"
 #
-# You can also include board-specific initialisation like this (see "boards" subdirectory):
-#   make FLAGS="-DEEPROM -DBSP=aes220"
 #
 # This Makefile assumes a recent version of SDCC. If you're still using an older
 # version with the asx8051 assembler, build like this:
 #   make AS8051=asx8051
 #
 TARGET := firmware
-FX2LIBDIR := ../../../../3rd/fx2lib
+FX2LIBDIR := fx2lib
 LIBS := -L$(FX2LIBDIR)/lib fx2.lib
-INCS := -I sdcc -I$(FX2LIBDIR)/include -I../../../../common
+INCS := -I sdcc -I$(FX2LIBDIR)/include -I.
 
 # Settings specific for the TimVideo hdmi2usb firmware
-AS8051 := sdas8051
 FLAGS +="-DDEBUG"
 USE_16K := 1
 
