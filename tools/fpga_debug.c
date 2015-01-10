@@ -265,7 +265,7 @@ void parse_and_print(unsigned char debug_arr[])
 
 	printf("Input Frame Rate: %hhu fps\n", debug_arr[IN_FRAME_i]);
 
-	if (debug_arr[OUT_FRAME_i] - 1 <= 0) {
+	if (debug_arr[OUT_FRAME_i] <= 0) {
 		printf("Output Frame Rate: 0 fps\n");
 		printf("\n***START/RESTART USB STREAMING***\n\n");
 		printf("\n");
@@ -275,7 +275,7 @@ void parse_and_print(unsigned char debug_arr[])
 		return;
 	}
 
-	printf("Output Frame Rate: %hhu fps\n", debug_arr[OUT_FRAME_i]-1);
+	printf("Output Frame Rate: %hhu fps\n", debug_arr[OUT_FRAME_i]);
 	printf("Frame Write Time: %hhu ms\n", debug_arr[WRITE_TIME_i]);
 
 	printf("Frame Processing Time: %hhu ms\n", debug_arr[PROC_TIME_i]);
