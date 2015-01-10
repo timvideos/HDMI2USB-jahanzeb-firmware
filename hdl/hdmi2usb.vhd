@@ -265,6 +265,7 @@ signal clk_50Mhz:std_logic;
 signal frame_size:std_logic_vector(23 downto 0);
 signal debug_byte:std_logic_vector(7 downto 0);
 signal debug_index:integer range 0 to 15;
+signal eof_jpg: std_logic;
 
 ---------------------------------------------------------------------------------------------------------------------	
 begin
@@ -563,6 +564,7 @@ usb_comp: entity work.usb_top
 		     hdmi_cmd         => hdmi_cmd,
 	             debug_byte       => debug_byte,
 	             debug_index      => debug_index,
+					 eof_jpg     => eof_jpg,
 		     uvc_rst          => uvc_rst,
 			 to_send		  => to_send,
 		     cmd_en           => cmd_en,
@@ -633,6 +635,7 @@ debug_module: entity work.debug_top
 		encoding_Q	=> jpeg_encoder_cmd(1 downto 0),
 		resX		=> resX,
 		resY		=> resY,
+		eof_jpg  => eof_jpg,
 		debug_byte	=> debug_byte,
 		debug_index	=> debug_index,
 		uart_byte	=> uart_byte

@@ -54,6 +54,7 @@ port (
 	header 		: in std_logic;
 
   	-- others
+	eof_jpg     : out std_logic;
 	uvc_in_free	: out std_logic;		
 	uvc_rst		: in std_logic
 );
@@ -300,7 +301,7 @@ end if;
 
 end process;
 
-
+eof_jpg <= eof;
 
 eofprocess: process(uvc_rst,ifclk)
 begin

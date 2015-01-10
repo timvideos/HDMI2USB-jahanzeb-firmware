@@ -89,6 +89,7 @@ entity usb_top is
 	--debug
 	debug_byte  : in std_logic_vector(7 downto 0);
 	debug_index : out integer range 0 to 15;
+	eof_jpg     : out std_logic;
 
 	-- clk,rst
 	rst 		: in std_logic;	
@@ -275,7 +276,8 @@ jpg_uvc_comp: entity work.jpg_uvc
 		     ifclk          => ifclk,
 		     faddr          => faddr_i,
 		     uvcin          => uvcin,
-			 header 		=> header,			 
+			 header 		=> header,
+			  eof_jpg        => eof_jpg,			 
 		     uvc_in_free    => uvc_in_jpg_free,
 		     uvc_rst        => uvc_rst);
 			 

@@ -69,6 +69,7 @@ entity debug_top is
     encoding_Q    : in  std_logic_vector(1 downto 0);
     resX          : in  std_logic_vector(15 downto 0);
     resY          : in  std_logic_vector(15 downto 0);
+	 eof_jpg       : in std_logic;
 
     debug_byte  : out std_logic_vector(7 downto 0);
     debug_index : in  integer range 0 to 15;
@@ -218,7 +219,7 @@ begin
     vsync            => vsync,
     no_frame_read    => no_frame_read,
     write_img        => write_img,
-    pktend           => pktend,
+    pktend           => eof_jpg,
     jpg_busy         => jpg_busy,
     proc_time        => proc_time,
     frame_write_time => frame_write_time,
