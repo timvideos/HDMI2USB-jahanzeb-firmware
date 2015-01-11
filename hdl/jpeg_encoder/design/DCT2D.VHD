@@ -91,7 +91,7 @@ architecture RTL of DCT2D is
   signal rmemsel_reg     : STD_LOGIC:='0';
   signal stage1_reg      : STD_LOGIC:='0'; 
   signal stage2_reg      : STD_LOGIC:='0'; 
-  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'0');
+  signal stage2_cnt_reg  : UNSIGNED(RAMADRR_W-1 downto 0):=(others=>'1');
   signal dataready_2_reg : STD_LOGIC:='0';  
   signal even_not_odd    : std_logic:='0';
   signal even_not_odd_d1 : std_logic:='0';
@@ -142,7 +142,7 @@ begin
       colr_reg             <= (others => '0');
       rowr_reg             <= (others => '0'); 
       dataready_2_reg      <= '0';
-    elsif clk='1' and clk'event then
+    elsif rising_edge(clk) then
       stage2_reg    <= '0';
       odv_d0        <= '0';
       datareadyack  <= '0';
