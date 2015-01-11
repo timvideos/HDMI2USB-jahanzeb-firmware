@@ -1,0 +1,12 @@
+*.asm
+*.lst
+*.rel
+*.rst
+*.sym
+date.inc
+descriptors.a51
+firmware.hex
+firmware.lk
+firmware.map
+firmware.mem
+progOffsets.h
