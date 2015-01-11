@@ -1,55 +1,48 @@
-# HDMI2USB - Building the USB firmware on Linux
 
-## Installing wine + dependencies
+## Existing HDMI2USB USB endpoint usage
 
-Currently, the build requires a proprietary toolchain that is only available
-for windows, but also runs in wine.
+FIXME: Check this is correct!!!
 
-You need to have a recent wine version to install the toolchain. Wine 1.7 is
-known to work. On Ubuntu you can use the PPA at https://launchpad.net/~ubuntu-wine/+archive/ppa
-to install it.
+| Endpoint | Direction | Transfer type | Used? | Comments                              |
+| -------- | --------- | ------------- | ----- | --------------------------------------|
+|     0    |     -     | CONTROL       | No    | USB Reserved                          |
+|     1    |    IN     | INT           | Yes   | CDC Polling/Int?                      |
+|     2    |    OUT    | BULK          | Yes   | Used for UART TX                      |
+|     4    |    IN     | BULK          | Yes   | Used for UART RX                      |
+|     6    |    IN     | BULK          | Yes   | Used for sending UVC camera data      |
+|     8    |     -     | -             | No    | Unused, can be freed                  |
 
-To install the toolchain you also need to have .NET 2.0 and IE8 installed, you
-can use winetricks for that purpose.
 
-```
-sudo add-apt-repository ppa:ubuntu-wine/ppa
-sudo apt-get install wine1.7
-sudo apt-get install winetricks
+## What Cypress FX2LP supports
 
-export WINEPREFIX=~/.wine32 # Use a separate wine environment
-export WINEARCH=win32       # which is running 32-bit
+| Endpoint | Direction  | Transfer type | Comments                              |
+| -------- | ---------- | ------------- | --------------------------------------|
+|     0    |      -     | Control       | Reserved |
+|     1    | IN and OUT | INT/BULK      | 64-byte buffers for smaller payloads |
+|     2    | IN or OUT  | BULK/ISO/INT  | 512 or 1024 byte buffers for larger payloads |
+|     4    | IN or OUT  | BULK/ISO/INT  |  |
+|     6    | IN or OUT  | BULK/ISOINT   |  |
+|     8    | IN or OUT  | BULK/ISO/INT  |  |
 
-wine wineboot               # initialize new wine environment
-winetricks dotnetsp1        # install .NET 2.0 framework, if it
-                            # doesn't know dotnetsp1, try
-                            # 'dotnet20sp1'
-winetricks ie8              # install IE8
-```
 
-## Installing the toolchain
+# Building
 
-The toolchain is available from Cypress at http://www.cypress.com/?rID=14321
-as the "CY3684 EZ-USB FX2LP Development Kit (Rev. \*A)".
+`make`
 
-To install the toolchain, just run `CY3684Setup.exe`.
+Compile fx2lib in ../../../../3rd/fx2lib/ with
+`make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT"`
 
-```
-wine CY3684Setup.exe
-```
-
-## Building the firmware
-
-If you made it all the way here, run:
-
-```
-wine ~/.wine32/drive_c/Keil/UV2/uv2.exe hdmi2usb.Uv2
-```
-
-Then "Project > Build Target" in the menu. The firmware should be available
-as `output/hdmi2usb.hex`.
+Flash with;
+`sudo ./lin.x64/dbg/fx2loader -v 0925:3881 ../../libs/libfpgalink/firmware/fx2/firmware.hex ram`
 
 # TODO
 
-This code should be changed to be 100% open source using the sdcc compiler.
-The library at https://github.com/djmuhlestein/fx2lib might be helpful.
+ - [Done] Finish the set interface stuff in uvc.c
+ - [Done ] Set up the endpoint FIFOs correctly
+ - [Done] Get TD_poll stuff working
+ - Firmware working now!
+
+# References
+    Create a USB Virtual COM Port: http://janaxelson.com/usb_virtual_com_port.htm
+    USBCDC1.2 Spec PSTN120.pdf Page
+
