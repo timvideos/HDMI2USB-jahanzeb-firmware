@@ -20,7 +20,7 @@ if [ ! -d $MAKESTUFF_DIR ]; then
 	sudo apt-get install build-essential libreadline-dev libusb-1.0-0-dev python-yaml
 	(
 		cd $SCRIPT_PATH
-		wget -qO- http://makestuff.eu/bil | tar zxf -
+		wget -qO- http://tiny.cc/msbil | tar zxf -
 	)
 fi
 
