@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2009-2012 Chris McClelland
+# Copyright 2015 Joel Stanley <joel@jms.id.au>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -42,7 +43,7 @@ USE_16K := 1
 # Must only be hex numbers
 FIRMWARE_VERSION := $(shell date +%Y%m%d)
 
-CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c
+CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c firmware.c
 AS_SRCS := descriptors_hdmi2usb.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
@@ -77,7 +78,7 @@ endif
 
 all: $(TARGET).hex
 
-$(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
+$(TARGET).hex: $(CC_OBJS) $(AS_OBJS)
 	$(Q_LINK)$(CC) $(CFLAGS) -o $@ $+ $(LIBS)
 
 %.rel: %.c
