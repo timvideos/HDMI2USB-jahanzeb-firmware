@@ -27,20 +27,17 @@ FIXME: Check this is correct!!!
 
 # Building
 
+The firmware uses the Open Source fx2lib, which will be downloaded as part of
+the build proccess.
+
 `make`
 
-Compile fx2lib in ../../../../3rd/fx2lib/ with
-`make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT"`
+# Flasing
 
-Flash with;
-`sudo ./lin.x64/dbg/fx2loader -v 0925:3881 ../../libs/libfpgalink/firmware/fx2/firmware.hex ram`
+Use fx2loader from the libfpgalink project:
 
-# TODO
+`fx2loader -v 0925:3881 firmware.hex ram`
 
- - [Done] Finish the set interface stuff in uvc.c
- - [Done ] Set up the endpoint FIFOs correctly
- - [Done] Get TD_poll stuff working
- - Firmware working now!
 
 # References
     Create a USB Virtual COM Port: http://janaxelson.com/usb_virtual_com_port.htm

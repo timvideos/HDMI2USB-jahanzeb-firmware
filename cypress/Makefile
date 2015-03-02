@@ -33,7 +33,7 @@
 #
 TARGET := firmware
 FX2LIBDIR := fx2lib
-LIBS := -L$(FX2LIBDIR)/lib fx2.lib
+LIBS := $(FX2LIBDIR)/lib/fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I.
 
 # Settings specific for the TimVideo hdmi2usb firmware
@@ -78,6 +78,20 @@ endif
 
 all: $(TARGET).hex
 
+$(CC_SRCS) $(AS_SRCS): $(FX2LIBDIR)/lib/fx2.lib
+
+$(FX2LIBDIR)/lib/fx2.lib: $(FX2LIBDIR)/Makefile
+	cd $(dir $@) && make -j1
+
+# We depend on a file inside the directory as git creates an
+# empty dir for us.
+#
+# Note that although we have the variable FX2LIBDIR, the submodule
+# magic will always check it out in fx2lib/
+$(FX2LIBDIR)/Makefile:
+	git submodule init
+	git submodule update
+
 $(TARGET).hex: $(CC_OBJS) $(AS_OBJS)
 	$(Q_LINK)$(CC) $(CFLAGS) -o $@ $+ $(LIBS)
 
@@ -114,3 +128,6 @@ check: check_int2jt
 clean:
 	$(Q_RM)$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
 		*.lk progOffsets.h firmware.hex date.inc
+
+distclean: clean
+	$(RM) -r $(FX2LIBDIR)
