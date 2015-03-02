@@ -1,3 +1,37 @@
+# Cypress FX2 Firmware
+
+This directory contains the FX2 firmware for the HDMI2USB project. It uses the
+Open Source fx2lib, a free reimplementation of the Cypress support library.
+
+The firmware is responsible for transporting the video data off of the FPGA. It
+does this by enumerating as a USB Video Class device; a standard way of
+interfacing devices such as webcams to a host. Linux, Windows and OS X all
+include support out of the box for reading taking to such devices.
+
+The firmware is also used for control and debugging of the system, through a
+USB Communications Class Device. This is a common way of attaching serial ports
+to the system, and under Linux it can be accessed at /dev/ttyUSBX.
+
+# Building
+
+The firmware uses the Open Source fx2lib, which will be downloaded as part of
+the build process.
+
+The build process requires git, make and sdcc. SDCC, the Small Device C
+Compiler, is packaged in Debian and derivatives such as Ubuntu, as well as
+Fedora:
+
+`sudo apt-get install sdcc`
+`sudo yum install sdcc`
+
+`make`
+
+# Flasing
+
+Use fx2loader from the libfpgalink project:
+
+`fx2loader -v 0925:3881 firmware.hex ram`
+
 
 ## Existing HDMI2USB USB endpoint usage
 
@@ -25,22 +59,6 @@ FIXME: Check this is correct!!!
 |     8    | IN or OUT  | BULK/ISO/INT  |  |
 
 
-# Building
-
-`make`
-
-Compile fx2lib in ../../../../3rd/fx2lib/ with
-`make clean; make SDCCFLAGS="-DDEBUG_EPUTILS -DDEBUG_SETUPDAT"`
-
-Flash with;
-`sudo ./lin.x64/dbg/fx2loader -v 0925:3881 ../../libs/libfpgalink/firmware/fx2/firmware.hex ram`
-
-# TODO
-
- - [Done] Finish the set interface stuff in uvc.c
- - [Done ] Set up the endpoint FIFOs correctly
- - [Done] Get TD_poll stuff working
- - Firmware working now!
 
 # References
     Create a USB Virtual COM Port: http://janaxelson.com/usb_virtual_com_port.htm

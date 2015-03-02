@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2009-2012 Chris McClelland
+# Copyright 2015 Joel Stanley <joel@jms.id.au>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +33,7 @@
 #
 TARGET := firmware
 FX2LIBDIR := fx2lib
-LIBS := -L$(FX2LIBDIR)/lib fx2.lib
+LIBS := $(FX2LIBDIR)/lib/fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I.
 
 # Settings specific for the TimVideo hdmi2usb firmware
@@ -42,7 +43,7 @@ USE_16K := 1
 # Must only be hex numbers
 FIRMWARE_VERSION := $(shell date +%Y%m%d)
 
-CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c
+CC_SRCS := app.c cdc.c debug.c livePatch.c prog.c prom.c softserial.c uvc.c firmware.c
 AS_SRCS := descriptors_hdmi2usb.a51
 CC_OBJS := $(CC_SRCS:%.c=%.rel)
 AS_OBJS := $(AS_SRCS:%.a51=%.rel)
@@ -60,7 +61,7 @@ else
 endif
 
 VID := 1D50
-PID := 602B
+PID := 60B7
 DID := 0002
 
 # Use make V=1 for a verbose build.
@@ -77,7 +78,21 @@ endif
 
 all: $(TARGET).hex
 
-$(TARGET).hex: $(CC_OBJS) $(AS_OBJS) $(TARGET).rel
+$(CC_SRCS) $(AS_SRCS): $(FX2LIBDIR)/lib/fx2.lib
+
+$(FX2LIBDIR)/lib/fx2.lib: $(FX2LIBDIR)/Makefile
+	cd $(dir $@) && make -j1
+
+# We depend on a file inside the directory as git creates an
+# empty dir for us.
+#
+# Note that although we have the variable FX2LIBDIR, the submodule
+# magic will always check it out in fx2lib/
+$(FX2LIBDIR)/Makefile:
+	git submodule init
+	git submodule update
+
+$(TARGET).hex: $(CC_OBJS) $(AS_OBJS)
 	$(Q_LINK)$(CC) $(CFLAGS) -o $@ $+ $(LIBS)
 
 %.rel: %.c
@@ -91,6 +106,7 @@ progOffsets.h: prog.rel
 
 date.inc:
 	$(Q_GEN)
+	@echo "; This is an auto-generated file. Please modify the Makefile instead " > $@
 	@echo DATE=0x$(FIRMWARE_VERSION) > $@
 	@echo VID=0x$(VID) >> $@
 	@echo PID=0x$(PID) >> $@
@@ -113,3 +129,6 @@ check: check_int2jt
 clean:
 	$(Q_RM)$(RM) *.iic *.asm *.lnk *.lst *.map *.mem *.rel *.rst *.sym \
 		*.lk progOffsets.h firmware.hex date.inc
+
+distclean: clean
+	$(RM) -r $(FX2LIBDIR)
