@@ -10,4 +10,9 @@ notifications:
     email:
         - hdmi2usb-spam@googlegroups.com
     irc:
-        - "chat.freenode.net#hdmi2usb"
+        channels:
+            - "chat.freenode.net#hdmi2usb"
+            - "chat.freenode.net#timvideos"
+        template:
+            - "[%{repository_slug}/%{branch}#%{build_number}] (%{commit}): %{message} (%{build_url})"
+    
