@@ -10,5 +10,4 @@ notifications:
     email:
         - hdmi2usb-spam@googlegroups.com
     irc:
-        - "chat.freenode.net#timvideos"
         - "chat.freenode.net#hdmi2usb"
