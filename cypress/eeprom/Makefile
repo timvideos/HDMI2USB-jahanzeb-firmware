@@ -1,6 +1,8 @@
 #
 # Makefile for programming default USB VID/PID into FX2
 #
+#  https://github.com/timvideos/HDMI2USB/wiki/USB-IDs
+#
 # Joel Stanley <joel@jms.id.au>
 #
 

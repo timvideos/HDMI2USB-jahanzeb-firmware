@@ -5,6 +5,8 @@ JTAG* with VID:PID as 1443:0007 We want to flash the EEPROM onboard the Atlys,
 so that on powering up, it always shows up as *OpenMoko Device, TimVideos'
 HDMI2USB (FX2) - Unconfigured device* with VID:PID as `1D50:60B5`.
 
+https://github.com/timvideos/HDMI2USB/wiki/USB-IDs
+
 ## Steps:
 
 * Obtain a copy of flcli from libfpgalink, and place it in your path
