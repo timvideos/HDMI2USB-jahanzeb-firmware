@@ -22,15 +22,11 @@ else
     echo "No ~/.ssh/known_hosts using our own."
     cp .travis/ssh-known_hosts ~/.ssh/known_hosts
 fi
-if [ -e ~/.ssh/config ]; then
-    echo "Found ~/.ssh/config with contents"
-    echo "---------------------------------------------"
-    cat ~/.ssh/config
-    echo "---------------------------------------------"
-    exit 1
-else
-    cp .travis/ssh-config ~/.ssh/config
-fi
+cat .travis/ssh-config >> ~/.ssh/config
+echo "Final ~/.ssh/config contents"
+echo "---------------------------------------------"
+cat ~/.ssh/config
+echo "---------------------------------------------"
 
 # Start SSH agent
 eval $(ssh-agent -s)
