@@ -61,7 +61,7 @@ else
 endif
 
 VID := 1D50
-PID := 602B
+PID := 60B7
 DID := 0002
 
 # Use make V=1 for a verbose build.
@@ -106,6 +106,7 @@ progOffsets.h: prog.rel
 
 date.inc:
 	$(Q_GEN)
+	@echo "; This is an auto-generated file. Please modify the Makefile instead " > $@
 	@echo DATE=0x$(FIRMWARE_VERSION) > $@
 	@echo VID=0x$(VID) >> $@
 	@echo PID=0x$(PID) >> $@
