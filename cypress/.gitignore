@@ -5,8 +5,8 @@
 *.sym
 date.inc
 descriptors.a51
-firmware.hex
-firmware.lk
-firmware.map
-firmware.mem
+hdmi2usb.hex
+hdmi2usb.lk
+hdmi2usb.map
+hdmi2usb.mem
 progOffsets.h
