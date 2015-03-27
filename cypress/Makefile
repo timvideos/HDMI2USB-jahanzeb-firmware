@@ -31,7 +31,7 @@
 # version with the asx8051 assembler, build like this:
 #   make AS8051=asx8051
 #
-TARGET := firmware
+TARGET := hdmi2usb
 FX2LIBDIR := fx2lib
 LIBS := $(FX2LIBDIR)/lib/fx2.lib
 INCS := -I sdcc -I$(FX2LIBDIR)/include -I.
