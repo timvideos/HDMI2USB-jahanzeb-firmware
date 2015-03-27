@@ -38,9 +38,11 @@ if [ ! -e $TRAVIS_KEYFILE ]; then
     if [ -z "$TRAVIS_SSHKEY_VALUE" ]; then
         echo "No SSH key found in environment, failing."
         exit 1
+    else
+        echo "Using key in environment TRAVIS_SSHKEY_VALUE"
     fi
     # Decode SSH key from environment
-    echo $SSH_KEY | base64 -d > $TRAVIS_KEYFILE
+    echo $TRAVIS_SSHKEY_VALUE | base64 -d > $TRAVIS_KEYFILE
     chmod 0600 $TRAVIS_KEYFILE
 else
     echo "Found existing SSH key with md5sum of $(md5sum .travis.key)"
