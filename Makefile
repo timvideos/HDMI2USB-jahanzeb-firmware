@@ -112,5 +112,5 @@ xsvf:
         | $(COLORMAKETOOL); (exit $${PIPESTATUS[0]})
 
 clean:
-	rm -R $(BUILD_DIR)
+	rm -R $(BUILD_DIR) || true
 
