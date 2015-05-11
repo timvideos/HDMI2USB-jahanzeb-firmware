@@ -83,26 +83,25 @@ generic (
 
 port
 (
-	RX0_TMDS 	: in std_logic_vector(3 downto 0); 
-	RX0_TMDSB 	: in std_logic_vector(3 downto 0);
-	TX0_TMDS  	: out std_logic_vector(3 downto 0);
-	TX0_TMDSB  	: out std_logic_vector(3 downto 0);
+	HDMI_RX0_tmds_p	: in std_logic_vector(3 downto 0);
+	HDMI_RX0_tmds_n	: in std_logic_vector(3 downto 0);
+	HDMI_RX0_scl    : in std_logic;    -- DDC scl connected with PC
+	HDMI_RX0_sda    : inout std_logic; -- DDC sda connected with PC
 
-	RX1_TMDS  	: in std_logic_vector(3 downto 0);
-	RX1_TMDSB  	: in std_logic_vector(3 downto 0);
-	TX1_TMDS  	: out std_logic_vector(3 downto 0);
-	TX1_TMDSB  	: out std_logic_vector(3 downto 0);
+	HDMI_RX1_tmds_p	: in std_logic_vector(3 downto 0);
+	HDMI_RX1_tmds_n : in std_logic_vector(3 downto 0);
+	HDMI_RX1_scl    : in std_logic;    -- DDC scl connected with PC
+	HDMI_RX1_sda    : inout std_logic; -- DDC sda connected with PC
 
-	scl_pc0 	: in std_logic; -- DDC scl connected with PC
-	scl_lcd0 	: out std_logic; -- DDC scl connected with LCD
-	sda_pc0 	: inout std_logic; -- DDC sda connected with PC
-	sda_lcd0	: inout std_logic; -- DDC sda connected with LCD
+	HDMI_TX0_tmds_p	: out std_logic_vector(3 downto 0);
+	HDMI_TX0_tmds_n : out std_logic_vector(3 downto 0);
+	HDMI_TX0_scl    : out std_logic;   -- DDC scl connected with LCD
+	HDMI_TX0_sda    : inout std_logic; -- DDC sda connected with LCD
 
-	scl_pc1 	: in std_logic; -- DDC scl connected with PC
-	sda_pc1 	: inout std_logic; -- DDC sda connected with PC	
-	
-	-- scl_lcd1 	: out std_logic; -- DDC scl connected with LCD
-	-- sda_lcd1 	: inout std_logic; -- DDC sda connected with LCD
+	HDMI_TX1_tmds_p	: out std_logic_vector(3 downto 0);
+	HDMI_TX1_tmds_n : out std_logic_vector(3 downto 0);
+	-- HDMI_TX1_scl    : out std_logic;   -- DDC scl connected with LCD
+	-- HDMI_TX1_sda    : inout std_logic; -- DDC sda connected with LCD
 
 	btnc 		: in std_logic;
 	btnu		: in std_logic; 
@@ -443,14 +442,14 @@ img_sel_comp : entity work.image_selector
 
 hdmiMatri_Comp : entity work.hdmimatrix
 	port map(rst_n           => rst_n,
-		     RX0_TMDS        => RX0_TMDS,
-		     RX0_TMDSB       => RX0_TMDSB,
-		     TX0_TMDS        => TX0_TMDS,
-		     TX0_TMDSB       => TX0_TMDSB,
-		     RX1_TMDS        => RX1_TMDS,
-		     RX1_TMDSB       => RX1_TMDSB,
-		     TX1_TMDS        => TX1_TMDS,
-		     TX1_TMDSB       => TX1_TMDSB,
+		     HDMI_RX0_tmds_p => HDMI_RX0_tmds_p,
+		     HDMI_RX0_tmds_n => HDMI_RX0_tmds_n,
+		     HDMI_TX0_tmds_p => HDMI_TX0_tmds_p,
+		     HDMI_TX0_tmds_n => HDMI_TX0_tmds_n,
+		     HDMI_RX1_tmds_p => HDMI_RX1_tmds_p,
+		     HDMI_RX1_tmds_n => HDMI_RX1_tmds_n,
+		     HDMI_TX1_tmds_p => HDMI_TX1_tmds_p,
+		     HDMI_TX1_tmds_n => HDMI_TX1_tmds_n,
 		     rx0_de          => de_H0,
 		     rx1_de          => de_H1,
 		     rx1_hsync       => hsync_H1,
@@ -494,10 +493,10 @@ calc_res1 : entity work.calc_res
 edid_hack0 : entity work.edid_master_slave_hack
 	port map(rst_n       => rst_n,
 		     clk         => img_clk,
-		     sda_lcd     => sda_lcd0,
-		     scl_lcd     => scl_lcd0,
-		     sda_pc      => sda_pc0,
-		     scl_pc      => scl_pc0,
+		     sda_lcd     => HDMI_TX0_sda,
+		     scl_lcd     => HDMI_TX0_scl,
+		     sda_pc      => HDMI_RX0_sda,
+		     scl_pc      => HDMI_RX0_scl,
 		     hpd_lcd     => hpd,
 			 hpd_pc		 => open,
 		     sda_byte    => edid0_byte,
@@ -510,8 +509,8 @@ edid_hack1 : entity work.edid_master_slave_hack
 		     clk         => img_clk,
 		     sda_lcd     => open,
 		     scl_lcd     => open,
-		     sda_pc      => sda_pc1, 
-		     scl_pc      => scl_pc1, 
+		     sda_pc      => HDMI_RX1_sda,
+		     scl_pc      => HDMI_RX1_scl,
 		     hpd_lcd     => hpd,
 			 hpd_pc		 => open,
 		     sda_byte    => edid1_byte,
