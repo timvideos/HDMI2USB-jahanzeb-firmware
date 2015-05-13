@@ -113,18 +113,17 @@ port
 	sw 			: in std_logic_vector(7 downto 0);
 
 	-- USB Chip
-	fdata 		: inout std_logic_vector(7 downto 0); 
-	flagA 		: in std_logic;
-	flagB 		: in std_logic; -- flag_full(flagB)
-	flagC 		: in std_logic; -- flag_empty(flagC)
-	faddr 		: out std_logic_vector(1 downto 0); 
-	slwr 		: out std_logic;
-	slrd 		: out std_logic;
-	sloe 		: out std_logic;
-	pktend 		: out std_logic;
-	slcs 		: out std_logic; 
-	ifclk 		: in std_logic; 
-
+	fx2_addr 		: out std_logic_vector(1 downto 0);
+	fx2_data 		: inout std_logic_vector(7 downto 0);
+	fx2_flagA 		: in std_logic;
+	fx2_flagB 		: in std_logic; -- flag_full(flagB)
+	fx2_flagC 		: in std_logic; -- flag_empty(flagC)
+	fx2_slwr 		: out std_logic;
+	fx2_slrd 		: out std_logic;
+	fx2_sloe 		: out std_logic;
+	fx2_pktend 		: out std_logic;
+	fx2_slcs 		: out std_logic;
+	fx2_ifclk 		: in std_logic;
 
 	-- DDR2 RAM
 	mcb3_dram_dq 	: inout std_logic_vector(15 downto 0);
@@ -270,19 +269,19 @@ signal eof_jpg: std_logic;
 begin
 
 rst <= not rst_n;
-slcs <= '0';
-slwr <= slwr_i;
+fx2_slcs <= '0';
+fx2_slwr <= slwr_i;
 
 LED(0) <= de_H0;
 LED(1) <= de_H1;
 LED(2) <= usb_cmd(1);
-LED(3) <= flagB; -- full flag
-LED(4) <= flagC; -- empty flag 
+LED(3) <= fx2_flagB; -- full flag
+LED(4) <= fx2_flagC; -- empty flag
 LED(5) <= slwr_i;
 LED(6) <= selector_cmd(0);
 LED(7) <= selector_cmd(1);
 
-pktend <= pktend_s;
+fx2_pktend <= pktend_s;
 
 debouncerBtnc : entity work.debouncer
 	port map(clk    => img_clk,
@@ -541,15 +540,15 @@ usb_comp: entity work.usb_top
 		     raw_bytes        => ycbcr,
 		     raw_fifo_full    => raw_fifo_full,
 		     raw_clk          => img_clk,
-		     fdata            => fdata,
-		     flag_full        => flagB,
-		     flag_empty       => flagC,
-		     faddr            => faddr,
+		     faddr            => fx2_addr,
+		     fdata            => fx2_data,
+		     flag_full        => fx2_flagB,
+		     flag_empty       => fx2_flagC,
 		     slwr             => slwr_i,
-		     slrd             => slrd,
-		     sloe             => sloe,
+		     slrd             => fx2_slrd,
+		     sloe             => fx2_sloe,
 		     pktend           => pktend_s,
-		     ifclk            => ifclk,
+		     ifclk            => fx2_ifclk,
 		     resX_H0          => resX_H0,
 		     resY_H0          => resY_H0,
 		     resX_H1          => resX_H1,
@@ -607,7 +606,7 @@ controller_comp : entity work.controller
 		     cmd_byte         => cmd_byte,
 		     cmd_en           => cmd_en,
 		     rst              => rst,
-		     ifclk            => ifclk,
+		     ifclk            => fx2_ifclk,
 		     clk              => img_clk);
 
 debug_module: entity work.debug_top
