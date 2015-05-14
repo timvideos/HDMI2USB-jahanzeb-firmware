@@ -83,26 +83,25 @@ generic (
 
 port
 (
-	RX0_TMDS 	: in std_logic_vector(3 downto 0); 
-	RX0_TMDSB 	: in std_logic_vector(3 downto 0);
-	TX0_TMDS  	: out std_logic_vector(3 downto 0);
-	TX0_TMDSB  	: out std_logic_vector(3 downto 0);
+	HDMI_RX0_tmds_p	: in std_logic_vector(3 downto 0);
+	HDMI_RX0_tmds_n	: in std_logic_vector(3 downto 0);
+	HDMI_RX0_scl    : in std_logic;    -- DDC scl connected with PC
+	HDMI_RX0_sda    : inout std_logic; -- DDC sda connected with PC
 
-	RX1_TMDS  	: in std_logic_vector(3 downto 0);
-	RX1_TMDSB  	: in std_logic_vector(3 downto 0);
-	TX1_TMDS  	: out std_logic_vector(3 downto 0);
-	TX1_TMDSB  	: out std_logic_vector(3 downto 0);
+	HDMI_RX1_tmds_p	: in std_logic_vector(3 downto 0);
+	HDMI_RX1_tmds_n : in std_logic_vector(3 downto 0);
+	HDMI_RX1_scl    : in std_logic;    -- DDC scl connected with PC
+	HDMI_RX1_sda    : inout std_logic; -- DDC sda connected with PC
 
-	scl_pc0 	: in std_logic; -- DDC scl connected with PC
-	scl_lcd0 	: out std_logic; -- DDC scl connected with LCD
-	sda_pc0 	: inout std_logic; -- DDC sda connected with PC
-	sda_lcd0	: inout std_logic; -- DDC sda connected with LCD
+	HDMI_TX0_tmds_p	: out std_logic_vector(3 downto 0);
+	HDMI_TX0_tmds_n : out std_logic_vector(3 downto 0);
+	HDMI_TX0_scl    : out std_logic;   -- DDC scl connected with LCD
+	HDMI_TX0_sda    : inout std_logic; -- DDC sda connected with LCD
 
-	scl_pc1 	: in std_logic; -- DDC scl connected with PC
-	sda_pc1 	: inout std_logic; -- DDC sda connected with PC	
-	
-	-- scl_lcd1 	: out std_logic; -- DDC scl connected with LCD
-	-- sda_lcd1 	: inout std_logic; -- DDC sda connected with LCD
+	HDMI_TX1_tmds_p	: out std_logic_vector(3 downto 0);
+	HDMI_TX1_tmds_n : out std_logic_vector(3 downto 0);
+	-- HDMI_TX1_scl    : out std_logic;   -- DDC scl connected with LCD
+	-- HDMI_TX1_sda    : inout std_logic; -- DDC sda connected with LCD
 
 	btnc 		: in std_logic;
 	btnu		: in std_logic; 
@@ -114,18 +113,17 @@ port
 	sw 			: in std_logic_vector(7 downto 0);
 
 	-- USB Chip
-	fdata 		: inout std_logic_vector(7 downto 0); 
-	flagA 		: in std_logic;
-	flagB 		: in std_logic; -- flag_full(flagB)
-	flagC 		: in std_logic; -- flag_empty(flagC)
-	faddr 		: out std_logic_vector(1 downto 0); 
-	slwr 		: out std_logic;
-	slrd 		: out std_logic;
-	sloe 		: out std_logic;
-	pktend 		: out std_logic;
-	slcs 		: out std_logic; 
-	ifclk 		: in std_logic; 
-
+	fx2_addr 		: out std_logic_vector(1 downto 0);
+	fx2_data 		: inout std_logic_vector(7 downto 0);
+	fx2_flagA 		: in std_logic;
+	fx2_flagB 		: in std_logic; -- flag_full(flagB)
+	fx2_flagC 		: in std_logic; -- flag_empty(flagC)
+	fx2_slwr 		: out std_logic;
+	fx2_slrd 		: out std_logic;
+	fx2_sloe 		: out std_logic;
+	fx2_pktend 		: out std_logic;
+	fx2_slcs 		: out std_logic;
+	fx2_ifclk 		: in std_logic;
 
 	-- DDR2 RAM
 	mcb3_dram_dq 	: inout std_logic_vector(15 downto 0);
@@ -271,19 +269,19 @@ signal eof_jpg: std_logic;
 begin
 
 rst <= not rst_n;
-slcs <= '0';
-slwr <= slwr_i;
+fx2_slcs <= '0';
+fx2_slwr <= slwr_i;
 
 LED(0) <= de_H0;
 LED(1) <= de_H1;
 LED(2) <= usb_cmd(1);
-LED(3) <= flagB; -- full flag
-LED(4) <= flagC; -- empty flag 
+LED(3) <= fx2_flagB; -- full flag
+LED(4) <= fx2_flagC; -- empty flag
 LED(5) <= slwr_i;
 LED(6) <= selector_cmd(0);
 LED(7) <= selector_cmd(1);
 
-pktend <= pktend_s;
+fx2_pktend <= pktend_s;
 
 debouncerBtnc : entity work.debouncer
 	port map(clk    => img_clk,
@@ -443,14 +441,14 @@ img_sel_comp : entity work.image_selector
 
 hdmiMatri_Comp : entity work.hdmimatrix
 	port map(rst_n           => rst_n,
-		     RX0_TMDS        => RX0_TMDS,
-		     RX0_TMDSB       => RX0_TMDSB,
-		     TX0_TMDS        => TX0_TMDS,
-		     TX0_TMDSB       => TX0_TMDSB,
-		     RX1_TMDS        => RX1_TMDS,
-		     RX1_TMDSB       => RX1_TMDSB,
-		     TX1_TMDS        => TX1_TMDS,
-		     TX1_TMDSB       => TX1_TMDSB,
+		     HDMI_RX0_tmds_p => HDMI_RX0_tmds_p,
+		     HDMI_RX0_tmds_n => HDMI_RX0_tmds_n,
+		     HDMI_TX0_tmds_p => HDMI_TX0_tmds_p,
+		     HDMI_TX0_tmds_n => HDMI_TX0_tmds_n,
+		     HDMI_RX1_tmds_p => HDMI_RX1_tmds_p,
+		     HDMI_RX1_tmds_n => HDMI_RX1_tmds_n,
+		     HDMI_TX1_tmds_p => HDMI_TX1_tmds_p,
+		     HDMI_TX1_tmds_n => HDMI_TX1_tmds_n,
 		     rx0_de          => de_H0,
 		     rx1_de          => de_H1,
 		     rx1_hsync       => hsync_H1,
@@ -494,10 +492,10 @@ calc_res1 : entity work.calc_res
 edid_hack0 : entity work.edid_master_slave_hack
 	port map(rst_n       => rst_n,
 		     clk         => img_clk,
-		     sda_lcd     => sda_lcd0,
-		     scl_lcd     => scl_lcd0,
-		     sda_pc      => sda_pc0,
-		     scl_pc      => scl_pc0,
+		     sda_lcd     => HDMI_TX0_sda,
+		     scl_lcd     => HDMI_TX0_scl,
+		     sda_pc      => HDMI_RX0_sda,
+		     scl_pc      => HDMI_RX0_scl,
 		     hpd_lcd     => hpd,
 			 hpd_pc		 => open,
 		     sda_byte    => edid0_byte,
@@ -510,8 +508,8 @@ edid_hack1 : entity work.edid_master_slave_hack
 		     clk         => img_clk,
 		     sda_lcd     => open,
 		     scl_lcd     => open,
-		     sda_pc      => sda_pc1, 
-		     scl_pc      => scl_pc1, 
+		     sda_pc      => HDMI_RX1_sda,
+		     scl_pc      => HDMI_RX1_scl,
 		     hpd_lcd     => hpd,
 			 hpd_pc		 => open,
 		     sda_byte    => edid1_byte,
@@ -542,15 +540,15 @@ usb_comp: entity work.usb_top
 		     raw_bytes        => ycbcr,
 		     raw_fifo_full    => raw_fifo_full,
 		     raw_clk          => img_clk,
-		     fdata            => fdata,
-		     flag_full        => flagB,
-		     flag_empty       => flagC,
-		     faddr            => faddr,
+		     faddr            => fx2_addr,
+		     fdata            => fx2_data,
+		     flag_full        => fx2_flagB,
+		     flag_empty       => fx2_flagC,
 		     slwr             => slwr_i,
-		     slrd             => slrd,
-		     sloe             => sloe,
+		     slrd             => fx2_slrd,
+		     sloe             => fx2_sloe,
 		     pktend           => pktend_s,
-		     ifclk            => ifclk,
+		     ifclk            => fx2_ifclk,
 		     resX_H0          => resX_H0,
 		     resY_H0          => resY_H0,
 		     resX_H1          => resX_H1,
@@ -608,7 +606,7 @@ controller_comp : entity work.controller
 		     cmd_byte         => cmd_byte,
 		     cmd_en           => cmd_en,
 		     rst              => rst,
-		     ifclk            => ifclk,
+		     ifclk            => fx2_ifclk,
 		     clk              => img_clk);
 
 debug_module: entity work.debug_top

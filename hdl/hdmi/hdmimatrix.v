@@ -2,15 +2,15 @@
 
 module hdmimatrix (
 	input wire        rst_n,    //The pink reset button
-	input wire [3:0]  RX0_TMDS,
-	input wire [3:0]  RX0_TMDSB,
-	input wire [3:0]  RX1_TMDS,
-	input wire [3:0]  RX1_TMDSB,
+	input wire [3:0]  HDMI_RX0_tmds_p,
+	input wire [3:0]  HDMI_RX0_tmds_n,
+	input wire [3:0]  HDMI_RX1_tmds_p,
+	input wire [3:0]  HDMI_RX1_tmds_n,
 
-	output wire [3:0] TX0_TMDS,
-	output wire [3:0] TX0_TMDSB,
-	output wire [3:0] TX1_TMDS,
-	output wire [3:0] TX1_TMDSB,
+	output wire [3:0] HDMI_TX0_tmds_p,
+	output wire [3:0] HDMI_TX0_tmds_n,
+	output wire [3:0] HDMI_TX1_tmds_p,
+	output wire [3:0] HDMI_TX1_tmds_n,
 	
 	
 	output wire rx0_de, rx1_de,
@@ -73,14 +73,14 @@ module hdmimatrix (
 
   dvi_decoder dvi_rx0 (
     //These are input ports
-    .tmdsclk_p   (RX0_TMDS[3]),
-    .tmdsclk_n   (RX0_TMDSB[3]),
-    .blue_p      (RX0_TMDS[0]),
-    .green_p     (RX0_TMDS[1]),
-    .red_p       (RX0_TMDS[2]),
-    .blue_n      (RX0_TMDSB[0]),
-    .green_n     (RX0_TMDSB[1]),
-    .red_n       (RX0_TMDSB[2]),
+    .blue_p      (HDMI_RX0_tmds_p[0]),
+    .blue_n      (HDMI_RX0_tmds_n[0]),
+    .green_p     (HDMI_RX0_tmds_p[1]),
+    .green_n     (HDMI_RX0_tmds_n[1]),
+    .red_p       (HDMI_RX0_tmds_p[2]),
+    .red_n       (HDMI_RX0_tmds_n[2]),
+    .tmdsclk_p   (HDMI_RX0_tmds_p[3]),
+    .tmdsclk_n   (HDMI_RX0_tmds_n[3]),
     .exrst       (~rst_n),
 
     //These are output ports
@@ -132,14 +132,14 @@ module hdmimatrix (
 
   dvi_decoder dvi_rx1 (
     //These are input ports
-    .tmdsclk_p   (RX1_TMDS[3]),
-    .tmdsclk_n   (RX1_TMDSB[3]),
-    .blue_p      (RX1_TMDS[0]),
-    .green_p     (RX1_TMDS[1]),
-    .red_p       (RX1_TMDS[2]),
-    .blue_n      (RX1_TMDSB[0]),
-    .green_n     (RX1_TMDSB[1]),
-    .red_n       (RX1_TMDSB[2]),
+    .blue_p      (HDMI_RX1_tmds_p[0]),
+    .blue_n      (HDMI_RX1_tmds_n[0]),
+    .green_p     (HDMI_RX1_tmds_p[1]),
+    .green_n     (HDMI_RX1_tmds_n[1]),
+    .red_p       (HDMI_RX1_tmds_p[2]),
+    .red_n       (HDMI_RX1_tmds_n[2]),
+    .tmdsclk_p   (HDMI_RX1_tmds_p[3]),
+    .tmdsclk_n   (HDMI_RX1_tmds_n[3]),
     .exrst       (~rst_n),
 
     //These are output ports
@@ -286,8 +286,8 @@ module hdmimatrix (
     .hsync       (tx_hsync),
     .vsync       (tx_vsync),
     .de          (tx_de),
-    .TMDS        (TX0_TMDS),
-    .TMDSB       (TX0_TMDSB));
+    .TMDS        (HDMI_TX0_tmds_p),
+    .TMDSB       (HDMI_TX0_tmds_n));
 
 
 
@@ -310,8 +310,8 @@ module hdmimatrix (
     .hsync       (tx_hsync),
     .vsync       (tx_vsync),
     .de          (tx_de),
-    .TMDS        (TX1_TMDS),
-    .TMDSB       (TX1_TMDSB));
+    .TMDS        (HDMI_TX1_tmds_p),
+    .TMDSB       (HDMI_TX1_tmds_n));
 	
 	
 endmodule
