@@ -28,25 +28,45 @@
 ///
 //////////////////////////////////////////////////////////////////////////////
 /*!
- This module handles the communication of EDID structure with PC and monitor/projector.
- It contains two sub-modules and one sequaltial logic block.
- The sequaltial logic block reads the EDID from montor when it detects the HPD from monitor by using edidmaster block.
- at the same time it pulls the HPD connected with PC HDMI to down, simulating the HDP disconnect. 
- Then PC initiates the i2c communication with FPGA using edidslave block and reads the EDID structure. 
+ This module handles the communication of EDID structure with PC and monitor /
+ projector. It contains two sub-modules and one sequential logic block.
+
+ When the hpd_lcd of the monitor is triggered, the EDID data is read from the
+ monitor using the edidmaster block. While reading the EDID data, we determine
+ if the monitor supports DVI or HDMI modes and set dvi_only signal.
+
+ During reading the EDID from the monitor, we pull the hpd_pc signal low,
+ "disconnecting" the HDMI2USB from the PC. Once the EDID is read from the
+ monitor, the hpd_pc is again pulled high and the PC will initiate I2C
+ communication with the FPGA to read the EDID data.
 */
 
 module edid_master_slave_hack(
 input rst_n,
 input clk,
+
+// EDID signals to the "display" side (graphical output from HDMI2USB point of
+// view). The HDMI2USB board is the I2C master and reads the  EDID information
+// out of the display and stores it internally.
 inout sda_lcd,
 output scl_lcd,
+input hpd_lcd,
+
+// EDID signals to the "pc" side (graphical input from the HDMI2USB point of
+// view). The HDMI2USB board is the I2C slave and provides the modified EDID
+// information to the connected PC.
 inout sda_pc,
 input scl_pc,
-input hpd_lcd,
 output reg hpd_pc,
+
+// The raw EDID data read from the display side.
 output [7:0] sda_byte,
 output sda_byte_en,
+
+// Does the EDID data contain only DVI information?
 output reg dvi_only,
+
+// Should we output HDMI or DVI EDID to connected PC?
 input hdmi_dvi
 );
 
@@ -60,7 +80,8 @@ reg [7:0] debounce_hpd;
 reg hpda_stable,hpda_stable_q;
 wire start_reading,edid_byte_lcd_en;
 
-assign start_reading = (hpda_stable^hpda_stable_q) & hpda_stable; //% start reading from lcd on the rising edge of hpd
+//% Start reading from lcd on the rising edge of hpd
+assign start_reading = (hpda_stable^hpda_stable_q) & hpda_stable;
 
 always @(posedge clk) begin
 
@@ -74,7 +95,7 @@ always @(posedge clk) begin
 		hpda_stable <= 0;
 		hpda_stable_q <= 0;
 	end else begin 
-		//% debounce hpd_lcd
+		//% Debounce hpd (hot plug detect) from the LCD.
 		debounce_hpd <= {debounce_hpd[6:0],hpd_lcd};		
 		if (debounce_hpd == 8'd255) begin
 			hpda_stable <= 1;
@@ -86,18 +107,19 @@ always @(posedge clk) begin
 			stop <= 0;
 		end
 		
-		if (start_reading | stop) begin //% assuming only edid segment and then will be updated after 
+		//% Assuming only edid segment and then will be updated after.
+		if (start_reading | stop) begin 
 			segments <= 0;
 			segment_count <= 0;
 			counter <= 0;
 		end
 
+		//% Read the EDID information and determine if it contains HDMI or DVI data.
 		if (edid_byte_lcd_en) begin
-			
 			counter <= counter +1;
 			
 			if (segment_count==0) begin //% edid segment  
-				if (counter == 127) begin //% only dvi resolution so dont read further. 
+				if (counter == 127) begin //% only dvi resolution so don't read further.
 					if (segments == 0) begin
 						stop <= 1;
 						hpd_pc <= 1;
@@ -113,7 +135,7 @@ always @(posedge clk) begin
 					end
 				end				
 			end else begin //% edid extensions 
-				if (counter == 127) begin //% only dvi resolution so dont read further. 
+				if (counter == 127) begin //% only dvi resolution so don't read further.
 					if (segment_count == segments) begin
 						stop <= 1;
 						hpd_pc <=1;
@@ -126,15 +148,13 @@ always @(posedge clk) begin
 						dvi_only <= 0;
 					end
 				end
-				
 			end
 		end 
-	
 	end // rst and clk
 
 end // always
 
-//% EDID master module for reading edid from LCD
+//% EDID master module for reading EDID from LCD
 edidmaster edid_master(
 .rst_n(rst_n),
 .clk(clk),
@@ -151,7 +171,7 @@ edidmaster edid_master(
 assign sda_byte = edid_byte_lcd;
 assign sda_byte_en = edid_byte_lcd_en;
 
-//% EDID slave for transmiting EDID to PC
+//% EDID slave for transmitting EDID to PC
 edidslave edid_slave(
 .rst_n(rst_n),
 .clk(clk),
