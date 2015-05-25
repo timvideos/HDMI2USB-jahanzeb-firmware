@@ -287,7 +287,7 @@ elsif rising_edge(clk) then
 						hdmi_cmd_i(1) <= '0';
 						uvc_rst_i <= '1';
 					when X"33" =>  -- Force HDMI 1 to 1024
-						hdmi_cmd_i(0) <= '1';													
+						hdmi_cmd_i(1) <= '1';
 						uvc_rst_i <= '1';
 					when others => 
 				end case;
