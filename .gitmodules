@@ -1,3 +1,6 @@
 [submodule "cypress/fx2lib"]
 	path = cypress/fx2lib
 	url = https://github.com/timvideos/fx2lib
+[submodule "tools/hdl-pretty"]
+	path = tools/hdl-pretty
+	url = https://github.com/mithro/hdl-pretty
