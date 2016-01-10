@@ -1,4 +1,18 @@
-[![CrowdSupply Image](http://planet.timvideos.us/numato-opsis-crowdfunding-campaign-master/badge.png)](https://www.crowdsupply.com/numato-lab/opsis)
+
+# Use [HDMI2USB-misoc-firmware](https://github.com/timvideos/HDMI2USB-misoc-firmware)
+
+**This firmware is obsolete and now read-only.**
+
+This firmware has been replaced by the
+[HDMI2USB-misoc-firmware](https://github.com/timvideos/HDMI2USB-misoc-firmware).
+This repository is kept around for historical reasons. It was original developed by
+[Jahanzeb Ahmad](https://github.com/jahanzeb) using hand coded VHDL/Verilog and with
+cores from [OpenCores](OpenCores.org) and the
+[Xilinx LogiCORE IP Core Generator](http://www.xilinx.com/ise/products/coregen_overview.pdf).
+
+Further history of this firmware can be found in the
+[HDMI2USB-jahanzeb-firmware-history](https://github.com/timvideos/HDMI2USB-jahanzeb-firmware-history)
+repository.
 
 # HDMI2USB - A HDMI/DVI Capturing Solution
 
@@ -8,8 +22,6 @@ a standard webcam so there is no need of installing additional drivers.
 
 More information about the device can be found in the
 [wiki @ https://github.com/timvideos/HDMI2USB/wiki](https://github.com/timvideos/HDMI2USB/wiki).
-
-[![Build Status](https://travis-ci.org/timvideos/HDMI2USB.svg?branch=master)](https://travis-ci.org/timvideos/HDMI2USB)
 
 # Firmware
 
@@ -41,6 +53,4 @@ make
 ## Loading
 
 FIXME: Add instructions here
-
-
 
