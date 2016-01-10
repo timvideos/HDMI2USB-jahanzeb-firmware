@@ -14,6 +14,15 @@ Further history of this firmware can be found in the
 [HDMI2USB-jahanzeb-firmware-history](https://github.com/timvideos/HDMI2USB-jahanzeb-firmware-history)
 repository.
 
+**This firmware is obsolete and now read-only.**
+
+# Use [HDMI2USB-misoc-firmware](https://github.com/timvideos/HDMI2USB-misoc-firmware)
+
+----
+----
+----
+----
+
 # HDMI2USB - A HDMI/DVI Capturing Solution
 
 HDMI2USB is a device to capture HDMI and DVI (and Displayport with cheap active
