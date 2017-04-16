@@ -140,7 +140,7 @@ always @(posedge clk) begin
 						stop <= 1;
 						hpd_pc <=1;
 					end else begin
-						segment_count <= segment_count+1;
+						segment_count <= segment_count+ 1'b1;
 					end					
 				end
 				if (counter == 0) begin

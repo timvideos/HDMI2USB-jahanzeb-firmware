@@ -64,7 +64,7 @@ end else begin
 	de_q <= de;
 
 	if (de) begin
-		resX_q <= resX_q +1;
+		resX_q <= resX_q + 1'b1;
 	end else if (hsync_risingedge) begin
 		resX_q <= 0;
 		if (resX_q != 0) begin
@@ -73,7 +73,7 @@ end else begin
 	end
 	
 	if (de_risingedge) begin
-		resY_q <= resY_q + 1;
+		resY_q <= resY_q + 1'b1;
 	end else if (de_fallingedge) begin
 		resY_t <= resY_q;
 	end else if (vsync_risingedge) begin

@@ -148,7 +148,7 @@ always @(posedge clk) begin
 			
 			READ_ADDRESS: begin //2
 				if (scl_risingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdadata[bitcount] <= sdain;
 					if (bitcount==0) begin
 						state <= SEND_ADDRESS_ACK;
@@ -172,7 +172,7 @@ always @(posedge clk) begin
 			
 			READ_REGISTER_ADDRESS: begin//4
 				if (scl_risingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdadata[bitcount] <= sdain;
 					if (bitcount==0) begin
 						state <= SEND_REGISTER_ADDRESS_ACK;
@@ -202,7 +202,7 @@ always @(posedge clk) begin
 			
 			READ_ADDRESS_AGAIN: begin//7
 				if (scl_risingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					sdadata[bitcount] <= sdain;
 					if (bitcount==0) begin
 						state <= SEND_ADDRESS_ACK_AGAIN;
@@ -219,7 +219,7 @@ always @(posedge clk) begin
 						
 			WRITE_BYTE: begin//9
 				if (scl_fallingedge) begin
-					bitcount <= bitcount -1;
+					bitcount <= bitcount - 1'b1;
 					if (dvi_only) begin
 						sdaout <= data[bitcount];
 					end else begin
@@ -227,7 +227,7 @@ always @(posedge clk) begin
 					end
 					if (bitcount==0) begin
 						state <= FREE_SDA;
-						adr <= adr +1;
+						adr <= adr + 1'b1;
 						if ((adr ==  127) & dvi_only) begin
 							state <= INI;
 						end else if (adr == 255) begin

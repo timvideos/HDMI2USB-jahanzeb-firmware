@@ -50,7 +50,8 @@ module counter
          x <= x_n;
 
   
-   assign x_n = (x==(M-1)) ? 0 : x + 1;
+
+   assign x_n = (x==(M-1)) ? 1'b0 : x + 1'b1;
    
    assign q = x;
    assign max_tck = (x==(M-1)) ? 1'b1 : 1'b0;

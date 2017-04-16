@@ -75,8 +75,8 @@ module fifo#(parameter B=8, // number of bits in a word
    always @*
    begin
      
-      w_ptr_succ = w_ptr_reg + 1;
-      r_ptr_succ = r_ptr_reg + 1;
+      w_ptr_succ = w_ptr_reg + 1'b1;
+      r_ptr_succ = r_ptr_reg + 1'b1;
       
       w_ptr_next = w_ptr_reg;
       r_ptr_next = r_ptr_reg;
